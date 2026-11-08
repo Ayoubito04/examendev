@@ -1683,8 +1683,104 @@ button.opcion:hover:not(:disabled) {
   margin-top: 2rem;
 }
 
-.quiz__entregar {
+.quiz__navegacion-derecha {
+  display: flex;
+  gap: 0.75rem;
   margin-left: auto;
+}
+
+.btn--validar {
+  min-width: 8.5rem;
+}
+
+.quiz__navegacion + .feedback,
+.quiz__navegacion + .recordatorio {
+  margin-top: 1.25rem;
+}
+
+/* Recordatorio al fallar una pregunta (debajo de los botones) */
+.recordatorio {
+  padding: 1.15rem 1.3rem 1.25rem;
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  border-left: 3px solid var(--ko);
+  border-radius: var(--radio-sm);
+  background: linear-gradient(180deg, rgba(248, 113, 113, 0.1), rgba(248, 113, 113, 0.04));
+  animation: subir 300ms both;
+}
+
+.recordatorio__cabecera {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+  color: var(--ko);
+  font-family: var(--ui);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.recordatorio__icono {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--ko);
+  color: #1a0d0d;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.recordatorio p {
+  margin: 0;
+}
+
+.recordatorio__veredicto {
+  color: var(--texto-2);
+  font-size: 0.95rem;
+}
+
+.recordatorio__correcta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin: 0.9rem 0 !important;
+  font-size: 0.85rem;
+}
+
+.recordatorio__respuesta {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid rgba(52, 211, 153, 0.5);
+  border-radius: var(--radio-sm);
+  background: var(--ok-suave);
+  color: var(--texto);
+  font-size: 1rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.recordatorio__letra {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: var(--ok);
+  color: #06281d;
+  font-family: var(--ui);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.recordatorio__explicacion {
+  color: var(--texto-2);
+  font-size: 0.93rem;
 }
 
 .mapa {

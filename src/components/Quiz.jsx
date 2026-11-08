@@ -6,11 +6,13 @@ import { SEGUNDOS_POR_PREGUNTA } from '../config.js';
 
 const LETRAS = ['A', 'B', 'C', 'D'];
 
-// modo: 'practica' | 'repaso' (corrección al instante) o 'simulacro' (cronometrado, corrección al final)
+// modo: 'practica' | 'repaso' → eliges, pulsas "Validar" y ves la corrección.
+//       'simulacro'           → cronometrado, sin corrección hasta entregar.
 export default function Quiz({ preguntas, modo, modulo, onTerminar }) {
   const esSimulacro = modo === 'simulacro';
   const [indice, setIndice] = useState(0);
   const [respuestas, setRespuestas] = useState(() => Array(preguntas.length).fill(null));
+  const [validadas, setValidadas] = useState(() => Array(preguntas.length).fill(false));
 
   const terminar = useCallback(
     (segundos) => onTerminar(respuestas, segundos),
@@ -25,21 +27,31 @@ export default function Quiz({ preguntas, modo, modulo, onTerminar }) {
   const pregunta = preguntas[indice];
   const elegida = respuestas[indice];
   const respondida = elegida !== null;
-  const bloqueada = !esSimulacro && respondida;
+  const validada = !esSimulacro && validadas[indice];
+  const acertada = validada && elegida === pregunta.correcta;
   const esUltima = indice === preguntas.length - 1;
   const sinResponder = respuestas.filter((r) => r === null).length;
 
   const elegir = useCallback(
     (opcion) => {
-      if (bloqueada) return;
+      if (validada) return;
       setRespuestas((prev) => {
         const copia = [...prev];
         copia[indice] = opcion;
         return copia;
       });
     },
-    [bloqueada, indice],
+    [validada, indice],
   );
+
+  const validar = useCallback(() => {
+    if (esSimulacro || !respondida || validada) return;
+    setValidadas((prev) => {
+      const copia = [...prev];
+      copia[indice] = true;
+      return copia;
+    });
+  }, [esSimulacro, respondida, validada, indice]);
 
   const finalizar = useCallback(() => {
     if (esSimulacro && sinResponder > 0) {
@@ -52,14 +64,14 @@ export default function Quiz({ preguntas, modo, modulo, onTerminar }) {
   }, [esSimulacro, sinResponder, terminar, transcurrido]);
 
   const siguiente = useCallback(() => {
-    if (!esSimulacro && !respondida) return;
+    if (!esSimulacro && !validada) return;
     if (esUltima) finalizar();
     else setIndice((i) => i + 1);
-  }, [esSimulacro, respondida, esUltima, finalizar]);
+  }, [esSimulacro, validada, esUltima, finalizar]);
 
   const anterior = useCallback(() => setIndice((i) => Math.max(0, i - 1)), []);
 
-  // Atajos de teclado: 1-4 o A-D para elegir, Enter/→ para avanzar, ← para retroceder.
+  // Atajos: 1-4 o A-D para elegir · Enter valida (o avanza si ya está validada) · → siguiente · ← anterior.
   useEffect(() => {
     const onKey = (e) => {
       if (e.target.closest('input, textarea, select')) return;
@@ -70,8 +82,13 @@ export default function Quiz({ preguntas, modo, modulo, onTerminar }) {
       if (opcion >= 0 && opcion < pregunta.opciones.length) {
         e.preventDefault();
         elegir(opcion);
-      } else if (e.key === 'Enter' || e.key === 'ArrowRight') {
-        if (e.target.tagName === 'BUTTON' && e.key === 'Enter') return;
+      } else if (e.key === 'Enter') {
+        // Si el foco está en un botón de navegación, que actúe ese botón.
+        if (e.target.tagName === 'BUTTON' && !e.target.classList.contains('opcion')) return;
+        e.preventDefault();
+        if (!esSimulacro && !validada) validar();
+        else siguiente();
+      } else if (e.key === 'ArrowRight') {
         e.preventDefault();
         siguiente();
       } else if (e.key === 'ArrowLeft') {
@@ -81,11 +98,12 @@ export default function Quiz({ preguntas, modo, modulo, onTerminar }) {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [pregunta, elegir, siguiente, anterior]);
+  }, [pregunta, elegir, validar, siguiente, anterior, esSimulacro, validada]);
 
   const progreso = ((indice + 1) / preguntas.length) * 100;
-  const poderAvanzar = esSimulacro || respondida;
+  const poderAvanzar = esSimulacro || validada;
   const tiempoJusto = esSimulacro && restante !== null && restante <= 60;
+  const textoSiguiente = esUltima ? (esSimulacro ? 'Entregar examen' : 'Ver resultado') : 'Siguiente';
 
   return (
     <section className="quiz contenedor contenedor--estrecho">
@@ -129,7 +147,7 @@ export default function Quiz({ preguntas, modo, modulo, onTerminar }) {
       <div className="opciones" role="radiogroup" aria-label="Opciones de respuesta">
         {pregunta.opciones.map((opcion, i) => {
           let estado = '';
-          if (bloqueada) {
+          if (validada) {
             if (i === pregunta.correcta) estado = 'opcion--correcta';
             else if (i === elegida) estado = 'opcion--incorrecta';
             else estado = 'opcion--atenuada';
@@ -144,7 +162,7 @@ export default function Quiz({ preguntas, modo, modulo, onTerminar }) {
               aria-checked={i === elegida}
               className={`opcion ${estado}`}
               onClick={() => elegir(i)}
-              disabled={bloqueada}
+              disabled={validada}
             >
               <span className="opcion__radio" aria-hidden="true" />
               <span className="opcion__letra" aria-hidden="true">
@@ -158,29 +176,67 @@ export default function Quiz({ preguntas, modo, modulo, onTerminar }) {
         })}
       </div>
 
-      {bloqueada && (
-        <div
-          className={`feedback ${elegida === pregunta.correcta ? 'feedback--ok' : 'feedback--ko'}`}
-          role="status"
-        >
-          <strong>{elegida === pregunta.correcta ? 'Correcto.' : 'Incorrecto.'}</strong>{' '}
-          <TextoCodigo texto={pregunta.explicacion} />
-        </div>
-      )}
-
       <div className="quiz__navegacion">
         <button type="button" className="btn btn--oscuro" onClick={anterior} disabled={indice === 0}>
           Anterior
         </button>
-        {esSimulacro && !esUltima && (
-          <button type="button" className="btn btn--fantasma quiz__entregar" onClick={finalizar}>
-            Entregar
-          </button>
-        )}
-        <button type="button" className="btn btn--primario" onClick={siguiente} disabled={!poderAvanzar}>
-          {esUltima ? (esSimulacro ? 'Entregar examen' : 'Ver resultado') : 'Siguiente'}
-        </button>
+
+        <div className="quiz__navegacion-derecha">
+          {esSimulacro && !esUltima && (
+            <button type="button" className="btn btn--fantasma" onClick={finalizar}>
+              Entregar
+            </button>
+          )}
+
+          {!esSimulacro && !validada ? (
+            <button
+              type="button"
+              className="btn btn--primario btn--validar"
+              onClick={validar}
+              disabled={!respondida}
+              title={respondida ? undefined : 'Elige una respuesta para poder validarla'}
+            >
+              Validar
+            </button>
+          ) : (
+            <button type="button" className="btn btn--primario" onClick={siguiente} disabled={!poderAvanzar}>
+              {textoSiguiente}
+            </button>
+          )}
+        </div>
       </div>
+
+      {validada && acertada && (
+        <div className="feedback feedback--ok" role="status">
+          <strong>¡Correcto!</strong> <TextoCodigo texto={pregunta.explicacion} />
+        </div>
+      )}
+
+      {validada && !acertada && (
+        <div className="recordatorio" role="status">
+          <div className="recordatorio__cabecera">
+            <span className="recordatorio__icono" aria-hidden="true">
+              !
+            </span>
+            <span>Recordatorio</span>
+          </div>
+          <p className="recordatorio__veredicto">
+            Has respondido <strong className="texto-ko"><TextoCodigo texto={pregunta.opciones[elegida]} /></strong>, pero no es correcta.
+          </p>
+          <p className="recordatorio__correcta">
+            <span className="texto-suave">La respuesta correcta es</span>
+            <span className="recordatorio__respuesta">
+              <span className="recordatorio__letra">{LETRAS[pregunta.correcta]}</span>
+              <span>
+                <TextoCodigo texto={pregunta.opciones[pregunta.correcta]} />
+              </span>
+            </span>
+          </p>
+          <p className="recordatorio__explicacion">
+            <TextoCodigo texto={pregunta.explicacion} />
+          </p>
+        </div>
+      )}
 
       {esSimulacro && (
         <nav className="mapa" aria-label="Ir a una pregunta">
@@ -200,7 +256,17 @@ export default function Quiz({ preguntas, modo, modulo, onTerminar }) {
       )}
 
       <p className="quiz__atajos">
-        Atajos: <kbd>1</kbd>–<kbd>4</kbd> para responder · <kbd>Enter</kbd> siguiente · <kbd>←</kbd> anterior
+        Atajos: <kbd>1</kbd>–<kbd>4</kbd> para elegir ·{' '}
+        {esSimulacro ? (
+          <>
+            <kbd>Enter</kbd> siguiente
+          </>
+        ) : (
+          <>
+            <kbd>Enter</kbd> validar y después siguiente
+          </>
+        )}{' '}
+        · <kbd>←</kbd> anterior
       </p>
     </section>
   );
