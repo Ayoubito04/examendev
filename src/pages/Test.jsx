@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import Quiz from '../components/Quiz.jsx';
 import Resultados from '../components/Resultados.jsx';
+import RepasoErrores from '../components/RepasoErrores.jsx';
 import NoEncontrado from './NoEncontrado.jsx';
 import { PREGUNTAS, PREGUNTA_POR_ID, getModulo } from '../data/index.js';
 import { useProgress } from '../context/ProgressContext.jsx';
@@ -22,7 +23,7 @@ const MODOS = [
   {
     id: 'repaso',
     titulo: 'Repasar mis fallos',
-    texto: 'Solo las preguntas que has fallado y aún no has vuelto a acertar.',
+    texto: 'Todas las preguntas que has fallado, con la respuesta correcta y su explicación. Después puedes practicarlas.',
   },
 ];
 
@@ -58,6 +59,7 @@ function TestModulo() {
       : null,
   );
   const [fin, setFin] = useState(null);
+  const [verErrores, setVerErrores] = useState(false);
 
   // Avisa antes de cerrar la pestaña con un test a medias.
   useEffect(() => {
@@ -72,6 +74,7 @@ function TestModulo() {
 
   const iniciar = useCallback((modoTest, lista, n) => {
     setFin(null);
+    setVerErrores(false);
     setTest({ modo: modoTest, preguntas: crearTest(lista, n ?? lista.length), clave: Date.now() });
     window.scrollTo(0, 0);
   }, []);
@@ -114,11 +117,29 @@ function TestModulo() {
     return <Quiz key={test.clave} preguntas={test.preguntas} modo={test.modo} modulo={modulo} onTerminar={terminar} />;
   }
 
+  if (verErrores && pendientes.length) {
+    return (
+      <RepasoErrores
+        modulo={modulo}
+        preguntas={pendientes}
+        onPracticar={() => iniciar('repaso', pendientes)}
+        onVolver={() => {
+          setVerErrores(false);
+          window.scrollTo(0, 0);
+        }}
+      />
+    );
+  }
+
   const opcionesCantidad = [...LONGITUDES_TEST.filter((n) => n < banco.length), banco.length];
   const cantidadEfectiva = Math.min(cantidad, banco.length);
   const empezar = () => {
-    if (modo === 'repaso') iniciar('repaso', pendientes);
-    else iniciar(modo, banco, cantidadEfectiva);
+    if (modo === 'repaso') {
+      setVerErrores(true);
+      window.scrollTo(0, 0);
+    } else {
+      iniciar(modo, banco, cantidadEfectiva);
+    }
   };
 
   return (
@@ -181,13 +202,13 @@ function TestModulo() {
       <div className="config__pie">
         <p className="texto-suave">
           {modo === 'repaso'
-            ? `${pendientes.length} pregunta${pendientes.length === 1 ? '' : 's'} por repasar.`
+            ? `${pendientes.length} pregunta${pendientes.length === 1 ? '' : 's'} fallada${pendientes.length === 1 ? '' : 's'} con su explicación.`
             : modo === 'simulacro'
               ? `${cantidadEfectiva} preguntas · ${(cantidadEfectiva * SEGUNDOS_POR_PREGUNTA) / 60} minutos.`
               : `${cantidadEfectiva} preguntas aleatorias, opciones barajadas.`}
         </p>
         <button type="button" className="btn btn--primario btn--lg" onClick={empezar}>
-          Empezar test
+          {modo === 'repaso' ? 'Repaso de errores' : 'Empezar test'}
         </button>
       </div>
     </section>

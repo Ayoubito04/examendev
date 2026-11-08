@@ -1287,7 +1287,8 @@ kbd {
 /* ---------- Configuración del test ---------- */
 
 .volver {
-  display: inline-block;
+  display: block;
+  width: fit-content;
   margin-bottom: 1.5rem;
   color: var(--texto-3);
   font-family: var(--ui);
@@ -1297,6 +1298,245 @@ kbd {
 
 .volver:hover {
   color: var(--texto);
+}
+
+button.volver {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+/* ---------- Repaso de errores ---------- */
+
+.repaso {
+  padding-top: clamp(2.5rem, 6vw, 4rem);
+}
+
+.repaso__acciones,
+.repaso__pie {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.repaso__pie {
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.repaso__lista {
+  display: grid;
+  gap: 1rem;
+  margin: 2.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.repaso__item {
+  padding: clamp(1.1rem, 3vw, 1.6rem);
+}
+
+.repaso__cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.repaso__numero {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  line-height: 1;
+  color: #b794ff;
+}
+
+.repaso__fecha {
+  margin-left: auto;
+  font-size: 0.8rem;
+}
+
+.etiqueta--ko {
+  background: var(--ko-suave);
+  color: var(--ko);
+}
+
+.repaso__enunciado {
+  margin: 0.9rem 0 1rem;
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 3vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.repaso__enunciado code {
+  font-size: 0.65em;
+  vertical-align: 0.12em;
+  white-space: normal;
+}
+
+.repaso__opciones {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.repaso__opcion {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-sm);
+  color: var(--texto-3);
+  font-size: 0.95rem;
+}
+
+.repaso__opcion--ok {
+  border-color: rgba(52, 211, 153, 0.5);
+  background: var(--ok-suave);
+  color: var(--texto);
+  font-weight: 600;
+}
+
+.repaso__opcion--ko {
+  border-color: rgba(248, 113, 113, 0.5);
+  background: var(--ko-suave);
+  color: var(--texto);
+}
+
+.repaso__letra {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: var(--superficie-2);
+  font-family: var(--ui);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.repaso__opcion--ok .repaso__letra {
+  background: var(--ok);
+  color: #06281d;
+}
+
+.repaso__opcion--ko .repaso__letra {
+  background: var(--ko);
+  color: #2a0c0c;
+}
+
+.repaso__texto {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.repaso__marca {
+  flex-shrink: 0;
+  font-family: var(--ui);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.repaso__nota {
+  margin: 0.6rem 0 0;
+  font-size: 0.85rem;
+}
+
+.repaso__explicacion {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  border-left: 3px solid var(--primario);
+  border-radius: 0 var(--radio-sm) var(--radio-sm) 0;
+  background: var(--primario-suave);
+}
+
+.repaso__explicacion-titulo {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: #c9b3ff;
+  font-family: var(--ui);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.repaso__explicacion p {
+  margin: 0;
+  color: var(--texto-2);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 560px) {
+  .repaso__fecha {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .repaso__acciones .btn,
+  .repaso__pie .btn {
+    flex: 1 1 100%;
+  }
+}
+
+/* Impresión del repaso de errores: fondo blanco y sin navegación. */
+@media print {
+  .fondo,
+  .navbar,
+  .footer,
+  .saltar,
+  .volver,
+  .repaso__acciones,
+  .repaso__pie {
+    display: none !important;
+  }
+
+  body,
+  .main {
+    background: #fff !important;
+    color: #111 !important;
+    padding-top: 0;
+  }
+
+  .repaso .pildora,
+  .repaso .lead,
+  .repaso__item,
+  .repaso__opcion,
+  .repaso__explicacion p,
+  .repaso__enunciado {
+    color: #111 !important;
+    background: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .repaso__item {
+    border: 1px solid #ccc !important;
+    break-inside: avoid;
+  }
+
+  .repaso__opcion--ok {
+    border-color: #0a8a5c !important;
+    font-weight: 700;
+  }
+
+  .repaso__opcion--ko {
+    border-color: #c0392b !important;
+  }
+
+  .repaso__explicacion {
+    background: #f4f0ff !important;
+  }
+
+  code {
+    background: #eee;
+    color: #111;
+  }
 }
 
 .config .lead {
