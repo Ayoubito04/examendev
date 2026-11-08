@@ -90,11 +90,11 @@ export default function Navbar() {
         </nav>
 
         <div className="navbar__acciones">
-          <Link to="/progreso" className="btn btn--claro btn--sm">
+          <Link to="/progreso" className="btn btn--oscuro btn--sm">
             Mi progreso
           </Link>
           <Link to="/temario" className="btn btn--primario btn--sm">
-            Empezar
+            Empezar a practicar
           </Link>
         </div>
 

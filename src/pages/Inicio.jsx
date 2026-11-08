@@ -1,17 +1,17 @@
 import { Link } from 'react-router-dom';
 import { CICLOS, MODULOS, TODAS_LAS_PREGUNTAS, modulosDeCiclo } from '../data/index.js';
-import { SITE } from '../config.js';
+import { MINUTOS_SIMULACRO, PREGUNTAS_POR_EXAMEN } from '../config.js';
 
 const PASOS = [
   { n: '01', titulo: 'Elige tu ciclo y módulo', texto: 'DAM, DAW, ASIR o SMR, de primero o de segundo. Cada módulo tiene su propio banco de preguntas.' },
   { n: '02', titulo: 'Practica o haz un simulacro', texto: 'Elige, pulsa Validar y comprueba al momento. Sin prisa en la práctica, o contra reloj en el simulacro.' },
-  { n: '03', titulo: 'Repasa tus fallos', texto: 'Cada pregunta que fallas queda guardada hasta que la aciertes. Así atacas tus puntos débiles.' },
+  { n: '03', titulo: 'Repasa tus fallos', texto: 'Cada pregunta que fallas se acumula en tu repaso, con su explicación, hasta que la domines.' },
 ];
 
 const VENTAJAS = [
   { titulo: 'Corrección al instante', texto: 'Sabes en el momento si has acertado y por qué. Cada pregunta trae su explicación.' },
-  { titulo: 'Simulacros cronometrados', texto: '20 preguntas en 90 minutos, mapa de preguntas y nota sobre 10, para llegar al examen con el ritmo cogido.' },
-  { titulo: 'Repaso inteligente', texto: 'Tus fallos se acumulan por módulo y desaparecen cuando los aciertas.' },
+  { titulo: 'Simulacros cronometrados', texto: `${PREGUNTAS_POR_EXAMEN} preguntas en ${MINUTOS_SIMULACRO} minutos, mapa de preguntas y nota sobre 10, para llegar al examen con el ritmo cogido.` },
+  { titulo: 'Repaso de errores', texto: 'Tus fallos se acumulan por módulo con la respuesta correcta y la explicación, listos para estudiar o imprimir.' },
   { titulo: 'Progreso por módulo', texto: 'Mejor nota, última nota e historial de intentos de un vistazo.' },
   { titulo: 'Opciones barajadas', texto: 'Preguntas y respuestas cambian de orden en cada test: nada de memorizar la letra.' },
   { titulo: 'Sin registro', texto: 'Empieza ya. Tu progreso se guarda en este navegador, sin cuentas ni contraseñas.' },
@@ -32,7 +32,7 @@ const FAQ = [
   },
   {
     p: '¿En qué se diferencia la práctica del simulacro?',
-    r: 'En los dos validas cada respuesta y, si fallas, ves un recordatorio con la correcta. La práctica no tiene límite de tiempo. El simulacro va contra reloj, tiene un mapa de preguntas y te deja saltar las que no sepas para volver a ellas antes de entregar.',
+    r: `En los dos validas cada respuesta y, si fallas, ves un recordatorio con la correcta. La práctica no tiene límite de tiempo. El simulacro dura ${MINUTOS_SIMULACRO} minutos, tiene un mapa de preguntas y te deja saltar las que no sepas para volver a ellas antes de entregar.`,
   },
   {
     p: '¿Dónde se guarda mi progreso?',
@@ -48,6 +48,12 @@ const FAQ = [
   },
 ];
 
+const Chevron = () => (
+  <svg className="btn__chevron" viewBox="0 0 16 16" aria-hidden="true">
+    <path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
 export default function Inicio() {
   const cifras = [
     { valor: TODAS_LAS_PREGUNTAS.length, texto: 'preguntas con explicación' },
@@ -58,49 +64,58 @@ export default function Inicio() {
 
   return (
     <>
-      <section className="hero">
+      <section className="hero seccion-oscura">
+        <div className="hero__fondo" aria-hidden="true" />
         <div className="contenedor hero__inner">
-          <span className="aviso">
-            <span className="aviso__badge">Nuevo</span>
-            Ahora con ASIR y SMR · {SITE.convocatoria}
-          </span>
-
-          <h1 className="titulo-display hero__titulo">
-            Aprueba tu examen de mayo con práctica real <em>y</em> sin estrés
+          <h1 className="hero__titulo">
+            Aprueba tu examen de mayo con práctica real y <span className="destacado">sin estrés</span>
           </h1>
 
+          <ul className="hero__pildoras">
+            <li className="pildora-hero pildora-hero--insignia">
+              <span className="pildora-hero__icono" aria-hidden="true">★</span>
+              <span>
+                <small>Banco de preguntas</small>
+                {TODAS_LAS_PREGUNTAS.length} con explicación
+              </span>
+            </li>
+            <li className="pildora-hero">Simulacros de {MINUTOS_SIMULACRO} min</li>
+            <li className="pildora-hero">DAM · DAW · ASIR · SMR</li>
+          </ul>
+
           <p className="hero__subtitulo">
-            Practica cientos de preguntas tipo test de DAM, DAW, ASIR y SMR, organizadas por módulo. Corrige al instante, revisa tus
-            fallos y sigue tu progreso hasta el día del examen.
+            Preguntas tipo test organizadas por módulo. Valida cada respuesta, repasa tus errores con su explicación y sigue tu progreso
+            hasta el día del examen.
           </p>
 
           <div className="hero__ctas">
-            <Link to="/test/programacion?rapido=1" className="btn btn--primario btn--lg">
+            <Link to="/test/programacion?rapido=1" className="btn btn--acento btn--lg">
+              <Chevron />
               Hacer un test de prueba
             </Link>
-            <Link to="/temario" className="btn btn--oscuro btn--lg">
+            <Link to="/temario" className="btn btn--claro btn--lg">
               Ver temario
             </Link>
           </div>
+        </div>
 
-          <div className="hero__preview" aria-hidden="true">
-            <div className="preview">
-              <div className="preview__cabecera">
-                <span className="pildora pildora--sm">Programación</span>
-                <span>Pregunta 7 de 20</span>
-              </div>
-              <div className="barra">
-                <span className="barra__relleno" style={{ width: '70%' }} />
-              </div>
-              <p className="preview__enunciado">¿Qué palabra clave de Java impide que una clase pueda ser heredada?</p>
-              <div className="preview__opciones">
-                <span className="opcion opcion--estatica">abstract</span>
-                <span className="opcion opcion--estatica opcion--correcta">final</span>
-                <span className="opcion opcion--estatica">static</span>
-              </div>
-              <div className="feedback feedback--ok">
-                <strong>Correcto.</strong> Una clase declarada como final no admite subclases.
-              </div>
+        <div className="contenedor hero__preview" aria-hidden="true">
+          <div className="preview">
+            <div className="preview__cabecera">
+              <span className="pildora pildora--sm">Programación</span>
+              <span>Pregunta 7 de {PREGUNTAS_POR_EXAMEN}</span>
+            </div>
+            <div className="barra">
+              <span className="barra__relleno" style={{ width: '35%' }} />
+            </div>
+            <p className="preview__enunciado">¿Qué palabra clave de Java impide que una clase pueda ser heredada?</p>
+            <div className="preview__opciones">
+              <span className="opcion opcion--estatica">abstract</span>
+              <span className="opcion opcion--estatica opcion--correcta">final</span>
+              <span className="opcion opcion--estatica">static</span>
+            </div>
+            <div className="feedback feedback--ok">
+              <strong>¡Correcto!</strong> Una clase declarada como final no admite subclases.
             </div>
           </div>
         </div>
@@ -119,7 +134,9 @@ export default function Inicio() {
 
       <section className="seccion contenedor" id="como-funciona">
         <span className="pildora">Cómo funciona</span>
-        <h2 className="titulo-display titulo-display--md">Tres pasos para llegar preparado</h2>
+        <h2 className="titulo-display titulo-display--md">
+          Tres pasos para llegar <span className="destacado">preparado</span>
+        </h2>
         <div className="pasos">
           {PASOS.map((p) => (
             <article key={p.n} className="tarjeta paso">
@@ -131,41 +148,51 @@ export default function Inicio() {
         </div>
       </section>
 
-      <section className="seccion contenedor" id="ciclos">
-        <span className="pildora">Temario</span>
-        <h2 className="titulo-display titulo-display--md">Tu ciclo, módulo a módulo</h2>
-        <p className="lead">Cuatro ciclos de Informática y Comunicaciones, con los módulos técnicos de primero y segundo.</p>
-        <div className="ciclos">
-          {CICLOS.map((ciclo) => (
-            <article key={ciclo.id} className="tarjeta ciclo">
-              <div className="ciclo__cabecera">
-                <div className="ciclo__etiquetas">
-                  <span className={`etiqueta etiqueta--${ciclo.id}`}>{ciclo.sigla}</span>
-                  <span className="etiqueta">{ciclo.grado}</span>
+      <section className="bloque-oscuro seccion-oscura" id="ciclos">
+        <div className="contenedor">
+          <div className="bloque-oscuro__cabecera">
+            <span className="pildora">Temario</span>
+            <h2 className="titulo-display titulo-display--md">Tu ciclo, módulo a módulo</h2>
+            <p className="lead">Cuatro ciclos de Informática y Comunicaciones, con los módulos técnicos de primero y segundo.</p>
+          </div>
+
+          <div className="ciclos">
+            {CICLOS.map((ciclo) => (
+              <article key={ciclo.id} className={`ciclo ciclo--${ciclo.id}`}>
+                <div className="ciclo__cabecera">
+                  <span className="ciclo__sigla">{ciclo.sigla}</span>
+                  <h3>{ciclo.nombre}</h3>
                 </div>
-                <h3>{ciclo.nombre}</h3>
-              </div>
-              <ul className="ciclo__lista">
-                {modulosDeCiclo(ciclo.sigla).map((m) => (
-                  <li key={m.id}>
-                    <Link to={`/test/${m.id}`}>
-                      <span>{m.nombre}</span>
-                      <span className="ciclo__curso">{m.curso}º</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <Link to={`/temario?ciclo=${ciclo.id}`} className="btn btn--fantasma btn--sm">
-                Ver módulos de {ciclo.sigla}
-              </Link>
-            </article>
-          ))}
+                <div className="ciclo__cuerpo">
+                  {[1, 2].map((curso) => (
+                    <div key={curso} className="ciclo__curso-bloque">
+                      <h4>
+                        {curso}º curso <span>· {ciclo.grado}</span>
+                      </h4>
+                      <ul className="ciclo__lista">
+                        {modulosDeCiclo(ciclo.sigla, curso).map((m) => (
+                          <li key={m.id}>
+                            <Link to={`/test/${m.id}`}>{m.nombre}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+                <Link to={`/temario?ciclo=${ciclo.id}`} className="btn btn--primario btn--sm ciclo__boton">
+                  Practicar {ciclo.sigla}
+                </Link>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
       <section className="seccion contenedor" id="ventajas">
         <span className="pildora">Por qué funciona</span>
-        <h2 className="titulo-display titulo-display--md">Pensado para el examen, no para el scroll</h2>
+        <h2 className="titulo-display titulo-display--md">
+          Pensado para el <span className="destacado">examen</span>, no para el scroll
+        </h2>
         <div className="ventajas">
           {VENTAJAS.map((v) => (
             <article key={v.titulo} className="ventaja">
@@ -191,13 +218,14 @@ export default function Inicio() {
       </section>
 
       <section className="seccion contenedor">
-        <div className="cta-final">
+        <div className="cta-final seccion-oscura">
           <h2 className="titulo-display titulo-display--md">
-            Veinte preguntas. Sin registro. <em>Empieza</em> ahora.
+            {PREGUNTAS_POR_EXAMEN} preguntas. Sin registro. <span className="destacado">Empieza ahora.</span>
           </h2>
           <p>Elige un módulo y comprueba dónde estás antes del examen.</p>
           <div className="acciones-centradas">
-            <Link to="/temario" className="btn btn--claro btn--lg">
+            <Link to="/temario" className="btn btn--acento btn--lg">
+              <Chevron />
               Elegir módulo
             </Link>
           </div>

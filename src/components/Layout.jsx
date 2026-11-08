@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import Navbar from './Navbar.jsx';
 import Footer from './Footer.jsx';
+import { SITE } from '../config.js';
 
 export default function Layout() {
   const { pathname, hash } = useLocation();
@@ -20,14 +21,15 @@ export default function Layout() {
 
   return (
     <div className="app">
-      <div className="fondo" aria-hidden="true">
-        <span className="fondo__orbe fondo__orbe--1" />
-        <span className="fondo__orbe fondo__orbe--2" />
-        <span className="fondo__grano" />
-      </div>
       <a href="#contenido" className="saltar">
         Saltar al contenido
       </a>
+      <div className="barra-aviso">
+        <Link to="/temario">
+          ¡Prepara la {SITE.convocatoria.toLowerCase()}!
+          <span className="barra-aviso__extra"> Simulacros de 20 preguntas en 90 minutos para DAM, DAW, ASIR y SMR</span>
+        </Link>
+      </div>
       <Navbar />
       <main id="contenido" className="main">
         <Outlet />
