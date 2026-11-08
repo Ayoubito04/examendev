@@ -1,0 +1,158 @@
+export default [
+  {
+    enunciado: '¿Qué tipo de malware cifra los archivos de la víctima y pide un rescate?',
+    opciones: ['Spyware', 'Ransomware', 'Adware', 'Rootkit'],
+    correcta: 1,
+    explicacion: 'La mejor defensa son copias de seguridad desconectadas y actualizadas, además de no abrir adjuntos sospechosos.',
+  },
+  {
+    enunciado: '¿Qué caracteriza a un gusano informático?',
+    opciones: [
+      'Necesita que el usuario lo ejecute cada vez',
+      'Se propaga por sí mismo a otros equipos a través de la red',
+      'Solo muestra publicidad',
+      'Se oculta en la BIOS',
+    ],
+    correcta: 1,
+    explicacion: 'A diferencia del virus, no necesita infectar un fichero ni que el usuario lo comparta: aprovecha vulnerabilidades para saltar de equipo en equipo.',
+  },
+  {
+    enunciado: '¿Qué es un troyano?',
+    opciones: [
+      'Un programa que se presenta como legítimo pero oculta una función maliciosa',
+      'Un tipo de cortafuegos',
+      'Un antivirus gratuito',
+      'Un fallo de hardware',
+    ],
+    correcta: 0,
+    explicacion: 'Suele abrir una puerta trasera para que el atacante controle el equipo.',
+  },
+  {
+    enunciado: '¿Qué hace un keylogger?',
+    opciones: [
+      'Bloquea el teclado',
+      'Registra las pulsaciones de teclado para robar contraseñas y datos',
+      'Cifra el disco',
+      'Cambia la distribución del teclado',
+    ],
+    correcta: 1,
+    explicacion: 'Puede ser software o un pequeño dispositivo físico entre el teclado y el equipo.',
+  },
+  {
+    enunciado: '¿Cuál de estas medidas pertenece a la seguridad física?',
+    opciones: ['Antivirus', 'Instalar un SAI', 'Contraseñas robustas', 'Cifrado de disco'],
+    correcta: 1,
+    explicacion: 'La seguridad física protege el hardware y su entorno: SAI, control de acceso a la sala o protección contra incendios.',
+  },
+  {
+    enunciado: '¿Cuál de estas contraseñas es más robusta?',
+    opciones: ['123456', 'Agustin1990', 'Tr3s-Gatos_Comen?Pan', 'password'],
+    correcta: 2,
+    explicacion: 'La longitud es lo que más pesa. Combinar varias palabras con símbolos y números da una contraseña larga y fácil de recordar.',
+  },
+  {
+    enunciado: '¿Qué guarda una copia de seguridad diferencial?',
+    opciones: [
+      'Todos los datos siempre',
+      'Los cambios desde la última copia completa',
+      'Los cambios desde la última copia de cualquier tipo',
+      'Solo los ficheros del sistema',
+    ],
+    correcta: 1,
+    explicacion: 'Para restaurar basta la completa y la última diferencial. La incremental guarda los cambios desde la última copia de cualquier tipo.',
+  },
+  {
+    enunciado: '¿Qué herramienta de Windows cifra unidades completas?',
+    opciones: ['BitLocker', 'Defender', 'Windows Update', 'Restaurar sistema'],
+    correcta: 0,
+    explicacion: 'Si roban el portátil, el disco no se puede leer sin la clave. En Linux el equivalente habitual es LUKS.',
+  },
+  {
+    enunciado: '¿Qué función cumple un cortafuegos?',
+    opciones: [
+      'Eliminar virus',
+      'Controlar qué tráfico de red se permite o se bloquea según unas reglas',
+      'Acelerar la conexión',
+      'Hacer copias de seguridad',
+    ],
+    correcta: 1,
+    explicacion: 'Puede ser software en el propio equipo, como el Firewall de Windows, o un dispositivo que protege toda la red.',
+  },
+  {
+    enunciado: '¿Qué es la ingeniería social?',
+    opciones: [
+      'Diseñar redes sociales',
+      'Manipular a las personas para que revelen información o hagan algo que comprometa la seguridad',
+      'Un tipo de cifrado',
+      'Gestionar usuarios en red',
+    ],
+    correcta: 1,
+    explicacion: 'El phishing, las llamadas fingiendo ser soporte técnico o dejar un USB "olvidado" son ejemplos.',
+  },
+  {
+    enunciado: '¿Qué indica el candado y el protocolo HTTPS en el navegador?',
+    opciones: [
+      'Que la web es de una empresa legal',
+      'Que la conexión entre el navegador y el servidor está cifrada',
+      'Que la web no tiene virus',
+      'Que la web es rápida',
+    ],
+    correcta: 1,
+    explicacion: 'Una web de phishing también puede tener HTTPS. El candado solo garantiza el cifrado, no las intenciones del sitio.',
+  },
+  {
+    enunciado: '¿Por qué es importante instalar las actualizaciones del sistema?',
+    opciones: [
+      'Solo para tener nuevas funciones',
+      'Porque corrigen vulnerabilidades de seguridad conocidas',
+      'Para liberar espacio en disco',
+      'No es importante',
+    ],
+    correcta: 1,
+    explicacion: 'Muchos ataques aprovechan fallos para los que ya existe un parche que no se ha instalado.',
+  },
+  {
+    enunciado: '¿Qué garantiza la firma digital de un documento?',
+    opciones: [
+      'Que nadie pueda leerlo',
+      'La autenticidad del firmante y la integridad del documento',
+      'Que el documento ocupe menos',
+      'Que se pueda editar libremente',
+    ],
+    correcta: 1,
+    explicacion: 'También aporta no repudio: el firmante no puede negar haberlo firmado. No cifra el contenido.',
+  },
+  {
+    enunciado: '¿Qué dice el principio de mínimo privilegio?',
+    opciones: [
+      'Que todos los usuarios sean administradores',
+      'Que cada usuario tenga solo los permisos imprescindibles para su trabajo',
+      'Que no haya contraseñas',
+      'Que solo haya un usuario por equipo',
+    ],
+    correcta: 1,
+    explicacion: 'Limita el daño de un error o de una cuenta comprometida.',
+  },
+  {
+    enunciado: '¿Qué es el cifrado simétrico?',
+    opciones: [
+      'El que usa la misma clave para cifrar y descifrar',
+      'El que usa una clave pública y otra privada',
+      'Un tipo de hash',
+      'El que no usa claves',
+    ],
+    correcta: 0,
+    explicacion: 'Es rápido (por ejemplo AES), pero emisor y receptor deben compartir la clave de forma segura.',
+  },
+  {
+    enunciado: '¿Qué protege una VPN cuando te conectas desde una Wi-Fi pública?',
+    opciones: [
+      'El equipo frente a cualquier virus',
+      'El tráfico, cifrándolo en un túnel hasta el servidor VPN',
+      'La batería del portátil',
+      'La velocidad de la conexión',
+    ],
+    correcta: 1,
+    explicacion: 'Quien comparta la Wi-Fi no puede leer ni manipular el tráfico.',
+  },
+];

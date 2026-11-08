@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Logo from './Logo.jsx';
-import { GRUPOS } from '../data/index.js';
+import { CICLOS } from '../data/index.js';
 import { SITE } from '../config.js';
 
 export default function Footer() {
@@ -9,15 +9,17 @@ export default function Footer() {
       <div className="contenedor footer__grid">
         <div className="footer__marca">
           <Logo />
-          <p>Práctica tipo test para los módulos de DAM y DAW. Corrige al instante, haz simulacros y sigue tu progreso.</p>
+          <p>Práctica tipo test para los módulos de DAM, DAW, ASIR y SMR. Corrige al instante, haz simulacros y sigue tu progreso.</p>
         </div>
 
         <div>
           <h3>Temario</h3>
           <ul>
-            {GRUPOS.map((g) => (
-              <li key={g.id}>
-                <Link to={`/temario?grupo=${g.id}`}>{g.nombre}</Link>
+            {CICLOS.map((c) => (
+              <li key={c.id}>
+                <Link to={`/temario?ciclo=${c.id}`}>
+                  {c.sigla} · {c.grado}
+                </Link>
               </li>
             ))}
           </ul>

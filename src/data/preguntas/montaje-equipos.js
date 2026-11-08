@@ -1,0 +1,128 @@
+export default [
+  {
+    enunciado: '¿Qué hay que llevar puesto para evitar dañar los componentes con electricidad estática?',
+    opciones: ['Guantes de látex', 'Una pulsera antiestática', 'Gafas protectoras', 'Calzado de goma solamente'],
+    correcta: 1,
+    explicacion: 'La pulsera conectada al chasis o a tierra descarga la electricidad estática antes de tocar los componentes.',
+  },
+  {
+    enunciado: '¿Cuántos pines tiene el conector principal de alimentación de una placa ATX actual?',
+    opciones: ['4', '8', '20', '24'],
+    correcta: 3,
+    explicacion: 'El conector ATX principal tiene 24 pines (las placas antiguas usaban 20). El procesador se alimenta aparte.',
+  },
+  {
+    enunciado: '¿Qué conector de la fuente alimenta específicamente al procesador?',
+    opciones: ['SATA', 'Molex', 'EPS/ATX12V de 4 u 8 pines', 'PCIe de 6 pines'],
+    correcta: 2,
+    explicacion: 'Se coloca cerca del zócalo de la CPU. El PCIe de 6/8 pines es para la tarjeta gráfica y el SATA para discos.',
+  },
+  {
+    enunciado: '¿Qué tensiones principales entrega una fuente ATX?',
+    opciones: ['+12 V, +5 V y +3,3 V', '+230 V y +110 V', '+24 V y +48 V', 'Solo +5 V'],
+    correcta: 0,
+    explicacion: 'Son tensiones de corriente continua. La línea de +12 V alimenta CPU, gráfica y motores de disco.',
+  },
+  {
+    enunciado: '¿Qué indica la certificación 80 PLUS de una fuente de alimentación?',
+    opciones: ['Su potencia máxima', 'Su eficiencia energética', 'Su nivel de ruido', 'El número de conectores'],
+    correcta: 1,
+    explicacion: 'Garantiza al menos un 80 % de eficiencia. Los niveles Bronze, Silver, Gold, Platinum y Titanium exigen más.',
+  },
+  {
+    enunciado: '¿Se puede instalar un módulo DDR4 en una ranura DDR5?',
+    opciones: [
+      'Sí, son compatibles',
+      'No, tienen la muesca en distinta posición y voltajes diferentes',
+      'Sí, con un adaptador incluido',
+      'Solo en portátiles',
+    ],
+    correcta: 1,
+    explicacion: 'Cada generación de DDR tiene la muesca en una posición distinta para que no se puedan mezclar.',
+  },
+  {
+    enunciado: '¿Qué hay que hacer para aprovechar el modo dual channel de la memoria?',
+    opciones: [
+      'Instalar un solo módulo grande',
+      'Instalar dos módulos iguales en las ranuras emparejadas que indica el manual',
+      'Activar el overclocking',
+      'Usar módulos de distinta generación',
+    ],
+    correcta: 1,
+    explicacion: 'Las ranuras emparejadas suelen ir del mismo color. El controlador accede a los dos módulos a la vez y duplica el ancho de banda.',
+  },
+  {
+    enunciado: '¿Qué factor de forma de placa base es el más pequeño de estos?',
+    opciones: ['ATX', 'Micro-ATX', 'Mini-ITX', 'E-ATX'],
+    correcta: 2,
+    explicacion: 'Mini-ITX mide 17 × 17 cm y se usa en equipos compactos. E-ATX es el más grande.',
+  },
+  {
+    enunciado: '¿Qué formato de SSD se conecta directamente a una ranura de la placa base sin cables?',
+    opciones: ['SSD de 2,5"', 'SSD M.2', 'SSD externo USB', 'SSD de 3,5"'],
+    correcta: 1,
+    explicacion: 'Los M.2 se atornillan a la placa. Pueden ser SATA o NVMe según el modelo, y los NVMe son mucho más rápidos.',
+  },
+  {
+    enunciado: '¿A qué tipo de unidad no se le debe hacer una desfragmentación?',
+    opciones: ['Disco duro magnético (HDD)', 'Unidad de estado sólido (SSD)', 'Disquete', 'Disco duro externo de platos'],
+    correcta: 1,
+    explicacion: 'En un SSD el acceso no depende de la posición física y desfragmentar solo añade escrituras. Se usa TRIM en su lugar.',
+  },
+  {
+    enunciado: '¿Qué indican los pitidos que emite el equipo al encenderse sin mostrar imagen?',
+    opciones: [
+      'Que el sistema operativo se está actualizando',
+      'Un error detectado en el POST, codificado según el fabricante de la BIOS',
+      'Que el ventilador está sucio',
+      'Que el teclado está desconectado siempre',
+    ],
+    correcta: 1,
+    explicacion: 'Cada combinación de pitidos corresponde a un fallo (memoria, gráfica…) que se consulta en el manual de la placa o de la BIOS.',
+  },
+  {
+    enunciado: '¿Qué es el mantenimiento preventivo?',
+    opciones: [
+      'Reparar el equipo cuando se avería',
+      'Actuaciones periódicas para evitar averías, como limpiar o actualizar',
+      'Comprar un equipo nuevo',
+      'Formatear el disco cada mes',
+    ],
+    correcta: 1,
+    explicacion: 'El correctivo es el que se hace después de la avería. El preventivo reduce su probabilidad.',
+  },
+  {
+    enunciado: '¿Para qué se usa un polímetro (multímetro) en el taller?',
+    opciones: [
+      'Para medir la velocidad de la CPU',
+      'Para medir tensiones, continuidad y resistencias',
+      'Para clonar discos',
+      'Para medir la temperatura del procesador',
+    ],
+    correcta: 1,
+    explicacion: 'Por ejemplo, para comprobar si una fuente entrega las tensiones correctas o si un cable tiene continuidad.',
+  },
+  {
+    enunciado: '¿Qué herramienta libre sirve para clonar discos y particiones?',
+    opciones: ['Clonezilla', 'CPU-Z', 'Memtest86', 'CrystalDiskInfo'],
+    correcta: 0,
+    explicacion: 'CPU-Z identifica componentes, Memtest86 prueba la RAM y CrystalDiskInfo muestra la salud del disco (SMART).',
+  },
+  {
+    enunciado: '¿Qué es el overclocking?',
+    opciones: [
+      'Reducir la frecuencia para ahorrar energía',
+      'Aumentar la frecuencia de un componente por encima de la de fábrica',
+      'Instalar más memoria RAM',
+      'Actualizar la BIOS',
+    ],
+    correcta: 1,
+    explicacion: 'Mejora el rendimiento a cambio de más temperatura y consumo, y puede causar inestabilidad o perder la garantía.',
+  },
+  {
+    enunciado: '¿Qué tecnología permite consultar el estado de salud de un disco duro?',
+    opciones: ['RAID', 'S.M.A.R.T.', 'UEFI', 'AHCI'],
+    correcta: 1,
+    explicacion: 'SMART registra sectores reasignados, horas de uso o temperatura y avisa antes de que el disco falle.',
+  },
+];

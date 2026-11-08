@@ -1,7 +1,7 @@
 {
   "name": "examendev",
   "version": "1.0.0",
-  "description": "Simulador de exámenes tipo test para los módulos de DAM y DAW",
+  "description": "Simulador de exámenes tipo test para los módulos de DAM, DAW, ASIR y SMR",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

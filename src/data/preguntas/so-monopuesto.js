@@ -1,0 +1,123 @@
+export default [
+  {
+    enunciado: '¿Qué licencia es característica del software libre?',
+    opciones: ['EULA propietaria', 'GPL', 'Shareware', 'OEM'],
+    correcta: 1,
+    explicacion: 'La GPL permite usar, estudiar, modificar y distribuir el programa, siempre que las versiones derivadas mantengan la misma licencia.',
+  },
+  {
+    enunciado: '¿Qué es una ruta absoluta?',
+    opciones: [
+      'La que empieza desde el directorio actual',
+      'La que empieza desde la raíz del sistema de ficheros',
+      'La que solo contiene el nombre del fichero',
+      'La que apunta a una unidad de red',
+    ],
+    correcta: 1,
+    explicacion: 'Por ejemplo `/home/ana/notas.txt` o `C:\\Users\\Ana\\notas.txt`. Una ruta relativa depende del directorio en el que estás.',
+  },
+  {
+    enunciado: '¿Qué comando lista el contenido de un directorio en la terminal de Linux?',
+    opciones: ['dir', 'ls', 'list', 'show'],
+    correcta: 1,
+    explicacion: '`ls` en Linux y `dir` en el símbolo del sistema de Windows. Con `ls -l` se ven permisos, tamaños y fechas.',
+  },
+  {
+    enunciado: '¿Qué comando de Linux copia un fichero?',
+    opciones: ['mv', 'cp', 'copy', 'rm'],
+    correcta: 1,
+    explicacion: '`cp` copia, `mv` mueve o renombra y `rm` elimina. `copy` es el comando de Windows.',
+  },
+  {
+    enunciado: 'En Linux, ¿qué representa el símbolo `~`?',
+    opciones: ['La raíz del sistema', 'El directorio personal del usuario', 'El directorio anterior', 'La papelera'],
+    correcta: 1,
+    explicacion: '`cd ~`, o simplemente `cd`, lleva a `/home/usuario`. La raíz es `/` y `cd -` vuelve al directorio anterior.',
+  },
+  {
+    enunciado: '¿Qué comando de Linux muestra el contenido de un fichero de texto?',
+    opciones: ['cat', 'touch', 'mkdir', 'pwd'],
+    correcta: 0,
+    explicacion: '`touch` crea un fichero vacío, `mkdir` un directorio y `pwd` muestra el directorio actual.',
+  },
+  {
+    enunciado: '¿Qué comando busca un texto dentro de ficheros en Linux?',
+    opciones: ['find', 'grep', 'locate', 'which'],
+    correcta: 1,
+    explicacion: '`grep` busca dentro del contenido. `find` y `locate` buscan ficheros por nombre u otros atributos.',
+  },
+  {
+    enunciado: '¿Qué tamaño máximo de fichero admite el sistema de archivos FAT32?',
+    opciones: ['2 GB', '4 GB', '16 TB', 'Sin límite'],
+    correcta: 1,
+    explicacion: 'Por eso no se puede copiar una imagen ISO de más de 4 GB a un pendrive en FAT32. NTFS y exFAT no tienen ese límite práctico.',
+  },
+  {
+    enunciado: '¿Qué gestor de arranque permite elegir entre Linux y Windows en un arranque dual?',
+    opciones: ['GRUB', 'BIOS', 'Bootmgr de MS-DOS', 'Systemd'],
+    correcta: 0,
+    explicacion: 'GRUB detecta los sistemas instalados y muestra un menú al encender el equipo.',
+  },
+  {
+    enunciado: '¿Qué tipo de hipervisor es VirtualBox?',
+    opciones: [
+      'Tipo 1, se instala directamente sobre el hardware',
+      'Tipo 2, se ejecuta como aplicación sobre un sistema operativo',
+      'Un emulador de consolas',
+      'Un contenedor',
+    ],
+    correcta: 1,
+    explicacion: 'VirtualBox y VMware Workstation son de tipo 2. ESXi y Hyper-V son de tipo 1.',
+  },
+  {
+    enunciado: '¿Para qué sirve una instantánea (snapshot) de una máquina virtual?',
+    opciones: [
+      'Para hacer una captura de pantalla',
+      'Para guardar el estado de la máquina y poder volver a él más tarde',
+      'Para aumentar la memoria',
+      'Para compartir la máquina por red',
+    ],
+    correcta: 1,
+    explicacion: 'Es muy útil antes de instalar o probar algo arriesgado: si sale mal, se vuelve al estado guardado.',
+  },
+  {
+    enunciado: '¿Qué combinación de teclas abre directamente el Administrador de tareas en Windows?',
+    opciones: ['Ctrl + Alt + Supr', 'Ctrl + Mayús + Esc', 'Alt + F4', 'Windows + L'],
+    correcta: 1,
+    explicacion: 'Ctrl + Alt + Supr muestra un menú intermedio, Alt + F4 cierra la ventana y Windows + L bloquea la sesión.',
+  },
+  {
+    enunciado: '¿Qué hace el Control de cuentas de usuario (UAC) de Windows?',
+    opciones: [
+      'Crea usuarios automáticamente',
+      'Pide confirmación antes de que un programa realice cambios con privilegios de administrador',
+      'Bloquea las páginas web peligrosas',
+      'Hace copias de seguridad de los usuarios',
+    ],
+    correcta: 1,
+    explicacion: 'Aunque uses una cuenta de administrador, los programas se ejecutan con permisos limitados hasta que confirmas la elevación.',
+  },
+  {
+    enunciado: '¿Qué tipo de cuenta se recomienda para el uso diario de un equipo?',
+    opciones: ['Administrador', 'Estándar', 'Invitado con todos los permisos', 'La cuenta del sistema (SYSTEM)'],
+    correcta: 1,
+    explicacion: 'Con una cuenta estándar, si se ejecuta malware tiene menos capacidad de dañar el sistema.',
+  },
+  {
+    enunciado: '¿Qué extensión tienen habitualmente los programas ejecutables en Windows?',
+    opciones: ['.txt', '.exe', '.sh', '.deb'],
+    correcta: 1,
+    explicacion: '`.sh` son scripts de shell y `.deb` paquetes de Debian/Ubuntu.',
+  },
+  {
+    enunciado: '¿Para qué sirve un controlador (driver)?',
+    opciones: [
+      'Para proteger contra virus',
+      'Para que el sistema operativo pueda comunicarse con un dispositivo hardware',
+      'Para acelerar Internet',
+      'Para crear particiones',
+    ],
+    correcta: 1,
+    explicacion: 'Sin el controlador adecuado el dispositivo no funciona o lo hace con funciones limitadas.',
+  },
+];

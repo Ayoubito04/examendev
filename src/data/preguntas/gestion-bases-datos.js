@@ -1,0 +1,143 @@
+export default [
+  {
+    enunciado: '¿Qué es un SGBD?',
+    opciones: [
+      'Un lenguaje de programación',
+      'El software que permite crear, gestionar y acceder a bases de datos',
+      'Un tipo de tabla',
+      'Un fichero de copia de seguridad',
+    ],
+    correcta: 1,
+    explicacion: 'Un Sistema Gestor de Bases de Datos, como MySQL, PostgreSQL u Oracle, controla el almacenamiento, el acceso concurrente, la seguridad y la integridad.',
+  },
+  {
+    enunciado: '¿Qué tres niveles define la arquitectura ANSI/SPARC?',
+    opciones: [
+      'Físico, lógico y de red',
+      'Externo, conceptual e interno',
+      'Cliente, servidor y base de datos',
+      'Usuario, grupo y sistema',
+    ],
+    correcta: 1,
+    explicacion: 'Separar las vistas de usuario, el esquema lógico y el almacenamiento físico aporta independencia de datos.',
+  },
+  {
+    enunciado: 'En el modelo E/R, ¿qué es una entidad débil?',
+    opciones: [
+      'Una entidad sin atributos',
+      'Una entidad que depende de otra para existir o identificarse',
+      'Una entidad con pocos registros',
+      'Una entidad sin relaciones',
+    ],
+    correcta: 1,
+    explicacion: 'Por ejemplo, las líneas de un pedido: no tienen sentido sin el pedido y su clave incluye la del pedido.',
+  },
+  {
+    enunciado: 'Al pasar una relación 1:N al modelo relacional, ¿dónde se coloca la clave foránea?',
+    opciones: [
+      'En la tabla del lado 1',
+      'En la tabla del lado N',
+      'En una tabla nueva siempre',
+      'En ambas tablas',
+    ],
+    correcta: 1,
+    explicacion: 'Cada fila del lado N apunta a una sola del lado 1. Por ejemplo, cada empleado guarda el código de su departamento.',
+  },
+  {
+    enunciado: '¿Qué elimina la segunda forma normal (2FN)?',
+    opciones: [
+      'Los grupos repetitivos',
+      'Las dependencias parciales de una clave compuesta',
+      'Las dependencias transitivas',
+      'Los valores nulos',
+    ],
+    correcta: 1,
+    explicacion: 'En 2FN todo atributo no clave depende de la clave completa, no solo de una parte.',
+  },
+  {
+    enunciado: '¿Qué elimina la tercera forma normal (3FN)?',
+    opciones: [
+      'Las claves compuestas',
+      'Las dependencias transitivas entre atributos no clave',
+      'Las claves foráneas',
+      'Las tablas pequeñas',
+    ],
+    correcta: 1,
+    explicacion: 'Si A → B y B → C, siendo B no clave, C debe pasar a otra tabla.',
+  },
+  {
+    enunciado: '¿Qué garantiza la regla de integridad de entidad?',
+    opciones: [
+      'Que las claves foráneas existan en la tabla referenciada',
+      'Que la clave primaria no tenga valores nulos',
+      'Que no haya columnas de texto',
+      'Que las tablas estén normalizadas',
+    ],
+    correcta: 1,
+    explicacion: 'Cada fila debe poder identificarse. Lo de las claves foráneas es la integridad referencial.',
+  },
+  {
+    enunciado: '¿Qué sentencia añade una columna a una tabla existente?',
+    opciones: ['UPDATE TABLE … ADD', 'ALTER TABLE … ADD', 'INSERT COLUMN …', 'MODIFY TABLE …'],
+    correcta: 1,
+    explicacion: '`ALTER TABLE` modifica la estructura: añadir, eliminar o modificar columnas y restricciones.',
+  },
+  {
+    enunciado: '¿Qué restricción impide valores repetidos en una columna que no es clave primaria?',
+    opciones: ['NOT NULL', 'UNIQUE', 'DEFAULT', 'CHECK'],
+    correcta: 1,
+    explicacion: '`UNIQUE` exige valores distintos (como un email o un DNI) y, a diferencia de la clave primaria, puede admitir nulos.',
+  },
+  {
+    enunciado: '¿Qué restricción comprueba que el valor de una columna cumple una condición, como `precio > 0`?',
+    opciones: ['UNIQUE', 'CHECK', 'FOREIGN KEY', 'INDEX'],
+    correcta: 1,
+    explicacion: '`CHECK` rechaza cualquier inserción o actualización que no cumpla la condición.',
+  },
+  {
+    enunciado: 'En MySQL, ¿qué atributo genera automáticamente valores consecutivos para la clave?',
+    opciones: ['SERIAL KEY', 'AUTO_INCREMENT', 'IDENTITY ON', 'SEQUENCE'],
+    correcta: 1,
+    explicacion: '`AUTO_INCREMENT` asigna el siguiente número al insertar. Otros SGBD usan `IDENTITY` o secuencias.',
+  },
+  {
+    enunciado: '¿Qué devuelve un `LEFT JOIN`?',
+    opciones: [
+      'Solo las filas con coincidencia en ambas tablas',
+      'Todas las filas de la tabla izquierda, con NULL donde no hay coincidencia a la derecha',
+      'Todas las filas de la tabla derecha',
+      'El producto cartesiano',
+    ],
+    correcta: 1,
+    explicacion: 'Sirve, por ejemplo, para listar todos los clientes, tengan pedidos o no.',
+  },
+  {
+    enunciado: '¿Qué palabra clave elimina las filas duplicadas del resultado de un SELECT?',
+    opciones: ['UNIQUE', 'DISTINCT', 'GROUP', 'DIFFERENT'],
+    correcta: 1,
+    explicacion: '`SELECT DISTINCT ciudad FROM clientes` devuelve cada ciudad una sola vez.',
+  },
+  {
+    enunciado: '¿Qué función de agregado calcula la media de una columna?',
+    opciones: ['MEAN()', 'AVG()', 'MEDIAN()', 'SUM()'],
+    correcta: 1,
+    explicacion: '`AVG()` devuelve la media aritmética e ignora los valores NULL.',
+  },
+  {
+    enunciado: '¿Qué hace `WHERE id IN (SELECT cliente_id FROM pedidos)`?',
+    opciones: [
+      'Filtra las filas cuyo id aparece en el resultado de la subconsulta',
+      'Inserta los pedidos en la tabla',
+      'Une las dos tablas por todas sus columnas',
+      'Da error: no se permiten subconsultas en WHERE',
+    ],
+    correcta: 0,
+    explicacion: 'La subconsulta devuelve una lista de valores e `IN` comprueba la pertenencia a esa lista.',
+  },
+  {
+    enunciado: '¿Qué tipo de dato es el adecuado para guardar un importe con céntimos exactos?',
+    opciones: ['FLOAT', 'DECIMAL(10,2)', 'VARCHAR(10)', 'INT'],
+    correcta: 1,
+    explicacion: '`DECIMAL` almacena valores exactos. `FLOAT` es de coma flotante y puede introducir errores de redondeo con dinero.',
+  },
+];

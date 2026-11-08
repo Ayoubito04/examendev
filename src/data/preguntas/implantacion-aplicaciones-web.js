@@ -1,0 +1,153 @@
+export default [
+  {
+    enunciado: '¿Qué componentes forman la pila LAMP?',
+    opciones: [
+      'Linux, Apache, MySQL/MariaDB y PHP',
+      'Linux, Angular, MongoDB y Python',
+      'Lighttpd, Apache, MySQL y Perl',
+      'Linux, Ansible, Maven y PHP',
+    ],
+    correcta: 0,
+    explicacion: 'Es la base de muchos CMS como WordPress o Moodle. Si se usa Nginx en lugar de Apache se habla de LEMP.',
+  },
+  {
+    enunciado: '¿Qué es un CMS?',
+    opciones: [
+      'Un lenguaje de estilos',
+      'Un sistema gestor de contenidos para crear y administrar sitios web sin programar',
+      'Un servidor de correo',
+      'Un tipo de base de datos',
+    ],
+    correcta: 1,
+    explicacion: 'WordPress, Joomla y Drupal son CMS: separan el contenido de la presentación y se gestionan desde un panel web.',
+  },
+  {
+    enunciado: '¿Qué es Moodle?',
+    opciones: ['Un CMS de comercio electrónico', 'Un sistema de gestión del aprendizaje (LMS)', 'Un servidor web', 'Un framework de JavaScript'],
+    correcta: 1,
+    explicacion: 'Moodle gestiona cursos, actividades, calificaciones y usuarios; muchos centros de FP lo usan como aula virtual.',
+  },
+  {
+    enunciado: '¿Qué fichero de WordPress guarda los datos de conexión a la base de datos?',
+    opciones: ['index.php', 'wp-config.php', '.htaccess', 'functions.php'],
+    correcta: 1,
+    explicacion: 'Contiene nombre de la base de datos, usuario, contraseña, host y prefijo de tablas. Conviene protegerlo con permisos restrictivos.',
+  },
+  {
+    enunciado: '¿Con qué etiqueta empieza un bloque de código PHP?',
+    opciones: ['<php>', '<?php', '<script php>', '{% php %}'],
+    correcta: 1,
+    explicacion: 'Todo lo que hay entre `<?php` y `?>` lo interpreta PHP en el servidor; el navegador solo recibe el resultado.',
+  },
+  {
+    enunciado: '¿Qué fichero contiene la configuración del intérprete de PHP?',
+    opciones: ['php.conf', 'php.ini', 'httpd.conf', 'config.php'],
+    correcta: 1,
+    explicacion: 'En él se ajustan, por ejemplo, `upload_max_filesize`, `memory_limit` o `display_errors`.',
+  },
+  {
+    enunciado: '¿Para qué sirve phpMyAdmin?',
+    opciones: [
+      'Para programar en PHP',
+      'Para administrar bases de datos MySQL/MariaDB desde el navegador',
+      'Para configurar Apache',
+      'Para instalar WordPress',
+    ],
+    correcta: 1,
+    explicacion: 'Permite crear bases de datos, usuarios, tablas, ejecutar SQL e importar o exportar copias desde una interfaz web.',
+  },
+  {
+    enunciado: '¿Qué comando genera una copia de seguridad lógica de una base de datos MySQL?',
+    opciones: ['mysqlbackup --all', 'mysqldump', 'mysqlcopy', 'cp /var/lib/mysql'],
+    correcta: 1,
+    explicacion: 'Por ejemplo `mysqldump -u root -p wordpress > wordpress.sql` genera las sentencias SQL para recrear la base de datos.',
+  },
+  {
+    enunciado: '¿Qué hay que copiar para tener una copia completa de un sitio WordPress?',
+    opciones: [
+      'Solo la base de datos',
+      'Solo la carpeta wp-content',
+      'Los ficheros del sitio y la base de datos',
+      'Solo wp-config.php',
+    ],
+    correcta: 2,
+    explicacion: 'Los ficheros incluyen temas, plugins y archivos subidos; la base de datos incluye entradas, usuarios y ajustes.',
+  },
+  {
+    enunciado: '¿Qué diferencia hay entre enviar un formulario por GET y por POST?',
+    opciones: [
+      'GET envía los datos en la URL; POST en el cuerpo de la petición',
+      'POST es siempre más rápido',
+      'GET cifra los datos',
+      'No hay diferencia',
+    ],
+    correcta: 0,
+    explicacion: 'Con GET los datos quedan en el historial y en los logs, así que no debe usarse para contraseñas ni datos sensibles.',
+  },
+  {
+    enunciado: '¿Qué permisos se recomiendan en Linux para los directorios y ficheros de un sitio web?',
+    opciones: [
+      '777 para todo',
+      '755 para directorios y 644 para ficheros',
+      '700 para todo',
+      '666 para directorios y 777 para ficheros',
+    ],
+    correcta: 1,
+    explicacion: '777 permitiría a cualquiera modificar el sitio. Con 755 y 644 solo el propietario escribe.',
+  },
+  {
+    enunciado: 'En un CMS, ¿qué es un plugin?',
+    opciones: [
+      'Una copia de seguridad',
+      'Un complemento que añade funcionalidades',
+      'Un tipo de usuario',
+      'Una plantilla de diseño',
+    ],
+    correcta: 1,
+    explicacion: 'Por ejemplo, formularios de contacto, SEO o una tienda. Cambiar el aspecto del sitio es cosa de los temas.',
+  },
+  {
+    enunciado: '¿Qué es el OWASP Top 10?',
+    opciones: [
+      'Un ranking de los CMS más usados',
+      'Una lista de los riesgos de seguridad más críticos en aplicaciones web',
+      'Un conjunto de plugins de WordPress',
+      'Una certificación de hosting',
+    ],
+    correcta: 1,
+    explicacion: 'Recoge problemas como la inyección, el control de acceso roto o la mala configuración de seguridad.',
+  },
+  {
+    enunciado: '¿Qué medida protege un CMS frente a vulnerabilidades conocidas?',
+    opciones: [
+      'Desactivar los registros',
+      'Mantener actualizados el núcleo, los temas y los plugins',
+      'Usar el usuario admin con contraseña corta',
+      'Dar permisos 777',
+    ],
+    correcta: 1,
+    explicacion: 'La mayoría de los ataques automatizados aprovechan fallos ya corregidos en versiones más nuevas.',
+  },
+  {
+    enunciado: '¿Qué es XAMPP?',
+    opciones: [
+      'Un CMS',
+      'Un paquete que instala Apache, MariaDB, PHP y Perl para trabajar en local',
+      'Un sistema operativo',
+      'Un servidor de correo',
+    ],
+    correcta: 1,
+    explicacion: 'Está pensado para desarrollo y pruebas en el propio equipo, no para producción.',
+  },
+  {
+    enunciado: '¿Por qué conviene crear un usuario de base de datos específico para cada aplicación web?',
+    opciones: [
+      'Porque root no puede conectarse desde PHP',
+      'Para aplicar el mínimo privilegio y limitar el daño si la aplicación se ve comprometida',
+      'Para que la web cargue más rápido',
+      'Porque MySQL solo admite una conexión por usuario',
+    ],
+    correcta: 1,
+    explicacion: 'Ese usuario solo debe tener permisos sobre la base de datos de su aplicación.',
+  },
+];

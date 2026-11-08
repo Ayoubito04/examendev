@@ -1,0 +1,123 @@
+export default [
+  {
+    enunciado: '¿Cómo se llama el servicio de directorio de Microsoft para gestionar usuarios y equipos de un dominio?',
+    opciones: ['Active Directory', 'OpenLDAP', 'Samba', 'Azure DevOps'],
+    correcta: 0,
+    explicacion: 'Active Directory Domain Services (AD DS) centraliza cuentas, equipos, grupos y directivas del dominio.',
+  },
+  {
+    enunciado: '¿Qué protocolo se usa para consultar y modificar servicios de directorio?',
+    opciones: ['SMTP', 'LDAP', 'SNMP', 'NTP'],
+    correcta: 1,
+    explicacion: 'LDAP (puerto 389, o 636 con LDAPS) lo usan tanto Active Directory como OpenLDAP.',
+  },
+  {
+    enunciado: '¿Qué es un controlador de dominio?',
+    opciones: [
+      'Un switch gestionable',
+      'Un servidor que ejecuta el servicio de directorio y autentica a los usuarios del dominio',
+      'Un programa antivirus',
+      'Un equipo cliente del dominio',
+    ],
+    correcta: 1,
+    explicacion: 'Guarda una copia de la base de datos de AD y valida inicios de sesión. Se recomienda tener al menos dos por redundancia.',
+  },
+  {
+    enunciado: 'En Active Directory, ¿para qué se usan las unidades organizativas (OU)?',
+    opciones: [
+      'Para dar permisos NTFS',
+      'Para organizar objetos y aplicarles directivas de grupo o delegar su administración',
+      'Para crear dominios nuevos',
+      'Para guardar copias de seguridad',
+    ],
+    correcta: 1,
+    explicacion: 'Las OU son contenedores dentro del dominio a los que se vinculan GPO y sobre los que se delega la administración.',
+  },
+  {
+    enunciado: '¿Qué permiten las directivas de grupo (GPO)?',
+    opciones: [
+      'Agrupar discos en RAID',
+      'Configurar de forma centralizada los equipos y usuarios del dominio',
+      'Crear grupos de WhatsApp',
+      'Monitorizar el tráfico de red',
+    ],
+    correcta: 1,
+    explicacion: 'Por ejemplo, fondos de escritorio, políticas de contraseñas, instalación de software o mapeo de unidades.',
+  },
+  {
+    enunciado: 'En Active Directory, ¿qué es un bosque?',
+    opciones: [
+      'Un grupo de usuarios',
+      'Uno o varios árboles de dominios que comparten esquema y catálogo global',
+      'Una unidad organizativa grande',
+      'Un servidor de ficheros',
+    ],
+    correcta: 1,
+    explicacion: 'El bosque es el límite de seguridad superior de AD. Dentro hay árboles de dominios con relaciones de confianza.',
+  },
+  {
+    enunciado: '¿Qué cmdlet de PowerShell obtiene información de usuarios de Active Directory?',
+    opciones: ['Get-LocalUser', 'Get-ADUser', 'Show-User', 'net user /ad'],
+    correcta: 1,
+    explicacion: '`Get-ADUser` pertenece al módulo ActiveDirectory. `Get-LocalUser` solo consulta cuentas locales del equipo.',
+  },
+  {
+    enunciado: '¿Qué debe aparecer en la primera línea de un script de Bash para indicar su intérprete?',
+    opciones: ['#!/bin/bash', '// bash', '<?bash ?>', '@echo bash'],
+    correcta: 0,
+    explicacion: 'Es el shebang: indica al sistema qué intérprete debe ejecutar el fichero.',
+  },
+  {
+    enunciado: 'En un script de Bash, ¿qué contiene la variable `$#`?',
+    opciones: ['El primer argumento', 'El número de argumentos recibidos', 'El PID del script', 'El código de salida del último comando'],
+    correcta: 1,
+    explicacion: '`$1` es el primer argumento, `$$` el PID y `$?` el código de salida del último comando.',
+  },
+  {
+    enunciado: '¿Cuándo se ejecuta la línea de crontab `0 2 * * * /root/backup.sh`?',
+    opciones: ['Cada 2 minutos', 'Todos los días a las 2:00', 'El día 2 de cada mes', 'Cada 2 horas'],
+    correcta: 1,
+    explicacion: 'Los campos son minuto, hora, día del mes, mes y día de la semana: minuto 0 de la hora 2, todos los días.',
+  },
+  {
+    enunciado: 'Con systemd, ¿qué comando hace que un servicio se inicie automáticamente al arrancar?',
+    opciones: ['systemctl start servicio', 'systemctl enable servicio', 'service servicio on', 'systemctl reload servicio'],
+    correcta: 1,
+    explicacion: '`enable` lo activa en el arranque y `start` lo arranca ahora. Se pueden combinar con `enable --now`.',
+  },
+  {
+    enunciado: '¿Qué comando consulta los registros de systemd?',
+    opciones: ['dmesg -s', 'journalctl', 'logread', 'syslog'],
+    correcta: 1,
+    explicacion: 'Por ejemplo `journalctl -u ssh` muestra los registros del servicio ssh y `-f` los sigue en tiempo real.',
+  },
+  {
+    enunciado: '¿Qué software permite a un servidor Linux compartir carpetas e impresoras con equipos Windows?',
+    opciones: ['NFS', 'Samba', 'Apache', 'Postfix'],
+    correcta: 1,
+    explicacion: 'Samba implementa SMB/CIFS e incluso puede actuar como controlador de dominio compatible con Active Directory.',
+  },
+  {
+    enunciado: '¿Para qué sirven las cuotas de disco?',
+    opciones: [
+      'Para acelerar el disco',
+      'Para limitar el espacio que puede ocupar cada usuario o grupo',
+      'Para cifrar el disco',
+      'Para hacer copias automáticas',
+    ],
+    correcta: 1,
+    explicacion: 'Se definen un límite blando, que avisa, y uno duro, que impide seguir escribiendo.',
+  },
+  {
+    enunciado: '¿Qué comando de Linux muestra el espacio usado y libre de cada sistema de ficheros?',
+    opciones: ['du -h', 'df -h', 'free -h', 'lsblk -f'],
+    correcta: 1,
+    explicacion: '`df` informa por sistema de ficheros montado. `du` calcula lo que ocupa un directorio y `free` muestra la memoria.',
+  },
+  {
+    enunciado: '¿Qué tipo de grupo de Active Directory se usa para asignar permisos sobre recursos?',
+    opciones: ['Grupo de distribución', 'Grupo de seguridad', 'Unidad organizativa', 'Bosque'],
+    correcta: 1,
+    explicacion: 'Los grupos de seguridad tienen identificador de seguridad (SID) y se usan en permisos. Los de distribución solo sirven para listas de correo.',
+  },
+];

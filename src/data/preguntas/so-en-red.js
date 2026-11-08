@@ -1,0 +1,128 @@
+export default [
+  {
+    enunciado: '¿Qué diferencia un dominio de un grupo de trabajo en Windows?',
+    opciones: [
+      'El grupo de trabajo tiene administración centralizada',
+      'En el dominio, un servidor centraliza cuentas y seguridad; en el grupo de trabajo cada equipo gestiona las suyas',
+      'No hay diferencia',
+      'El dominio solo admite 10 equipos',
+    ],
+    correcta: 1,
+    explicacion: 'En un dominio, un usuario puede iniciar sesión en cualquier equipo con la misma cuenta. En un grupo de trabajo hay que crearla en cada equipo.',
+  },
+  {
+    enunciado: '¿Qué es imprescindible para unir un equipo Windows a un dominio de Active Directory?',
+    opciones: [
+      'Que tenga la misma contraseña que el servidor',
+      'Que pueda resolver el dominio a través del DNS del controlador de dominio',
+      'Que esté conectado por Wi-Fi',
+      'Que tenga una IP pública',
+    ],
+    correcta: 1,
+    explicacion: 'Active Directory localiza sus servicios mediante DNS. Si el cliente usa otro DNS, la unión al dominio falla.',
+  },
+  {
+    enunciado: 'Si una carpeta compartida tiene permisos de recurso compartido y permisos NTFS distintos, ¿cuál se aplica al acceder por red?',
+    opciones: ['El más permisivo', 'El más restrictivo de los dos', 'Siempre el de recurso compartido', 'Siempre el NTFS'],
+    correcta: 1,
+    explicacion: 'Se combinan y prevalece el más restrictivo. Por eso es habitual dar Control total en el recurso compartido y afinar con NTFS.',
+  },
+  {
+    enunciado: '¿Qué es un perfil móvil en un dominio Windows?',
+    opciones: [
+      'Un perfil para teléfonos móviles',
+      'Un perfil que se guarda en el servidor y acompaña al usuario en cualquier equipo del dominio',
+      'Un usuario sin contraseña',
+      'Un perfil temporal que se borra al cerrar sesión',
+    ],
+    correcta: 1,
+    explicacion: 'El escritorio, los documentos y la configuración se sincronizan con el servidor al iniciar y cerrar sesión.',
+  },
+  {
+    enunciado: '¿Qué comando de Windows conecta una carpeta compartida como unidad de red?',
+    opciones: ['net share', 'net use', 'mount', 'map drive'],
+    correcta: 1,
+    explicacion: 'Por ejemplo `net use Z: \\\\servidor\\datos`. `net share` crea o lista recursos compartidos en el propio equipo.',
+  },
+  {
+    enunciado: '¿Qué comando de Linux añade un usuario existente a un grupo secundario sin quitarlo de los demás?',
+    opciones: ['usermod -G grupo usuario', 'usermod -aG grupo usuario', 'groupadd usuario grupo', 'chgrp usuario grupo'],
+    correcta: 1,
+    explicacion: 'Sin la `-a` (append), `-G` sustituye la lista de grupos secundarios y el usuario sale de los demás.',
+  },
+  {
+    enunciado: '¿Qué fichero de Linux contiene la lista de cuentas de usuario?',
+    opciones: ['/etc/passwd', '/etc/users', '/home/users', '/var/accounts'],
+    correcta: 0,
+    explicacion: 'Cada línea tiene nombre, UID, GID, directorio personal y shell. Las contraseñas cifradas están en `/etc/shadow`.',
+  },
+  {
+    enunciado: '¿Qué comando cambia el propietario de un fichero en Linux?',
+    opciones: ['chmod', 'chown', 'passwd', 'su'],
+    correcta: 1,
+    explicacion: '`chown ana:ventas informe.txt` cambia propietario y grupo. `chmod` cambia los permisos.',
+  },
+  {
+    enunciado: '¿Qué protocolo se usa típicamente para compartir directorios entre sistemas Linux?',
+    opciones: ['NFS', 'RDP', 'SMTP', 'DHCP'],
+    correcta: 0,
+    explicacion: 'NFS exporta directorios que los clientes montan como si fueran locales. Para compartir con Windows se suele usar Samba.',
+  },
+  {
+    enunciado: '¿Qué software permite a Linux compartir carpetas con equipos Windows?',
+    opciones: ['Samba', 'Apache', 'Bind', 'Cron'],
+    correcta: 0,
+    explicacion: 'Samba implementa el protocolo SMB/CIFS que usa Windows para compartir ficheros e impresoras.',
+  },
+  {
+    enunciado: '¿Qué protocolo usa el Escritorio remoto de Windows y en qué puerto?',
+    opciones: ['VNC, 5900', 'RDP, 3389', 'SSH, 22', 'Telnet, 23'],
+    correcta: 1,
+    explicacion: 'RDP usa el 3389 por defecto. No debe exponerse directamente a Internet; lo seguro es acceder a través de VPN.',
+  },
+  {
+    enunciado: '¿Qué protocolo seguro se usa para administrar remotamente un servidor Linux desde la terminal?',
+    opciones: ['Telnet', 'SSH', 'FTP', 'HTTP'],
+    correcta: 1,
+    explicacion: 'SSH cifra toda la sesión, incluida la contraseña. Telnet envía todo en texto plano.',
+  },
+  {
+    enunciado: 'En Windows Server, ¿qué son los roles?',
+    opciones: [
+      'Tipos de usuario',
+      'Funciones principales que puede desempeñar el servidor, como DNS, DHCP o servidor de archivos',
+      'Grupos de seguridad',
+      'Versiones del sistema',
+    ],
+    correcta: 1,
+    explicacion: 'Se instalan desde el Administrador del servidor. Las características (features) son complementos más pequeños.',
+  },
+  {
+    enunciado: '¿Qué permiten las cuotas de disco en un servidor de archivos?',
+    opciones: [
+      'Comprimir los archivos',
+      'Limitar el espacio que puede ocupar cada usuario',
+      'Cifrar las carpetas',
+      'Duplicar los datos',
+    ],
+    correcta: 1,
+    explicacion: 'Evitan que un usuario llene el disco compartido y afecte a los demás.',
+  },
+  {
+    enunciado: '¿Qué ventaja tiene asignar permisos a grupos en lugar de a usuarios individuales?',
+    opciones: [
+      'Ninguna, es igual',
+      'Simplifica la administración: basta con añadir o quitar usuarios del grupo',
+      'Los grupos no necesitan contraseña',
+      'Los permisos de grupo son siempre de solo lectura',
+    ],
+    correcta: 1,
+    explicacion: 'Cuando alguien cambia de departamento solo se cambian sus grupos, sin revisar permisos carpeta a carpeta.',
+  },
+  {
+    enunciado: '¿Qué cuenta predefinida de Windows tiene control total sobre el equipo?',
+    opciones: ['Invitado', 'Administrador', 'Usuario estándar', 'DefaultAccount'],
+    correcta: 1,
+    explicacion: 'Es buena práctica renombrarla o desactivarla y usar cuentas de administrador nominales.',
+  },
+];

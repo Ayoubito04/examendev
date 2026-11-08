@@ -1,0 +1,148 @@
+export default [
+  {
+    enunciado: '¿Qué es la memoria caché del procesador?',
+    opciones: [
+      'Una memoria lenta de gran capacidad',
+      'Una memoria muy rápida y pequeña entre la CPU y la RAM',
+      'El espacio de intercambio en disco',
+      'Una memoria no volátil para la BIOS',
+    ],
+    correcta: 1,
+    explicacion: 'Guarda los datos e instrucciones más usados para que la CPU no espere a la RAM. Suele organizarse en niveles L1, L2 y L3.',
+  },
+  {
+    enunciado: '¿Qué interfaz ofrece mayor velocidad a una unidad SSD?',
+    opciones: ['SATA III', 'IDE', 'NVMe sobre PCIe', 'USB 2.0'],
+    correcta: 2,
+    explicacion: 'NVMe usa carriles PCIe directamente y multiplica la velocidad de SATA III, que se queda en unos 600 MB/s.',
+  },
+  {
+    enunciado: '¿Qué ranura usan las tarjetas gráficas actuales?',
+    opciones: ['AGP', 'PCI', 'PCIe x16', 'ISA'],
+    correcta: 2,
+    explicacion: 'PCI Express x16 ofrece el mayor ancho de banda de la placa. AGP, PCI e ISA son estándares antiguos.',
+  },
+  {
+    enunciado: '¿Cuál es el factor de forma de placa base más común en equipos de sobremesa?',
+    opciones: ['ATX', 'BTX', 'AT', 'Pico-ITX'],
+    correcta: 0,
+    explicacion: 'ATX es el estándar, con variantes más pequeñas como micro-ATX y mini-ITX.',
+  },
+  {
+    enunciado: '¿Qué función cumple la fuente de alimentación?',
+    opciones: [
+      'Almacenar energía ante cortes',
+      'Convertir la corriente alterna de la red en corriente continua a varias tensiones',
+      'Refrigerar el equipo',
+      'Regular la velocidad de la CPU',
+    ],
+    correcta: 1,
+    explicacion: 'Entrega +12 V, +5 V y +3,3 V en continua. Almacenar energía ante cortes es tarea del SAI.',
+  },
+  {
+    enunciado: '¿Para qué sirve un SAI (UPS)?',
+    opciones: [
+      'Para aumentar el rendimiento',
+      'Para mantener la alimentación durante un corte y proteger frente a picos',
+      'Para hacer copias de seguridad',
+      'Para conectar varios monitores',
+    ],
+    correcta: 1,
+    explicacion: 'Su batería da tiempo a apagar el equipo de forma ordenada. Los de tipo online además filtran continuamente la tensión.',
+  },
+  {
+    enunciado: '¿Qué es el POST?',
+    opciones: [
+      'Un método de envío de formularios',
+      'La rutina de autodiagnóstico del hardware al encender',
+      'Un tipo de memoria',
+      'El gestor de arranque de Linux',
+    ],
+    correcta: 1,
+    explicacion: 'Power-On Self Test comprueba memoria, CPU y dispositivos básicos antes de cargar el sistema; los errores se indican con pitidos o códigos.',
+  },
+  {
+    enunciado: '¿Cuántos discos necesita como mínimo un RAID 5?',
+    opciones: ['2', '3', '4', '5'],
+    correcta: 1,
+    explicacion: 'RAID 5 reparte datos y paridad entre al menos 3 discos y soporta el fallo de uno.',
+  },
+  {
+    enunciado: '¿Qué caracteriza a un RAID 0?',
+    opciones: [
+      'Duplica los datos en dos discos',
+      'Reparte los datos entre discos para ganar rendimiento, sin redundancia',
+      'Usa paridad distribuida',
+      'Necesita un mínimo de 4 discos',
+    ],
+    correcta: 1,
+    explicacion: 'Divide los datos en bandas (striping). Si falla cualquier disco se pierde todo el volumen.',
+  },
+  {
+    enunciado: '¿Cuántos bytes tiene 1 KiB (kibibyte)?',
+    opciones: ['1000', '1024', '1048', '8192'],
+    correcta: 1,
+    explicacion: 'Los prefijos binarios (KiB, MiB, GiB) usan potencias de 2: 1 KiB = 2¹⁰ = 1024 bytes. El kB del SI son 1000.',
+  },
+  {
+    enunciado: '¿Qué guarda una copia de seguridad incremental?',
+    opciones: [
+      'Todos los datos cada vez',
+      'Los cambios desde la última copia de cualquier tipo',
+      'Los cambios desde la última copia completa',
+      'Solo los ficheros del sistema',
+    ],
+    correcta: 1,
+    explicacion: 'Es la más rápida de hacer, pero para restaurar hace falta la completa y todas las incrementales posteriores. La diferencial guarda los cambios desde la última completa.',
+  },
+  {
+    enunciado: '¿Para qué se usa la pulsera antiestática?',
+    opciones: [
+      'Para medir el voltaje',
+      'Para descargar la electricidad estática y no dañar los componentes',
+      'Para sujetar los cables',
+      'Para medir la temperatura',
+    ],
+    correcta: 1,
+    explicacion: 'Una descarga electrostática (ESD) puede dañar chips sin que se note. La pulsera iguala el potencial con el chasis o con tierra.',
+  },
+  {
+    enunciado: '¿Para qué se aplica pasta térmica entre el procesador y el disipador?',
+    opciones: [
+      'Para pegar el disipador',
+      'Para mejorar la transferencia de calor rellenando las microimperfecciones',
+      'Para aislar eléctricamente',
+      'Para reducir el ruido',
+    ],
+    correcta: 1,
+    explicacion: 'El aire conduce mal el calor; la pasta rellena los huecos microscópicos entre ambas superficies.',
+  },
+  {
+    enunciado: '¿Qué componente de la placa base coordina la comunicación entre la CPU, la memoria y los periféricos?',
+    opciones: ['El chipset', 'La pila CMOS', 'El zócalo', 'El conector ATX'],
+    correcta: 0,
+    explicacion: 'El chipset gestiona buses, puertos y controladoras, y determina qué procesadores y memorias admite la placa.',
+  },
+  {
+    enunciado: '¿Qué es un benchmark?',
+    opciones: [
+      'Un tipo de disco duro',
+      'Una prueba que mide el rendimiento de un componente o sistema',
+      'Una herramienta de copia de seguridad',
+      'Un controlador de dispositivo',
+    ],
+    correcta: 1,
+    explicacion: 'Permite comparar componentes o comprobar que un equipo rinde lo esperado tras un montaje o una ampliación.',
+  },
+  {
+    enunciado: '¿Qué significan las siglas RAEE?',
+    opciones: [
+      'Red de Acceso a Equipos Electrónicos',
+      'Residuos de Aparatos Eléctricos y Electrónicos',
+      'Registro de Averías de Equipos Empresariales',
+      'Reglamento de Alimentación Eléctrica de Equipos',
+    ],
+    correcta: 1,
+    explicacion: 'Los equipos informáticos al final de su vida útil son RAEE y deben entregarse a un gestor autorizado para su reciclaje.',
+  },
+];

@@ -1,0 +1,118 @@
+export default [
+  {
+    enunciado: '¿Cuántas capas tiene el modelo OSI?',
+    opciones: ['4', '5', '7', '9'],
+    correcta: 2,
+    explicacion: 'Física, enlace, red, transporte, sesión, presentación y aplicación. El modelo TCP/IP las agrupa en 4.',
+  },
+  {
+    enunciado: '¿En qué capa OSI trabaja un router?',
+    opciones: ['Física', 'Enlace de datos', 'Red', 'Transporte'],
+    correcta: 2,
+    explicacion: 'El router decide rutas según la dirección IP, que es de capa 3 (red).',
+  },
+  {
+    enunciado: '¿Qué dirección utiliza un switch para reenviar las tramas?',
+    opciones: ['La dirección IP', 'La dirección MAC', 'El número de puerto TCP', 'El nombre de host'],
+    correcta: 1,
+    explicacion: 'El switch es de capa 2: aprende qué MAC hay en cada puerto y envía la trama solo por el puerto destino.',
+  },
+  {
+    enunciado: '¿Qué longitud tiene una dirección MAC?',
+    opciones: ['32 bits', '48 bits', '64 bits', '128 bits'],
+    correcta: 1,
+    explicacion: 'Son 48 bits, escritos como 6 pares hexadecimales. Los 24 primeros identifican al fabricante (OUI).',
+  },
+  {
+    enunciado: '¿Qué longitud tiene una dirección IPv6?',
+    opciones: ['32 bits', '64 bits', '128 bits', '256 bits'],
+    correcta: 2,
+    explicacion: 'IPv6 usa 128 bits, escritos en 8 grupos de 4 dígitos hexadecimales.',
+  },
+  {
+    enunciado: '¿Cuántos hosts utilizables tiene una subred /26?',
+    opciones: ['30', '62', '64', '126'],
+    correcta: 1,
+    explicacion: 'Quedan 6 bits de host: 2⁶ = 64 direcciones, menos la de red y la de broadcast, 62.',
+  },
+  {
+    enunciado: '¿Qué permite una VLAN?',
+    opciones: [
+      'Aumentar la velocidad del cable',
+      'Dividir lógicamente una red física en varios dominios de broadcast',
+      'Conectar redes a Internet sin router',
+      'Cifrar el tráfico de la red',
+    ],
+    correcta: 1,
+    explicacion: 'Los equipos de VLAN distintas no se ven en capa 2 aunque compartan switch; para comunicarlos hace falta enrutamiento.',
+  },
+  {
+    enunciado: '¿Qué estándar define el etiquetado de tramas en enlaces troncales de VLAN?',
+    opciones: ['IEEE 802.3', 'IEEE 802.1Q', 'IEEE 802.11', 'IEEE 802.1X'],
+    correcta: 1,
+    explicacion: '802.1Q añade una etiqueta con el identificador de VLAN. 802.3 es Ethernet, 802.11 Wi-Fi y 802.1X autenticación de puerto.',
+  },
+  {
+    enunciado: '¿Qué protocolo evita los bucles en una red conmutada con enlaces redundantes?',
+    opciones: ['RIP', 'STP', 'ARP', 'DHCP'],
+    correcta: 1,
+    explicacion: 'Spanning Tree bloquea los enlaces redundantes y los reactiva si cae el enlace principal.',
+  },
+  {
+    enunciado: '¿Qué hace el protocolo ARP?',
+    opciones: [
+      'Asigna direcciones IP',
+      'Obtiene la dirección MAC asociada a una dirección IP',
+      'Traduce nombres a direcciones IP',
+      'Enruta paquetes entre redes',
+    ],
+    correcta: 1,
+    explicacion: 'Envía una petición de difusión preguntando qué equipo tiene una IP; el dueño responde con su MAC.',
+  },
+  {
+    enunciado: '¿Cuál de estos protocolos de enrutamiento dinámico es de estado de enlace?',
+    opciones: ['RIP', 'OSPF', 'Rutas estáticas', 'ARP'],
+    correcta: 1,
+    explicacion: 'OSPF conoce la topología completa y calcula rutas con el algoritmo de Dijkstra. RIP es de vector distancia y cuenta saltos.',
+  },
+  {
+    enunciado: '¿Para qué se utiliza NAT en un router?',
+    opciones: [
+      'Para asignar IP automáticamente',
+      'Para traducir direcciones privadas a una o varias direcciones públicas',
+      'Para cifrar el tráfico',
+      'Para crear VLAN',
+    ],
+    correcta: 1,
+    explicacion: 'Permite que muchos equipos con IP privada salgan a Internet compartiendo la IP pública del router.',
+  },
+  {
+    enunciado: '¿Qué categoría de cable de par trenzado soporta 10 Gbps hasta 100 metros?',
+    opciones: ['Cat 5', 'Cat 5e', 'Cat 6A', 'Cat 3'],
+    correcta: 2,
+    explicacion: 'Cat 6A está certificado para 10GBASE-T a 100 m. Cat 6 solo alcanza 10 Gbps en distancias cortas y Cat 5e se queda en 1 Gbps.',
+  },
+  {
+    enunciado: '¿Qué protocolo de seguridad Wi-Fi es el más recomendable actualmente?',
+    opciones: ['WEP', 'WPA', 'WPA3', 'Red abierta con filtrado MAC'],
+    correcta: 2,
+    explicacion: 'WPA3 mejora el intercambio de claves (SAE). WEP y WPA están rotos y el filtrado MAC se evita falsificando la MAC.',
+  },
+  {
+    enunciado: 'En Cisco IOS, ¿qué comando entra en el modo de configuración global?',
+    opciones: ['enable', 'configure terminal', 'show running-config', 'interface g0/0'],
+    correcta: 1,
+    explicacion: '`enable` pasa al modo privilegiado y desde ahí `configure terminal` entra en configuración global.',
+  },
+  {
+    enunciado: '¿Qué caracteriza a la topología en estrella?',
+    opciones: [
+      'Todos los equipos comparten un único cable',
+      'Todos los nodos se conectan a un dispositivo central',
+      'Cada equipo se conecta a otros dos formando un anillo',
+      'Cada nodo se conecta con todos los demás',
+    ],
+    correcta: 1,
+    explicacion: 'Es la topología de las redes Ethernet actuales, con un switch en el centro. Si falla un cable solo cae ese equipo.',
+  },
+];

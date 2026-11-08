@@ -1,0 +1,148 @@
+export default [
+  {
+    enunciado: '¿Qué puerto usa MySQL por defecto?',
+    opciones: ['1433', '3306', '5432', '27017'],
+    correcta: 1,
+    explicacion: '1433 es SQL Server, 5432 PostgreSQL y 27017 MongoDB.',
+  },
+  {
+    enunciado: '¿Cómo se llama el fichero principal de configuración de MySQL en Linux?',
+    opciones: ['mysql.ini', 'my.cnf', 'mysqld.conf.xml', 'server.properties'],
+    correcta: 1,
+    explicacion: 'Suele estar en `/etc/mysql/my.cnf`, que incluye otros ficheros de `conf.d`. En Windows se usa `my.ini`.',
+  },
+  {
+    enunciado: '¿Qué sentencia crea un usuario en MySQL?',
+    opciones: [
+      "CREATE USER 'ana'@'localhost' IDENTIFIED BY 'clave';",
+      "ADD USER ana PASSWORD 'clave';",
+      "INSERT USER 'ana';",
+      "NEW USER ana WITH 'clave';",
+    ],
+    correcta: 0,
+    explicacion: 'En MySQL un usuario se identifica por nombre y host desde el que se conecta.',
+  },
+  {
+    enunciado: '¿Qué hace `GRANT SELECT, INSERT ON tienda.* TO \'ana\'@\'localhost\';`?',
+    opciones: [
+      'Crea la base de datos tienda',
+      'Concede a ana permiso de consulta e inserción en todas las tablas de tienda',
+      'Quita permisos a ana',
+      'Copia la base de datos tienda',
+    ],
+    correcta: 1,
+    explicacion: '`tienda.*` indica todas las tablas de esa base de datos. Los permisos se retiran con `REVOKE`.',
+  },
+  {
+    enunciado: '¿Cuál es el motor de almacenamiento por defecto de MySQL, con transacciones y claves foráneas?',
+    opciones: ['MyISAM', 'InnoDB', 'MEMORY', 'CSV'],
+    correcta: 1,
+    explicacion: 'InnoDB admite transacciones ACID, bloqueo por fila y claves foráneas. MyISAM no admite ninguna de las tres.',
+  },
+  {
+    enunciado: '¿Qué ventaja y qué coste tiene crear un índice sobre una columna?',
+    opciones: [
+      'Acelera las búsquedas y ralentiza un poco las escrituras',
+      'Acelera las escrituras y ralentiza las búsquedas',
+      'Reduce el espacio en disco',
+      'No tiene ningún coste',
+    ],
+    correcta: 0,
+    explicacion: 'El índice se actualiza en cada INSERT, UPDATE o DELETE y ocupa espacio, a cambio de búsquedas mucho más rápidas.',
+  },
+  {
+    enunciado: '¿Para qué sirve `EXPLAIN` delante de una consulta?',
+    opciones: [
+      'Para ejecutarla más rápido',
+      'Para mostrar el plan de ejecución y ver qué índices usa',
+      'Para comentar la consulta',
+      'Para guardar la consulta como vista',
+    ],
+    correcta: 1,
+    explicacion: 'Permite detectar recorridos completos de tablas que podrían evitarse con un índice.',
+  },
+  {
+    enunciado: '¿Qué es un trigger (disparador)?',
+    opciones: [
+      'Una copia de seguridad programada',
+      'Código que se ejecuta automáticamente ante un INSERT, UPDATE o DELETE sobre una tabla',
+      'Un tipo de índice',
+      'Un usuario con privilegios',
+    ],
+    correcta: 1,
+    explicacion: 'Se usa, por ejemplo, para auditar cambios o mantener campos calculados. Puede ejecutarse BEFORE o AFTER del evento.',
+  },
+  {
+    enunciado: '¿Con qué sentencia se ejecuta un procedimiento almacenado en MySQL?',
+    opciones: ['EXEC', 'CALL', 'RUN', 'START'],
+    correcta: 1,
+    explicacion: 'Por ejemplo `CALL alta_cliente(\'Ana\');`. Se crea con `CREATE PROCEDURE`. `EXEC` es la sintaxis de SQL Server.',
+  },
+  {
+    enunciado: '¿Cómo se restaura en MySQL una copia hecha con mysqldump?',
+    opciones: [
+      'mysqldump --restore copia.sql',
+      'mysql -u root -p basedatos < copia.sql',
+      'mysqlimport copia.sql',
+      'Copiando copia.sql a /var/lib/mysql',
+    ],
+    correcta: 1,
+    explicacion: 'El fichero contiene sentencias SQL, así que basta con ejecutarlas con el cliente `mysql`.',
+  },
+  {
+    enunciado: '¿Qué registra el log binario (binlog) de MySQL?',
+    opciones: [
+      'Los errores de arranque',
+      'Los cambios en los datos, usados para la replicación y la recuperación a un punto en el tiempo',
+      'Las consultas lentas',
+      'Los inicios de sesión fallidos',
+    ],
+    correcta: 1,
+    explicacion: 'Restaurando una copia completa y aplicando el binlog posterior se recupera la base de datos hasta un momento concreto.',
+  },
+  {
+    enunciado: '¿Qué permite la replicación entre servidores MySQL?',
+    opciones: [
+      'Cifrar las conexiones',
+      'Mantener copias de los datos en otros servidores para alta disponibilidad o reparto de lecturas',
+      'Comprimir las tablas',
+      'Normalizar la base de datos',
+    ],
+    correcta: 1,
+    explicacion: 'Las réplicas aplican los cambios del servidor origen. No sustituye a las copias de seguridad: un borrado accidental también se replica.',
+  },
+  {
+    enunciado: '¿Qué nivel de aislamiento usa InnoDB por defecto?',
+    opciones: ['READ UNCOMMITTED', 'READ COMMITTED', 'REPEATABLE READ', 'SERIALIZABLE'],
+    correcta: 2,
+    explicacion: 'REPEATABLE READ garantiza que una transacción ve los mismos datos si repite una lectura.',
+  },
+  {
+    enunciado: '¿Qué base de datos de MySQL contiene los metadatos de tablas, columnas y privilegios?',
+    opciones: ['sys_tables', 'information_schema', 'catalog', 'metadata'],
+    correcta: 1,
+    explicacion: 'Es el diccionario de datos. Por ejemplo, `information_schema.TABLES` lista las tablas de todas las bases de datos.',
+  },
+  {
+    enunciado: '¿Qué es una copia de seguridad física de una base de datos?',
+    opciones: [
+      'Un fichero de sentencias SQL',
+      'Una copia de los ficheros de datos tal como están en disco',
+      'Una copia impresa',
+      'Una exportación a CSV',
+    ],
+    correcta: 1,
+    explicacion: 'Es más rápida de restaurar en bases grandes, pero depende de la versión y la plataforma. La copia lógica genera SQL portable.',
+  },
+  {
+    enunciado: '¿Qué es un interbloqueo (deadlock) en una base de datos?',
+    opciones: [
+      'Un usuario bloqueado por contraseña',
+      'Dos transacciones que esperan cada una un recurso bloqueado por la otra',
+      'Una tabla sin índices',
+      'Un fallo de disco',
+    ],
+    correcta: 1,
+    explicacion: 'InnoDB lo detecta y deshace una de las transacciones para que la otra pueda continuar.',
+  },
+];

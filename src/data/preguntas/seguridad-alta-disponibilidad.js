@@ -1,0 +1,158 @@
+export default [
+  {
+    enunciado: '¿Qué tres principios forman la base de la seguridad de la información?',
+    opciones: [
+      'Velocidad, coste y facilidad',
+      'Confidencialidad, integridad y disponibilidad',
+      'Cifrado, firma y hash',
+      'Usuario, grupo y otros',
+    ],
+    correcta: 1,
+    explicacion: 'Es la tríada CID (CIA en inglés). A menudo se añaden autenticación y no repudio.',
+  },
+  {
+    enunciado: '¿Qué política por defecto es más segura en un cortafuegos?',
+    opciones: [
+      'Permitir todo y bloquear lo peligroso',
+      'Denegar todo y permitir solo lo necesario',
+      'Permitir solo el tráfico saliente sin control',
+      'Desactivar el cortafuegos en la red interna',
+    ],
+    correcta: 1,
+    explicacion: 'Con política restrictiva, todo lo que no está expresamente permitido queda bloqueado (DROP).',
+  },
+  {
+    enunciado: '¿Qué es una DMZ?',
+    opciones: [
+      'Una red Wi-Fi para invitados',
+      'Una zona de red aislada donde se ubican los servidores accesibles desde Internet',
+      'Un tipo de malware',
+      'Un protocolo de cifrado',
+    ],
+    correcta: 1,
+    explicacion: 'Si un servidor público se ve comprometido, el atacante no tiene acceso directo a la red interna.',
+  },
+  {
+    enunciado: '¿Qué proporciona una VPN?',
+    opciones: [
+      'Más velocidad de conexión',
+      'Un túnel cifrado para conectar de forma segura sobre una red insegura',
+      'Una IP pública fija',
+      'Protección contra virus',
+    ],
+    correcta: 1,
+    explicacion: 'Permite teletrabajar como si se estuviera en la red de la empresa o unir sedes. Ejemplos: WireGuard, OpenVPN o IPsec.',
+  },
+  {
+    enunciado: '¿Qué diferencia hay entre un IDS y un IPS?',
+    opciones: [
+      'Ninguna',
+      'El IDS detecta y alerta; el IPS además bloquea el tráfico malicioso',
+      'El IPS solo funciona en Windows',
+      'El IDS cifra el tráfico',
+    ],
+    correcta: 1,
+    explicacion: 'El IDS suele analizar una copia del tráfico. El IPS se coloca en línea para poder cortarlo. Snort y Suricata hacen ambas funciones.',
+  },
+  {
+    enunciado: '¿Qué es un honeypot?',
+    opciones: [
+      'Un servidor de copias',
+      'Un sistema señuelo para atraer y estudiar a los atacantes',
+      'Un tipo de cortafuegos de hardware',
+      'Una base de datos de contraseñas',
+    ],
+    correcta: 1,
+    explicacion: 'Simula ser un objetivo vulnerable. Cualquier acceso a él es sospechoso y sirve para detectar y analizar ataques.',
+  },
+  {
+    enunciado: '¿Qué disponibilidad corresponde a "cinco nueves"?',
+    opciones: ['95 %', '99,5 %', '99,999 %', '100 %'],
+    correcta: 2,
+    explicacion: 'Un 99,999 % equivale a algo más de 5 minutos de caída al año.',
+  },
+  {
+    enunciado: '¿Por qué un RAID no sustituye a las copias de seguridad?',
+    opciones: [
+      'Porque es más lento',
+      'Porque replica al instante también los borrados, el ransomware y los errores',
+      'Porque solo funciona en servidores',
+      'Sí las sustituye',
+    ],
+    correcta: 1,
+    explicacion: 'El RAID protege frente al fallo de un disco, no frente a la pérdida o la corrupción lógica de los datos.',
+  },
+  {
+    enunciado: '¿Qué dice la regla de copias de seguridad 3-2-1?',
+    opciones: [
+      '3 discos, 2 servidores, 1 nube',
+      '3 copias de los datos, en 2 soportes distintos y 1 de ellas fuera de las instalaciones',
+      'Copias cada 3 días, guardadas 2 semanas, 1 completa al mes',
+      '3 usuarios, 2 contraseñas, 1 administrador',
+    ],
+    correcta: 1,
+    explicacion: 'Evita que un mismo incidente, como un incendio o un ransomware, destruya todas las copias.',
+  },
+  {
+    enunciado: '¿Qué es un ataque DDoS?',
+    opciones: [
+      'Un robo de contraseñas por correo',
+      'Una saturación de un servicio con tráfico desde muchos equipos para dejarlo inaccesible',
+      'Un virus que cifra discos',
+      'Un acceso físico no autorizado',
+    ],
+    correcta: 1,
+    explicacion: 'Ataca la disponibilidad. El tráfico suele venir de una botnet de equipos infectados.',
+  },
+  {
+    enunciado: '¿Qué aporta la autenticación multifactor?',
+    opciones: [
+      'Contraseñas más largas',
+      'Exigir dos o más factores de tipo distinto: algo que sabes, que tienes o que eres',
+      'Iniciar sesión sin contraseña en cualquier caso',
+      'Cambiar la contraseña cada día',
+    ],
+    correcta: 1,
+    explicacion: 'Aunque roben la contraseña, falta el segundo factor, como un código del móvil o una llave física.',
+  },
+  {
+    enunciado: '¿Para qué se usa una función hash como SHA-256 en seguridad?',
+    opciones: [
+      'Para cifrar y luego descifrar mensajes',
+      'Para comprobar la integridad de los datos',
+      'Para comprimir ficheros',
+      'Para generar direcciones IP',
+    ],
+    correcta: 1,
+    explicacion: 'Si un solo bit cambia, el hash es totalmente distinto. No es reversible, así que no sirve para cifrar.',
+  },
+  {
+    enunciado: '¿Quién emite y firma un certificado digital de confianza?',
+    opciones: ['El propio usuario', 'Una autoridad de certificación (CA)', 'El proveedor de Internet', 'El navegador'],
+    correcta: 1,
+    explicacion: 'La CA garantiza que la clave pública pertenece a quien dice el certificado. Uno autofirmado no tiene esa garantía.',
+  },
+  {
+    enunciado: '¿Qué es el phishing?',
+    opciones: [
+      'Un tipo de cortafuegos',
+      'Suplantar a una entidad de confianza para engañar a la víctima y robar datos',
+      'Un ataque físico al servidor',
+      'Un error de hardware',
+    ],
+    correcta: 1,
+    explicacion: 'Suele llegar por correo o SMS con enlaces a webs falsas. Es la técnica de ingeniería social más común.',
+  },
+  {
+    enunciado: '¿Qué técnica de alta disponibilidad usa varios servidores que se reparten la carga y se sustituyen si uno cae?',
+    opciones: ['Un clúster con balanceo de carga', 'Un único servidor más potente', 'Un SAI', 'Un antivirus'],
+    correcta: 0,
+    explicacion: 'Elimina el punto único de fallo. Por ejemplo, HAProxy o Nginx repartiendo peticiones entre varios nodos.',
+  },
+  {
+    enunciado: '¿Qué norma europea regula el tratamiento de datos personales?',
+    opciones: ['ISO 9001', 'RGPD', 'LSSI', 'ITIL'],
+    correcta: 1,
+    explicacion: 'El Reglamento General de Protección de Datos. En España lo complementa la LOPDGDD.',
+  },
+];

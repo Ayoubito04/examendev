@@ -1,0 +1,138 @@
+export default [
+  {
+    enunciado: 'En un servidor DHCP, ¿qué es el ámbito?',
+    opciones: [
+      'El nombre del servidor',
+      'El rango de direcciones IP que puede repartir, con sus opciones',
+      'El tiempo que tarda en responder',
+      'La lista de equipos bloqueados',
+    ],
+    correcta: 1,
+    explicacion: 'Incluye el rango, la máscara, la puerta de enlace, los servidores DNS y la duración de la concesión.',
+  },
+  {
+    enunciado: '¿Qué es la concesión (lease) en DHCP?',
+    opciones: [
+      'El precio del servicio',
+      'El tiempo durante el que un cliente puede usar la IP asignada antes de renovarla',
+      'La IP del servidor',
+      'Un tipo de reserva',
+    ],
+    correcta: 1,
+    explicacion: 'El cliente intenta renovarla a mitad del tiempo. Si no la renueva, la IP vuelve a quedar libre.',
+  },
+  {
+    enunciado: '¿Qué comando de Windows libera y vuelve a pedir la IP al servidor DHCP?',
+    opciones: [
+      'ipconfig /all',
+      'ipconfig /release seguido de ipconfig /renew',
+      'ping /renew',
+      'netstat -r',
+    ],
+    correcta: 1,
+    explicacion: '`/release` devuelve la IP actual y `/renew` solicita una nueva. `ipconfig /all` muestra la configuración completa.',
+  },
+  {
+    enunciado: '¿Qué es un FQDN?',
+    opciones: [
+      'Un tipo de servidor web',
+      'El nombre de dominio completo de un equipo, como www.ejemplo.com.',
+      'Una dirección IPv6',
+      'Un protocolo de correo',
+    ],
+    correcta: 1,
+    explicacion: 'Fully Qualified Domain Name: incluye el nombre del host y todos los dominios hasta la raíz.',
+  },
+  {
+    enunciado: '¿Qué fichero local permite asociar nombres a IP sin consultar al DNS?',
+    opciones: ['hosts', 'resolv.conf', 'dhcpd.conf', 'named.conf'],
+    correcta: 0,
+    explicacion: 'Está en `C:\\Windows\\System32\\drivers\\etc\\hosts` y en `/etc/hosts`. Tiene prioridad sobre el DNS.',
+  },
+  {
+    enunciado: '¿Qué comando consulta a un servidor DNS la IP de un nombre?',
+    opciones: ['nslookup', 'netstat', 'arp -a', 'route print'],
+    correcta: 0,
+    explicacion: 'Funciona en Windows y Linux. En Linux también se usa `dig`.',
+  },
+  {
+    enunciado: '¿Qué registro DNS crea un alias de otro nombre?',
+    opciones: ['A', 'CNAME', 'MX', 'PTR'],
+    correcta: 1,
+    explicacion: 'Por ejemplo, `www` como alias de `servidor1.ejemplo.com`.',
+  },
+  {
+    enunciado: '¿Cuál es el servidor web de Microsoft incluido en Windows Server?',
+    opciones: ['Apache', 'Nginx', 'IIS', 'Tomcat'],
+    correcta: 2,
+    explicacion: 'Internet Information Services se instala como rol. En Linux los más habituales son Apache y Nginx.',
+  },
+  {
+    enunciado: '¿Qué puerto usa por defecto un servidor web sin cifrar?',
+    opciones: ['21', '25', '80', '443'],
+    correcta: 2,
+    explicacion: 'HTTP usa el 80 y HTTPS el 443.',
+  },
+  {
+    enunciado: '¿Qué puertos usa el protocolo FTP?',
+    opciones: ['20 y 21', '22 y 23', '80 y 443', '110 y 143'],
+    correcta: 0,
+    explicacion: 'El 21 es el canal de control y el 20 el de datos en modo activo. FTP no cifra nada; es preferible SFTP.',
+  },
+  {
+    enunciado: '¿Qué protocolo descarga el correo del servidor al cliente y usa el puerto 110?',
+    opciones: ['SMTP', 'POP3', 'IMAP', 'HTTP'],
+    correcta: 1,
+    explicacion: 'IMAP usa el 143 y mantiene el correo sincronizado en el servidor. SMTP es para enviar.',
+  },
+  {
+    enunciado: '¿Qué es el webmail?',
+    opciones: [
+      'Un protocolo de envío',
+      'Acceder al correo desde el navegador, sin un cliente instalado',
+      'Un servidor DNS',
+      'Un tipo de spam',
+    ],
+    correcta: 1,
+    explicacion: 'Por ejemplo, Roundcube instalado en el servidor de correo de la empresa.',
+  },
+  {
+    enunciado: '¿Por qué se desaconseja Telnet para administrar equipos remotos?',
+    opciones: [
+      'Porque es muy lento',
+      'Porque envía todo, incluida la contraseña, sin cifrar',
+      'Porque solo funciona en Windows',
+      'Porque no admite comandos',
+    ],
+    correcta: 1,
+    explicacion: 'Cualquiera que capture el tráfico verá las credenciales. SSH lo sustituye cifrando la sesión.',
+  },
+  {
+    enunciado: '¿Qué herramienta permite ver y controlar el escritorio de otro equipo, sea cual sea su sistema operativo?',
+    opciones: ['VNC', 'FTP', 'DNS', 'DHCP'],
+    correcta: 0,
+    explicacion: 'VNC (puerto 5900) funciona en Windows, Linux y macOS. RDP es la solución propia de Windows.',
+  },
+  {
+    enunciado: '¿Qué hace un proxy con caché en una red?',
+    opciones: [
+      'Asigna IP',
+      'Guarda contenido web ya descargado para servirlo más rápido y filtrar accesos',
+      'Cifra el disco',
+      'Resuelve nombres',
+    ],
+    correcta: 1,
+    explicacion: 'Ahorra ancho de banda y permite aplicar políticas de navegación y registrar los accesos.',
+  },
+  {
+    enunciado: '¿Qué hay que configurar en el router para que un servidor web interno sea accesible desde Internet?',
+    opciones: [
+      'Una reserva DHCP',
+      'Una redirección de puertos (port forwarding) hacia la IP del servidor',
+      'Un registro PTR',
+      'Una VLAN',
+    ],
+    correcta: 1,
+    explicacion: 'El router recibe las peticiones en su IP pública y, gracias a NAT, las reenvía al puerto 80 o 443 del servidor interno.',
+  },
+];

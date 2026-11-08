@@ -1,0 +1,119 @@
+// Las funciones de hoja de cálculo están en su nombre en español (Excel y LibreOffice Calc).
+export default [
+  {
+    enunciado: '¿Qué fórmula suma los valores de las celdas A1 a A10?',
+    opciones: ['=SUMA(A1:A10)', '=SUMA(A1;A10)', '=A1+A10', '=TOTAL(A1-A10)'],
+    correcta: 0,
+    explicacion: 'Los dos puntos indican un rango. `=SUMA(A1;A10)` sumaría solo esas dos celdas.',
+  },
+  {
+    enunciado: '¿Cómo se escribe una referencia absoluta a la celda A1?',
+    opciones: ['A1', '$A$1', '#A#1', '&A1'],
+    correcta: 1,
+    explicacion: 'Al copiar la fórmula, `$A$1` no cambia. `$A1` o `A$1` son referencias mixtas que fijan solo la columna o la fila.',
+  },
+  {
+    enunciado: '¿Qué función devuelve un valor u otro según se cumpla una condición?',
+    opciones: ['SI', 'Y', 'CONTAR', 'BUSCARV'],
+    correcta: 0,
+    explicacion: 'Por ejemplo `=SI(B2>=5;"Aprobado";"Suspenso")`.',
+  },
+  {
+    enunciado: '¿Qué función cuenta las celdas de un rango que cumplen un criterio?',
+    opciones: ['CONTAR', 'CONTARA', 'CONTAR.SI', 'SUMAR.SI'],
+    correcta: 2,
+    explicacion: '`=CONTAR.SI(B2:B30;">=5")` cuenta los aprobados. `CONTAR` solo cuenta números y `CONTARA` las celdas no vacías.',
+  },
+  {
+    enunciado: '¿Qué hace la función BUSCARV?',
+    opciones: [
+      'Busca un valor en la primera columna de un rango y devuelve un dato de otra columna de esa fila',
+      'Busca texto en todo el libro',
+      'Ordena una columna',
+      'Busca valores en la primera fila',
+    ],
+    correcta: 0,
+    explicacion: 'Por ejemplo, buscar un código de producto y devolver su precio. Su equivalente horizontal es BUSCARH.',
+  },
+  {
+    enunciado: '¿Qué herramienta resume y cruza grandes cantidades de datos agrupándolos por categorías?',
+    opciones: ['Formato condicional', 'Tabla dinámica', 'Validación de datos', 'Autofiltro'],
+    correcta: 1,
+    explicacion: 'Permite, por ejemplo, ver ventas por mes y comercial arrastrando campos, sin escribir fórmulas.',
+  },
+  {
+    enunciado: '¿Qué tipo de gráfico es más adecuado para mostrar el reparto de un total en porcentajes?',
+    opciones: ['Líneas', 'Circular', 'Dispersión', 'Barras apiladas de varias series'],
+    correcta: 1,
+    explicacion: 'El circular muestra la parte de cada categoría sobre el total. Para evoluciones en el tiempo es mejor el de líneas.',
+  },
+  {
+    enunciado: '¿Qué permite la combinación de correspondencia?',
+    opciones: [
+      'Unir dos documentos en uno',
+      'Generar cartas o etiquetas personalizadas a partir de una lista de datos',
+      'Enviar correos sin conexión',
+      'Comparar dos versiones de un documento',
+    ],
+    correcta: 1,
+    explicacion: 'El documento principal tiene campos, como el nombre o la dirección, que se rellenan con cada registro de la lista.',
+  },
+  {
+    enunciado: '¿Qué hay que usar en el procesador de textos para poder generar un índice automático?',
+    opciones: ['Negrita en los títulos', 'Estilos de título', 'Tablas', 'Saltos de página'],
+    correcta: 1,
+    explicacion: 'El índice se construye a partir de los párrafos con estilo Título 1, Título 2… y se actualiza solo.',
+  },
+  {
+    enunciado: '¿Qué extensión tiene el formato abierto de documentos de texto de LibreOffice Writer?',
+    opciones: ['.docx', '.odt', '.pdf', '.rtf'],
+    correcta: 1,
+    explicacion: '.odt pertenece al estándar OpenDocument. `.docx` es el formato de Microsoft Word.',
+  },
+  {
+    enunciado: '¿Qué suite ofimática es software libre?',
+    opciones: ['Microsoft 365', 'LibreOffice', 'iWork', 'WPS Office Premium'],
+    correcta: 1,
+    explicacion: 'LibreOffice incluye Writer, Calc, Impress, Base, Draw y Math, y usa el formato OpenDocument.',
+  },
+  {
+    enunciado: 'En una base de datos de escritorio como Access o Base, ¿qué objeto facilita introducir datos de forma cómoda?',
+    opciones: ['Tabla', 'Consulta', 'Formulario', 'Informe'],
+    correcta: 2,
+    explicacion: 'Las tablas guardan los datos, las consultas los filtran y los informes los presentan para imprimir.',
+  },
+  {
+    enunciado: 'En una base de datos de escritorio, ¿qué objeto presenta los datos con formato para imprimirlos?',
+    opciones: ['Formulario', 'Informe', 'Macro', 'Relación'],
+    correcta: 1,
+    explicacion: 'Los informes permiten agrupar, totalizar y dar formato a los datos de tablas o consultas.',
+  },
+  {
+    enunciado: 'En un programa de presentaciones, ¿qué es el patrón de diapositivas?',
+    opciones: [
+      'La primera diapositiva',
+      'Una plantilla que define el diseño común de todas las diapositivas',
+      'Un tipo de transición',
+      'El modo de presentación',
+    ],
+    correcta: 1,
+    explicacion: 'Lo que cambies en el patrón, como el logotipo, las fuentes o los colores, se aplica a todas las diapositivas.',
+  },
+  {
+    enunciado: '¿Qué función calcula la media aritmética de un rango?',
+    opciones: ['MEDIA', 'PROMEDIO', 'MEDIANA', 'MODA'],
+    correcta: 1,
+    explicacion: '`=PROMEDIO(B2:B30)`. MEDIANA devuelve el valor central y MODA el más repetido.',
+  },
+  {
+    enunciado: '¿Qué hace la opción "Proteger hoja" en una hoja de cálculo?',
+    opciones: [
+      'Cifra el fichero',
+      'Impide modificar las celdas bloqueadas',
+      'Crea una copia de seguridad',
+      'Oculta todas las fórmulas siempre',
+    ],
+    correcta: 1,
+    explicacion: 'Antes de proteger se desbloquean las celdas que el usuario sí debe poder rellenar.',
+  },
+];

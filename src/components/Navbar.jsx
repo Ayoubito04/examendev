@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import Logo from './Logo.jsx';
-import { GRUPOS } from '../data/index.js';
+import { CICLOS } from '../data/index.js';
 
 export default function Navbar() {
   const [abierto, setAbierto] = useState(false);
@@ -67,9 +67,10 @@ export default function Navbar() {
                 <Link to="/temario" role="menuitem">
                   Todos los módulos
                 </Link>
-                {GRUPOS.map((g) => (
-                  <Link key={g.id} to={`/temario?grupo=${g.id}`} role="menuitem">
-                    {g.nombre}
+                {CICLOS.map((c) => (
+                  <Link key={c.id} to={`/temario?ciclo=${c.id}`} role="menuitem" className="navbar__menu-ciclo">
+                    <strong>{c.sigla}</strong>
+                    <span>{c.nombre}</span>
                   </Link>
                 ))}
               </div>

@@ -1,0 +1,133 @@
+export default [
+  {
+    enunciado: '¿Qué puerto usa el servicio DNS?',
+    opciones: ['25', '53', '67', '110'],
+    correcta: 1,
+    explicacion: 'DNS usa el puerto 53, sobre UDP para consultas normales y sobre TCP para respuestas grandes y transferencias de zona.',
+  },
+  {
+    enunciado: '¿Qué registro DNS indica el servidor de correo de un dominio?',
+    opciones: ['A', 'MX', 'PTR', 'NS'],
+    correcta: 1,
+    explicacion: 'MX lleva una prioridad y el nombre del servidor de correo. NS indica los servidores DNS autorizados de la zona.',
+  },
+  {
+    enunciado: '¿Para qué sirve una zona de resolución inversa en DNS?',
+    opciones: [
+      'Para resolver nombres a IP',
+      'Para resolver direcciones IP a nombres mediante registros PTR',
+      'Para bloquear dominios',
+      'Para replicar la zona directa',
+    ],
+    correcta: 1,
+    explicacion: 'Por ejemplo, la red 192.168.1.0/24 usa la zona `1.168.192.in-addr.arpa`.',
+  },
+  {
+    enunciado: '¿Qué ocurre en una consulta DNS recursiva?',
+    opciones: [
+      'El servidor solo responde si conoce la respuesta en caché',
+      'El servidor consultado se encarga de obtener la respuesta completa preguntando a otros servidores',
+      'El cliente pregunta uno a uno a los servidores raíz',
+      'La consulta se repite hasta que da error',
+    ],
+    correcta: 1,
+    explicacion: 'En la iterativa, en cambio, cada servidor devuelve una referencia al siguiente y es quien pregunta el que sigue la cadena.',
+  },
+  {
+    enunciado: '¿Cuál es el servidor DNS más habitual en Linux?',
+    opciones: ['BIND', 'Squid', 'vsftpd', 'Dovecot'],
+    correcta: 0,
+    explicacion: 'BIND (demonio `named`). Squid es un proxy, vsftpd un servidor FTP y Dovecot un servidor IMAP/POP3.',
+  },
+  {
+    enunciado: '¿Cuál es el orden de los mensajes cuando un cliente obtiene IP por DHCP?',
+    opciones: [
+      'Request, Offer, Discover, Ack',
+      'Discover, Offer, Request, Ack',
+      'Offer, Discover, Ack, Request',
+      'Discover, Request, Offer, Ack',
+    ],
+    correcta: 1,
+    explicacion: 'Es el proceso DORA: el cliente busca servidores, recibe ofertas, solicita una y el servidor la confirma.',
+  },
+  {
+    enunciado: 'En DHCP, ¿qué es una reserva?',
+    opciones: [
+      'Un rango de IP excluidas',
+      'Asignar siempre la misma IP a un equipo identificado por su MAC',
+      'Un servidor DHCP de respaldo',
+      'El tiempo de concesión',
+    ],
+    correcta: 1,
+    explicacion: 'Se usa para impresoras o servidores que necesitan una IP fija, sin tener que configurarla a mano en el equipo.',
+  },
+  {
+    enunciado: '¿Qué módulo de Apache permite servir sitios por HTTPS?',
+    opciones: ['mod_rewrite', 'mod_ssl', 'mod_php', 'mod_proxy'],
+    correcta: 1,
+    explicacion: 'En Debian/Ubuntu se activa con `a2enmod ssl` y se configura un VirtualHost en el puerto 443 con certificado y clave.',
+  },
+  {
+    enunciado: 'En Apache, ¿qué directiva indica la carpeta raíz desde la que se sirven los ficheros de un sitio?',
+    opciones: ['ServerRoot', 'DocumentRoot', 'Directory', 'ServerName'],
+    correcta: 1,
+    explicacion: '`DocumentRoot` es la raíz del sitio, por ejemplo `/var/www/html`. `ServerRoot` es la carpeta de configuración de Apache.',
+  },
+  {
+    enunciado: '¿Qué código HTTP indica una redirección permanente?',
+    opciones: ['200', '301', '302', '404'],
+    correcta: 1,
+    explicacion: '301 Moved Permanently, útil por ejemplo para forzar HTTPS. 302 es una redirección temporal.',
+  },
+  {
+    enunciado: '¿Qué protocolo envía el correo entre servidores?',
+    opciones: ['POP3', 'IMAP', 'SMTP', 'HTTP'],
+    correcta: 2,
+    explicacion: 'SMTP (puerto 25 entre servidores, 587 para envío autenticado de clientes). POP3 e IMAP son para leer el correo.',
+  },
+  {
+    enunciado: '¿Qué ventaja tiene IMAP frente a POP3?',
+    opciones: [
+      'Es más antiguo',
+      'Mantiene los mensajes en el servidor sincronizados entre varios dispositivos',
+      'Envía el correo más rápido',
+      'No necesita contraseña',
+    ],
+    correcta: 1,
+    explicacion: 'POP3 suele descargar y borrar los mensajes del servidor, lo que complica usar varios dispositivos.',
+  },
+  {
+    enunciado: 'En FTP pasivo, ¿quién abre la conexión de datos?',
+    opciones: [
+      'El servidor hacia el cliente',
+      'El cliente hacia un puerto que le indica el servidor',
+      'Ninguno, usa el canal de control',
+      'Un servidor intermedio',
+    ],
+    correcta: 1,
+    explicacion: 'Por eso el modo pasivo funciona mejor cuando el cliente está detrás de NAT o de un cortafuegos.',
+  },
+  {
+    enunciado: '¿Qué método de autenticación SSH es más seguro que la contraseña?',
+    opciones: ['Telnet', 'Par de claves pública y privada', 'Autenticación anónima', 'Filtrado por IP'],
+    correcta: 1,
+    explicacion: 'La clave pública se copia al servidor (`ssh-copy-id`) y la privada nunca sale del cliente. Después se puede desactivar el acceso por contraseña.',
+  },
+  {
+    enunciado: '¿Qué hace un servidor proxy como Squid?',
+    opciones: [
+      'Asigna direcciones IP',
+      'Hace de intermediario en las peticiones web, con caché y control de acceso',
+      'Resuelve nombres de dominio',
+      'Envía correo',
+    ],
+    correcta: 1,
+    explicacion: 'Permite filtrar sitios, registrar accesos y ahorrar ancho de banda guardando en caché el contenido repetido.',
+  },
+  {
+    enunciado: '¿Qué protocolo sincroniza la hora de los equipos de una red?',
+    opciones: ['SNMP', 'NTP', 'SMTP', 'TFTP'],
+    correcta: 1,
+    explicacion: 'NTP (UDP 123). La hora coherente es imprescindible para Kerberos en Active Directory, para los certificados y para correlacionar logs.',
+  },
+];

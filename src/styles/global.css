@@ -28,6 +28,8 @@
   --ko-suave: rgba(248, 113, 113, 0.12);
   --dam: #38bdf8;
   --daw: #c084fc;
+  --asir: #6ee7b7;
+  --smr: #fcd34d;
 
   --serif: 'Instrument Serif', 'Times New Roman', serif;
   --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -402,6 +404,16 @@ kbd {
   color: var(--dam);
 }
 
+.etiqueta--asir {
+  background: rgba(52, 211, 153, 0.14);
+  color: var(--asir);
+}
+
+.etiqueta--smr {
+  background: rgba(251, 191, 36, 0.14);
+  color: var(--smr);
+}
+
 /* ---------- Tarjetas y estadísticas ---------- */
 
 .tarjeta {
@@ -566,6 +578,27 @@ kbd {
 .navbar__menu a:hover {
   background: var(--superficie-2);
   color: var(--texto);
+}
+
+.navbar__menu {
+  min-width: 300px;
+}
+
+.navbar__menu-ciclo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.35;
+}
+
+.navbar__menu-ciclo strong {
+  color: var(--texto);
+  font-family: var(--ui);
+  font-size: 0.88rem;
+}
+
+.navbar__menu-ciclo span {
+  font-size: 0.8rem;
+  color: var(--texto-3);
 }
 
 .navbar__acciones {
@@ -971,6 +1004,17 @@ kbd {
   flex-direction: column;
   gap: 1rem;
   padding: 1.6rem;
+}
+
+.ciclo__etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.temario__nota {
+  margin: 2.5rem 0 0;
+  font-size: 0.85rem;
 }
 
 .ciclo__cabecera h3 {
@@ -1846,6 +1890,7 @@ button.opcion:hover:not(:disabled) {
 }
 
 .tabla-scroll {
+  position: relative; /* contiene los .sr-only de la tabla dentro del scroll */
   overflow-x: auto;
   border: 1px solid var(--borde);
   border-radius: var(--radio);

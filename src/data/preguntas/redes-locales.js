@@ -1,0 +1,133 @@
+export default [
+  {
+    enunciado: '¿Qué es una LAN?',
+    opciones: [
+      'Una red que cubre un país',
+      'Una red de área local, limitada a un edificio o recinto',
+      'Una red solo inalámbrica',
+      'Un tipo de cable',
+    ],
+    correcta: 1,
+    explicacion: 'Las redes se clasifican por alcance: PAN, LAN, MAN y WAN, de menor a mayor.',
+  },
+  {
+    enunciado: '¿Qué conector se usa en los cables de par trenzado Ethernet?',
+    opciones: ['RJ11', 'RJ45', 'BNC', 'SC'],
+    correcta: 1,
+    explicacion: 'RJ45 (8P8C). RJ11 es el de teléfono, BNC el de coaxial y SC uno de los de fibra óptica.',
+  },
+  {
+    enunciado: '¿Qué significa que un cable sea UTP?',
+    opciones: [
+      'Que es de fibra óptica',
+      'Que es de par trenzado sin apantallar',
+      'Que es coaxial',
+      'Que está apantallado con malla',
+    ],
+    correcta: 1,
+    explicacion: 'Unshielded Twisted Pair. Los apantallados (FTP, STP) resisten mejor las interferencias.',
+  },
+  {
+    enunciado: 'Si un cable tiene un extremo crimpado con la norma T568A y el otro con la T568B, ¿qué tipo de cable es?',
+    opciones: ['Directo', 'Cruzado', 'Consola', 'Coaxial'],
+    correcta: 1,
+    explicacion: 'Un cable directo usa la misma norma en ambos extremos, normalmente T568B.',
+  },
+  {
+    enunciado: '¿Cuál es la longitud máxima recomendada de un segmento de cable de par trenzado Ethernet?',
+    opciones: ['10 m', '50 m', '100 m', '500 m'],
+    correcta: 2,
+    explicacion: 'Son 100 metros entre equipos activos: 90 de enlace permanente más latiguillos.',
+  },
+  {
+    enunciado: '¿Qué ventaja tiene un switch frente a un hub?',
+    opciones: [
+      'Es más barato',
+      'Envía cada trama solo al puerto del destinatario, en lugar de a todos',
+      'Tiene más puertos',
+      'Conecta directamente a Internet',
+    ],
+    correcta: 1,
+    explicacion: 'El hub repite todo por todos los puertos y provoca colisiones. El switch aprende las MAC y reduce el tráfico innecesario.',
+  },
+  {
+    enunciado: '¿Qué ventaja ofrece la fibra óptica frente al cobre?',
+    opciones: [
+      'Es más fácil de crimpar',
+      'Es inmune a las interferencias electromagnéticas y alcanza mayores distancias',
+      'Es siempre más barata',
+      'Transporta electricidad',
+    ],
+    correcta: 1,
+    explicacion: 'Transmite luz, no señales eléctricas. Por eso se usa en troncales, entre edificios y en el acceso FTTH.',
+  },
+  {
+    enunciado: '¿Para qué sirve la crimpadora?',
+    opciones: [
+      'Para medir la velocidad de la red',
+      'Para fijar los conectores RJ45 al cable',
+      'Para pelar fibra óptica',
+      'Para configurar el router',
+    ],
+    correcta: 1,
+    explicacion: 'Presiona los contactos del conector sobre cada hilo. Después se comprueba el cable con un comprobador.',
+  },
+  {
+    enunciado: 'En un armario de comunicaciones, ¿qué es el panel de parcheo (patch panel)?',
+    opciones: [
+      'Un switch gestionable',
+      'Un panel donde terminan los cables de la instalación y desde el que se conectan latiguillos',
+      'Un SAI',
+      'Un router',
+    ],
+    correcta: 1,
+    explicacion: 'Organiza el cableado: cada puerto corresponde a una toma de la pared y se une al switch con un latiguillo corto.',
+  },
+  {
+    enunciado: '¿Qué estándar corresponde a Wi-Fi 6?',
+    opciones: ['802.11n', '802.11ac', '802.11ax', '802.11g'],
+    correcta: 2,
+    explicacion: 'Wi-Fi 4 es 802.11n, Wi-Fi 5 es 802.11ac y Wi-Fi 6 es 802.11ax.',
+  },
+  {
+    enunciado: '¿Qué es el SSID de una red inalámbrica?',
+    opciones: ['La contraseña', 'El nombre de la red', 'La dirección MAC del punto de acceso', 'El canal'],
+    correcta: 1,
+    explicacion: 'Es el nombre que ven los dispositivos al buscar redes. Ocultarlo no aporta seguridad real.',
+  },
+  {
+    enunciado: '¿Qué protocolo utiliza el comando `ping`?',
+    opciones: ['TCP', 'UDP', 'ICMP', 'HTTP'],
+    correcta: 2,
+    explicacion: 'Envía mensajes ICMP Echo Request y espera Echo Reply para comprobar si un equipo responde y medir la latencia.',
+  },
+  {
+    enunciado: '¿Qué comando de Windows muestra los saltos que da un paquete hasta su destino?',
+    opciones: ['ping', 'tracert', 'ipconfig', 'netstat'],
+    correcta: 1,
+    explicacion: 'En Linux el equivalente es `traceroute`. Sirve para localizar en qué punto se corta la conexión.',
+  },
+  {
+    enunciado: '¿Qué es la puerta de enlace predeterminada de un equipo?',
+    opciones: [
+      'El servidor DNS',
+      'El router al que envía los paquetes destinados a otras redes',
+      'El switch al que está conectado',
+      'La tarjeta de red',
+    ],
+    correcta: 1,
+    explicacion: 'Si la puerta de enlace está mal configurada, el equipo ve su red local pero no sale a Internet.',
+  },
+  {
+    enunciado: '¿Qué herramienta comprueba que cada hilo de un cable está bien conectado?',
+    opciones: ['Polímetro de pinza', 'Comprobador de cables (tester)', 'Crimpadora', 'Analizador de espectro'],
+    correcta: 1,
+    explicacion: 'Se conecta un extremo a cada parte y se ve si los hilos se encienden en orden. Los certificadores además miden el rendimiento.',
+  },
+  {
+    enunciado: '¿Qué banda de frecuencia Wi-Fi tiene más alcance, aunque menos velocidad y más interferencias?',
+    opciones: ['2,4 GHz', '5 GHz', '6 GHz', '60 GHz'],
+    correcta: 0,
+    explicacion: 'Las frecuencias bajas atraviesan mejor las paredes. 5 y 6 GHz ofrecen más velocidad y canales, pero menos alcance.',
+  },
+];

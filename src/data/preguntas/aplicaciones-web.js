@@ -1,0 +1,133 @@
+export default [
+  {
+    enunciado: '¿Cuál de estos es un gestor de contenidos (CMS)?',
+    opciones: ['WordPress', 'Apache', 'MySQL', 'FileZilla'],
+    correcta: 0,
+    explicacion: 'Apache es un servidor web, MySQL una base de datos y FileZilla un cliente FTP.',
+  },
+  {
+    enunciado: '¿Qué tres elementos necesita normalmente un CMS como WordPress para funcionar?',
+    opciones: [
+      'Servidor web, PHP y base de datos',
+      'Java, Tomcat y Oracle',
+      'Solo un navegador',
+      'Servidor de correo, DNS y FTP',
+    ],
+    correcta: 0,
+    explicacion: 'Por ejemplo Apache, PHP y MySQL/MariaDB. Paquetes como XAMPP lo instalan todo junto para hacer pruebas.',
+  },
+  {
+    enunciado: '¿Para qué sirve XAMPP?',
+    opciones: [
+      'Para crear un entorno de servidor web local de pruebas',
+      'Para editar imágenes',
+      'Para proteger el equipo de virus',
+      'Para gestionar el correo',
+    ],
+    correcta: 0,
+    explicacion: 'Instala Apache, MariaDB y PHP en el propio equipo. No está pensado para producción.',
+  },
+  {
+    enunciado: '¿Qué es Moodle?',
+    opciones: ['Un CMS de tiendas online', 'Una plataforma de aprendizaje en línea (LMS)', 'Un servidor DNS', 'Un antivirus'],
+    correcta: 1,
+    explicacion: 'Gestiona cursos, tareas, cuestionarios y calificaciones. Muchos centros lo usan como aula virtual.',
+  },
+  {
+    enunciado: '¿Qué software se usa para crear wikis, como la de Wikipedia?',
+    opciones: ['MediaWiki', 'phpBB', 'PrestaShop', 'Joomla'],
+    correcta: 0,
+    explicacion: 'phpBB es para foros, PrestaShop para tiendas online y Joomla es un CMS generalista.',
+  },
+  {
+    enunciado: '¿Qué aplicación web es la más adecuada para crear un foro de debate?',
+    opciones: ['phpBB', 'MediaWiki', 'Moodle', 'WooCommerce'],
+    correcta: 0,
+    explicacion: 'phpBB organiza la conversación en categorías, temas y respuestas, con moderadores.',
+  },
+  {
+    enunciado: '¿Qué plugin convierte WordPress en una tienda online?',
+    opciones: ['Yoast SEO', 'WooCommerce', 'Akismet', 'Contact Form 7'],
+    correcta: 1,
+    explicacion: 'Yoast es para SEO, Akismet filtra comentarios de spam y Contact Form 7 crea formularios.',
+  },
+  {
+    enunciado: 'En WordPress, ¿qué rol solo puede leer contenido y gestionar su propio perfil?',
+    opciones: ['Administrador', 'Editor', 'Autor', 'Suscriptor'],
+    correcta: 3,
+    explicacion: 'De más a menos permisos: Administrador, Editor, Autor, Colaborador y Suscriptor.',
+  },
+  {
+    enunciado: 'En un CMS, ¿qué cambia al instalar un tema distinto?',
+    opciones: [
+      'El contenido de las entradas',
+      'El aspecto visual del sitio',
+      'La base de datos',
+      'Los usuarios',
+    ],
+    correcta: 1,
+    explicacion: 'El tema controla diseño y plantillas. El contenido sigue en la base de datos y se muestra con el nuevo diseño.',
+  },
+  {
+    enunciado: '¿Qué etiqueta HTML crea un enlace?',
+    opciones: ['<link>', '<a href="…">', '<url>', '<href>'],
+    correcta: 1,
+    explicacion: '`<a>` crea hipervínculos. `<link>` se usa en el head para enlazar recursos como hojas de estilo.',
+  },
+  {
+    enunciado: '¿Qué etiqueta HTML agrupa los campos de un formulario que se envían juntos?',
+    opciones: ['<input>', '<form>', '<fieldset>', '<label>'],
+    correcta: 1,
+    explicacion: '`<form>` indica, con `action` y `method`, adónde y cómo se envían los datos.',
+  },
+  {
+    enunciado: 'En la URL `https://www.ejemplo.com/blog/entrada`, ¿qué parte es el dominio?',
+    opciones: ['https', 'www.ejemplo.com', '/blog/entrada', 'entrada'],
+    correcta: 1,
+    explicacion: '`https` es el protocolo, el dominio identifica el servidor y `/blog/entrada` es la ruta del recurso.',
+  },
+  {
+    enunciado: '¿Qué son las cookies?',
+    opciones: [
+      'Programas maliciosos',
+      'Pequeños ficheros de datos que un sitio web guarda en el navegador',
+      'Imágenes de la web',
+      'Copias de seguridad',
+    ],
+    correcta: 1,
+    explicacion: 'Sirven, por ejemplo, para mantener la sesión iniciada o recordar preferencias. Las no técnicas requieren consentimiento.',
+  },
+  {
+    enunciado: '¿Qué es un alojamiento web compartido?',
+    opciones: [
+      'Un servidor dedicado solo a un cliente',
+      'Un servidor cuyos recursos se reparten entre muchos sitios de distintos clientes',
+      'Una red Wi-Fi pública',
+      'Un servicio de correo gratuito',
+    ],
+    correcta: 1,
+    explicacion: 'Es la opción más barata, pero los recursos son limitados y dependen de los otros sitios del mismo servidor.',
+  },
+  {
+    enunciado: '¿Qué debe incluir una copia de seguridad completa de un sitio hecho con un CMS?',
+    opciones: [
+      'Solo las imágenes',
+      'Los ficheros del sitio y la base de datos',
+      'Solo la base de datos',
+      'Solo el tema activo',
+    ],
+    correcta: 1,
+    explicacion: 'Los ficheros contienen el CMS, temas, plugins y archivos subidos; la base de datos, el contenido y la configuración.',
+  },
+  {
+    enunciado: '¿Cuál es la principal medida para mantener seguro un sitio con WordPress?',
+    opciones: [
+      'No publicar contenido',
+      'Mantener actualizados el núcleo, los temas y los plugins',
+      'Usar el usuario "admin" con una contraseña sencilla',
+      'Instalar todos los plugins posibles',
+    ],
+    correcta: 1,
+    explicacion: 'Además conviene borrar los plugins sin uso y usar contraseñas robustas con doble factor.',
+  },
+];

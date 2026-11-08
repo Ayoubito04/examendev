@@ -1,0 +1,108 @@
+export default [
+  {
+    enunciado: '¿Qué componente del sistema operativo gestiona directamente los recursos hardware?',
+    opciones: ['El shell', 'El núcleo (kernel)', 'El gestor de ventanas', 'El cargador de arranque'],
+    correcta: 1,
+    explicacion: 'El kernel administra CPU, memoria y dispositivos. El shell es solo la interfaz con la que el usuario da órdenes.',
+  },
+  {
+    enunciado: '¿Qué tipo de núcleo tiene Linux?',
+    opciones: ['Microkernel', 'Monolítico (modular)', 'Exokernel', 'No tiene núcleo'],
+    correcta: 1,
+    explicacion: 'Linux es monolítico: los servicios principales se ejecutan en espacio de núcleo, aunque admite cargar módulos en caliente.',
+  },
+  {
+    enunciado: '¿Qué caracteriza al algoritmo de planificación Round Robin?',
+    opciones: [
+      'Ejecuta primero el proceso más corto',
+      'Asigna a cada proceso un quantum de tiempo por turnos',
+      'Ejecuta los procesos por orden de llegada hasta terminar',
+      'Solo ejecuta procesos de alta prioridad',
+    ],
+    correcta: 1,
+    explicacion: 'Cada proceso recibe un intervalo fijo de CPU y, si no termina, vuelve al final de la cola.',
+  },
+  {
+    enunciado: '¿Cuántas particiones primarias admite como máximo un disco con tabla MBR?',
+    opciones: ['2', '4', '8', '128'],
+    correcta: 1,
+    explicacion: 'MBR admite 4 primarias, o 3 primarias más una extendida con unidades lógicas. GPT admite 128 por defecto.',
+  },
+  {
+    enunciado: '¿Qué esquema de particionado permite discos de más de 2 TB y es el habitual con UEFI?',
+    opciones: ['MBR', 'GPT', 'FAT', 'LVM'],
+    correcta: 1,
+    explicacion: 'GPT usa direcciones de 64 bits, guarda una copia de la tabla al final del disco y es el estándar con UEFI.',
+  },
+  {
+    enunciado: '¿Qué firmware ha sustituido a la BIOS tradicional en los equipos actuales?',
+    opciones: ['GRUB', 'UEFI', 'POST', 'CMOS'],
+    correcta: 1,
+    explicacion: 'UEFI ofrece arranque seguro (Secure Boot), soporte de discos GPT e interfaz gráfica. GRUB es un gestor de arranque, no firmware.',
+  },
+  {
+    enunciado: '¿En qué fichero guarda Linux los hashes de las contraseñas de los usuarios?',
+    opciones: ['/etc/passwd', '/etc/shadow', '/etc/group', '/etc/login.defs'],
+    correcta: 1,
+    explicacion: '`/etc/shadow` solo lo puede leer root. `/etc/passwd` contiene los datos de las cuentas y una `x` en el campo de contraseña.',
+  },
+  {
+    enunciado: '¿Qué comando crea un usuario nuevo en Linux?',
+    opciones: ['newuser', 'useradd', 'mkuser', 'passwd -n'],
+    correcta: 1,
+    explicacion: '`useradd` (o el script interactivo `adduser` en Debian/Ubuntu) crea la cuenta. `passwd` asigna o cambia la contraseña.',
+  },
+  {
+    enunciado: '¿En qué directorio de Linux se encuentran los ficheros de configuración del sistema?',
+    opciones: ['/bin', '/etc', '/var', '/home'],
+    correcta: 1,
+    explicacion: '`/etc` contiene la configuración. `/var` guarda datos variables como logs y `/home` los directorios personales.',
+  },
+  {
+    enunciado: '¿Qué comando de Linux muestra los procesos y su consumo de recursos en tiempo real?',
+    opciones: ['ps', 'top', 'kill', 'jobs'],
+    correcta: 1,
+    explicacion: '`top` (o `htop`) se actualiza continuamente. `ps` muestra una instantánea y `kill` envía señales a procesos.',
+  },
+  {
+    enunciado: '¿Qué comando crea un enlace simbólico en Linux?',
+    opciones: ['ln -s origen enlace', 'ln origen enlace', 'link -h origen enlace', 'cp -l origen enlace'],
+    correcta: 0,
+    explicacion: 'Con `-s` el enlace es simbólico (apunta a la ruta). Sin opciones, `ln` crea un enlace duro al mismo inodo.',
+  },
+  {
+    enunciado: '¿Qué gestor de paquetes usan Debian y Ubuntu?',
+    opciones: ['dnf', 'apt', 'pacman', 'zypper'],
+    correcta: 1,
+    explicacion: '`apt` trabaja con paquetes .deb. `dnf` es de Fedora/RHEL, `pacman` de Arch y `zypper` de openSUSE.',
+  },
+  {
+    enunciado: '¿Para qué sirve la variable de entorno PATH?',
+    opciones: [
+      'Para indicar el directorio personal del usuario',
+      'Para listar los directorios donde se buscan los ejecutables',
+      'Para definir el idioma del sistema',
+      'Para indicar el shell por defecto',
+    ],
+    correcta: 1,
+    explicacion: 'Al escribir un comando sin ruta, el sistema lo busca en los directorios de PATH, en orden.',
+  },
+  {
+    enunciado: '¿Qué herramienta de línea de comandos de Windows gestiona discos y particiones?',
+    opciones: ['chkdsk', 'diskpart', 'format', 'sfc'],
+    correcta: 1,
+    explicacion: '`diskpart` crea, elimina y formatea particiones. `chkdsk` comprueba el sistema de ficheros y `sfc` repara ficheros de sistema.',
+  },
+  {
+    enunciado: '¿Qué permiso NTFS concede todos los derechos, incluido cambiar permisos y tomar posesión?',
+    opciones: ['Modificar', 'Lectura y ejecución', 'Control total', 'Escritura'],
+    correcta: 2,
+    explicacion: 'Control total incluye todo lo de Modificar más cambiar permisos y tomar posesión.',
+  },
+  {
+    enunciado: 'En la gestión de memoria por paginación, ¿cómo se divide la memoria física?',
+    opciones: ['En segmentos de tamaño variable', 'En marcos de tamaño fijo', 'En particiones del disco', 'En bloques de 1 byte'],
+    correcta: 1,
+    explicacion: 'La memoria física se divide en marcos y los procesos en páginas del mismo tamaño, lo que evita la fragmentación externa.',
+  },
+];

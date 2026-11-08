@@ -1,11 +1,21 @@
 # ExamenDev
 
-Simulador de exámenes tipo test para los módulos técnicos de los ciclos de **DAM** y **DAW**.
+Simulador de exámenes tipo test para los módulos técnicos de los ciclos de **DAM**, **DAW**, **ASIR** y **SMR**.
 Práctica con corrección al instante, simulacros cronometrados, repaso de fallos y seguimiento del progreso.
 
 ## Funcionalidades
 
-- **14 módulos y 224 preguntas** con explicación: los 5 comunes de 1º, 4 de 2º de DAW y 5 de 2º de DAM.
+- **31 módulos y 496 preguntas** con explicación, de primero y segundo curso:
+
+  | Ciclo | Grado | 1º | 2º |
+  |---|---|---|---|
+  | DAM | Superior | 5 comunes con DAW | Acceso a datos, Móviles, Servicios y procesos, Desarrollo de interfaces, SGE |
+  | DAW | Superior | 5 comunes con DAM | Cliente, Servidor, Despliegue, Diseño de interfaces web |
+  | ASIR | Superior | Implantación de SO, Planificación de redes, Fundamentos de hardware, Gestión de BD, Lenguajes de marcas (compartido) | Administración de SO, Servicios de red e Internet, Implantación de aplicaciones web, Administración de SGBD, Seguridad y alta disponibilidad |
+  | SMR | Medio | Montaje y mantenimiento, SO monopuesto, Aplicaciones ofimáticas, Redes locales | SO en red, Seguridad informática, Servicios en red, Aplicaciones web |
+
+  El reparto por curso sigue la organización más habitual y puede variar según la comunidad autónoma.
+- **Temario filtrable por ciclo**; los módulos compartidos aparecen en cada ciclo con un único banco y un único progreso.
 - **Tres modos de test**
   - *Práctica*: corrección y explicación al responder cada pregunta.
   - *Simulacro*: 1 minuto por pregunta, navegación libre entre preguntas y nota al entregar.
@@ -45,7 +55,7 @@ src/
 ├── hooks/                   # useLocalStorage, useCountdown
 ├── pages/                   # Inicio, Temario, Test, Progreso, Contacto, NoEncontrado
 ├── data/
-│   ├── modulos.js           # módulos, ciclos, curso y temas
+│   ├── modulos.js           # ciclos, secciones del temario, módulos, curso y temas
 │   ├── index.js             # une los bancos y asigna ids
 │   └── preguntas/*.js       # un banco por módulo
 ├── utils/quiz.js            # barajar, corregir, formatear
@@ -67,7 +77,8 @@ Cada banco es un array en `src/data/preguntas/<modulo>.js`:
 
 - Añade siempre **al final** del array: el id de cada pregunta (`programacion-07`) se genera por su posición y es lo que se guarda en los fallos del usuario.
 - El texto entre comillas invertidas se muestra como código.
-- Para un módulo nuevo, añádelo en `data/modulos.js` y registra su banco en `data/index.js`.
+- Para un módulo nuevo, añádelo en `data/modulos.js` (con las siglas de sus ciclos en `ciclos` y su `curso`) y registra su banco en `data/index.js`.
+- Para un ciclo nuevo, añádelo a `CICLOS` y, si quieres que tenga sección propia en la vista "Todos", a `SECCIONES`.
 
 ## Despliegue
 

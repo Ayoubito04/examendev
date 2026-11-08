@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { MODULOS, TODAS_LAS_PREGUNTAS } from '../data/index.js';
+import { CICLOS, MODULOS, TODAS_LAS_PREGUNTAS, modulosDeCiclo } from '../data/index.js';
 import { SITE } from '../config.js';
 
 const PASOS = [
-  { n: '01', titulo: 'Elige tu módulo', texto: 'Comunes de 1º, específicos de 2º de DAW o de DAM. Cada uno con su propio banco de preguntas.' },
+  { n: '01', titulo: 'Elige tu ciclo y módulo', texto: 'DAM, DAW, ASIR o SMR, de primero o de segundo. Cada módulo tiene su propio banco de preguntas.' },
   { n: '02', titulo: 'Practica o haz un simulacro', texto: 'Corrección al instante con explicación, o examen cronometrado que se corrige al entregar.' },
   { n: '03', titulo: 'Repasa tus fallos', texto: 'Cada pregunta que fallas queda guardada hasta que la aciertes. Así atacas tus puntos débiles.' },
 ];
@@ -19,8 +19,16 @@ const VENTAJAS = [
 
 const FAQ = [
   {
-    p: '¿Qué módulos incluye?',
-    r: 'Los cinco módulos técnicos comunes de 1º (Programación, Bases de datos, Entornos de desarrollo, Lenguajes de marcas y Sistemas informáticos) y los específicos de 2º de DAW y de DAM.',
+    p: '¿Qué ciclos y módulos incluye?',
+    r: 'Los módulos técnicos de primero y segundo de cuatro ciclos de la familia de Informática y Comunicaciones: DAM y DAW (grado superior, con primero común), ASIR (grado superior) y SMR (grado medio).',
+  },
+  {
+    p: '¿Por qué un módulo aparece en varios ciclos?',
+    r: 'Algunos módulos son comunes. Por ejemplo, Lenguajes de marcas y sistemas de gestión de información se cursa igual en DAM, DAW y ASIR, así que comparten banco de preguntas y progreso.',
+  },
+  {
+    p: '¿El reparto por cursos es el mismo en todas las comunidades?',
+    r: 'Seguimos la organización más habitual, pero algunas comunidades autónomas reparten los módulos de otra forma entre primero y segundo. Si tu centro lo hace distinto, busca el módulo por su nombre en el temario.',
   },
   {
     p: '¿En qué se diferencia la práctica del simulacro?',
@@ -40,14 +48,11 @@ const FAQ = [
   },
 ];
 
-const dam = MODULOS.filter((m) => m.ciclos.includes('DAM'));
-const daw = MODULOS.filter((m) => m.ciclos.includes('DAW'));
-
 export default function Inicio() {
   const cifras = [
     { valor: TODAS_LAS_PREGUNTAS.length, texto: 'preguntas con explicación' },
-    { valor: MODULOS.length, texto: 'módulos de DAM y DAW' },
-    { valor: 3, texto: 'modos: práctica, simulacro y repaso' },
+    { valor: MODULOS.length, texto: 'módulos técnicos' },
+    { valor: CICLOS.length, texto: 'ciclos: DAM, DAW, ASIR y SMR' },
     { valor: '0 €', texto: 'sin registro ni suscripción' },
   ];
 
@@ -57,7 +62,7 @@ export default function Inicio() {
         <div className="contenedor hero__inner">
           <span className="aviso">
             <span className="aviso__badge">Nuevo</span>
-            Banco de preguntas DAM/DAW · {SITE.convocatoria}
+            Ahora con ASIR y SMR · {SITE.convocatoria}
           </span>
 
           <h1 className="titulo-display hero__titulo">
@@ -65,8 +70,8 @@ export default function Inicio() {
           </h1>
 
           <p className="hero__subtitulo">
-            Practica cientos de preguntas tipo test de DAM y DAW, organizadas por módulo. Corrige al instante, revisa tus fallos y sigue
-            tu progreso hasta el día del examen.
+            Practica cientos de preguntas tipo test de DAM, DAW, ASIR y SMR, organizadas por módulo. Corrige al instante, revisa tus
+            fallos y sigue tu progreso hasta el día del examen.
           </p>
 
           <div className="hero__ctas">
@@ -129,19 +134,19 @@ export default function Inicio() {
       <section className="seccion contenedor" id="ciclos">
         <span className="pildora">Temario</span>
         <h2 className="titulo-display titulo-display--md">Tu ciclo, módulo a módulo</h2>
-        <p className="lead">Los módulos de primero son comunes. En segundo, cada ciclo tiene los suyos.</p>
+        <p className="lead">Cuatro ciclos de Informática y Comunicaciones, con los módulos técnicos de primero y segundo.</p>
         <div className="ciclos">
-          {[
-            { sigla: 'DAW', nombre: 'Desarrollo de Aplicaciones Web', lista: daw },
-            { sigla: 'DAM', nombre: 'Desarrollo de Aplicaciones Multiplataforma', lista: dam },
-          ].map((ciclo) => (
-            <article key={ciclo.sigla} className="tarjeta ciclo">
+          {CICLOS.map((ciclo) => (
+            <article key={ciclo.id} className="tarjeta ciclo">
               <div className="ciclo__cabecera">
-                <span className={`etiqueta etiqueta--${ciclo.sigla.toLowerCase()}`}>{ciclo.sigla}</span>
+                <div className="ciclo__etiquetas">
+                  <span className={`etiqueta etiqueta--${ciclo.id}`}>{ciclo.sigla}</span>
+                  <span className="etiqueta">{ciclo.grado}</span>
+                </div>
                 <h3>{ciclo.nombre}</h3>
               </div>
               <ul className="ciclo__lista">
-                {ciclo.lista.map((m) => (
+                {modulosDeCiclo(ciclo.sigla).map((m) => (
                   <li key={m.id}>
                     <Link to={`/test/${m.id}`}>
                       <span>{m.nombre}</span>
@@ -150,8 +155,8 @@ export default function Inicio() {
                   </li>
                 ))}
               </ul>
-              <Link to={`/temario?grupo=${ciclo.sigla.toLowerCase()}`} className="btn btn--fantasma btn--sm">
-                Ver módulos de 2º de {ciclo.sigla}
+              <Link to={`/temario?ciclo=${ciclo.id}`} className="btn btn--fantasma btn--sm">
+                Ver módulos de {ciclo.sigla}
               </Link>
             </article>
           ))}
