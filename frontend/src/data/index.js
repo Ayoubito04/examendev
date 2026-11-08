@@ -38,6 +38,14 @@ import seguridadInformatica from './preguntas/seguridad-informatica.js';
 import serviciosEnRed from './preguntas/servicios-en-red.js';
 import aplicacionesWeb from './preguntas/aplicaciones-web.js';
 
+// Módulos transversales y hojas de ruta (MPO)
+import itp from './preguntas/itp.js';
+import itp2 from './preguntas/itp-2.js';
+import sostenibilidad from './preguntas/sostenibilidad.js';
+import digitalizacion from './preguntas/digitalizacion.js';
+import ingles from './preguntas/ingles.js';
+import mpoArquitecturaNube from './preguntas/mpo-arquitectura-nube.js';
+
 const BANCOS = {
   programacion,
   'bases-de-datos': basesDeDatos,
@@ -70,6 +78,12 @@ const BANCOS = {
   'seguridad-informatica': seguridadInformatica,
   'servicios-en-red': serviciosEnRed,
   'aplicaciones-web': aplicacionesWeb,
+  itp,
+  'itp-2': itp2,
+  sostenibilidad,
+  digitalizacion,
+  ingles,
+  'mpo-arquitectura-nube': mpoArquitecturaNube,
 };
 
 // Cada pregunta recibe un id estable "<modulo>-<nn>" según su posición en el banco
@@ -81,7 +95,7 @@ export const PREGUNTAS = Object.fromEntries(
       ...p,
       id: `${moduloId}-${String(i + 1).padStart(2, '0')}`,
       moduloId,
-      tema: TEMAS_POR_PREGUNTA[moduloId]?.[i] ?? 0,
+      tema: TEMAS_POR_PREGUNTA[moduloId]?.[i] ?? (typeof p.tema === 'number' ? Math.max(0, p.tema - 1) : 0),
     })),
   ]),
 );

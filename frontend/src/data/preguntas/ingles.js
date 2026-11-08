@@ -1,0 +1,183 @@
+// Formato: enunciado, opciones (4), correcta (índice 0-3) y explicación.
+export default [
+  {
+    enunciado: 'In an IT support ticket, what does the phrasal verb «back up» mean in: «Please make sure you back up the database before running the migration»?',
+    opciones: [
+      'Delete all records permanently',
+      'Make a security copy of the data in case something goes wrong',
+      'Move the physical server to another room',
+      'Shut down the power supply immediately',
+    ],
+    correcta: 1,
+    explicacion: '«To back up» (verb) means to create a copy of data for recovery purposes; the noun is written as one word or hyphenated: «a backup».',
+  },
+  {
+    enunciado: 'Choose the correct option to complete the sentence: «The server ________ down for maintenance since 6:00 AM.»',
+    opciones: ['is', 'was', 'has been', 'will be'],
+    correcta: 2,
+    explicacion: 'We use the Present Perfect («has been») with «since» + a point in time to describe a state that started in the past and continues in the present.',
+  },
+  {
+    enunciado: 'Which of the following is the most appropriate and formal closing for a professional email when you DO NOT know the recipient’s name (e.g., starting with «Dear Sir or Madam»)?',
+    opciones: ['Yours faithfully,', 'See ya,', 'Lots of love,', 'Cheers mate,'],
+    correcta: 0,
+    explicacion: 'In standard formal business English, «Dear Sir or Madam» matches with «Yours faithfully,», whereas «Dear Mr/Ms [Surname]» matches with «Yours sincerely,».',
+  },
+  {
+    enunciado: 'In software development and networking, what does «throughput» refer to?',
+    opciones: [
+      'The physical weight of a rack server',
+      'The actual amount of data or requests successfully processed or transmitted in a given period of time',
+      'The password recovery form on a website',
+      'An syntax error on line 1 of a script',
+    ],
+    correcta: 1,
+    explicacion: '«Throughput» measures the real rate of successful message delivery or task processing per unit of time (e.g., requests per second or Mbps).',
+  },
+  {
+    enunciado: 'Complete the First Conditional sentence used in a technical specification: «If the API response ________ longer than 5 seconds, the client will trigger a timeout error.»',
+    opciones: ['took', 'takes', 'will take', 'would take'],
+    correcta: 1,
+    explicacion: 'In a First Conditional («If + Present Simple, will + infinitive»), the condition clause uses the Present Simple («takes»), never «will».',
+  },
+  {
+    enunciado: 'In technical documentation, the Passive Voice is very common. Choose the correct passive form: «All user passwords ________ using bcrypt before being stored.»',
+    opciones: ['hash', 'are hashed', 'is hashing', 'hashed'],
+    correcta: 1,
+    explicacion: 'Present Simple Passive is formed with «am/is/are + past participle» («are hashed»), focusing on the action rather than who performs it.',
+  },
+  {
+    enunciado: 'What does the term «scalability» mean when describing a web application architecture?',
+    opciones: [
+      'The ability of a system to handle a growing amount of load or traffic by adding resources',
+      'The screen resolution of a laptop monitor',
+      'The process of translating the user interface into Spanish',
+      'The expiration date of an SSL certificate',
+    ],
+    correcta: 0,
+    explicacion: '«Scalability» (vertical or horizontal scaling) is the capacity of a system to grow and manage increased demand smoothly.',
+  },
+  {
+    enunciado: 'What is the meaning of the phrasal verb «log in» (or «sign in»)?',
+    opciones: [
+      'To close the browser window',
+      'To enter your credentials (username and password) to access a computer system or application',
+      'To format a hard drive',
+      'To print a document on paper',
+    ],
+    correcta: 1,
+    explicacion: '«Log in / sign in» means to authenticate and start a session; the opposite is «log out / sign out».',
+  },
+  {
+    enunciado: 'During a daily stand-up meeting (Scrum), a developer says: «I am currently looking into the memory leak.» What does «looking into» mean?',
+    opciones: [
+      'Ignoring the problem completely',
+      'Investigating or examining the issue to find its cause',
+      'Staring at the computer monitor without typing',
+      'Deleting the production repository',
+    ],
+    correcta: 1,
+    explicacion: 'The phrasal verb «to look into something» means to investigate, analyze, or examine a problem.',
+  },
+  {
+    enunciado: 'Which word best completes the sentence in a bug report: «Steps to ________ the issue: 1. Open the login page, 2. Click Submit with an empty email field.»',
+    opciones: ['reproduce', 'invent', 'translate', 'celebrate'],
+    correcta: 0,
+    explicacion: '«Steps to reproduce» is the standard expression in QA and bug tracking to explain how another developer can trigger the exact same bug.',
+  },
+  {
+    enunciado: 'In Git and collaborative software development, what is a «Pull Request» (or «Merge Request»)?',
+    opciones: [
+      'An invoice sent to the customer for hosting costs',
+      'A proposal to merge a set of changes from a feature branch into the main repository after code review',
+      'A command that deletes the local operating system',
+      'A hardware request to buy a new keyboard',
+    ],
+    correcta: 1,
+    explicacion: 'A Pull Request (PR) lets teammates review code, leave comments, and run automated CI tests before merging the branch.',
+  },
+  {
+    enunciado: 'Choose the correct relative pronoun: «A firewall is a network security system ________ monitors and controls incoming and outgoing traffic.»',
+    opciones: ['who', 'which / that', 'whose', 'where'],
+    correcta: 1,
+    explicacion: 'For things, systems, or devices, we use «which» or «that» in defining relative clauses («who» is used for people).',
+  },
+  {
+    enunciado: 'What does «deprecated» mean when you read it in the official documentation of a programming language or library?',
+    opciones: [
+      'It is the newest and fastest feature available',
+      'The feature is still supported for now, but it is outdated, discouraged, and may be removed in future versions',
+      'The code has been encrypted with a private key',
+      'The library requires a paid subscription',
+    ],
+    correcta: 1,
+    explicacion: 'When a method or API is marked as «deprecated», developers should avoid using it in new code and migrate to the recommended alternative.',
+  },
+  {
+    enunciado: 'In an email to a client, what is the polite way to refer to a file you are sending along with the message?',
+    opciones: [
+      'Look at the thing I put below.',
+      'Please find attached the technical report in PDF format.',
+      'Download this right now.',
+      'I threw a file in the mail.',
+    ],
+    correcta: 1,
+    explicacion: '«Please find attached...» or «I have attached...» are the standard polite business English formulas for email attachments.',
+  },
+  {
+    enunciado: 'What is «downtime» in system administration and cloud services?',
+    opciones: [
+      'The time when employees go for lunch',
+      'A period of time during which a server, network, or service is unavailable or offline',
+      'The speed at which files are downloaded from a CDN',
+      'The bottom margin of a web page',
+    ],
+    correcta: 1,
+    explicacion: '«Downtime» is the opposite of «uptime» (high availability aims for 99.99% uptime, minimizing downtime).',
+  },
+  {
+    enunciado: 'Choose the correct modal verb for a mandatory security policy: «Employees ________ share their private SSH keys with anyone.»',
+    opciones: ['don’t have to', 'must not (mustn’t)', 'might', 'could'],
+    correcta: 1,
+    explicacion: '«Must not» expresses strict prohibition, whereas «don’t have to» means there is no obligation (it is optional).',
+  },
+  {
+    enunciado: 'In a job interview for a Junior Developer position, if the interviewer asks «What are your greatest strengths?», what are they asking about?',
+    opciones: [
+      'How much weight you can lift at the gym',
+      'Your strongest professional skills, qualities, and areas where you excel',
+      'Your minimum salary expectations',
+      'Why you left your previous school',
+    ],
+    correcta: 1,
+    explicacion: '«Strengths» refers to your strong points (both technical and soft skills), while «weaknesses» refers to areas for improvement.',
+  },
+  {
+    enunciado: 'What does «troubleshooting» mean in IT?',
+    opciones: [
+      'Creating new bugs intentionally',
+      'The systematic process of diagnosing and identifying the source of a problem in a system to fix it',
+      'Buying new office furniture',
+      'Writing user manuals for marketing',
+    ],
+    correcta: 1,
+    explicacion: '«Troubleshooting» is the logical step-by-step isolation and resolution of hardware, network, or software issues.',
+  },
+  {
+    enunciado: 'Complete the Second Conditional sentence: «If we ________ more RAM on the database server, queries would run much faster.»',
+    opciones: ['have', 'had', 'will have', 'having'],
+    correcta: 1,
+    explicacion: 'The Second Conditional («If + Past Simple, would + infinitive») is used for hypothetical situations in the present («If we had...»).',
+  },
+  {
+    enunciado: 'What does the acronym «SLA» stand for in IT service contracts?',
+    opciones: [
+      'Service Level Agreement',
+      'System Local Administrator',
+      'Software License Application',
+      'Simple Linux Architecture',
+    ],
+    correcta: 0,
+    explicacion: 'A Service Level Agreement (SLA) is a contract between a service provider and a customer defining the expected level of service, such as uptime percentage and response times.',
+  },
+];

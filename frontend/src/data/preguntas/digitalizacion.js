@@ -1,0 +1,218 @@
+// Formato: enunciado, opciones (4), correcta (índice 0-3) y explicación.
+export default [
+  {
+    enunciado: '¿Qué diferencia existe entre «digitización» (digitization), «digitalización» (digitalization) y «transformación digital»?',
+    opciones: [
+      'Son tres sinónimos exactos sin ninguna diferencia',
+      'Digitización es pasar información analógica a formato digital; digitalización es usar esa tecnología para mejorar procesos; transformación digital es el cambio profundo del modelo de negocio y cultura de la organización',
+      'La transformación digital consiste únicamente en escanear facturas en PDF',
+      'La digitalización solo se aplica a empresas que fabrican microprocesadores',
+    ],
+    correcta: 1,
+    explicacion: 'Escanear un documento en papel es digitización; automatizar el flujo de aprobación es digitalización; crear un nuevo servicio digital basado en datos cambia el modelo de negocio (transformación digital).',
+  },
+  {
+    enunciado: 'En la Industria 4.0, ¿qué significan las siglas IT y OT cuando hablamos de convergencia IT/OT?',
+    opciones: [
+      'Information Technology (Tecnologías de la Información) y Operational Technology (Tecnologías de Operación industrial)',
+      'Internet Total y Oficina Telemática',
+      'Interfaz de Texto y Ordenador Terminal',
+      'Ingeniería Técnica y Organización Temporal',
+    ],
+    correcta: 0,
+    explicacion: 'IT gestiona datos, servidores y aplicaciones corporativas; OT controla la maquinaria, sensores, PLCs y procesos físicos de planta. Su integración es la base de la Industria 4.0.',
+  },
+  {
+    enunciado: '¿Cuáles son las tres modalidades principales de servicio en Cloud Computing según el nivel de abstracción?',
+    opciones: [
+      'LAN, MAN y WAN',
+      'IaaS (Infraestructura), PaaS (Plataforma) y SaaS (Software como Servicio)',
+      'HTML, CSS y JavaScript',
+      'TCP, UDP e ICMP',
+    ],
+    correcta: 1,
+    explicacion: 'IaaS ofrece máquinas virtuales, redes y discos (ej. AWS EC2); PaaS ofrece entornos listos para desplegar código (ej. Render, Google App Engine); SaaS ofrece aplicaciones finales (ej. Microsoft 365).',
+  },
+  {
+    enunciado: '¿En qué consiste el paradigma de «Edge Computing» (computación en el borde) frente al Cloud Computing centralizado?',
+    opciones: [
+      'En procesar los datos cerca del lugar donde se generan (sensores, dispositivos IoT o pasarelas locales) para reducir la latencia y el ancho de banda',
+      'En usar exclusivamente el navegador Microsoft Edge',
+      'En enviar todos los datos sin filtrar a un único servidor situado en otro continente',
+      'En apagar la red local y trabajar sin ordenadores',
+    ],
+    correcta: 0,
+    explicacion: 'El Edge Computing resulta crítico en vehículos autónomos, robótica industrial o telemedicina, donde unos milisegundos de latencia hacia la nube no son asumibles.',
+  },
+  {
+    enunciado: '¿Qué es un «Gemelo Digital» (Digital Twin) en un entorno productivo?',
+    opciones: [
+      'Una copia de seguridad guardada en un pendrive USB',
+      'Una réplica virtual dinámica de un producto, proceso o planta física alimentada con datos en tiempo real para simular, monitorizar y predecir su comportamiento',
+      'Dos monitores conectados al mismo ordenador',
+      'Un usuario con dos cuentas de correo electrónico',
+    ],
+    correcta: 1,
+    explicacion: 'El Gemelo Digital combina sensores IoT, modelos 3D e IA para ensayar cambios o predecir averías (mantenimiento predictivo) sin detener ni poner en riesgo el sistema físico.',
+  },
+  {
+    enunciado: 'Tradicionalmente, ¿con qué «5 V» se caracteriza el concepto de Big Data?',
+    opciones: [
+      'Volumen, Velocidad, Variedad, Veracidad y Valor',
+      'Voltaje, Vatios, Velocidad, Vector y Ventana',
+      'Ventas, Visitas, Vídeos, Vínculos y Versiones',
+      'Virtualización, VLAN, VPN, VoIP y VRAM',
+    ],
+    correcta: 0,
+    explicacion: 'Big Data gestiona grandes cantidades de datos (Volumen), generados en tiempo real (Velocidad), en múltiples formatos estructurados y no estructurados (Variedad), asegurando su fiabilidad (Veracidad) para obtener utilidad de negocio (Valor).',
+  },
+  {
+    enunciado: '¿Qué protocolo ligero de mensajería basado en publicación/suscripción (pub/sub) es el estándar más utilizado para comunicar sensores y dispositivos IoT con bajo ancho de banda?',
+    opciones: ['FTP', 'MQTT', 'SMTP', 'POP3'],
+    correcta: 1,
+    explicacion: 'MQTT (Message Queuing Telemetry Transport) está diseñado para dispositivos con recursos limitados y redes inestables mediante un broker central al que los nodos publican y se suscriben a topics.',
+  },
+  {
+    enunciado: 'Dentro de la Inteligencia Artificial, ¿cuál es la diferencia entre el aprendizaje supervisado y el no supervisado en Machine Learning?',
+    opciones: [
+      'El supervisado se entrena con datos etiquetados (conociendo la respuesta esperada); el no supervisado busca patrones o agrupaciones (clustering) en datos sin etiquetar',
+      'El supervisado exige que un técnico mire la pantalla mientras se ejecuta el bucle',
+      'El no supervisado no utiliza ningún dato de entrada',
+      'Solo el aprendizaje no supervisado puede ejecutarse en tarjetas gráficas',
+    ],
+    correcta: 0,
+    explicacion: 'En aprendizaje supervisado (clasificación, regresión) el modelo aprende a partir de pares entrada-etiqueta; en el no supervisado descubre estructuras ocultas o segmentos por sí mismo.',
+  },
+  {
+    enunciado: '¿Para qué se utiliza la tecnología RPA (Robotic Process Automation) en la digitalización de una empresa?',
+    opciones: [
+      'Para soldar chasis de automóviles con brazos mecánicos pesados',
+      'Para automatizar mediante robots de software tareas administrativas repetitivas y basadas en reglas (como leer facturas, cruzar datos entre ERP y CRM o rellenar formularios)',
+      'Para sustituir el cableado de red por Wi-Fi',
+      'Para diseñar logotipos vectoriales',
+    ],
+    correcta: 1,
+    explicacion: 'Los bots de RPA interactúan con las interfaces o APIs de las aplicaciones corporativas para liberar a las personas de tareas mecánicas de alto volumen y propensas a errores.',
+  },
+  {
+    enunciado: '¿Qué propiedad fundamental aporta la tecnología Blockchain (cadena de bloques) a la trazabilidad logística o a los contratos inteligentes (Smart Contracts)?',
+    opciones: [
+      'Un registro distribuido, descentralizado e inmutable donde las transacciones quedan enlazadas criptográficamente sin depender de un único intermediario central',
+      'Una base de datos en la que cualquier usuario anónimo puede borrar filas antiguas sin dejar rastro',
+      'Compresión gratuita de archivos de vídeo en alta definición',
+      'Aumento de la velocidad del reloj de la CPU local',
+    ],
+    correcta: 0,
+    explicacion: 'Cada bloque contiene el hash criptográfico del bloque anterior; alterar un registro pasado invalidaría toda la cadena posterior en los nodos de la red.',
+  },
+  {
+    enunciado: 'En ciberseguridad aplicada a entornos digitalizados, ¿qué principio define a una arquitectura «Zero Trust» (Confianza Cero)?',
+    opciones: [
+      'Confiar por defecto en cualquier dispositivo que esté conectado dentro de la red Wi-Fi de la oficina',
+      '«Nunca confiar, siempre verificar»: autenticar, autorizar y validar continuamente a cada usuario y dispositivo, esté dentro o fuera del perímetro de la red',
+      'Prohibir el uso de contraseñas para que el acceso sea más rápido',
+      'Dar permisos de administrador (root) a todos los empleados desde el primer día',
+    ],
+    correcta: 1,
+    explicacion: 'Zero Trust elimina la confianza implícita por ubicación de red y aplica el principio de mínimo privilegio, autenticación multifactor (MFA) y microsegmentación.',
+  },
+  {
+    enunciado: '¿Cuál es la diferencia entre Realidad Virtual (VR) y Realidad Aumentada (AR) en aplicaciones industriales y formativas?',
+    opciones: [
+      'La VR sumerge completamente al usuario en un entorno 100 % digital simulado; la AR superpone elementos digitales (indicaciones, esquemas 3D) sobre la visión del mundo físico real',
+      'La AR requiere estar totalmente a oscuras y la VR solo funciona en papel impreso',
+      'Son exactamente la misma tecnología',
+      'La VR no utiliza pantallas ni visores',
+    ],
+    correcta: 0,
+    explicacion: 'En mantenimiento industrial, unas gafas o tablet de Realidad Aumentada permiten ver sobre la propia máquina real qué pieza desmontar y a qué par de apriete.',
+  },
+  {
+    enunciado: 'En una arquitectura de datos moderna, ¿qué diferencia hay entre un «Data Warehouse» y un «Data Lake»?',
+    opciones: [
+      'El Data Warehouse almacena datos estructurados y procesados listos para análisis BI; el Data Lake almacena datos en bruto (estructurados, semiestructurados y no estructurados) en su formato nativo',
+      'El Data Lake solo admite tablas relacionales con claves foráneas estrictas',
+      'El Data Warehouse solo guarda imágenes y archivos de audio',
+      'Un Data Lake es un sistema de refrigeración por agua para servidores',
+    ],
+    correcta: 0,
+    explicacion: 'Hoy en día muchas arquitecturas combinan ambos enfoques en lo que se denomina «Data Lakehouse».',
+  },
+  {
+    enunciado: '¿Qué ventaja clave ofrece la tecnología 5G en entornos industriales (Industria 4.0) frente a generaciones móviles anteriores?',
+    opciones: [
+      'Funciona únicamente por cable coaxial',
+      'Baja latencia (del orden de 1 ms en URLLC), alta velocidad y capacidad para conectar masivamente miles de sensores IoT por kilómetro cuadrado',
+      'No utiliza ondas electromagnéticas',
+      'Sustituye la necesidad de tener bases de datos en las empresas',
+    ],
+    correcta: 1,
+    explicacion: 'El 5G define tres perfiles clave: eMBB (banda ancha móvil mejorada), URLLC (comunicaciones ultra fiables y de baja latencia) y mMTC (comunicaciones masivas tipo máquina para IoT).',
+  },
+  {
+    enunciado: '¿Qué es el «mantenimiento predictivo» habilitado por la digitalización?',
+    opciones: [
+      'Reparar una máquina únicamente después de que se haya roto por completo (correctivo)',
+      'Utilizar datos de sensores (vibración, temperatura, consumo) y algoritmos de analítica/IA para anticipar un fallo antes de que ocurra y programar la intervención justo cuando es necesaria',
+      'Cambiar todas las piezas de la fábrica cada lunes aunque estén nuevas',
+      'Apagar los servidores los fines de semana',
+    ],
+    correcta: 1,
+    explicacion: 'El mantenimiento predictivo reduce las paradas no planificadas respecto al correctivo y evita sustituir componentes aún en buen estado como ocurre a veces en el preventivo fijo.',
+  },
+  {
+    enunciado: '¿Qué función cumplen las APIs (Interfaces de Programación de Aplicaciones) en el ecosistema digital de una empresa?',
+    opciones: [
+      'Impedir que dos programas puedan intercambiar información',
+      'Permitir que distintos sistemas y aplicaciones (ERP, CRM, e-commerce, pasarelas de pago, apps móviles) se comuniquen e integren datos de forma estandarizada',
+      'Sustituir la fuente de alimentación del servidor',
+      'Formatear el disco duro cada vez que se inicia sesión',
+    ],
+    correcta: 1,
+    explicacion: 'Las APIs son el pegamento de la digitalización moderna, evitando los silos de información entre departamentos y plataformas.',
+  },
+  {
+    enunciado: '¿En qué consiste un ataque de «Ransomware», uno de los mayores riesgos para las empresas digitalizadas?',
+    opciones: [
+      'Un fallo eléctrico en la compañía suministradora',
+      'Un malware que cifra los archivos o sistemas de la organización y exige el pago de un rescate económico para devolver el acceso (y a menudo para no publicar los datos robados)',
+      'Una actualización oficial del navegador web',
+      'Un test de velocidad de la conexión de fibra óptica',
+    ],
+    correcta: 1,
+    explicacion: 'La defensa frente al ransomware exige copias de seguridad inmutables y aisladas (regla 3-2-1), parches al día, formación contra phishing y segmentación de red.',
+  },
+  {
+    enunciado: '¿Qué son las plataformas «Low-Code / No-Code» dentro de una estrategia de transformación digital?',
+    opciones: [
+      'Entornos de programación exclusivamente en lenguaje ensamblador y código máquina',
+      'Herramientas que permiten crear aplicaciones y automatizar flujos de trabajo mediante interfaces visuales y configuración declarativa reduciendo el código manual',
+      'Sistemas operativos que no admiten conexión a Internet',
+      'Editores de texto sin resaltado de sintaxis',
+    ],
+    correcta: 1,
+    explicacion: 'Las herramientas Low-Code aceleran la creación de herramientas internas, prototipos y automatizaciones conectadas a bases de datos y APIs corporativas.',
+  },
+  {
+    enunciado: '¿Qué mide un KPI (Key Performance Indicator) en un cuadro de mando (dashboard) de Business Intelligence?',
+    opciones: [
+      'El tamaño en píxeles del logotipo de la empresa',
+      'Una métrica cuantificable clave que permite evaluar el grado de cumplimiento de los objetivos estratégicos u operativos del negocio',
+      'El código fuente de una hoja de estilos CSS',
+      'La dirección MAC de la tarjeta de red del portátil',
+    ],
+    correcta: 1,
+    explicacion: 'Convertir los datos en información accionable mediante KPIs claros en tiempo real permite tomar decisiones basadas en datos (Data-Driven Decision Making).',
+  },
+  {
+    enunciado: '¿Qué es un «cobot» (robot colaborativo) en una planta inteligente?',
+    opciones: [
+      'Un robot diseñado para trabajar de forma segura codo con codo con operarios humanos sin necesidad de jaulas de aislamiento, gracias a sus sensores de fuerza y parada automática',
+      'Un virus informático que se propaga por correo electrónico',
+      'Un servidor DNS secundario',
+      'Un protocolo de cifrado de correo',
+    ],
+    correcta: 0,
+    explicacion: 'Los cobots son una de las Tecnologías Habilitadoras Digitales (THD) clave de la Industria 4.0 y 5.0, combinando la precisión robótica con la destreza y criterio de las personas.',
+  },
+];

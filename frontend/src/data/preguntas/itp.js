@@ -1,0 +1,208 @@
+// Formato: enunciado, opciones (4), correcta (índice 0-3) y explicación.
+export default [
+  {
+    enunciado: '¿Qué ley regula en España la Prevención de Riesgos Laborales?',
+    opciones: [
+      'Ley 31/1995, de 8 de noviembre',
+      'Real Decreto Legislativo 2/2015 (Estatuto de los Trabajadores)',
+      'Ley Orgánica 3/2018 de Protección de Datos',
+      'Ley 39/2015 del Procedimiento Administrativo Común',
+    ],
+    correcta: 0,
+    explicacion: 'La Ley 31/1995 de Prevención de Riesgos Laborales (LPRL) constituye el marco normativo básico de seguridad y salud en el trabajo en España.',
+  },
+  {
+    enunciado: 'Según la LPRL, ¿qué es un «riesgo laboral»?',
+    opciones: [
+      'Cualquier accidente que ya se ha producido en la empresa',
+      'La posibilidad de que un trabajador sufra un determinado daño derivado del trabajo',
+      'Una sanción impuesta por la Inspección de Trabajo',
+      'La enfermedad contraída fuera del horario laboral',
+    ],
+    correcta: 1,
+    explicacion: 'El artículo 4 de la LPRL define riesgo laboral como la posibilidad de sufrir un daño derivado del trabajo; para calificar su gravedad se valoran probabilidad y severidad.',
+  },
+  {
+    enunciado: 'En puestos con pantallas de visualización de datos (PVD), ¿a qué altura debe situarse el borde superior del monitor?',
+    opciones: [
+      'Por encima de la cabeza del usuario',
+      'A la altura de los ojos o ligeramente por debajo',
+      'A la altura de los hombros',
+      'A 20 centímetros del teclado',
+    ],
+    correcta: 1,
+    explicacion: 'Situar el borde superior de la pantalla a la altura de los ojos o algo por debajo evita la extensión cervical y reduce la fatiga visual y muscular.',
+  },
+  {
+    enunciado: '¿Qué principio de la acción preventiva tiene prioridad sobre el uso de Equipos de Protección Individual (EPI)?',
+    opciones: [
+      'Anteponer la protección colectiva a la individual',
+      'Sustituir lo seguro por lo peligroso',
+      'Dejar la prevención a criterio exclusivo del trabajador',
+      'Actuar únicamente cuando ya ha ocurrido un accidente',
+    ],
+    correcta: 0,
+    explicacion: 'El artículo 15 de la LPRL establece que primero se deben evitar los riesgos en su origen y adoptar medidas de protección colectiva antes de recurrir a los EPI.',
+  },
+  {
+    enunciado: '¿Qué tipo de fuego corresponde a la Clase C según la naturaleza del combustible?',
+    opciones: [
+      'Sólidos con brasa (madera, papel, tela)',
+      'Líquidos inflamables (gasolina, disolventes)',
+      'Gases inflamables (butano, propano, gas natural)',
+      'Metales combustibles (sodio, magnesio)',
+    ],
+    correcta: 2,
+    explicacion: 'Clase A: sólidos; Clase B: líquidos; Clase C: gases; Clase D: metales; Clase F: aceites y grasas de cocina.',
+  },
+  {
+    enunciado: 'En primeros auxilios, ¿qué significan las siglas de la conducta PAS?',
+    opciones: [
+      'Prevenir, Actuar, Curar',
+      'Proteger, Avisar, Socorrer',
+      'Parar, Analizar, Salvar',
+      'Preguntar, Auxiliar, Salir',
+    ],
+    correcta: 1,
+    explicacion: 'PAS indica el orden de actuación ante un accidente: primero Proteger la zona, luego Avisar al 112 y finalmente Socorrer al herido.',
+  },
+  {
+    enunciado: '¿Cuál es la relación compresiones/ventilaciones recomendada en la RCP básica para adultos?',
+    opciones: ['15:2', '30:2', '10:1', '50:5'],
+    correcta: 1,
+    explicacion: 'El protocolo europeo de reanimación cardiopulmonar establece secuencias de 30 compresiones torácicas seguidas de 2 insuflaciones de rescate.',
+  },
+  {
+    enunciado: '¿Cuáles son los elementos esenciales para que exista una relación laboral ordinaria según el Estatuto de los Trabajadores?',
+    opciones: [
+      'Libertad horaria, asunción del riesgo y trabajo por cuenta propia',
+      'Voluntariedad, retribución, ajenidad y dependencia',
+      'Exclusividad, gratuidad y parentesco directo',
+      'Alta en el RETA y emisión de facturas con IVA',
+    ],
+    correcta: 1,
+    explicacion: 'El artículo 1.1 del Estatuto de los Trabajadores exige que la prestación sea personal, voluntaria, retribuida, por cuenta ajena (ajenidad) y dentro del ámbito de organización del empleador (dependencia).',
+  },
+  {
+    enunciado: '¿Cuál es la duración máxima legal de la jornada ordinaria de trabajo en España en cómputo anual?',
+    opciones: [
+      '35 horas semanales de promedio',
+      '40 horas semanales de trabajo efectivo de promedio en cómputo anual',
+      '48 horas semanales sin límite anual',
+      '50 horas semanales incluyendo horas extraordinarias',
+    ],
+    correcta: 1,
+    explicacion: 'El Estatuto de los Trabajadores fija un tope máximo legal de 40 horas semanales de promedio en cómputo anual, mejorable por convenio colectivo.',
+  },
+  {
+    enunciado: '¿Cuál es la duración máxima del periodo de prueba para un titulado de Grado Medio o Superior si el convenio no indica otra cosa?',
+    opciones: ['15 días', '2 meses', '6 meses', '1 año'],
+    correcta: 2,
+    explicacion: 'En defecto de pacto en convenio, el artículo 14 del ET establece un máximo de 6 meses para los técnicos titulados y de 2 meses para el resto de personas trabajadoras.',
+  },
+  {
+    enunciado: '¿Qué modalidad de contrato formativo está destinada a quien ya posee un título de FP para adquirir práctica profesional adecuada a su nivel de estudios?',
+    opciones: [
+      'Contrato de formación en alternancia',
+      'Contrato formativo para la obtención de la práctica profesional',
+      'Contrato fijo-discontinuo',
+      'Contrato de relevo',
+    ],
+    correcta: 1,
+    explicacion: 'El contrato formativo para la obtención de la práctica profesional (antiguo contrato en prácticas) se concierta dentro de los 3 años siguientes a la terminación de los estudios (5 si hay discapacidad) y dura entre 6 meses y 1 año.',
+  },
+  {
+    enunciado: '¿Cuántos días naturales de vacaciones retribuidas corresponden como mínimo por cada año trabajado según el Estatuto de los Trabajadores?',
+    opciones: ['22 días naturales', '30 días naturales', '15 días hábiles', '20 días naturales'],
+    correcta: 1,
+    explicacion: 'El artículo 38 del ET garantiza que el periodo de vacaciones anuales retribuidas nunca será inferior a 30 días naturales.',
+  },
+  {
+    enunciado: 'En una nómina, ¿qué dos grandes grupos de deducciones se restan del total devengado para obtener el líquido a percibir?',
+    opciones: [
+      'IVA e Impuesto de Sociedades',
+      'Cotizaciones a la Seguridad Social y retención de IRPF',
+      'Salario base y complementos salariales',
+      'Pagas extraordinarias y horas complementarias',
+    ],
+    correcta: 1,
+    explicacion: 'Al salario bruto (total devengado) se le descuentan las aportaciones del trabajador a la Seguridad Social (contingencias comunes, desempleo, FP, MEI) y la retención a cuenta del IRPF.',
+  },
+  {
+    enunciado: '¿Con qué indemnización se extingue un contrato por despido disciplinario declarado procedente?',
+    opciones: [
+      '33 días de salario por año trabajado',
+      '20 días de salario por año trabajado',
+      '12 días de salario por año trabajado',
+      'Sin derecho a indemnización (solo liquidación/finiquito de haberes pendientes)',
+    ],
+    correcta: 3,
+    explicacion: 'El despido disciplinario procedente extingue el contrato por incumplimiento grave y culpable del trabajador sin derecho a indemnización, aunque sí a percibir el finiquito de lo ya devengado.',
+  },
+  {
+    enunciado: '¿Qué plazo de caducidad tiene una persona trabajadora para impugnar un despido ante la jurisdicción social?',
+    opciones: [
+      '20 días hábiles siguientes a aquel en que se hubiera producido',
+      '30 días naturales desde la firma del contrato',
+      '1 año desde la carta de despido',
+      '10 días naturales',
+    ],
+    correcta: 0,
+    explicacion: 'El ejercicio de la acción contra el despido caduca a los 20 días hábiles siguientes a la fecha de efectos del despido (presentando primero la papeleta de conciliación ante el SMAC).',
+  },
+  {
+    enunciado: '¿Qué es un accidente «in itinere»?',
+    opciones: [
+      'El que sufre el trabajador al desplazarse entre su domicilio y su lugar de trabajo',
+      'El que ocurre durante las vacaciones anuales',
+      'Una enfermedad común no relacionada con el puesto',
+      'Un incidente que solo produce daños materiales sin lesiones',
+    ],
+    correcta: 0,
+    explicacion: 'La Ley General de la Seguridad Social considera accidente de trabajo el sufrido al ir o al volver del lugar de trabajo por el trayecto habitual y sin interrupciones ajenas.',
+  },
+  {
+    enunciado: 'En el análisis DAFO de empleabilidad personal, ¿cuáles son los dos factores internos que dependen de la propia persona?',
+    opciones: [
+      'Amenazas y Oportunidades',
+      'Debilidades y Fortalezas',
+      'Fortalezas y Oportunidades',
+      'Debilidades y Amenazas',
+    ],
+    correcta: 1,
+    explicacion: 'Debilidades y Fortalezas forman el análisis interno (competencias, actitud, formación propia), mientras que Amenazas y Oportunidades pertenecen al entorno externo (mercado laboral).',
+  },
+  {
+    enunciado: '¿Qué son las «soft skills» (competencias transversales o blandas) en el ámbito profesional IT?',
+    opciones: [
+      'Licencias de software instaladas en el equipo de la empresa',
+      'Habilidades interpersonales, de comunicación, trabajo en equipo y adaptabilidad',
+      'Certificaciones exclusivas de administración de bases de datos',
+      'Lenguajes de programación de alto nivel',
+    ],
+    correcta: 1,
+    explicacion: 'Las soft skills abarcan competencias socioemocionales y de relación (comunicación asertiva, resolución de conflictos, gestión del tiempo y trabajo en equipo), clave junto a las hard skills técnicas.',
+  },
+  {
+    enunciado: '¿Qué órgano de representación unitaria se elige en empresas o centros de trabajo que tienen entre 10 y 49 personas trabajadoras?',
+    opciones: [
+      'Comité de Empresa',
+      'Delegados de Personal',
+      'Consejo de Administración',
+      'Inspección de Trabajo',
+    ],
+    correcta: 1,
+    explicacion: 'En centros de entre 10 y 49 trabajadores representan a la plantilla los Delegados de Personal (1 hasta 30 trabajadores; 3 de 31 a 49). A partir de 50 se constituye el Comité de Empresa.',
+  },
+  {
+    enunciado: '¿Qué prestación de la Seguridad Social protege la situación de quien pierde su empleo de forma involuntaria y ha cotizado al menos 360 días en los últimos 6 años?',
+    opciones: [
+      'Incapacidad permanente absoluta',
+      'Prestación contributiva por desempleo (el paro)',
+      'Ingreso Mínimo Vital',
+      'Pensión de jubilación ordinaria',
+    ],
+    correcta: 1,
+    explicacion: 'Para acceder a la prestación contributiva por desempleo se requiere estar en situación legal de desempleo y acreditar un periodo mínimo de cotización de 360 días en los 6 años anteriores.',
+  },
+];

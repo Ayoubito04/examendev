@@ -1,0 +1,208 @@
+// Formato: enunciado, opciones (4), correcta (índice 0-3) y explicación.
+export default [
+  {
+    enunciado: '¿Cómo definió el Informe Brundtland (1987) el concepto de «desarrollo sostenible»?',
+    opciones: [
+      'El crecimiento económico ilimitado sin restricciones ambientales',
+      'El desarrollo que satisface las necesidades del presente sin comprometer la capacidad de las generaciones futuras para satisfacer las suyas',
+      'La prohibición total de cualquier actividad industrial o tecnológica',
+      'La reducción exclusiva de costes salariales en las empresas',
+    ],
+    correcta: 1,
+    explicacion: 'El informe «Nuestro futuro común» (Comisión Brundtland, ONU, 1987) acuñó esta definición clásica apoyada en tres pilares: ambiental, social y económico.',
+  },
+  {
+    enunciado: '¿Cuántos Objetivos de Desarrollo Sostenible (ODS) integran la Agenda 2030 de las Naciones Unidas?',
+    opciones: ['10 objetivos', '17 objetivos y 169 metas', '25 objetivos', '5 objetivos europeos'],
+    correcta: 1,
+    explicacion: 'La Agenda 2030 de la ONU, aprobada en 2015, está formada por 17 ODS interconectados y 169 metas concretas.',
+  },
+  {
+    enunciado: 'En el ámbito empresarial y de inversión sostenible, ¿qué significan las siglas ASG (o ESG en inglés)?',
+    opciones: [
+      'Ambiental, Social y Gobernanza (Environmental, Social and Governance)',
+      'Administración de Sistemas Globales',
+      'Ahorro, Saldo y Ganancia',
+      'Auditoría de Software Gratuito',
+    ],
+    correcta: 0,
+    explicacion: 'Los criterios ASG/ESG evalúan el desempeño de una organización en impacto medioambiental (E), responsabilidad con empleados y sociedad (S) y buen gobierno corporativo y ética (G).',
+  },
+  {
+    enunciado: '¿En qué consiste el modelo de «economía circular» frente al modelo lineal tradicional?',
+    opciones: [
+      'En extraer, fabricar, usar y tirar lo más rápido posible',
+      'En mantener el valor de los productos, materiales y recursos en la economía durante el mayor tiempo posible y reducir al mínimo la generación de residuos',
+      'En fabricar únicamente productos con forma redonda',
+      'En duplicar el consumo de materias primas vírgenes cada año',
+    ],
+    correcta: 1,
+    explicacion: 'La economía circular sustituye el modelo lineal («extraer-producir-tirar») por el ecodiseño, la reparación, la reutilización, la remanufactura y el reciclaje.',
+  },
+  {
+    enunciado: 'En el cálculo de la huella de carbono de una organización tecnológica, ¿qué emisiones incluye el Alcance 2 (Scope 2)?',
+    opciones: [
+      'Las emisiones directas de los vehículos propios de combustible de la empresa',
+      'Las emisiones indirectas asociadas a la generación de la electricidad adquirida y consumida por la empresa (por ejemplo, en sus oficinas o servidores)',
+      'Las emisiones producidas por los viajes de vacaciones de los clientes',
+      'Únicamente las fugas de gases refrigerantes de los aires acondicionados',
+    ],
+    correcta: 1,
+    explicacion: 'Alcance 1: emisiones directas en instalaciones/flota propia; Alcance 2: emisiones indirectas por consumo de electricidad/energía comprada; Alcance 3: resto de emisiones indirectas en la cadena de valor.',
+  },
+  {
+    enunciado: 'En un centro de procesamiento de datos (CPD / Data Center), ¿qué mide el indicador PUE (Power Usage Effectiveness)?',
+    opciones: [
+      'La velocidad del procesador en gigahercios',
+      'El cociente entre la energía total consumida por el centro de datos y la energía utilizada exclusivamente por el equipamiento TI',
+      'El número de programadores contratados por cada servidor',
+      'El precio mensual de la licencia del sistema operativo',
+    ],
+    correcta: 1,
+    explicacion: 'Un PUE ideal tiende a 1,0 (significaría que casi toda la energía va a los servidores y no se pierde en refrigeración o distribución eléctrica).',
+  },
+  {
+    enunciado: '¿Qué son los residuos identificados con las siglas RAEE?',
+    opciones: [
+      'Residuos de Aparatos Eléctricos y Electrónicos (e-waste)',
+      'Redes de Área Extendida Europea',
+      'Registros Anuales de Eficiencia Empresarial',
+      'Recursos Agrícolas Ecológicos Españoles',
+    ],
+    correcta: 0,
+    explicacion: 'Los RAEE (ordenadores, móviles, servidores, monitores desechados) contienen metales valiosos pero también sustancias peligrosas, por lo que exigen una gestión y reciclaje específicos.',
+  },
+  {
+    enunciado: '¿Qué persigue el «ecodiseño» tanto en hardware como en ingeniería de software (Green Software)?',
+    opciones: [
+      'Integrar criterios ambientales desde la fase de concepción y diseño para minimizar el impacto a lo largo de todo su ciclo de vida',
+      'Pintar el logotipo de la aplicación de color verde',
+      'Hacer que el código consuma más memoria RAM para obligar a cambiar de equipo',
+      'Eliminar la documentación técnica del proyecto',
+    ],
+    correcta: 0,
+    explicacion: 'Cerca del 80 % del impacto ambiental de un producto o sistema digital se determina en la fase de diseño (elección de materiales, reparabilidad, eficiencia algorítmica y energética).',
+  },
+  {
+    enunciado: '¿Qué práctica engañosa se conoce como «greenwashing» (ecoblanqueo)?',
+    opciones: [
+      'Limpiar los paneles solares con agua reciclada',
+      'Presentar una empresa o producto como respetuoso con el medio ambiente mediante marketing engañoso sin que existan medidas reales que lo respalden',
+      'Certificar una empresa bajo la norma ISO 14001',
+      'Publicar un informe verificado de emisiones de CO2',
+    ],
+    correcta: 1,
+    explicacion: 'El greenwashing utiliza reclamos ecológicos falsos o exagerados para mejorar la imagen de marca sin reducir realmente su impacto ambiental.',
+  },
+  {
+    enunciado: '¿Qué norma internacional especifica los requisitos para implantar un Sistema de Gestión Ambiental (SGA) en una organización?',
+    opciones: ['ISO 9001', 'ISO 14001', 'ISO 27001', 'ISO 45001'],
+    correcta: 1,
+    explicacion: 'ISO 14001 es el estándar internacional de gestión ambiental (ISO 9001 es calidad, ISO 27001 seguridad de la información e ISO 45001 seguridad y salud en el trabajo).',
+  },
+  {
+    enunciado: 'En el desarrollo de aplicaciones web y móviles (Green Coding), ¿cuál de estas prácticas contribuye directamente a reducir el consumo energético y la huella de carbono digital?',
+    opciones: [
+      'Optimizar consultas SQL, comprimir imágenes (WebP/AVIF), usar caché y evitar peticiones o re-renderizados innecesarios',
+      'Incluir vídeos en 4K con reproducción automática en todas las páginas',
+      'Ejecutar bucles infinitos en segundo plano en el navegador del cliente',
+      'Desactivar el almacenamiento en caché del servidor HTTP',
+    ],
+    correcta: 0,
+    explicacion: 'Menos bytes transferidos por la red y menos ciclos de CPU tanto en el servidor como en el dispositivo del usuario se traducen directamente en menor consumo eléctrico.',
+  },
+  {
+    enunciado: '¿Qué es la «obsolescencia programada» y cómo afecta también al software?',
+    opciones: [
+      'La actualización gratuita de seguridad de un sistema operativo',
+      'La limitación artificial de la vida útil de un dispositivo o su inutilización prematura cuando el nuevo software deja de dar soporte o exige recursos desproporcionados',
+      'La programación de tareas con cron en Linux',
+      'El reciclaje de componentes electrónicos en puntos limpios',
+    ],
+    correcta: 1,
+    explicacion: 'Además de la obsolescencia de hardware, la obsolescencia por software ocurre cuando se retira el soporte prematuramente o el bloatware fuerza a desechar equipos que funcionan perfectamente.',
+  },
+  {
+    enunciado: '¿Qué evalúa el Análisis de Ciclo de Vida (ACV / LCA) de un producto tecnológico?',
+    opciones: [
+      'Únicamente el tiempo que tarda el usuario en abrir la caja',
+      'Los impactos ambientales asociados a todas las etapas de su existencia: extracción de materias primas, fabricación, transporte, uso y fin de vida',
+      'El precio de venta en el mercado de segunda mano',
+      'La duración de la batería durante el primer día de uso',
+    ],
+    correcta: 1,
+    explicacion: 'El ACV (regulado en las normas ISO 14040/14044) cuantifica entradas de recursos y salidas de emisiones «de la cuna a la tumba» (o «de la cuna a la cuna» en economía circular).',
+  },
+  {
+    enunciado: 'Dentro de la dimensión Social (la «S» de los criterios ASG) en el sector tecnológico, ¿qué aspecto es fundamental?',
+    opciones: [
+      'La accesibilidad digital (WCAG), la brecha digital, la igualdad de oportunidades y las condiciones laborales dignas',
+      'La frecuencia de reloj de la tarjeta gráfica',
+      'El tipo de conector de fibra óptica utilizado',
+      'El protocolo de enrutamiento dinámico OSPF',
+    ],
+    correcta: 0,
+    explicacion: 'La sostenibilidad social en TI exige diseñar software accesible para personas con discapacidad, reducir la brecha digital y garantizar entornos laborales seguros e inclusivos.',
+  },
+  {
+    enunciado: '¿Qué directiva europea obliga a las grandes empresas (y progresivamente a más organizaciones) a presentar informes detallados y auditados sobre sostenibilidad?',
+    opciones: [
+      'Directiva CSRD (Corporate Sustainability Reporting Directive)',
+      'Directiva de Baja Tensión',
+      'Protocolo IPv4',
+      'Licencia MIT de código abierto',
+    ],
+    correcta: 0,
+    explicacion: 'La directiva europea CSRD establece estándares europeos (ESRS) obligatorios para reportar el impacto ambiental, social y de gobernanza con rigor equivalente al de la información financiera.',
+  },
+  {
+    enunciado: '¿Qué propósito tiene el «Derecho a reparar» impulsado por la Unión Europea?',
+    opciones: [
+      'Prohibir que los usuarios abran sus propios ordenadores',
+      'Obligar a los fabricantes a facilitar piezas de repuesto, manuales y diseños que permitan reparar los dispositivos en lugar de sustituirlos',
+      'Encarecer las reparaciones para fomentar la compra de equipos nuevos',
+      'Eliminar la garantía legal de los productos electrónicos',
+    ],
+    correcta: 1,
+    explicacion: 'El derecho a reparar combate la generación de basura electrónica (RAEE) exigiendo disponibilidad de repuestos y prohibiendo trabas por software o soldaduras innecesarias.',
+  },
+  {
+    enunciado: '¿Qué ODS de la Agenda 2030 se centra específicamente en «Acción por el clima» para combatir el cambio climático y sus efectos?',
+    opciones: ['ODS 1', 'ODS 4', 'ODS 13', 'ODS 17'],
+    correcta: 2,
+    explicacion: 'El ODS 13 es «Acción por el clima» (ODS 1: Fin de la pobreza, ODS 4: Educación de calidad, ODS 7: Energía asequible y no contaminante, ODS 12: Producción y consumo responsables).',
+  },
+  {
+    enunciado: '¿Por qué el entrenamiento y despliegue de grandes modelos de Inteligencia Artificial plantea un reto importante de sostenibilidad?',
+    opciones: [
+      'Porque no utilizan electricidad ni servidores',
+      'Por el elevado consumo de energía eléctrica y de agua para la refrigeración de los centros de datos de GPUs',
+      'Porque solo funcionan con disquetes magnéticos',
+      'Porque reducen el tráfico de red a cero',
+    ],
+    correcta: 1,
+    explicacion: 'Las cargas intensivas de IA multiplican la demanda eléctrica y el consumo hídrico en refrigeración de CPDs, impulsando el uso de modelos más pequeños y eficientes y energías renovables.',
+  },
+  {
+    enunciado: 'En la jerarquía europea de gestión de residuos, ¿qué acción ocupa el primer lugar por ser la más prioritaria?',
+    opciones: [
+      'Eliminación en vertedero',
+      'Prevención (evitar que se genere el residuo)',
+      'Incineración con recuperación de energía',
+      'Reciclaje químico',
+    ],
+    correcta: 1,
+    explicacion: 'El orden de prioridad es: 1.º Prevención, 2.º Preparación para la reutilización, 3.º Reciclaje, 4.º Otro tipo de valorización (incluida la energética) y 5.º Eliminación.',
+  },
+  {
+    enunciado: '¿Qué son los «límites planetarios» propuestos por el Centro de Resiliencia de Estocolmo?',
+    opciones: [
+      'Las fronteras aduaneras entre países para la importación de hardware',
+      'Nueve procesos biofísicos fundamentales (como cambio climático o pérdida de biodiversidad) cuyos umbrales no deben superarse para mantener la estabilidad de la Tierra',
+      'El alcance máximo en metros de una red Wi-Fi doméstica',
+      'El límite de almacenamiento gratuito en la nube',
+    ],
+    correcta: 1,
+    explicacion: 'El marco de los 9 límites planetarios define el espacio operativo seguro para la humanidad respecto al sistema Tierra.',
+  },
+];

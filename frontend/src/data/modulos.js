@@ -76,8 +76,19 @@ export const MODULOS = [
     nombre: 'Desarrollo web en entorno servidor',
     ciclos: ['DAW'],
     curso: 2,
-    descripcion: 'PHP, HTTP, sesiones y cookies, acceso a bases de datos, seguridad, MVC y APIs REST.',
-    temas: ['PHP básico', 'Formularios, sesiones y cookies', 'Acceso a datos y seguridad', 'Arquitectura MVC', 'Servicios REST'],
+    descripcion: 'Arquitectura servidor, PHP 8.3 y Laravel, formularios, sesiones, PDO/ORM, seguridad OWASP Top 10, MVC, APIs REST, páginas dinámicas y aplicaciones híbridas.',
+    temas: [
+      'UT1 · Arquitecturas y tecnologías del servidor web (HTTP, FastCGI/PHP-FPM, Composer y Laravel)',
+      'UT2 · Integración de código en el servidor y lenguajes de marcas (Sintaxis PHP, tipos y escapado)',
+      'UT3 · Estructuras de programación embebidas (Control, arrays, funciones y formularios PRG)',
+      'UT4 · Aplicaciones web con funcionalidades del servidor (Sesiones, cookies, Argon2id y roles)',
+      'UT5 · Acceso a almacenes de datos desde el servidor (PDO, CRUD, transacciones ACID y ORM)',
+      'UT6 · Seguridad e integridad de la información (OWASP Top 10, SQLi, XSS, CSRF y RGPD)',
+      'UT7 · Separación presentación/lógica: patrón MVC (Controladores, Eloquent, Blade y SOLID)',
+      'UT8 · Servicios web y APIs REST (Diseño REST, OpenAPI, seguridad API, paginación y GraphQL)',
+      'UT9 · Frameworks del servidor: páginas dinámicas (SSR, fragmentos HTMX, accesibilidad e i18n)',
+      'UT10 · Aplicaciones web híbridas y repositorios heterogéneos (Composer, mashups, datos abiertos y tests)',
+    ],
   },
   {
     id: 'despliegue',
@@ -281,6 +292,68 @@ export const MODULOS = [
     descripcion: 'Servidores web locales, gestores de contenidos, blogs, wikis, foros y plataformas de aprendizaje.',
     temas: ['Conceptos web', 'Entorno de pruebas', 'Gestores de contenidos', 'Blogs, wikis y foros', 'Administración del sitio'],
   },
+
+  // ---------- Módulos transversales (DAM, DAW, ASIR y SMR) ----------
+  {
+    id: 'itp',
+    nombre: 'Itinerario personal para la empleabilidad I (ITP)',
+    ciclos: ['DAM', 'DAW', 'ASIR', 'SMR'],
+    curso: 1,
+    descripcion: 'Prevención de riesgos laborales, primeros auxilios, derecho del trabajo, contrato, nómina, Seguridad Social y autoconocimiento.',
+    temas: ['Prevención de riesgos laborales', 'Primeros auxilios y emergencias', 'Relación laboral y contratos', 'Jornada, salario y nómina', 'Seguridad Social y empleabilidad'],
+  },
+  {
+    id: 'itp-2',
+    nombre: 'Itinerario personal para la empleabilidad II (ITP 2)',
+    ciclos: ['DAM', 'DAW', 'ASIR', 'SMR'],
+    curso: 2,
+    descripcion: 'Búsqueda activa de empleo, procesos de selección, marca personal, emprendimiento, plan de empresa, formas jurídicas y viabilidad.',
+    temas: ['Búsqueda activa y selección (CV y entrevista)', 'Competencias emprendedoras y Lean Startup', 'Modelo de negocio y marketing', 'Formas jurídicas y trámites', 'Financiación, fiscalidad y viabilidad'],
+  },
+  {
+    id: 'sostenibilidad',
+    nombre: 'Sostenibilidad aplicada al sistema productivo',
+    ciclos: ['DAM', 'DAW', 'ASIR', 'SMR'],
+    curso: 2,
+    descripcion: 'Agenda 2030 y ODS, criterios ASG (ESG), economía circular, huella de carbono, ecodiseño, RAEE y Green IT.',
+    temas: ['Desarrollo sostenible y Agenda 2030 (ODS)', 'Retos ambientales y huella de carbono', 'Economía circular y ecodiseño', 'Criterios ASG (ESG) y normativa', 'Sostenibilidad en TI (Green IT y RAEE)'],
+  },
+  {
+    id: 'digitalizacion',
+    nombre: 'Digitalización aplicada a los sectores productivos',
+    ciclos: ['DAM', 'DAW', 'ASIR', 'SMR'],
+    curso: 2,
+    descripcion: 'Transformación digital, Industria 4.0 (IT/OT), Cloud y Edge Computing, IoT, Big Data, Inteligencia Artificial y ciberseguridad.',
+    temas: ['Transformación digital e Industria 4.0 (IT/OT)', 'Tecnologías Habilitadoras Digitales (IoT, 5G, VR/AR)', 'Cloud Computing y Edge Computing', 'Big Data e Inteligencia Artificial', 'Ciberseguridad y proyecto de digitalización'],
+  },
+  {
+    id: 'ingles',
+    nombre: 'Inglés profesional',
+    ciclos: ['DAM', 'DAW', 'ASIR', 'SMR'],
+    curso: 2,
+    descripcion: 'Vocabulario técnico de informática y redes, comprensión de documentación técnica, gramática aplicada, correos profesionales y entrevistas en inglés.',
+    temas: ['Technical IT & Networking Vocabulary', 'Grammar in Technical Contexts (Conditionals & Passive)', 'Reading Technical Documentation & APIs', 'Business Emails & Support Tickets', 'Job Interviews & Agile Meetings in English'],
+  },
+  {
+    id: 'mpo-arquitectura-nube',
+    nombre: 'MPO II · Arquitectura en la nube',
+    ciclos: ['DAM', 'DAW'],
+    curso: 2,
+    descripcion: 'Arquitecturas cloud híbridas y multicloud, diseño multi-región, seguridad Zero Trust, redes avanzadas, contenedores/serverless, datos, IaC, observabilidad, FinOps y DevOps.',
+    temas: [
+      'UT1 · Estrategias de nube: híbrida, multicloud y migración (6 R y Landing Zones)',
+      'UT2 · Infraestructura global y diseño multi-región (DR, RPO/RTO, CDN, Route 53 y Chaos Engineering)',
+      'UT3 · Seguridad avanzada y gobernanza (AWS Organizations, SCP, IAM, KMS, GuardDuty y Zero Trust)',
+      'UT4 · Redes avanzadas y conectividad híbrida (Transit Gateway, VPN, Direct Connect y PrivateLink)',
+      'UT5 · Cómputo avanzado: contenedores y serverless (ECS, EKS, Fargate, Lambda y Step Functions)',
+      'UT6 · Almacenamiento y datos avanzados (S3, Data Lake, Athena, Glue, Redshift y Lakehouse)',
+      'UT7 · Bases de datos avanzadas y caché (Aurora, DynamoDB, ElastiCache y Serverless)',
+      'UT8 · Infraestructura como código - IaC (CloudFormation, Terraform, OpenTofu, CDK y GitOps)',
+      'UT9 · Observabilidad y escalado avanzado (Métricas/Logs/Trazas, CloudWatch, X-Ray, OpenTelemetry y SLO)',
+      'UT10 · Costes, presupuestos y FinOps (Savings Plans, Spot, Unit Economics y sostenibilidad)',
+      'UT11 · Arquitecturas modernas, DevOps y proyecto de arquitectura (Microservicios, SQS/SNS, CI/CD e IDP)',
+    ],
+  },
 ];
 
 export const modulosDeCiclo = (sigla, curso) =>
@@ -319,6 +392,12 @@ export const NOMBRES_CORTOS = {
   'seguridad-informatica': 'Seguridad',
   'servicios-en-red': 'Servicios en red',
   'aplicaciones-web': 'Aplicaciones web',
+  itp: 'ITP I',
+  'itp-2': 'ITP II',
+  sostenibilidad: 'Sostenibilidad',
+  digitalizacion: 'Digitalización',
+  ingles: 'Inglés',
+  'mpo-arquitectura-nube': 'MPO II Cloud',
 };
 
 export const nombreCorto = (id) => NOMBRES_CORTOS[id] ?? id;

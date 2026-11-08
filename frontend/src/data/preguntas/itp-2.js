@@ -1,0 +1,218 @@
+// Formato: enunciado, opciones (4), correcta (índice 0-3) y explicación.
+export default [
+  {
+    enunciado: '¿Qué sistema utilizan muchas empresas tecnológicas para filtrar automáticamente los currículums antes de que los lea un reclutador humano?',
+    opciones: [
+      'ATS (Applicant Tracking System)',
+      'ERP (Enterprise Resource Planning)',
+      'DNS (Domain Name System)',
+      'POS (Point of Sale)',
+    ],
+    correcta: 0,
+    explicacion: 'Un ATS analiza la estructura y las palabras clave del CV para clasificar las candidaturas según su ajuste a la oferta de empleo.',
+  },
+  {
+    enunciado: 'En una entrevista de selección por competencias, ¿qué estructura propone el método STAR para responder preguntas sobre experiencias pasadas?',
+    opciones: [
+      'Salario, Turno, Antigüedad yVacaciones',
+      'Situación, Tarea, Acción y Resultado',
+      'Software, Testing, Arquitectura y Release',
+      'Síntesis, Teoría, Argumento y Resumen',
+    ],
+    correcta: 1,
+    explicacion: 'El método STAR permite estructurar ejemplos reales describiendo el contexto (Situación), el objetivo (Tarea), lo que hiciste (Acción) y el impacto logrado (Resultado).',
+  },
+  {
+    enunciado: '¿Qué elemento del lienzo Business Model Canvas responde a qué problema solucionamos y qué valor diferencial entregamos a cada segmento de clientes?',
+    opciones: [
+      'Estructura de costes',
+      'Propuesta de valor',
+      'Socios clave',
+      'Recursos clave',
+    ],
+    correcta: 1,
+    explicacion: 'La propuesta de valor es el bloque central del Business Model Canvas de Osterwalder y describe el conjunto de productos o servicios que crean valor para un segmento específico.',
+  },
+  {
+    enunciado: 'En la metodología Lean Startup de Eric Ries, ¿qué es un MVP (Producto Mínimo Viable)?',
+    opciones: [
+      'El producto final con todas las funcionalidades posibles ya terminadas',
+      'La versión de un nuevo producto que permite validar hipótesis con clientes reales con el mínimo esfuerzo y coste',
+      'Una campaña de publicidad masiva en televisión',
+      'El empleado con mayor salario de la empresa',
+    ],
+    correcta: 1,
+    explicacion: 'El MVP busca cerrar el ciclo «Construir - Medir - Aprender» lo antes posible para comprobar si el mercado realmente demanda la solución antes de invertir grandes recursos.',
+  },
+  {
+    enunciado: '¿Cuál es el capital social mínimo general exigido tras la Ley Crea y Crece (Ley 18/2022) para constituir una Sociedad de Responsabilidad Limitada (S.L.) en España?',
+    opciones: [
+      '60.000 euros',
+      '1 euro (con reglas de reserva legal hasta alcanzar 3.000 euros)',
+      '15.000 euros',
+      '120.000 euros',
+    ],
+    correcta: 1,
+    explicacion: 'La Ley 18/2022 de creación y crecimiento de empresas permite constituir una S.L. desde 1 €, destinando al menos el 20 % del beneficio a reserva legal hasta que esta y el capital sumen 3.000 €.',
+  },
+  {
+    enunciado: '¿Cómo responde un empresario individual (autónomo) frente a las deudas generadas por su actividad empresarial?',
+    opciones: [
+      'Con responsabilidad limitada únicamente al capital aportado',
+      'Con responsabilidad ilimitada, respondiendo con su patrimonio personal presente y futuro',
+      'No responde nunca de las deudas comerciales',
+      'Responde únicamente la Seguridad Social',
+    ],
+    correcta: 1,
+    explicacion: 'En la empresa individual no hay separación entre el patrimonio mercantil y el civil del titular, salvo las limitaciones parciales de vivienda habitual del Emprendedor de Responsabilidad Limitada (ERL).',
+  },
+  {
+    enunciado: '¿Qué régimen de la Seguridad Social corresponde obligatoriamente a quien realiza de forma habitual, personal y directa una actividad económica a título lucrativo por cuenta propia?',
+    opciones: [
+      'Régimen General',
+      'RETA (Régimen Especial de Trabajadores Autónomos)',
+      'Régimen Especial del Mar',
+      'Mutualidad Escolar',
+    ],
+    correcta: 1,
+    explicacion: 'Los trabajadores por cuenta propia o autónomos deben darse de alta en el RETA además de tramitar el alta censal (modelo 036/037) en la Agencia Tributaria.',
+  },
+  {
+    enunciado: '¿Qué modelo tributario se presenta ante la Agencia Tributaria (AEAT) para tramitar el alta en el Censo de Empresarios, Profesionales y Retenedores antes de iniciar una actividad?',
+    opciones: [
+      'Modelo 100',
+      'Modelo 036 (o 037)',
+      'Modelo 390',
+      'Modelo 200',
+    ],
+    correcta: 1,
+    explicacion: 'El modelo 036 es la declaración censal de alta, modificación y baja para empresarios y profesionales, requisito previo al inicio de la facturación.',
+  },
+  {
+    enunciado: '¿Qué impuesto grava directamente los beneficios obtenidos por las sociedades mercantiles (como una S.L. o una S.A.)?',
+    opciones: [
+      'IRPF (Impuesto sobre la Renta de las Personas Físicas)',
+      'Impuesto sobre Sociedades (IS)',
+      'IVA (Impuesto sobre el Valor Añadido)',
+      'IBI (Impuesto sobre Bienes Inmuebles)',
+    ],
+    correcta: 1,
+    explicacion: 'Las personas jurídicas tributan por sus beneficios en el Impuesto sobre Sociedades (modelo 200), mientras que el empresario individual tributa en el IRPF por rendimientos de actividades económicas.',
+  },
+  {
+    enunciado: '¿Qué es el «umbral de rentabilidad» o «punto muerto» (break-even point) de un proyecto empresarial?',
+    opciones: [
+      'El momento en que la empresa cierra definitivamente',
+      'El volumen de ventas en el que los ingresos totales igualan a los costes totales (beneficio igual a cero)',
+      'El importe máximo de préstamo bancario concedido',
+      'La fecha límite para pagar el alquiler del local',
+    ],
+    correcta: 1,
+    explicacion: 'En el punto muerto la empresa cubre exactamente sus costes fijos y variables; a partir de esa cifra de unidades vendidas empieza a obtener beneficios.',
+  },
+  {
+    enunciado: 'En contabilidad y finanzas, ¿cómo se calcula el Fondo de Maniobra (Working Capital)?',
+    opciones: [
+      'Activo Corriente menos Pasivo Corriente',
+      'Activo No Corriente más Pasivo No Corriente',
+      'Ingresos menos Gastos de personal',
+      'Capital social multiplicado por el IVA',
+    ],
+    correcta: 0,
+    explicacion: 'El Fondo de Maniobra (AC - PC) mide la capacidad de la empresa para atender sus deudas a corto plazo con sus activos más líquidos.',
+  },
+  {
+    enunciado: '¿Cuál es la diferencia fundamental entre «liquidez» y «solvencia» en el análisis financiero de una startup?',
+    opciones: [
+      'Son exactamente lo mismo',
+      'La liquidez es la capacidad de hacer frente a pagos a corto plazo; la solvencia es la capacidad de respaldar todas las deudas con el total de sus activos a largo plazo',
+      'La liquidez solo aplica a bancos y la solvencia a autónomos',
+      'La solvencia mide solo el dinero en efectivo de la caja diaria',
+    ],
+    correcta: 1,
+    explicacion: 'Una empresa puede ser solvente (tener inmuebles o activos superiores a sus deudas) pero sufrir falta de liquidez si no dispone de tesorería inmediata para pagar las nóminas del mes.',
+  },
+  {
+    enunciado: '¿Qué fuente de financiación propia externa consiste en inversores particulares que aportan capital, contactos y experiencia a startups en fases iniciales?',
+    opciones: [
+      'Confirming bancario',
+      'Business Angels',
+      'Descuento comercial de pagarés',
+      'Leasing inmobiliario',
+    ],
+    correcta: 1,
+    explicacion: 'Los Business Angels invierten su propio patrimonio en empresas emergentes con alto potencial de crecimiento a cambio de una participación en el capital y aportando mentoría (smart money).',
+  },
+  {
+    enunciado: 'En una factura emitida por un profesional autónomo (por ejemplo, un desarrollador freelance) a una empresa española, ¿qué ocurre con el IVA y la retención de IRPF?',
+    opciones: [
+      'Se suma el IVA (21 %) y se resta la retención de IRPF sobre la base imponible',
+      'Se restan tanto el IVA como el IRPF',
+      'Los autónomos nunca incluyen IVA en sus facturas',
+      'Solo se aplica el Impuesto sobre Sociedades',
+    ],
+    correcta: 0,
+    explicacion: 'En facturas de actividades profesionales a otras empresas o autónomos, a la base imponible se le suma el 21 % de IVA y se le descuenta la retención de IRPF (15 % general, o 7 % en los primeros años).',
+  },
+  {
+    enunciado: '¿Qué herramienta de diseño estratégico utiliza un mapa visual para empatizar con el usuario analizando qué piensa y siente, qué ve, qué oye y qué dice y hace?',
+    opciones: [
+      'Diagrama de Gantt',
+      'Mapa de Empatía',
+      'Balance de Situación',
+      'Cuenta de Pérdidas y Ganancias',
+    ],
+    correcta: 1,
+    explicacion: 'El Mapa de Empatía (utilizado en Design Thinking) ayuda a comprender en profundidad las frustraciones y necesidades reales del cliente potencial antes de diseñar la solución.',
+  },
+  {
+    enunciado: '¿Qué plataforma digital es la red profesional de referencia para construir marca personal, hacer networking y buscar empleo en el sector tecnológico, junto con GitHub para el portfolio de código?',
+    opciones: ['LinkedIn', 'TikTok', 'Twitch', 'Pinterest'],
+    correcta: 0,
+    explicacion: 'LinkedIn permite mostrar la trayectoria formativa y profesional, conectar con reclutadores IT y publicar proyectos técnicos enlazados con el repositorio de GitHub.',
+  },
+  {
+    enunciado: '¿A través de qué punto electrónico oficial se puede realizar la constitución telemática unificada de una Sociedad Limitada o el alta de autónomo mediante el Documento Único Electrónico (DUE)?',
+    opciones: [
+      'PAE (Punto de Atención al Emprendedor) / CIRCE',
+      'BOE (Boletín Oficial del Estado)',
+      'DGT (Dirección General de Tráfico)',
+      'AEMET',
+    ],
+    correcta: 0,
+    explicacion: 'El sistema CIRCE y la red de Puntos de Atención al Emprendedor (PAE) permiten tramitar telemáticamente el alta en Hacienda, Seguridad Social y Registro Mercantil rellenando un único documento (DUE).',
+  },
+  {
+    enunciado: '¿Qué diferencia existe entre un coste fijo y un coste variable en una empresa de desarrollo de software?',
+    opciones: [
+      'El coste fijo no varía a corto plazo con el volumen de producción (ej. alquiler de oficina); el variable cambia proporcionalmente a la actividad (ej. consumo de APIs por usuario activo)',
+      'Los costes fijos nunca se pagan y los variables se pagan cada diez años',
+      'El coste variable es siempre el alquiler del local',
+      'No existe ninguna diferencia en contabilidad de costes',
+    ],
+    correcta: 0,
+    explicacion: 'Identificar qué costes son fijos y cuáles dependen del número de clientes o licencias vendidas es imprescindible para calcular el margen de contribución y el punto muerto.',
+  },
+  {
+    enunciado: '¿Qué indicador financiero (VAN) permite evaluar si una inversión es rentable actualizando al momento presente los flujos de caja futuros?',
+    opciones: [
+      'Valor Actual Neto',
+      'Volumen Anual Nominal',
+      'Venta Acumulada Neta',
+      'Variable de Amortización Normal',
+    ],
+    correcta: 0,
+    explicacion: 'El VAN descuenta los flujos netos de caja futuros a una tasa de actualización y resta el desembolso inicial; si el VAN es mayor que cero, la inversión genera valor.',
+  },
+  {
+    enunciado: 'En el marco europeo de competencias para el emprendimiento (EntreComp), ¿cuáles son las tres grandes áreas de competencia?',
+    opciones: [
+      'Ideas y oportunidades, Recursos, y Pasar a la acción',
+      'Hardware, Software y Redes',
+      'Compras, Ventas y Almacén',
+      'Nóminas, Seguros y Bancos',
+    ],
+    correcta: 0,
+    explicacion: 'El marco EntreComp de la Comisión Europea organiza la competencia emprendedora en tres áreas: «Ideas and opportunities», «Resources» y «Into action».',
+  },
+];
