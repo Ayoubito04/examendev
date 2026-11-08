@@ -16,13 +16,19 @@ Práctica con corrección al instante, simulacros cronometrados, repaso de fallo
 
   El reparto por curso sigue la organización más habitual y puede variar según la comunidad autónoma.
 - **Temario filtrable por ciclo**; los módulos compartidos aparecen en cada ciclo con un único banco y un único progreso.
-- **Tres modos de test**
+- **Cuatro modos de test**
   - *Práctica*: 20 preguntas sin límite de tiempo; eliges, pulsas Validar y ves la corrección; si fallas, un recordatorio con la respuesta correcta.
   - *Simulacro*: 20 preguntas en 90 minutos, botón Validar con recordatorio al fallar, opción de saltar preguntas y mapa que marca aciertos y fallos.
   - *Repaso de fallos*: solo las preguntas falladas que aún no has vuelto a acertar.
+  - *Trivia*: 20 preguntas con 20 s cada una, puntos en vivo, racha, multiplicadores y animaciones. Puntúa para el ranking.
+- **Puntuación de la trivia**: 100 por acierto + hasta 50 por rapidez; ×1,5 desde 3 aciertos seguidos y ×2 desde 5. Fallar o agotar el tiempo da 0 y reinicia la racha. Resultados con desglose por pregunta.
+- **Práctica por tema**: cada pregunta está asignada a un tema del módulo (`/test/:modulo?tema=N`).
 - **Preguntas y opciones barajadas** en cada test.
 - **Resultados** con nota sobre 10, tiempo y corrección detallada.
-- **Mi progreso**: tests realizados, nota media, mejor y última nota por módulo e historial.
+- **Mi progreso**: radar de dominio por módulo (por ciclo), barras de acierto por tema, lista de temas a repasar, tabla por módulo e historial.
+- **Ranking** con pestañas global, por módulo y semanal, filtro por ciclo, podio y tu posición.
+- **Cuentas**: registro, inicio de sesión y recuperación de contraseña. **Perfil** con nick, avatar, puntos, racha de días y logros.
+- **Modo oscuro** (sigue al sistema o se elige en la barra), estados de carga, vacío y error en todas las pantallas con datos remotos.
 - **Atajos de teclado** en los tests: `1`–`4` o `A`–`D` para responder, `Enter`/`→` siguiente, `←` anterior.
 - Diseño responsive, accesible y con soporte de `prefers-reduced-motion`.
 
@@ -31,7 +37,18 @@ Práctica con corrección al instante, simulacros cronometrados, repaso de fallo
 - React 19 + Vite
 - React Router (`react-router-dom`)
 - CSS propio (sin frameworks), fuentes Instrument Serif, Inter y Manrope
-- Persistencia en `localStorage` (sin backend ni registro)
+- Progreso de práctica en `localStorage`
+- Cuentas, ranking y perfil a través de una capa de servicios (`src/api/`). Sin backend funciona con **datos simulados** guardados en el navegador (usuarios de demostración incluidos)
+
+## Conectar el backend
+
+El contrato de la API está en [`docs/API.md`](docs/API.md). Para usar el backend real, crea `.env.local` en la raíz:
+
+```bash
+VITE_API_URL=http://localhost:3000/api
+```
+
+Con esa variable definida, los servicios dejan de usar el mock y llaman a la API (token Bearer en `Authorization`). Sin ella, todo sigue funcionando en modo demo.
 
 ## Puesta en marcha
 
@@ -48,17 +65,20 @@ npm run lint      # oxlint
 ```
 src/
 ├── App.jsx                  # rutas
-├── main.jsx                 # punto de entrada, router y proveedor de progreso
+├── main.jsx                 # punto de entrada, router y proveedores (tema, sesión, progreso)
+├── api/                     # servicios: auth, usuarios, puntuaciones; mock/ con datos simulados
 ├── config.js                # nombre, correo de contacto y parámetros de los tests
 ├── components/              # Navbar, Footer, Layout, Quiz, Resultados, ModuloCard…
-├── context/ProgressContext.jsx  # intentos y fallos (useContext + localStorage)
+├── context/                 # ProgressContext, AuthContext, TemaContext
 ├── hooks/                   # useLocalStorage, useCountdown
-├── pages/                   # Inicio, Temario, Test, Progreso, Contacto, NoEncontrado
+├── pages/                   # Inicio, Temario, Test, Progreso, Ranking, Perfil, Contacto…
+│   └── cuenta/              # Login, Registro, Recuperar, Restablecer
 ├── data/
 │   ├── modulos.js           # ciclos, secciones del temario, módulos, curso y temas
-│   ├── index.js             # une los bancos y asigna ids
+│   ├── index.js             # une los bancos, asigna ids y tema
+│   ├── temas.js             # tema (0-4) de cada pregunta por módulo
 │   └── preguntas/*.js       # un banco por módulo
-├── utils/quiz.js            # barajar, corregir, formatear
+├── utils/                   # quiz, puntos, logros, avatares, validación, estadísticas
 └── styles/global.css
 ```
 

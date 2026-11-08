@@ -1,12 +1,15 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import Quiz from '../components/Quiz.jsx';
+import Trivia from '../components/Trivia.jsx';
 import Resultados from '../components/Resultados.jsx';
+import ResultadosTrivia from '../components/ResultadosTrivia.jsx';
 import RepasoErrores from '../components/RepasoErrores.jsx';
 import NoEncontrado from './NoEncontrado.jsx';
 import { PREGUNTAS, PREGUNTA_POR_ID, getModulo } from '../data/index.js';
 import { useProgress } from '../context/ProgressContext.jsx';
 import { corregir, crearTest } from '../utils/quiz.js';
+import { TRIVIA } from '../utils/puntos.js';
 import { MINUTOS_SIMULACRO, PREGUNTAS_POR_EXAMEN } from '../config.js';
 
 const MODOS = [
@@ -21,11 +24,18 @@ const MODOS = [
     texto: `Examen de ${PREGUNTAS_POR_EXAMEN} preguntas en ${MINUTOS_SIMULACRO} minutos. Valida cada respuesta o sáltala y vuelve después.`,
   },
   {
+    id: 'trivia',
+    titulo: 'Modo trivia',
+    texto: `${TRIVIA.segundosPorPregunta} s por pregunta. Suma puntos por rapidez y rachas, y compite en el ranking.`,
+  },
+  {
     id: 'repaso',
     titulo: 'Repasar mis fallos',
     texto: 'Todas las preguntas que has fallado en tus tests, acumuladas, con la respuesta correcta y su explicación.',
   },
 ];
+
+const MODOS_VALIDOS = MODOS.map((m) => m.id);
 
 // Se remonta al cambiar de módulo o de parámetros para no arrastrar el estado de otro test.
 export default function Test() {
@@ -40,7 +50,15 @@ function TestModulo() {
   const modulo = getModulo(moduloId);
   const { statsModulo, registrarIntento } = useProgress();
 
-  const banco = useMemo(() => PREGUNTAS[moduloId] ?? [], [moduloId]);
+  // ?tema=N limita el test a las preguntas de un tema del módulo.
+  const temaParam = searchParams.get('tema');
+  const tema = modulo && temaParam !== null && modulo.temas[Number(temaParam)] !== undefined ? Number(temaParam) : null;
+
+  const banco = useMemo(() => {
+    const todas = PREGUNTAS[moduloId] ?? [];
+    return tema === null ? todas : todas.filter((p) => p.tema === tema);
+  }, [moduloId, tema]);
+
   const pendientes = useMemo(
     () => (modulo ? statsModulo(moduloId).pendientes.map((id) => PREGUNTA_POR_ID[id]).filter(Boolean) : []),
     [modulo, moduloId, statsModulo],
@@ -48,7 +66,7 @@ function TestModulo() {
 
   const modoInicial = searchParams.get('modo');
   const [modo, setModo] = useState(
-    modoInicial === 'simulacro' || (modoInicial === 'repaso' && pendientes.length) ? modoInicial : 'practica',
+    MODOS_VALIDOS.includes(modoInicial) && (modoInicial !== 'repaso' || pendientes.length) ? modoInicial : 'practica',
   );
 
   // Un enlace con ?rapido=1 arranca directamente un test de práctica.
@@ -75,7 +93,7 @@ function TestModulo() {
     setFin(null);
     setVerErrores(false);
     setTest({ modo: modoTest, preguntas: crearTest(lista, n ?? lista.length), clave: Date.now() });
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
   const terminar = useCallback(
@@ -83,12 +101,34 @@ function TestModulo() {
       const resultado = corregir(test.preguntas, respuestas);
       registrarIntento({ moduloId, modo: test.modo, preguntas: test.preguntas, respuestas, resultado, segundos });
       setFin({ respuestas, resultado, segundos });
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    },
+    [test, moduloId, registrarIntento],
+  );
+
+  // La trivia también cuenta para el progreso y los fallos.
+  const terminarTrivia = useCallback(
+    (resumen) => {
+      const respuestas = resumen.detalle.map((d) => d.elegida);
+      const resultado = corregir(test.preguntas, respuestas);
+      registrarIntento({ moduloId, modo: 'trivia', preguntas: test.preguntas, respuestas, resultado, segundos: resumen.segundos });
+      setFin({ trivia: resumen });
+      window.scrollTo({ top: 0, behavior: 'instant' });
     },
     [test, moduloId, registrarIntento],
   );
 
   if (!modulo) return <NoEncontrado />;
+
+  const repetir = () => {
+    setTest(null);
+    setFin(null);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
+  if (test && fin?.trivia) {
+    return <ResultadosTrivia modulo={modulo} resumen={fin.trivia} onRepetir={() => iniciar('trivia', banco, TRIVIA.preguntas)} />;
+  }
 
   if (test && fin) {
     const falladas = test.preguntas
@@ -103,13 +143,13 @@ function TestModulo() {
         resultado={fin.resultado}
         segundos={fin.segundos}
         onRepasarFallos={() => iniciar('repaso', falladas)}
-        onRepetir={() => {
-          setTest(null);
-          setFin(null);
-          window.scrollTo(0, 0);
-        }}
+        onRepetir={repetir}
       />
     );
+  }
+
+  if (test?.modo === 'trivia') {
+    return <Trivia key={test.clave} preguntas={test.preguntas} modulo={modulo} onTerminar={terminarTrivia} />;
   }
 
   if (test) {
@@ -124,21 +164,27 @@ function TestModulo() {
         onPracticar={() => iniciar('repaso', pendientes)}
         onVolver={() => {
           setVerErrores(false);
-          window.scrollTo(0, 0);
+          window.scrollTo({ top: 0, behavior: 'instant' });
         }}
       />
     );
   }
 
-  const cantidadEfectiva = Math.min(PREGUNTAS_POR_EXAMEN, banco.length);
+  const cantidadEfectiva = Math.min(modo === 'trivia' ? TRIVIA.preguntas : PREGUNTAS_POR_EXAMEN, banco.length);
   const empezar = () => {
     if (modo === 'repaso') {
       setVerErrores(true);
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, behavior: 'instant' });
     } else {
       iniciar(modo, banco, cantidadEfectiva);
     }
   };
+
+  const ficha = {
+    practica: { tiempo: 'Sin límite', tercero: ['Corrección', 'Con el botón Validar'] },
+    simulacro: { tiempo: `${MINUTOS_SIMULACRO} min`, tercero: ['Corrección', 'Con el botón Validar'] },
+    trivia: { tiempo: `${TRIVIA.segundosPorPregunta} s por pregunta`, tercero: ['Puntuación', 'Rapidez y rachas'] },
+  }[modo];
 
   return (
     <section className="config contenedor contenedor--medio">
@@ -149,11 +195,30 @@ function TestModulo() {
       <h1 className="titulo-display titulo-display--md">{modulo.nombre}</h1>
       <p className="lead">{modulo.descripcion}</p>
 
-      <ul className="temas">
-        {modulo.temas.map((t) => (
-          <li key={t}>{t}</li>
-        ))}
-      </ul>
+      {tema !== null && (
+        <p className="filtro-tema" role="status">
+          Practicando solo el tema <strong>{modulo.temas[tema]}</strong> ({banco.length} preguntas).{' '}
+          <Link to={`/test/${modulo.id}${modo !== 'practica' ? `?modo=${modo}` : ''}`} className="enlace">
+            Quitar filtro
+          </Link>
+        </p>
+      )}
+
+      <nav aria-label="Practicar por tema">
+        <ul className="temas">
+          {modulo.temas.map((t, i) => (
+            <li key={t}>
+              <Link
+                to={`/test/${modulo.id}?tema=${i}${modo !== 'practica' ? `&modo=${modo}` : ''}`}
+                className={`tema-chip ${tema === i ? 'tema-chip--activo' : ''}`}
+                aria-current={tema === i ? 'true' : undefined}
+              >
+                {t}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
       <fieldset className="config__grupo">
         <legend>Modo</legend>
@@ -161,22 +226,17 @@ function TestModulo() {
           {MODOS.map((m) => {
             const deshabilitado = m.id === 'repaso' && pendientes.length === 0;
             return (
-              <label key={m.id} className={`modo ${modo === m.id ? 'modo--activo' : ''} ${deshabilitado ? 'modo--deshabilitado' : ''}`}>
-                <input
-                  type="radio"
-                  name="modo"
-                  value={m.id}
-                  checked={modo === m.id}
-                  disabled={deshabilitado}
-                  onChange={() => setModo(m.id)}
-                />
+              <label
+                key={m.id}
+                className={`modo ${modo === m.id ? 'modo--activo' : ''} ${deshabilitado ? 'modo--deshabilitado' : ''} ${m.id === 'trivia' ? 'modo--trivia' : ''}`}
+              >
+                <input type="radio" name="modo" value={m.id} checked={modo === m.id} disabled={deshabilitado} onChange={() => setModo(m.id)} />
                 <span className="modo__titulo">
                   {m.titulo}
                   {m.id === 'repaso' && <span className="modo__contador">{pendientes.length}</span>}
+                  {m.id === 'trivia' && <span className="modo__nuevo">Ranking</span>}
                 </span>
-                <span className="modo__texto">
-                  {deshabilitado ? 'No tienes fallos pendientes en este módulo.' : m.texto}
-                </span>
+                <span className="modo__texto">{deshabilitado ? 'No tienes fallos pendientes en este módulo.' : m.texto}</span>
               </label>
             );
           })}
@@ -191,11 +251,11 @@ function TestModulo() {
           </div>
           <div>
             <dt>Tiempo</dt>
-            <dd>{modo === 'simulacro' ? `${MINUTOS_SIMULACRO} min` : 'Sin límite'}</dd>
+            <dd>{ficha.tiempo}</dd>
           </div>
           <div>
-            <dt>Corrección</dt>
-            <dd>Con el botón Validar</dd>
+            <dt>{ficha.tercero[0]}</dt>
+            <dd>{ficha.tercero[1]}</dd>
           </div>
         </dl>
       )}
@@ -205,11 +265,11 @@ function TestModulo() {
           {modo === 'repaso'
             ? `${pendientes.length} pregunta${pendientes.length === 1 ? '' : 's'} fallada${pendientes.length === 1 ? '' : 's'} con su explicación.`
             : cantidadEfectiva === banco.length
-              ? `Las ${banco.length} preguntas del módulo en orden aleatorio, con las opciones barajadas.`
+              ? `${tema === null ? 'Las' : 'Todas las'} ${banco.length} preguntas${tema === null ? ' del módulo' : ' del tema'} en orden aleatorio, con las opciones barajadas.`
               : `${cantidadEfectiva} preguntas al azar de un banco de ${banco.length}, con las opciones barajadas.`}
         </p>
-        <button type="button" className="btn btn--primario btn--lg" onClick={empezar}>
-          {modo === 'repaso' ? 'Repaso de errores' : 'Empezar test'}
+        <button type="button" className={`btn btn--lg ${modo === 'trivia' ? 'btn--acento' : 'btn--primario'}`} onClick={empezar} disabled={!banco.length}>
+          {modo === 'repaso' ? 'Repaso de errores' : modo === 'trivia' ? 'Jugar trivia' : 'Empezar test'}
         </button>
       </div>
     </section>

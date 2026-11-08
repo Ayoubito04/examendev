@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useMemo } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage.js';
+import { PREGUNTAS, getModulo } from '../data/index.js';
 
 const ProgressContext = createContext(null);
 
@@ -7,6 +8,8 @@ const ESTADO_INICIAL = {
   intentos: [], // { id, moduloId, modo, aciertos, total, nota, segundos, fecha }
   // { [preguntaId]: { veces, ultimaRespuesta, fecha, aciertosDespues, ultimoAcierto } }
   fallos: {},
+  // { [preguntaId]: { a: aciertos, f: fallos } } — base de las estadísticas por tema y módulo
+  porPregunta: {},
 };
 
 // "programacion-07" → "programacion". Se corta por el último guion para que
@@ -31,7 +34,10 @@ export function ProgressProvider({ children }) {
       setProgreso((prev) => {
         const ahora = new Date().toISOString();
         const fallos = { ...prev.fallos };
+        const porPregunta = { ...prev.porPregunta };
         preguntas.forEach((p, i) => {
+          const actual = porPregunta[p.id] ?? { a: 0, f: 0 };
+          porPregunta[p.id] = respuestas[i] === p.correcta ? { ...actual, a: actual.a + 1 } : { ...actual, f: actual.f + 1 };
           const anterior = normalizarFallo(fallos[p.id]);
           if (respuestas[i] === p.correcta) {
             if (!anterior) return;
@@ -59,7 +65,7 @@ export function ProgressProvider({ children }) {
           segundos,
           fecha: ahora,
         };
-        return { intentos: [intento, ...prev.intentos].slice(0, 200), fallos };
+        return { ...prev, intentos: [intento, ...prev.intentos].slice(0, 200), fallos, porPregunta };
       });
     },
     [setProgreso],
@@ -97,7 +103,39 @@ export function ProgressProvider({ children }) {
 
     const infoFallo = (preguntaId) => fallos[preguntaId] ?? null;
 
-    return { intentos, fallos, statsModulo, infoFallo, registrarIntento, marcarDominada, reiniciar };
+    // Aciertos y fallos por tema de un módulo. pct = null si aún no se ha respondido nada.
+    const porPregunta = progreso.porPregunta ?? {};
+    const statsTemas = (moduloId) => {
+      const modulo = getModulo(moduloId);
+      if (!modulo) return [];
+      const temas = modulo.temas.map((nombre, indice) => ({ indice, nombre, aciertos: 0, fallos: 0, total: 0 }));
+      (PREGUNTAS[moduloId] ?? []).forEach((p) => {
+        const t = temas[p.tema];
+        t.total += 1;
+        const r = porPregunta[p.id];
+        if (r) {
+          t.aciertos += r.a;
+          t.fallos += r.f;
+        }
+      });
+      return temas.map((t) => {
+        const respondidas = t.aciertos + t.fallos;
+        return { ...t, respondidas, pct: respondidas ? Math.round((t.aciertos / respondidas) * 100) : null };
+      });
+    };
+
+    // Porcentaje de acierto acumulado en un módulo (null si no hay respuestas).
+    const pctModulo = (moduloId) => {
+      let a = 0;
+      let f = 0;
+      (PREGUNTAS[moduloId] ?? []).forEach((p) => {
+        a += porPregunta[p.id]?.a ?? 0;
+        f += porPregunta[p.id]?.f ?? 0;
+      });
+      return a + f ? Math.round((a / (a + f)) * 100) : null;
+    };
+
+    return { intentos, fallos, statsModulo, statsTemas, pctModulo, infoFallo, registrarIntento, marcarDominada, reiniciar };
   }, [progreso, registrarIntento, marcarDominada, reiniciar]);
 
   return <ProgressContext.Provider value={valor}>{children}</ProgressContext.Provider>;
