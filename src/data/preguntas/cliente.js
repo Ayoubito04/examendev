@@ -1,0 +1,123 @@
+export default [
+  {
+    enunciado: '¿Qué palabra clave declara una variable con ámbito de bloque que se puede reasignar?',
+    opciones: ['var', 'let', 'const', 'static'],
+    correcta: 1,
+    explicacion: '`let` tiene ámbito de bloque y se puede reasignar. `const` también es de bloque pero no admite reasignación, y `var` tiene ámbito de función.',
+  },
+  {
+    enunciado: '¿Qué resultado da `2 + "2"` en JavaScript?',
+    opciones: ['4', '"22"', 'NaN', 'Error de tipos'],
+    correcta: 1,
+    explicacion: 'Si uno de los operandos de `+` es una cadena, el otro se convierte a cadena y se concatenan.',
+  },
+  {
+    enunciado: '¿Qué compara el operador `===`?',
+    opciones: ['Solo el valor', 'El valor y el tipo, sin conversión', 'Solo la referencia', 'Solo el tipo'],
+    correcta: 1,
+    explicacion: 'La igualdad estricta no hace conversión de tipos: `1 === "1"` es `false`, mientras que `1 == "1"` es `true`.',
+  },
+  {
+    enunciado: '¿Qué devuelve `typeof null`?',
+    opciones: ['"null"', '"undefined"', '"object"', '"number"'],
+    correcta: 2,
+    explicacion: 'Es un error histórico del lenguaje que se mantiene por compatibilidad: `typeof null` es `"object"`.',
+  },
+  {
+    enunciado: '¿Qué método de array crea un array nuevo transformando cada elemento?',
+    opciones: ['forEach', 'map', 'filter', 'reduce'],
+    correcta: 1,
+    explicacion: '`map` devuelve un array de la misma longitud con el resultado de la función. `forEach` no devuelve nada.',
+  },
+  {
+    enunciado: '¿Qué devuelve `[1, 2, 3, 4].filter(n => n % 2 === 0)`?',
+    opciones: ['[1, 3]', '[2, 4]', 'true', '6'],
+    correcta: 1,
+    explicacion: '`filter` conserva los elementos para los que la función devuelve `true`: los pares 2 y 4.',
+  },
+  {
+    enunciado: '¿Qué método devuelve el primer elemento del documento que coincide con un selector CSS?',
+    opciones: ['document.getElementsByClassName', 'document.querySelector', 'document.querySelectorAll', 'document.getElement'],
+    correcta: 1,
+    explicacion: '`querySelector` devuelve el primer elemento o `null`. `querySelectorAll` devuelve una NodeList con todos.',
+  },
+  {
+    enunciado: '¿Cómo se evita que un formulario recargue la página al enviarse?',
+    opciones: ['event.stopPropagation()', 'event.preventDefault()', 'return true', 'event.cancel()'],
+    correcta: 1,
+    explicacion: '`preventDefault()` cancela la acción por defecto del navegador. `stopPropagation()` solo detiene la propagación del evento.',
+  },
+  {
+    enunciado: '¿Qué es el event bubbling?',
+    opciones: [
+      'Que el evento se dispara dos veces',
+      'Que el evento se propaga desde el elemento hacia sus ancestros',
+      'Que el evento se ejecuta en segundo plano',
+      'Que el evento se cancela solo',
+    ],
+    correcta: 1,
+    explicacion: 'En la fase de burbuja el evento sube del elemento destino hasta `document`. Es lo que permite la delegación de eventos.',
+  },
+  {
+    enunciado: '¿Qué devuelve siempre una función declarada con `async`?',
+    opciones: ['undefined', 'Una Promise', 'Un callback', 'El valor sin envolver'],
+    correcta: 1,
+    explicacion: 'Una función `async` siempre devuelve una promesa que se resuelve con el valor retornado o se rechaza con la excepción lanzada.',
+  },
+  {
+    enunciado: 'Tras `const res = await fetch(url)`, ¿cómo se obtiene el cuerpo como objeto JSON?',
+    opciones: ['res.body', 'JSON.parse(res)', 'await res.json()', 'res.data'],
+    correcta: 2,
+    explicacion: '`res.json()` lee el cuerpo y lo parsea; devuelve una promesa, por eso se usa `await`.',
+  },
+  {
+    enunciado: '¿Qué tipo de dato guarda `localStorage`?',
+    opciones: ['Cualquier objeto JavaScript', 'Solo cadenas de texto', 'Solo números', 'Ficheros binarios'],
+    correcta: 1,
+    explicacion: 'Todo se guarda como texto. Para objetos hay que usar `JSON.stringify` al guardar y `JSON.parse` al leer.',
+  },
+  {
+    enunciado: '¿Qué diferencia a una función flecha respecto al valor de `this`?',
+    opciones: [
+      'Su this es siempre window',
+      'No tiene this propio: usa el del ámbito donde se define',
+      'Su this es la propia función',
+      'No puede usar this en ningún caso',
+    ],
+    correcta: 1,
+    explicacion: 'Las funciones flecha heredan `this` léxicamente, por eso son útiles en callbacks dentro de métodos.',
+  },
+  {
+    enunciado: '¿Qué hace `const copia = [...original]`?',
+    opciones: [
+      'Crea una referencia al mismo array',
+      'Crea una copia superficial del array',
+      'Crea una copia profunda',
+      'Convierte el array en objeto',
+    ],
+    correcta: 1,
+    explicacion: 'El operador spread copia los elementos en un array nuevo, pero los objetos internos siguen siendo los mismos (copia superficial).',
+  },
+  {
+    enunciado: '¿Qué hace `const { nombre } = usuario`?',
+    opciones: [
+      'Crea un objeto nuevo llamado nombre',
+      'Extrae la propiedad nombre de usuario en una constante',
+      'Comprueba si usuario tiene nombre',
+      'Renombra el objeto usuario',
+    ],
+    correcta: 1,
+    explicacion: 'Es desestructuración de objetos: equivale a `const nombre = usuario.nombre`.',
+  },
+  {
+    enunciado: '¿Qué hace `JSON.stringify(obj)`?',
+    opciones: [
+      'Convierte una cadena JSON en objeto',
+      'Convierte un objeto en una cadena JSON',
+      'Valida un JSON',
+      'Clona el objeto',
+    ],
+    correcta: 1,
+    explicacion: '`stringify` serializa a texto. La operación inversa es `JSON.parse`.',
+  },
+];

@@ -1,0 +1,113 @@
+export default [
+  {
+    enunciado: '¿A qué máscara de subred equivale el prefijo /24?',
+    opciones: ['255.0.0.0', '255.255.0.0', '255.255.255.0', '255.255.255.128'],
+    correcta: 2,
+    explicacion: '/24 son 24 bits a 1: tres octetos completos, es decir 255.255.255.0.',
+  },
+  {
+    enunciado: '¿Cuántos hosts utilizables tiene una red /24?',
+    opciones: ['256', '255', '254', '128'],
+    correcta: 2,
+    explicacion: 'Quedan 8 bits para hosts: 2⁸ = 256 direcciones, menos la de red y la de broadcast, 254.',
+  },
+  {
+    enunciado: '¿Cuál de estas direcciones IPv4 es privada?',
+    opciones: ['8.8.8.8', '192.168.1.10', '172.32.0.1', '200.1.1.1'],
+    correcta: 1,
+    explicacion: 'Los rangos privados son 10.0.0.0/8, 172.16.0.0/12 (172.16–172.31) y 192.168.0.0/16. 172.32.0.1 queda fuera.',
+  },
+  {
+    enunciado: '¿Qué comando de Linux cambia los permisos de un fichero?',
+    opciones: ['chown', 'chmod', 'chgrp', 'passwd'],
+    correcta: 1,
+    explicacion: '`chmod` cambia permisos. `chown` cambia el propietario y `chgrp` el grupo.',
+  },
+  {
+    enunciado: '¿Qué permisos representa `chmod 755`?',
+    opciones: ['rwxr-xr-x', 'rw-r--r--', 'rwxrwxrwx', 'rwx------'],
+    correcta: 0,
+    explicacion: '7 = rwx para el propietario, 5 = r-x para el grupo y 5 = r-x para otros.',
+  },
+  {
+    enunciado: '¿Cuál es el usuario administrador en Linux?',
+    opciones: ['admin', 'root', 'superuser', 'system'],
+    correcta: 1,
+    explicacion: '`root` tiene UID 0 y todos los privilegios. `sudo` permite ejecutar comandos con sus permisos.',
+  },
+  {
+    enunciado: '¿Qué tipo de memoria pierde su contenido al apagar el equipo?',
+    opciones: ['ROM', 'RAM', 'SSD', 'Memoria flash'],
+    correcta: 1,
+    explicacion: 'La RAM es volátil. ROM, SSD y flash conservan los datos sin alimentación.',
+  },
+  {
+    enunciado: '¿Qué protocolos trabajan en la capa de transporte del modelo TCP/IP?',
+    opciones: ['IP e ICMP', 'TCP y UDP', 'HTTP y FTP', 'Ethernet y Wi-Fi'],
+    correcta: 1,
+    explicacion: 'TCP (orientado a conexión) y UDP (sin conexión) son de transporte. IP es de red y HTTP/FTP de aplicación.',
+  },
+  {
+    enunciado: '¿Qué puerto usa HTTPS por defecto?',
+    opciones: ['80', '21', '443', '8080'],
+    correcta: 2,
+    explicacion: 'HTTPS usa el 443. HTTP usa el 80 y FTP el 21 para control.',
+  },
+  {
+    enunciado: '¿Qué función cumple el servicio DNS?',
+    opciones: [
+      'Asignar direcciones IP automáticamente',
+      'Traducir nombres de dominio a direcciones IP',
+      'Cifrar el tráfico',
+      'Enrutar paquetes entre redes',
+    ],
+    correcta: 1,
+    explicacion: 'DNS resuelve nombres como ejemplo.com a direcciones IP. Asignar IP automáticamente es tarea de DHCP.',
+  },
+  {
+    enunciado: '¿Qué servicio asigna automáticamente la configuración IP a los equipos de una red?',
+    opciones: ['DNS', 'DHCP', 'NAT', 'ARP'],
+    correcta: 1,
+    explicacion: 'DHCP entrega dirección IP, máscara, puerta de enlace y servidores DNS.',
+  },
+  {
+    enunciado: '¿Qué nivel RAID duplica los datos en dos discos (espejo)?',
+    opciones: ['RAID 0', 'RAID 1', 'RAID 5', 'RAID 10'],
+    correcta: 1,
+    explicacion: 'RAID 1 es espejo. RAID 0 reparte sin redundancia y RAID 5 usa paridad distribuida.',
+  },
+  {
+    enunciado: '¿Qué comando muestra la configuración IP en Windows?',
+    opciones: ['ifconfig', 'ipconfig', 'ip a', 'netstat'],
+    correcta: 1,
+    explicacion: '`ipconfig` es el de Windows. En Linux se usan `ip a` o el clásico `ifconfig`.',
+  },
+  {
+    enunciado: '¿Cuál es el sistema de archivos habitual de las versiones actuales de Windows?',
+    opciones: ['ext4', 'NTFS', 'APFS', 'FAT12'],
+    correcta: 1,
+    explicacion: 'NTFS es el estándar en Windows. ext4 es típico de Linux y APFS de macOS.',
+  },
+  {
+    enunciado: '¿Qué caracteriza a un hipervisor de tipo 1?',
+    opciones: [
+      'Se instala como una aplicación sobre otro sistema operativo',
+      'Se ejecuta directamente sobre el hardware',
+      'Solo puede virtualizar Linux',
+      'No permite más de una máquina virtual',
+    ],
+    correcta: 1,
+    explicacion: 'Tipo 1 (nativo o bare metal), como ESXi o Hyper-V. Los de tipo 2, como VirtualBox, se ejecutan sobre un sistema anfitrión.',
+  },
+  {
+    enunciado: '¿Para qué sirve `sudo` en Linux?',
+    opciones: [
+      'Para cambiar de directorio',
+      'Para ejecutar un comando con privilegios de otro usuario, normalmente root',
+      'Para apagar el sistema',
+      'Para instalar el sistema operativo',
+    ],
+    correcta: 1,
+    explicacion: '`sudo` ejecuta un comando con los permisos de otro usuario (root por defecto), según lo permitido en `/etc/sudoers`.',
+  },
+];

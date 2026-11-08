@@ -1,0 +1,138 @@
+export default [
+  {
+    enunciado: '¿Qué característica tiene una clave primaria?',
+    opciones: [
+      'Puede repetirse si la tabla es grande',
+      'Identifica de forma única cada fila y no admite valores nulos',
+      'Siempre es un número autoincremental',
+      'Referencia la clave de otra tabla',
+    ],
+    correcta: 1,
+    explicacion: 'La clave primaria es única y no nula. No tiene por qué ser numérica ni autoincremental. Referenciar otra tabla es propio de la clave foránea.',
+  },
+  {
+    enunciado: '¿Cuál de estas sentencias pertenece al DDL (lenguaje de definición de datos)?',
+    opciones: ['SELECT', 'INSERT', 'CREATE TABLE', 'UPDATE'],
+    correcta: 2,
+    explicacion: 'DDL define estructuras: `CREATE`, `ALTER`, `DROP`. `SELECT`, `INSERT` y `UPDATE` son DML.',
+  },
+  {
+    enunciado: '¿Qué cláusula filtra los grupos formados por `GROUP BY`?',
+    opciones: ['WHERE', 'HAVING', 'ORDER BY', 'FILTER'],
+    correcta: 1,
+    explicacion: '`WHERE` filtra filas antes de agrupar. `HAVING` filtra grupos después, y puede usar funciones de agregado.',
+  },
+  {
+    enunciado: '¿Qué devuelve un `INNER JOIN` entre dos tablas?',
+    opciones: [
+      'Todas las filas de ambas tablas',
+      'Solo las filas que tienen coincidencia en ambas tablas',
+      'Todas las filas de la tabla izquierda',
+      'El producto cartesiano completo',
+    ],
+    correcta: 1,
+    explicacion: 'El `INNER JOIN` solo combina filas que cumplen la condición de unión. Conservar las de la izquierda sin pareja es un `LEFT JOIN`.',
+  },
+  {
+    enunciado: '¿Para qué sirve una clave foránea?',
+    opciones: [
+      'Para acelerar las búsquedas de texto',
+      'Para garantizar la integridad referencial con otra tabla',
+      'Para cifrar una columna',
+      'Para impedir valores nulos',
+    ],
+    correcta: 1,
+    explicacion: 'La clave foránea obliga a que el valor exista en la clave referenciada de otra tabla (integridad referencial).',
+  },
+  {
+    enunciado: '¿Qué exige la primera forma normal (1FN)?',
+    opciones: [
+      'Que no haya dependencias transitivas',
+      'Que todos los atributos sean atómicos, sin grupos repetitivos',
+      'Que la clave primaria sea simple',
+      'Que no haya dependencias parciales',
+    ],
+    correcta: 1,
+    explicacion: '1FN pide valores atómicos. Eliminar dependencias parciales corresponde a 2FN y las transitivas a 3FN.',
+  },
+  {
+    enunciado: '¿En qué se diferencian `COUNT(*)` y `COUNT(columna)`?',
+    opciones: [
+      'No hay diferencia',
+      '`COUNT(columna)` ignora las filas en las que esa columna es NULL',
+      '`COUNT(*)` ignora los NULL',
+      '`COUNT(columna)` cuenta valores distintos',
+    ],
+    correcta: 1,
+    explicacion: '`COUNT(*)` cuenta todas las filas; `COUNT(columna)` solo las que tienen valor no nulo. Para valores distintos se usa `COUNT(DISTINCT columna)`.',
+  },
+  {
+    enunciado: '¿Cómo se comprueba en SQL si una columna no tiene valor?',
+    opciones: ['columna = NULL', 'columna IS NULL', 'columna == NULL', 'ISNULL = columna'],
+    correcta: 1,
+    explicacion: 'NULL no es un valor comparable con `=`: cualquier comparación con NULL da desconocido. Se usa `IS NULL` o `IS NOT NULL`.',
+  },
+  {
+    enunciado: '¿Qué sentencia elimina una tabla completa, incluida su estructura?',
+    opciones: ['DELETE FROM tabla', 'TRUNCATE TABLE tabla', 'DROP TABLE tabla', 'REMOVE TABLE tabla'],
+    correcta: 2,
+    explicacion: '`DROP TABLE` borra la tabla y su definición. `DELETE` y `TRUNCATE` vacían los datos pero la tabla sigue existiendo.',
+  },
+  {
+    enunciado: 'En `WHERE nombre LIKE \'A%\'`, ¿qué representa el símbolo `%`?',
+    opciones: [
+      'Exactamente un carácter',
+      'Cualquier secuencia de caracteres, incluida la vacía',
+      'Un dígito',
+      'El final de la cadena',
+    ],
+    correcta: 1,
+    explicacion: '`%` equivale a cero o más caracteres; `_` equivale a exactamente uno.',
+  },
+  {
+    enunciado: '¿Qué sentencia confirma de forma permanente los cambios de una transacción?',
+    opciones: ['SAVE', 'COMMIT', 'ROLLBACK', 'END'],
+    correcta: 1,
+    explicacion: '`COMMIT` hace permanentes los cambios; `ROLLBACK` los deshace.',
+  },
+  {
+    enunciado: 'En las propiedades ACID de una transacción, ¿qué significa la A?',
+    opciones: ['Accesibilidad', 'Atomicidad', 'Autenticación', 'Agregación'],
+    correcta: 1,
+    explicacion: 'Atomicidad: la transacción se ejecuta entera o no se ejecuta. Las otras son Consistencia, Aislamiento y Durabilidad.',
+  },
+  {
+    enunciado: 'Al pasar del modelo E/R al relacional, ¿cómo se transforma una relación N:M?',
+    opciones: [
+      'Se añade una clave foránea en la tabla del lado N',
+      'Se crea una tabla intermedia con las claves de ambas entidades',
+      'Se fusionan las dos entidades en una tabla',
+      'Se descarta, porque el modelo relacional no la admite',
+    ],
+    correcta: 1,
+    explicacion: 'Una relación muchos a muchos genera una nueva tabla cuya clave suele ser la combinación de las claves primarias de ambas entidades.',
+  },
+  {
+    enunciado: '¿Qué orden aplica `ORDER BY` si no se indica ninguno?',
+    opciones: ['Descendente', 'Ascendente', 'Aleatorio', 'El orden de inserción'],
+    correcta: 1,
+    explicacion: 'Por defecto `ORDER BY` es `ASC`. Para descendente hay que indicar `DESC`.',
+  },
+  {
+    enunciado: '¿Para qué se usa la sentencia `GRANT`?',
+    opciones: ['Crear usuarios', 'Conceder privilegios', 'Bloquear tablas', 'Crear copias de seguridad'],
+    correcta: 1,
+    explicacion: '`GRANT` concede permisos y `REVOKE` los retira. Ambas forman parte del DCL.',
+  },
+  {
+    enunciado: '¿Qué es una vista en SQL?',
+    opciones: [
+      'Una copia física de una tabla',
+      'Una tabla virtual definida a partir de una consulta',
+      'Un índice sobre varias columnas',
+      'Un tipo de clave',
+    ],
+    correcta: 1,
+    explicacion: 'Una vista guarda la consulta, no los datos: cada vez que se consulta se ejecuta sobre las tablas base.',
+  },
+];

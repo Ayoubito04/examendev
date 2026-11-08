@@ -1,0 +1,123 @@
+export default [
+  {
+    enunciado: '¿Con qué carácter empiezan los nombres de variable en PHP?',
+    opciones: ['@', '#', '$', '&'],
+    correcta: 2,
+    explicacion: 'Todas las variables de PHP empiezan por `$`, por ejemplo `$nombre`.',
+  },
+  {
+    enunciado: '¿Qué operador concatena cadenas en PHP?',
+    opciones: ['+', '.', '&', '||'],
+    correcta: 1,
+    explicacion: 'En PHP se concatena con el punto: `"Hola " . $nombre`. El `+` es solo aritmético.',
+  },
+  {
+    enunciado: '¿Qué superglobal contiene los datos de un formulario enviado con `method="post"`?',
+    opciones: ['$_GET', '$_POST', '$_SESSION', '$_SERVER'],
+    correcta: 1,
+    explicacion: '`$_POST` recoge los campos enviados en el cuerpo de una petición POST.',
+  },
+  {
+    enunciado: '¿Qué función debe llamarse antes de usar `$_SESSION`?',
+    opciones: ['session_open()', 'session_start()', 'session_init()', 'start_session()'],
+    correcta: 1,
+    explicacion: '`session_start()` crea o reanuda la sesión. Debe llamarse antes de enviar cualquier salida al navegador.',
+  },
+  {
+    enunciado: '¿Dónde se almacenan los datos de una sesión en PHP?',
+    opciones: [
+      'En el navegador del cliente',
+      'En el servidor; el cliente solo guarda un identificador',
+      'En la URL',
+      'En la base de datos obligatoriamente',
+    ],
+    correcta: 1,
+    explicacion: 'Los datos de sesión viven en el servidor y el navegador conserva el id de sesión, normalmente en una cookie. Las cookies, en cambio, guardan los datos en el cliente.',
+  },
+  {
+    enunciado: '¿Qué diferencia hay entre `include` y `require`?',
+    opciones: [
+      'require solo carga el fichero una vez',
+      'require produce un error fatal si no encuentra el fichero',
+      'include no ejecuta el código',
+      'No hay diferencia',
+    ],
+    correcta: 1,
+    explicacion: 'Si el fichero falta, `include` emite un aviso y continúa, mientras que `require` detiene el script. Cargar una sola vez es lo que hacen las variantes `_once`.',
+  },
+  {
+    enunciado: '¿Cuál es la forma recomendada de evitar la inyección SQL?',
+    opciones: [
+      'Ocultar los errores de la base de datos',
+      'Usar consultas preparadas con parámetros',
+      'Usar solo consultas SELECT',
+      'Cifrar la base de datos',
+    ],
+    correcta: 1,
+    explicacion: 'Con consultas preparadas (por ejemplo `PDO::prepare` y parámetros enlazados) los datos nunca se interpretan como código SQL.',
+  },
+  {
+    enunciado: '¿Qué función de PHP se recomienda para guardar contraseñas?',
+    opciones: ['md5()', 'sha1()', 'password_hash()', 'base64_encode()'],
+    correcta: 2,
+    explicacion: '`password_hash()` usa un algoritmo lento con sal (bcrypt o Argon2). MD5 y SHA-1 son demasiado rápidos y base64 no es un hash.',
+  },
+  {
+    enunciado: '¿Qué función escapa la salida HTML para prevenir ataques XSS?',
+    opciones: ['strip_tags()', 'htmlspecialchars()', 'addslashes()', 'trim()'],
+    correcta: 1,
+    explicacion: '`htmlspecialchars()` convierte `<`, `>`, `&` y comillas en entidades, para que el navegador no ejecute lo que introdujo el usuario.',
+  },
+  {
+    enunciado: '¿Qué código de estado HTTP indica que un recurso se ha creado correctamente?',
+    opciones: ['200', '201', '204', '302'],
+    correcta: 1,
+    explicacion: '201 Created es la respuesta típica a un POST que crea un recurso. 204 es éxito sin contenido.',
+  },
+  {
+    enunciado: '¿Qué significa el código de estado HTTP 404?',
+    opciones: ['Error interno del servidor', 'No autorizado', 'Recurso no encontrado', 'Petición incorrecta'],
+    correcta: 2,
+    explicacion: '404 Not Found. Los otros serían 500, 401 y 400 respectivamente.',
+  },
+  {
+    enunciado: 'En una API REST, ¿qué verbo HTTP se usa para reemplazar un recurso completo?',
+    opciones: ['GET', 'POST', 'PUT', 'PATCH'],
+    correcta: 2,
+    explicacion: '`PUT` reemplaza el recurso entero y es idempotente. `PATCH` hace una modificación parcial.',
+  },
+  {
+    enunciado: '¿Qué significa que una API REST sea stateless (sin estado)?',
+    opciones: [
+      'Que no usa base de datos',
+      'Que cada petición incluye toda la información necesaria y el servidor no guarda contexto del cliente entre peticiones',
+      'Que solo admite GET',
+      'Que no devuelve códigos de estado',
+    ],
+    correcta: 1,
+    explicacion: 'Cada petición se procesa de forma independiente; por ejemplo, el token de autenticación se envía en cada una.',
+  },
+  {
+    enunciado: 'En el patrón MVC, ¿qué componente recibe la petición y coordina modelo y vista?',
+    opciones: ['El modelo', 'La vista', 'El controlador', 'El router de la base de datos'],
+    correcta: 2,
+    explicacion: 'El controlador interpreta la petición, pide datos al modelo y elige la vista que genera la respuesta.',
+  },
+  {
+    enunciado: '¿Dónde se envía normalmente un JWT en las peticiones a una API?',
+    opciones: [
+      'En la URL como parámetro',
+      'En la cabecera Authorization con el esquema Bearer',
+      'En el cuerpo de las peticiones GET',
+      'En una cookie siempre obligatoria',
+    ],
+    correcta: 1,
+    explicacion: 'Lo habitual es `Authorization: Bearer <token>`. Ponerlo en la URL lo expone en logs e historial.',
+  },
+  {
+    enunciado: '¿Qué herramienta gestiona las dependencias de un proyecto PHP?',
+    opciones: ['npm', 'Composer', 'Maven', 'pip'],
+    correcta: 1,
+    explicacion: 'Composer lee `composer.json`, instala paquetes en `vendor/` y genera el autoload.',
+  },
+];

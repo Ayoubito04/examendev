@@ -1,0 +1,123 @@
+export default [
+  {
+    enunciado: '¿Qué significan las siglas ERP?',
+    opciones: [
+      'Enterprise Resource Planning',
+      'External Relationship Program',
+      'Enterprise Reporting Platform',
+      'Electronic Records Processing',
+    ],
+    correcta: 0,
+    explicacion: 'Planificación de recursos empresariales: integra en un sistema las áreas de la empresa (ventas, compras, contabilidad, RR. HH.…).',
+  },
+  {
+    enunciado: '¿Cuál es la principal ventaja de un ERP?',
+    opciones: [
+      'Que es gratuito',
+      'Que integra los departamentos sobre una base de datos común',
+      'Que no necesita configuración',
+      'Que sustituye a internet',
+    ],
+    correcta: 1,
+    explicacion: 'Al compartir datos se evitan duplicidades e incoherencias y la información fluye entre áreas.',
+  },
+  {
+    enunciado: '¿En qué se centra un CRM?',
+    opciones: ['En la nómina', 'En la gestión de las relaciones con los clientes', 'En la contabilidad', 'En la producción'],
+    correcta: 1,
+    explicacion: 'Customer Relationship Management: oportunidades, seguimiento comercial, atención al cliente y campañas.',
+  },
+  {
+    enunciado: '¿Qué sistema gestor de bases de datos utiliza Odoo?',
+    opciones: ['MySQL', 'PostgreSQL', 'Oracle', 'MongoDB'],
+    correcta: 1,
+    explicacion: 'Odoo trabaja con PostgreSQL y accede a él a través de su propio ORM.',
+  },
+  {
+    enunciado: '¿En qué lenguajes se desarrolla un módulo de Odoo?',
+    opciones: ['Java y JSP', 'Python para la lógica y XML para vistas y datos', 'PHP y HTML', 'C# y XAML'],
+    correcta: 1,
+    explicacion: 'Los modelos se escriben en Python, y las vistas, menús y acciones se declaran en XML. El cliente web usa JavaScript.',
+  },
+  {
+    enunciado: '¿Cómo se llama el fichero que describe un módulo de Odoo (nombre, versión, dependencias, datos)?',
+    opciones: ['module.json', '__manifest__.py', 'setup.py', 'odoo.xml'],
+    correcta: 1,
+    explicacion: '`__manifest__.py` contiene un diccionario con `name`, `version`, `depends`, `data`, etc.',
+  },
+  {
+    enunciado: '¿De qué clase heredan los modelos persistentes de Odoo?',
+    opciones: ['odoo.Base', 'models.Model', 'db.Table', 'orm.Entity'],
+    correcta: 1,
+    explicacion: '`models.Model` crea una tabla en la base de datos. `TransientModel` es para asistentes temporales y `AbstractModel` para modelos sin tabla.',
+  },
+  {
+    enunciado: '¿Qué atributo de un modelo de Odoo define su nombre técnico?',
+    opciones: ['_table', '_name', '_description', '_rec_name'],
+    correcta: 1,
+    explicacion: 'Por ejemplo `_name = "biblioteca.libro"`. De él se deriva el nombre de la tabla, `biblioteca_libro`.',
+  },
+  {
+    enunciado: '¿Qué atributo se usa en Odoo para extender un modelo existente?',
+    opciones: ['_extends', '_inherit', '_parent', '_super'],
+    correcta: 1,
+    explicacion: 'Con `_inherit` se añaden campos o se modifican métodos de un modelo sin tocar su código original.',
+  },
+  {
+    enunciado: '¿Qué tipo de campo relacional de Odoo apunta a un único registro de otro modelo?',
+    opciones: ['One2many', 'Many2one', 'Many2many', 'Reference'],
+    correcta: 1,
+    explicacion: '`fields.Many2one` equivale a una clave foránea, como el cliente de un pedido.',
+  },
+  {
+    enunciado: '¿Qué tipo de vista de Odoo muestra un registro con todos sus campos para editarlo?',
+    opciones: ['kanban', 'form', 'graph', 'pivot'],
+    correcta: 1,
+    explicacion: 'La vista `form` muestra un registro individual. Kanban muestra tarjetas, y graph y pivot sirven para análisis.',
+  },
+  {
+    enunciado: '¿Qué fichero de un módulo de Odoo define los permisos de acceso a los modelos?',
+    opciones: ['security.xml obligatoriamente', 'ir.model.access.csv', 'permissions.py', '__init__.py'],
+    correcta: 1,
+    explicacion: 'Asigna permisos de lectura, escritura, creación y borrado por modelo y grupo. Sin él, los usuarios normales no acceden al modelo.',
+  },
+  {
+    enunciado: '¿Qué tarea forma parte de la implantación de un ERP?',
+    opciones: [
+      'Sustituir todo el hardware',
+      'Migrar los datos del sistema anterior y formar a los usuarios',
+      'Programar el ERP desde cero',
+      'Eliminar los departamentos',
+    ],
+    correcta: 1,
+    explicacion: 'Una implantación incluye análisis, configuración, migración de datos, pruebas, formación y puesta en marcha.',
+  },
+  {
+    enunciado: '¿Qué modelo de distribución ofrece el ERP como servicio en la nube por suscripción?',
+    opciones: ['On-premise', 'SaaS', 'Licencia perpetua', 'Freeware'],
+    correcta: 1,
+    explicacion: 'En SaaS el proveedor aloja y mantiene el software; on-premise se instala en servidores propios.',
+  },
+  {
+    enunciado: '¿Para qué sirve la inteligencia de negocio (BI)?',
+    opciones: [
+      'Para programar robots',
+      'Para analizar datos y apoyar la toma de decisiones',
+      'Para gestionar nóminas',
+      'Para diseñar logotipos',
+    ],
+    correcta: 1,
+    explicacion: 'Business Intelligence convierte datos en informes, cuadros de mando e indicadores.',
+  },
+  {
+    enunciado: '¿Qué es un data warehouse?',
+    opciones: [
+      'Un almacén físico de servidores',
+      'Un almacén de datos integrados e históricos orientado al análisis',
+      'Una copia de seguridad',
+      'Una hoja de cálculo compartida',
+    ],
+    correcta: 1,
+    explicacion: 'Reúne datos de varias fuentes, ya limpios y organizados para consultas analíticas, separados de los sistemas operacionales.',
+  },
+];

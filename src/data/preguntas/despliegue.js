@@ -1,0 +1,128 @@
+export default [
+  {
+    enunciado: '¿Qué puerto usa HTTP por defecto?',
+    opciones: ['80', '443', '22', '8443'],
+    correcta: 0,
+    explicacion: 'HTTP usa el 80 y HTTPS el 443. El 22 es SSH.',
+  },
+  {
+    enunciado: '¿Qué rol cumple a menudo Nginx delante de una aplicación?',
+    opciones: ['Base de datos', 'Proxy inverso y servidor de estáticos', 'Gestor de dependencias', 'Sistema operativo'],
+    correcta: 1,
+    explicacion: 'Nginx recibe las peticiones, sirve ficheros estáticos y reenvía el resto a la aplicación (Node, PHP-FPM, Tomcat…).',
+  },
+  {
+    enunciado: 'En Apache, ¿qué permite configurar varios sitios web en un mismo servidor?',
+    opciones: ['Los módulos', 'Los virtual hosts', 'El fichero hosts del sistema', 'Los certificados'],
+    correcta: 1,
+    explicacion: 'Cada `<VirtualHost>` define un sitio con su dominio, raíz de documentos y configuración propia.',
+  },
+  {
+    enunciado: '¿Para qué sirve un fichero `.htaccess`?',
+    opciones: [
+      'Para guardar contraseñas de la base de datos',
+      'Para aplicar configuración de Apache a nivel de directorio',
+      'Para configurar Nginx',
+      'Para definir variables de entorno de Node',
+    ],
+    correcta: 1,
+    explicacion: 'Permite reglas por directorio (redirecciones, reescrituras, control de acceso) si `AllowOverride` lo permite. Nginx no lo usa.',
+  },
+  {
+    enunciado: '¿Qué tipo de servidor es Apache Tomcat?',
+    opciones: [
+      'Un servidor de correo',
+      'Un contenedor de servlets para aplicaciones web Java',
+      'Un servidor DNS',
+      'Un servidor de bases de datos',
+    ],
+    correcta: 1,
+    explicacion: 'Tomcat ejecuta servlets y JSP. Se despliegan en él aplicaciones empaquetadas como `.war`.',
+  },
+  {
+    enunciado: '¿Qué extensión tiene el paquete de una aplicación web Java para desplegar en Tomcat?',
+    opciones: ['.jar', '.war', '.ear', '.zip'],
+    correcta: 1,
+    explicacion: '`.war` (Web Application Archive). `.ear` agrupa varios módulos para servidores Jakarta EE completos.',
+  },
+  {
+    enunciado: '¿Qué registro DNS asocia un nombre de dominio a una dirección IPv4?',
+    opciones: ['A', 'AAAA', 'CNAME', 'MX'],
+    correcta: 0,
+    explicacion: 'A apunta a IPv4 y AAAA a IPv6. CNAME es un alias y MX indica servidores de correo.',
+  },
+  {
+    enunciado: '¿Qué entidad emite certificados TLS gratuitos y automatizables?',
+    opciones: ["Let's Encrypt", 'OpenSSH', 'Apache Foundation', 'IANA'],
+    correcta: 0,
+    explicacion: "Let's Encrypt emite certificados gratuitos mediante el protocolo ACME, normalmente con la herramienta certbot.",
+  },
+  {
+    enunciado: '¿Qué protocolo transfiere ficheros de forma cifrada sobre SSH?',
+    opciones: ['FTP', 'SFTP', 'TFTP', 'HTTP'],
+    correcta: 1,
+    explicacion: 'SFTP funciona sobre SSH (puerto 22). FTP envía credenciales en claro y TFTP no tiene autenticación.',
+  },
+  {
+    enunciado: 'En Docker, ¿qué relación hay entre imagen y contenedor?',
+    opciones: [
+      'Son lo mismo',
+      'Un contenedor es una instancia en ejecución de una imagen',
+      'Una imagen es un contenedor detenido',
+      'Un contenedor contiene varias imágenes',
+    ],
+    correcta: 1,
+    explicacion: 'La imagen es la plantilla inmutable; a partir de ella se crean uno o varios contenedores.',
+  },
+  {
+    enunciado: '¿Con qué instrucción empieza normalmente un Dockerfile para indicar la imagen base?',
+    opciones: ['RUN', 'FROM', 'BASE', 'IMAGE'],
+    correcta: 1,
+    explicacion: '`FROM` define la imagen de partida, por ejemplo `FROM node:22-alpine`.',
+  },
+  {
+    enunciado: '¿Qué comando lista los contenedores Docker en ejecución?',
+    opciones: ['docker images', 'docker ps', 'docker run', 'docker list'],
+    correcta: 1,
+    explicacion: '`docker ps` muestra los que están corriendo; con `-a` incluye también los detenidos.',
+  },
+  {
+    enunciado: '¿Para qué sirve Docker Compose?',
+    opciones: [
+      'Para construir una sola imagen',
+      'Para definir y ejecutar aplicaciones de varios contenedores',
+      'Para subir imágenes a un registro',
+      'Para monitorizar el servidor',
+    ],
+    correcta: 1,
+    explicacion: 'En un fichero YAML se declaran servicios, redes y volúmenes, y se levantan juntos con `docker compose up`.',
+  },
+  {
+    enunciado: '¿En qué consiste la integración continua (CI)?',
+    opciones: [
+      'En desplegar manualmente cada viernes',
+      'En integrar los cambios con frecuencia y compilarlos y probarlos automáticamente',
+      'En trabajar sin control de versiones',
+      'En tener un solo desarrollador',
+    ],
+    correcta: 1,
+    explicacion: 'Cada cambio que llega al repositorio dispara una construcción y unas pruebas automáticas, para detectar errores pronto.',
+  },
+  {
+    enunciado: 'Según el versionado semántico (MAJOR.MINOR.PATCH), ¿qué número se incrementa con un cambio incompatible?',
+    opciones: ['MAJOR', 'MINOR', 'PATCH', 'Ninguno, se añade un sufijo'],
+    correcta: 0,
+    explicacion: 'MAJOR para cambios incompatibles, MINOR para funcionalidades compatibles y PATCH para correcciones.',
+  },
+  {
+    enunciado: '¿Qué hace un balanceador de carga?',
+    opciones: [
+      'Comprimir las respuestas',
+      'Repartir las peticiones entre varios servidores',
+      'Guardar copias de seguridad',
+      'Traducir dominios a IP',
+    ],
+    correcta: 1,
+    explicacion: 'Distribuye el tráfico para mejorar rendimiento y disponibilidad; si un servidor cae, envía las peticiones a los demás.',
+  },
+];

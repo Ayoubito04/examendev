@@ -1,0 +1,143 @@
+export default [
+  {
+    enunciado: '¿Qué diferencia principal hay entre proceso e hilo?',
+    opciones: [
+      'Los hilos de un mismo proceso comparten su memoria; los procesos tienen memoria independiente',
+      'Los procesos son más ligeros que los hilos',
+      'Un hilo puede contener varios procesos',
+      'No hay diferencia',
+    ],
+    correcta: 0,
+    explicacion: 'Los hilos comparten el espacio de memoria del proceso, lo que los hace ligeros pero obliga a sincronizar el acceso.',
+  },
+  {
+    enunciado: '¿Qué dos formas básicas hay de crear un hilo en Java?',
+    opciones: [
+      'Extender Thread o implementar Runnable',
+      'Extender Process o implementar Callable',
+      'Usar new Hilo()',
+      'Llamar a System.thread()',
+    ],
+    correcta: 0,
+    explicacion: 'Implementar `Runnable` suele ser preferible porque deja libre la herencia. Para devolver resultados existe `Callable`.',
+  },
+  {
+    enunciado: '¿Qué método arranca la ejecución concurrente de un hilo?',
+    opciones: ['run()', 'start()', 'execute()', 'begin()'],
+    correcta: 1,
+    explicacion: '`start()` crea el hilo y este llama a `run()`. Llamar a `run()` directamente lo ejecuta en el hilo actual, sin concurrencia.',
+  },
+  {
+    enunciado: '¿Qué hace `hilo.join()`?',
+    opciones: [
+      'Une dos hilos en uno',
+      'Hace que el hilo actual espere a que termine el otro',
+      'Detiene el hilo inmediatamente',
+      'Reinicia el hilo',
+    ],
+    correcta: 1,
+    explicacion: 'El hilo que llama a `join()` se bloquea hasta que el otro finaliza.',
+  },
+  {
+    enunciado: '¿Qué garantiza un bloque `synchronized`?',
+    opciones: [
+      'Que el código se ejecuta más rápido',
+      'Exclusión mutua: un solo hilo a la vez ejecuta el bloque sobre ese monitor',
+      'Que no hay excepciones',
+      'Que el hilo tiene prioridad máxima',
+    ],
+    correcta: 1,
+    explicacion: 'Protege una sección crítica adquiriendo el monitor (lock) del objeto indicado.',
+  },
+  {
+    enunciado: '¿Desde dónde deben llamarse `wait()` y `notify()`?',
+    opciones: [
+      'Desde cualquier parte',
+      'Desde un bloque o método synchronized sobre el mismo objeto',
+      'Solo desde main',
+      'Solo desde run()',
+    ],
+    correcta: 1,
+    explicacion: 'Si no se tiene el monitor del objeto, se lanza `IllegalMonitorStateException`.',
+  },
+  {
+    enunciado: '¿Qué es un interbloqueo (deadlock)?',
+    opciones: [
+      'Un hilo que termina antes de tiempo',
+      'Dos o más hilos esperando indefinidamente recursos que tiene el otro',
+      'Un error de compilación',
+      'Un hilo con demasiada prioridad',
+    ],
+    correcta: 1,
+    explicacion: 'Ocurre, por ejemplo, si A tiene el recurso 1 y espera el 2, mientras B tiene el 2 y espera el 1.',
+  },
+  {
+    enunciado: '¿Qué es una condición de carrera?',
+    opciones: [
+      'Una competición de rendimiento',
+      'Un resultado que depende del orden imprevisible en que se ejecutan los hilos',
+      'Un tipo de bucle',
+      'Un hilo que se ejecuta dos veces',
+    ],
+    correcta: 1,
+    explicacion: 'Aparece cuando varios hilos acceden a datos compartidos sin sincronización y alguno escribe.',
+  },
+  {
+    enunciado: '¿Qué ofrece `ExecutorService`?',
+    opciones: [
+      'Un sistema de ficheros',
+      'Un pool de hilos reutilizables para ejecutar tareas',
+      'Un servidor web',
+      'Un gestor de excepciones',
+    ],
+    correcta: 1,
+    explicacion: 'Evita crear un hilo por tarea; se obtiene con `Executors.newFixedThreadPool(n)`, por ejemplo.',
+  },
+  {
+    enunciado: '¿Qué clase de Java permite lanzar un proceso externo del sistema operativo?',
+    opciones: ['Thread', 'ProcessBuilder', 'Runtime.thread', 'SystemProcess'],
+    correcta: 1,
+    explicacion: '`ProcessBuilder` configura comando, directorio y redirecciones, y `start()` devuelve un `Process`.',
+  },
+  {
+    enunciado: '¿Qué clase crea un servidor TCP que espera conexiones?',
+    opciones: ['Socket', 'ServerSocket', 'DatagramSocket', 'URLConnection'],
+    correcta: 1,
+    explicacion: '`ServerSocket.accept()` bloquea hasta que llega un cliente y devuelve un `Socket` para comunicarse con él.',
+  },
+  {
+    enunciado: '¿Qué clase se usa para comunicaciones UDP en Java?',
+    opciones: ['ServerSocket', 'DatagramSocket', 'HttpClient', 'Socket'],
+    correcta: 1,
+    explicacion: 'UDP envía datagramas (`DatagramPacket`) mediante `DatagramSocket`, sin conexión previa.',
+  },
+  {
+    enunciado: '¿Qué rango ocupan los puertos bien conocidos (well-known)?',
+    opciones: ['0 – 1023', '1024 – 49151', '49152 – 65535', '0 – 65535'],
+    correcta: 0,
+    explicacion: 'Están reservados para servicios estándar como HTTP (80) o SSH (22). Los siguientes son los registrados y los dinámicos.',
+  },
+  {
+    enunciado: '¿Qué caracteriza a la criptografía simétrica?',
+    opciones: [
+      'Usa un par de claves pública y privada',
+      'Usa la misma clave para cifrar y descifrar',
+      'No usa claves',
+      'Solo sirve para firmar',
+    ],
+    correcta: 1,
+    explicacion: 'AES es el ejemplo típico. Es rápida, pero obliga a compartir la clave de forma segura.',
+  },
+  {
+    enunciado: 'En criptografía asimétrica, ¿con qué clave se cifra un mensaje para que solo el destinatario lo lea?',
+    opciones: ['Con la clave privada del emisor', 'Con la clave pública del destinatario', 'Con una clave compartida', 'Con un hash'],
+    correcta: 1,
+    explicacion: 'Lo que se cifra con la pública solo se descifra con la privada correspondiente, que únicamente tiene el destinatario. Es el caso de RSA.',
+  },
+  {
+    enunciado: '¿Cuál de estos es un algoritmo de resumen (hash)?',
+    opciones: ['AES', 'RSA', 'SHA-256', 'DES'],
+    correcta: 2,
+    explicacion: 'SHA-256 genera un resumen de longitud fija y no es reversible. AES y DES son de cifrado simétrico y RSA asimétrico.',
+  },
+];

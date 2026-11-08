@@ -1,0 +1,128 @@
+export default [
+  {
+    enunciado: '¿Qué componente de Android representa una pantalla con la que interactúa el usuario?',
+    opciones: ['Service', 'Activity', 'BroadcastReceiver', 'ContentProvider'],
+    correcta: 1,
+    explicacion: 'La Activity muestra una interfaz. Service trabaja en segundo plano y BroadcastReceiver responde a eventos del sistema.',
+  },
+  {
+    enunciado: '¿Qué método del ciclo de vida se llama al crear una Activity?',
+    opciones: ['onStart()', 'onCreate()', 'onResume()', 'onInit()'],
+    correcta: 1,
+    explicacion: 'El orden es onCreate → onStart → onResume. En `onCreate()` se inicializa la interfaz.',
+  },
+  {
+    enunciado: '¿Qué fichero declara los componentes y permisos de una app Android?',
+    opciones: ['build.gradle', 'AndroidManifest.xml', 'strings.xml', 'settings.gradle'],
+    correcta: 1,
+    explicacion: 'En el manifiesto se registran actividades, servicios y receptores, y se piden permisos como INTERNET.',
+  },
+  {
+    enunciado: '¿Qué permiso necesita una app Android para acceder a la red?',
+    opciones: ['android.permission.NETWORK', 'android.permission.INTERNET', 'android.permission.WIFI', 'No necesita ninguno'],
+    correcta: 1,
+    explicacion: '`INTERNET` es un permiso normal: se declara en el manifiesto y se concede automáticamente al instalar.',
+  },
+  {
+    enunciado: '¿Para qué se usa un Intent?',
+    opciones: [
+      'Para guardar datos en disco',
+      'Para solicitar una acción a otro componente, como abrir una Activity',
+      'Para dibujar vistas',
+      'Para definir estilos',
+    ],
+    correcta: 1,
+    explicacion: 'Los Intent explícitos indican la clase destino; los implícitos describen una acción, por ejemplo abrir una URL.',
+  },
+  {
+    enunciado: 'En Kotlin, ¿qué diferencia hay entre `val` y `var`?',
+    opciones: [
+      'val es mutable y var inmutable',
+      'val no puede reasignarse y var sí',
+      'val es para enteros y var para texto',
+      'No hay diferencia',
+    ],
+    correcta: 1,
+    explicacion: '`val` es una referencia de solo lectura, como `final` en Java. `var` admite reasignación.',
+  },
+  {
+    enunciado: '¿Qué hace el operador `?.` en Kotlin?',
+    opciones: [
+      'Lanza una excepción si el valor es null',
+      'Accede al miembro solo si el objeto no es null; si lo es, devuelve null',
+      'Convierte el valor a String',
+      'Compara dos objetos',
+    ],
+    correcta: 1,
+    explicacion: 'Es la llamada segura. `!!` hace lo contrario: fuerza el acceso y lanza excepción si es null.',
+  },
+  {
+    enunciado: '¿Qué necesita un RecyclerView para mostrar los datos?',
+    opciones: ['Un Intent', 'Un Adapter', 'Un Service', 'Un ContentProvider'],
+    correcta: 1,
+    explicacion: 'El Adapter crea los ViewHolder y enlaza cada dato con su vista, reutilizando las que salen de pantalla.',
+  },
+  {
+    enunciado: '¿Qué es un Fragment?',
+    opciones: [
+      'Un trozo de código nativo',
+      'Una porción reutilizable de interfaz con ciclo de vida propio dentro de una Activity',
+      'Un tipo de base de datos',
+      'Un permiso',
+    ],
+    correcta: 1,
+    explicacion: 'Los fragments permiten componer pantallas y reutilizarlas, por ejemplo en móvil y tableta.',
+  },
+  {
+    enunciado: '¿Qué mecanismo sirve para guardar preferencias simples de tipo clave-valor?',
+    opciones: ['Room', 'SharedPreferences o DataStore', 'SQLite directamente', 'Firebase Storage'],
+    correcta: 1,
+    explicacion: 'SharedPreferences, o su sustituto moderno DataStore, guardan ajustes pequeños. Room es para datos estructurados.',
+  },
+  {
+    enunciado: '¿Qué es Room?',
+    opciones: [
+      'Un gestor de layouts',
+      'Una biblioteca de persistencia sobre SQLite',
+      'Un emulador',
+      'Un servicio en la nube',
+    ],
+    correcta: 1,
+    explicacion: 'Room abstrae SQLite con entidades (`@Entity`), DAOs (`@Dao`) y comprobación de consultas en compilación.',
+  },
+  {
+    enunciado: '¿Qué ocurre si haces una petición de red en el hilo principal de Android?',
+    opciones: [
+      'Funciona más rápido',
+      'Se lanza NetworkOnMainThreadException',
+      'Se ejecuta en segundo plano automáticamente',
+      'Se ignora',
+    ],
+    correcta: 1,
+    explicacion: 'Android lo prohíbe para no bloquear la interfaz. Hay que usar corrutinas u otro hilo.',
+  },
+  {
+    enunciado: '¿Qué palabra clave marca una función que puede pausarse dentro de una corrutina de Kotlin?',
+    opciones: ['async', 'suspend', 'await', 'yield'],
+    correcta: 1,
+    explicacion: 'Las funciones `suspend` solo se llaman desde otra función suspendida o desde una corrutina.',
+  },
+  {
+    enunciado: '¿Qué anotación marca una función que dibuja interfaz en Jetpack Compose?',
+    opciones: ['@View', '@Composable', '@Layout', '@UI'],
+    correcta: 1,
+    explicacion: '`@Composable` indica que la función describe UI y puede recomponerse cuando cambia su estado.',
+  },
+  {
+    enunciado: '¿Qué sistema de construcción usan los proyectos Android?',
+    opciones: ['Maven', 'Gradle', 'Ant', 'npm'],
+    correcta: 1,
+    explicacion: 'Android Studio usa Gradle, con scripts en Kotlin DSL (`build.gradle.kts`) o Groovy.',
+  },
+  {
+    enunciado: '¿Qué componente muestra un mensaje breve flotante que desaparece solo?',
+    opciones: ['Dialog', 'Toast', 'Snackbar con acción obligatoria', 'Notification'],
+    correcta: 1,
+    explicacion: '`Toast.makeText(...).show()` muestra un aviso breve sin interacción.',
+  },
+];

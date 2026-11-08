@@ -1,0 +1,138 @@
+export default [
+  {
+    enunciado: '¿Qué elemento semántico de HTML5 agrupa los enlaces de navegación principales?',
+    opciones: ['<menu>', '<nav>', '<links>', '<section>'],
+    correcta: 1,
+    explicacion: '`<nav>` indica un bloque de navegación. Ayuda a lectores de pantalla y buscadores a entender la página.',
+  },
+  {
+    enunciado: '¿Cuál es la declaración de tipo de documento de HTML5?',
+    opciones: ['<!DOCTYPE html>', '<!DOCTYPE HTML5>', '<html version="5">', '<?xml version="1.0"?>'],
+    correcta: 0,
+    explicacion: 'HTML5 simplificó el DOCTYPE a `<!DOCTYPE html>`, que activa el modo estándar del navegador.',
+  },
+  {
+    enunciado: '¿Qué atributo aporta un texto alternativo a una imagen?',
+    opciones: ['title', 'alt', 'src', 'desc'],
+    correcta: 1,
+    explicacion: '`alt` describe la imagen si no se carga y para tecnologías de apoyo. Es clave para la accesibilidad.',
+  },
+  {
+    enunciado: '¿Cuál de estas condiciones es necesaria para que un documento XML esté bien formado?',
+    opciones: [
+      'Que tenga una DTD asociada',
+      'Que tenga un único elemento raíz',
+      'Que use espacios de nombres',
+      'Que tenga un esquema XSD',
+    ],
+    correcta: 1,
+    explicacion: 'Bien formado: un único raíz, etiquetas cerradas y bien anidadas, atributos entre comillas. Cumplir una DTD o un XSD lo hace además válido.',
+  },
+  {
+    enunciado: '¿Qué ventaja tiene XML Schema (XSD) frente a una DTD?',
+    opciones: [
+      'Es más corto de escribir',
+      'Está escrito en XML y permite tipos de datos',
+      'Lo entienden todos los navegadores',
+      'No necesita declarar elementos',
+    ],
+    correcta: 1,
+    explicacion: 'XSD usa sintaxis XML y define tipos (`xs:integer`, `xs:date`…) y restricciones, algo que la DTD no permite.',
+  },
+  {
+    enunciado: '¿Qué selecciona la expresión XPath `//libro`?',
+    opciones: [
+      'Solo el elemento raíz si se llama libro',
+      'Todos los elementos libro en cualquier nivel del documento',
+      'Los atributos llamados libro',
+      'El primer hijo de libro',
+    ],
+    correcta: 1,
+    explicacion: '`//` busca descendientes a cualquier profundidad. Para un atributo se usaría `@libro`.',
+  },
+  {
+    enunciado: '¿Para qué se utiliza XSLT?',
+    opciones: [
+      'Para validar XML',
+      'Para transformar documentos XML en otros formatos',
+      'Para consultar bases de datos relacionales',
+      'Para comprimir XML',
+    ],
+    correcta: 1,
+    explicacion: 'XSLT aplica plantillas para transformar XML en HTML, otro XML, texto, etc.',
+  },
+  {
+    enunciado: '¿Qué cláusulas forman la expresión FLWOR de XQuery?',
+    opciones: [
+      'For, Let, Where, Order by, Return',
+      'From, Link, While, Output, Run',
+      'Find, List, Where, Order, Read',
+      'For, Loop, Where, Output, Return',
+    ],
+    correcta: 0,
+    explicacion: 'FLWOR son las iniciales de for, let, where, order by y return.',
+  },
+  {
+    enunciado: '¿Cómo se escribe el carácter `<` dentro del contenido de un elemento XML?',
+    opciones: ['&lt;', '&gt;', '&amp;', '\\<'],
+    correcta: 0,
+    explicacion: '`&lt;` es la entidad predefinida para `<`. `&gt;` es `>` y `&amp;` es `&`.',
+  },
+  {
+    enunciado: '¿Para qué sirve el atributo `xmlns` en XML?',
+    opciones: [
+      'Para indicar la codificación',
+      'Para declarar un espacio de nombres y evitar conflictos entre elementos',
+      'Para enlazar una hoja de estilos',
+      'Para indicar la versión de XML',
+    ],
+    correcta: 1,
+    explicacion: 'Los espacios de nombres permiten mezclar vocabularios distintos que usan los mismos nombres de etiqueta.',
+  },
+  {
+    enunciado: '¿Cuál de estos selectores CSS tiene mayor especificidad?',
+    opciones: ['nav li', '.menu', '#menu', 'li'],
+    correcta: 2,
+    explicacion: 'Orden de especificidad: id > clase/atributo/pseudoclase > elemento. Un selector de id gana a los demás.',
+  },
+  {
+    enunciado: '¿Qué hace `box-sizing: border-box`?',
+    opciones: [
+      'Añade un borde a la caja',
+      'Hace que width y height incluyan padding y borde',
+      'Elimina el margen',
+      'Convierte el elemento en flex',
+    ],
+    correcta: 1,
+    explicacion: 'Con `border-box` el ancho declarado ya incluye relleno y borde, lo que hace los cálculos de maquetación más predecibles.',
+  },
+  {
+    enunciado: 'En un contenedor con `display: flex`, ¿qué propiedad alinea los hijos en el eje principal?',
+    opciones: ['align-items', 'justify-content', 'flex-wrap', 'align-content'],
+    correcta: 1,
+    explicacion: '`justify-content` actúa en el eje principal; `align-items`, en el eje transversal.',
+  },
+  {
+    enunciado: '¿Cuál de estos fragmentos es JSON válido?',
+    opciones: ["{nombre: 'Ana'}", '{"nombre": "Ana"}', "{'nombre': 'Ana'}", '{"nombre": "Ana",}'],
+    correcta: 1,
+    explicacion: 'En JSON las claves y las cadenas van entre comillas dobles y no se admite coma final.',
+  },
+  {
+    enunciado: '¿Qué es RSS?',
+    opciones: [
+      'Un lenguaje de estilos',
+      'Un formato basado en XML para sindicar contenidos',
+      'Un protocolo de correo',
+      'Un framework de JavaScript',
+    ],
+    correcta: 1,
+    explicacion: 'RSS (como Atom) publica en XML las novedades de un sitio para que los lectores de feeds se suscriban.',
+  },
+  {
+    enunciado: '¿Dónde se coloca `<meta charset="UTF-8">` en un documento HTML?',
+    opciones: ['Al final del body', 'Dentro de head', 'Antes del DOCTYPE', 'Dentro de footer'],
+    correcta: 1,
+    explicacion: 'Los metadatos van en `<head>`, y el charset conviene que esté al principio para que el navegador interprete bien el texto.',
+  },
+];

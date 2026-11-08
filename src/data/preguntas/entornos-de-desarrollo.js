@@ -1,0 +1,128 @@
+export default [
+  {
+    enunciado: '¿Qué comando de Git crea una rama nueva y cambia a ella en un solo paso?',
+    opciones: ['git branch -d nueva', 'git checkout -b nueva', 'git merge nueva', 'git commit -b nueva'],
+    correcta: 1,
+    explicacion: '`git checkout -b` (o su equivalente moderno `git switch -c`) crea la rama y se sitúa en ella. `git branch -d` la borra.',
+  },
+  {
+    enunciado: '¿Qué comando envía tus commits locales al repositorio remoto?',
+    opciones: ['git pull', 'git fetch', 'git push', 'git clone'],
+    correcta: 2,
+    explicacion: '`git push` sube commits al remoto. `git fetch` y `git pull` traen cambios del remoto al local.',
+  },
+  {
+    enunciado: '¿En qué se basan las pruebas de caja blanca?',
+    opciones: [
+      'En la especificación funcional, sin mirar el código',
+      'En la estructura interna del código',
+      'En la opinión de los usuarios finales',
+      'En el rendimiento bajo carga',
+    ],
+    correcta: 1,
+    explicacion: 'La caja blanca diseña casos a partir del código (caminos, condiciones, bucles). La caja negra solo mira entradas y salidas.',
+  },
+  {
+    enunciado: '¿Qué mide la complejidad ciclomática de McCabe?',
+    opciones: [
+      'El número de líneas de código',
+      'El número de caminos independientes del grafo de flujo',
+      'El tiempo de ejecución',
+      'La cantidad de memoria usada',
+    ],
+    correcta: 1,
+    explicacion: 'Indica cuántos caminos linealmente independientes hay, y por tanto el número mínimo de casos para cubrirlos. Se calcula, por ejemplo, como aristas − nodos + 2.',
+  },
+  {
+    enunciado: 'La técnica de análisis de valores límite es una técnica de…',
+    opciones: ['Caja blanca', 'Caja negra', 'Refactorización', 'Control de versiones'],
+    correcta: 1,
+    explicacion: 'Es de caja negra: complementa a las clases de equivalencia probando los extremos de cada rango, donde se concentran muchos errores.',
+  },
+  {
+    enunciado: '¿Qué anotación marca un método de prueba en JUnit 5?',
+    opciones: ['@Run', '@Test', '@Check', '@Assert'],
+    correcta: 1,
+    explicacion: '`@Test` (de `org.junit.jupiter.api`) indica que el método es un caso de prueba.',
+  },
+  {
+    enunciado: 'En `assertEquals(a, b)` de JUnit, ¿qué orden se recomienda para los argumentos?',
+    opciones: ['(obtenido, esperado)', '(esperado, obtenido)', 'Da igual, el mensaje de error es el mismo', '(mensaje, valor)'],
+    correcta: 1,
+    explicacion: 'Primero el valor esperado y después el real. Si se invierten, el mensaje de fallo resulta engañoso.',
+  },
+  {
+    enunciado: '¿Cuál de estos diagramas UML es de comportamiento?',
+    opciones: ['Diagrama de clases', 'Diagrama de objetos', 'Diagrama de secuencia', 'Diagrama de componentes'],
+    correcta: 2,
+    explicacion: 'Los de secuencia, casos de uso, actividad y estados son de comportamiento. Clases, objetos y componentes son estructurales.',
+  },
+  {
+    enunciado: 'En un diagrama de clases UML, ¿cómo se representa la composición?',
+    opciones: ['Línea discontinua con flecha', 'Rombo relleno en el extremo del todo', 'Rombo vacío en el extremo del todo', 'Triángulo vacío'],
+    correcta: 1,
+    explicacion: 'El rombo relleno es composición (la parte no existe sin el todo). El rombo vacío es agregación y el triángulo vacío, herencia.',
+  },
+  {
+    enunciado: 'En UML, ¿qué símbolo indica que un atributo es protegido?',
+    opciones: ['+', '-', '#', '~'],
+    correcta: 2,
+    explicacion: '`+` público, `-` privado, `#` protegido y `~` de paquete.',
+  },
+  {
+    enunciado: '¿Qué es refactorizar?',
+    opciones: [
+      'Añadir funcionalidades nuevas',
+      'Mejorar la estructura interna del código sin cambiar su comportamiento externo',
+      'Corregir errores reportados por usuarios',
+      'Traducir el código a otro lenguaje',
+    ],
+    correcta: 1,
+    explicacion: 'Refactorizar mejora legibilidad y mantenibilidad sin alterar lo que hace el programa; por eso conviene tener pruebas antes de hacerlo.',
+  },
+  {
+    enunciado: '¿Qué diferencia a un compilador de un intérprete?',
+    opciones: [
+      'El compilador traduce el programa completo antes de ejecutarlo',
+      'El compilador ejecuta línea a línea',
+      'El intérprete genera siempre un ejecutable',
+      'No hay diferencia práctica',
+    ],
+    correcta: 0,
+    explicacion: 'El compilador genera código objeto o ejecutable de una vez. El intérprete traduce y ejecuta sentencia a sentencia.',
+  },
+  {
+    enunciado: '¿Quién ejecuta el bytecode generado por `javac`?',
+    opciones: ['El sistema operativo directamente', 'La máquina virtual de Java (JVM)', 'El IDE', 'El navegador'],
+    correcta: 1,
+    explicacion: 'El `.class` contiene bytecode independiente de la plataforma, que interpreta y compila en tiempo de ejecución la JVM.',
+  },
+  {
+    enunciado: '¿Para qué sirve un punto de ruptura (breakpoint) en el depurador?',
+    opciones: [
+      'Para terminar el programa',
+      'Para detener la ejecución en una línea y examinar el estado',
+      'Para comentar código',
+      'Para medir la cobertura',
+    ],
+    correcta: 1,
+    explicacion: 'Al llegar al breakpoint la ejecución se pausa y puedes inspeccionar variables y avanzar paso a paso.',
+  },
+  {
+    enunciado: '¿Qué objetivo tienen las pruebas de regresión?',
+    opciones: [
+      'Medir el rendimiento',
+      'Comprobar que un cambio no ha roto lo que ya funcionaba',
+      'Validar la interfaz con usuarios',
+      'Probar la instalación',
+    ],
+    correcta: 1,
+    explicacion: 'Se repiten pruebas existentes tras cada cambio para detectar errores introducidos sin querer.',
+  },
+  {
+    enunciado: '¿Cuál de estas herramientas gestiona dependencias y la construcción de proyectos Java?',
+    opciones: ['npm', 'Maven', 'pip', 'Composer'],
+    correcta: 1,
+    explicacion: 'Maven (o Gradle) gestiona dependencias y el ciclo de construcción en Java. npm es de JavaScript, pip de Python y Composer de PHP.',
+  },
+];

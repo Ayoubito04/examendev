@@ -1,0 +1,123 @@
+export default [
+  {
+    enunciado: '¿En qué formato se define de forma declarativa una interfaz en JavaFX?',
+    opciones: ['JSON', 'FXML', 'YAML', 'HTML'],
+    correcta: 1,
+    explicacion: 'FXML es un XML que describe la jerarquía de nodos; se enlaza con un controlador mediante `fx:controller`.',
+  },
+  {
+    enunciado: '¿Qué herramienta permite diseñar interfaces FXML de forma visual?',
+    opciones: ['Android Studio', 'Scene Builder', 'Figma', 'NetBeans GUI Builder para Swing'],
+    correcta: 1,
+    explicacion: 'Scene Builder genera el FXML arrastrando componentes, y se integra con IntelliJ y Eclipse.',
+  },
+  {
+    enunciado: 'En JavaFX, ¿qué método debe sobrescribir la clase que extiende `Application`?',
+    opciones: ['main(String[])', 'start(Stage)', 'init(Scene)', 'run()'],
+    correcta: 1,
+    explicacion: '`start(Stage)` recibe la ventana principal; ahí se crea la `Scene` y se llama a `show()`.',
+  },
+  {
+    enunciado: '¿Qué contenedor de JavaFX organiza los nodos en filas y columnas?',
+    opciones: ['HBox', 'VBox', 'GridPane', 'StackPane'],
+    correcta: 2,
+    explicacion: '`GridPane` usa una rejilla. HBox apila en horizontal, VBox en vertical y StackPane superpone.',
+  },
+  {
+    enunciado: '¿Cómo se aplican estilos CSS en JavaFX?',
+    opciones: [
+      'No admite CSS',
+      'Con hojas CSS y propiedades con prefijo -fx-',
+      'Solo con estilos en línea de HTML',
+      'Con ficheros .style',
+    ],
+    correcta: 1,
+    explicacion: 'Por ejemplo `-fx-background-color`. La hoja se añade con `scene.getStylesheets().add(...)`.',
+  },
+  {
+    enunciado: '¿Qué permite el binding de propiedades en JavaFX?',
+    opciones: [
+      'Compilar más rápido',
+      'Mantener sincronizados automáticamente los valores de dos propiedades',
+      'Guardar datos en disco',
+      'Conectar con una base de datos',
+    ],
+    correcta: 1,
+    explicacion: 'Con `bind()` o `bindBidirectional()` una propiedad sigue los cambios de otra sin escribir listeners a mano.',
+  },
+  {
+    enunciado: 'En Swing, ¿qué clase representa la ventana principal de una aplicación?',
+    opciones: ['JPanel', 'JFrame', 'JDialog', 'JWindow'],
+    correcta: 1,
+    explicacion: '`JFrame` es la ventana con título y bordes. `JPanel` es un contenedor que se coloca dentro.',
+  },
+  {
+    enunciado: 'En Swing, ¿qué interfaz gestiona la pulsación de un botón?',
+    opciones: ['MouseMotionListener', 'ActionListener', 'KeyListener', 'WindowListener'],
+    correcta: 1,
+    explicacion: 'Se registra con `boton.addActionListener(...)` y se implementa `actionPerformed`.',
+  },
+  {
+    enunciado: '¿Qué requisitos cumple un JavaBean?',
+    opciones: [
+      'Constructor sin argumentos, getters y setters, y ser serializable',
+      'Solo métodos estáticos',
+      'Extender JComponent obligatoriamente',
+      'No tener atributos',
+    ],
+    correcta: 0,
+    explicacion: 'Esa convención permite que IDEs y frameworks inspeccionen y configuren el componente como pieza reutilizable.',
+  },
+  {
+    enunciado: '¿Qué biblioteca se usa habitualmente en Java para generar informes?',
+    opciones: ['JUnit', 'JasperReports', 'Log4j', 'Jackson'],
+    correcta: 1,
+    explicacion: 'JasperReports diseña plantillas (por ejemplo con Jaspersoft Studio) y las rellena con datos para exportar a PDF y otros formatos.',
+  },
+  {
+    enunciado: 'Según ISO 9241-11, ¿qué tres factores definen la usabilidad?',
+    opciones: [
+      'Velocidad, color y tamaño',
+      'Eficacia, eficiencia y satisfacción',
+      'Seguridad, precio y diseño',
+      'Accesibilidad, SEO y rendimiento',
+    ],
+    correcta: 1,
+    explicacion: 'Grado en que un producto permite a ciertos usuarios lograr objetivos con eficacia, eficiencia y satisfacción en un contexto concreto.',
+  },
+  {
+    enunciado: '¿Qué establece la ley de Fitts?',
+    opciones: [
+      'Que los usuarios leen en forma de F',
+      'Que el tiempo para alcanzar un objetivo depende de su distancia y su tamaño',
+      'Que siete elementos es el máximo en un menú',
+      'Que el azul transmite confianza',
+    ],
+    correcta: 1,
+    explicacion: 'Cuanto más lejos y más pequeño es un objetivo, más tarda en alcanzarse. Por eso los botones importantes deben ser grandes y accesibles.',
+  },
+  {
+    enunciado: '¿Qué principio de diseño se aplica al mostrar un indicador mientras se guarda un formulario?',
+    opciones: ['Consistencia', 'Retroalimentación (feedback)', 'Minimalismo', 'Flexibilidad'],
+    correcta: 1,
+    explicacion: 'El sistema informa de que ha recibido la acción y de cómo va, evitando que el usuario repita clics.',
+  },
+  {
+    enunciado: '¿Qué herramienta del JDK genera instaladores nativos de una aplicación Java?',
+    opciones: ['javadoc', 'jpackage', 'jshell', 'jconsole'],
+    correcta: 1,
+    explicacion: '`jpackage` produce .msi/.exe, .dmg/.pkg o .deb/.rpm con un runtime incluido.',
+  },
+  {
+    enunciado: '¿Qué documento explica a los usuarios finales cómo utilizar la aplicación?',
+    opciones: ['Javadoc', 'Manual de usuario', 'Diagrama de clases', 'Plan de pruebas'],
+    correcta: 1,
+    explicacion: 'El manual de usuario se centra en tareas y pantallas. Javadoc documenta el código para desarrolladores.',
+  },
+  {
+    enunciado: '¿Qué tipo de prueba evalúa la interfaz observando a usuarios reales realizar tareas?',
+    opciones: ['Prueba unitaria', 'Prueba de usabilidad', 'Prueba de carga', 'Prueba de regresión'],
+    correcta: 1,
+    explicacion: 'Se observa dónde dudan o fallan los usuarios para mejorar el diseño.',
+  },
+];

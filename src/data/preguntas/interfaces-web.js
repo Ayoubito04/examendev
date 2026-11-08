@@ -1,0 +1,143 @@
+export default [
+  {
+    enunciado: '¿Qué contraste mínimo exige WCAG nivel AA para texto de tamaño normal?',
+    opciones: ['3:1', '4.5:1', '7:1', '2:1'],
+    correcta: 1,
+    explicacion: 'AA pide 4.5:1 para texto normal y 3:1 para texto grande. El nivel AAA sube a 7:1.',
+  },
+  {
+    enunciado: '¿Qué media query aplica estilos a pantallas de 768 px de ancho o más?',
+    opciones: ['@media (max-width: 768px)', '@media (min-width: 768px)', '@media (width: 768px)', '@media screen 768px'],
+    correcta: 1,
+    explicacion: '`min-width` se cumple a partir de ese ancho. Es la base del enfoque mobile first.',
+  },
+  {
+    enunciado: '¿En qué consiste el enfoque mobile first?',
+    opciones: [
+      'En hacer solo la versión móvil',
+      'En diseñar primero para pantallas pequeñas y ampliar con media queries min-width',
+      'En usar siempre una app nativa',
+      'En ocultar contenido en móvil',
+    ],
+    correcta: 1,
+    explicacion: 'Los estilos base son los de móvil y se añaden mejoras progresivas a medida que crece la pantalla.',
+  },
+  {
+    enunciado: '¿Qué meta etiqueta es imprescindible para que una web responsive se vea bien en móvil?',
+    opciones: [
+      '<meta name="viewport" content="width=device-width, initial-scale=1">',
+      '<meta name="mobile" content="yes">',
+      '<meta charset="UTF-8">',
+      '<meta name="responsive" content="true">',
+    ],
+    correcta: 0,
+    explicacion: 'Sin ella el navegador móvil simula un ancho de escritorio y reduce la página. Ajusta el viewport al ancho del dispositivo.',
+  },
+  {
+    enunciado: '¿A qué es relativa la unidad `rem`?',
+    opciones: [
+      'Al tamaño de fuente del elemento padre',
+      'Al tamaño de fuente del elemento raíz (html)',
+      'Al ancho de la ventana',
+      'Al alto de la ventana',
+    ],
+    correcta: 1,
+    explicacion: '`rem` toma como referencia el `font-size` de `html`. `em` es relativa al elemento actual o a su padre, y `vw`/`vh` al viewport.',
+  },
+  {
+    enunciado: '¿Qué propiedad de CSS Grid define el número y tamaño de las columnas?',
+    opciones: ['grid-columns', 'grid-template-columns', 'column-count', 'grid-auto-flow'],
+    correcta: 1,
+    explicacion: 'Por ejemplo `grid-template-columns: repeat(3, 1fr)` crea tres columnas iguales.',
+  },
+  {
+    enunciado: '¿Qué regla de CSS define los pasos de una animación?',
+    opciones: ['@animation', '@keyframes', '@transition', '@frames'],
+    correcta: 1,
+    explicacion: '`@keyframes` define los estados intermedios, y la propiedad `animation` la aplica a un elemento.',
+  },
+  {
+    enunciado: '¿Qué formato de imagen es vectorial?',
+    opciones: ['JPEG', 'PNG', 'SVG', 'WebP'],
+    correcta: 2,
+    explicacion: 'SVG describe formas con XML y escala sin perder calidad. JPEG, PNG y WebP son mapas de bits.',
+  },
+  {
+    enunciado: '¿Qué modelo de color se usa en pantallas?',
+    opciones: ['CMYK', 'RGB', 'Pantone', 'RYB'],
+    correcta: 1,
+    explicacion: 'RGB es aditivo, propio de la luz emitida. CMYK es sustractivo y se usa en impresión.',
+  },
+  {
+    enunciado: '¿Qué son los colores complementarios?',
+    opciones: [
+      'Colores contiguos en el círculo cromático',
+      'Colores opuestos en el círculo cromático',
+      'Distintas tonalidades de un mismo color',
+      'Blanco y negro',
+    ],
+    correcta: 1,
+    explicacion: 'Se sitúan uno frente a otro, como azul y naranja, y generan el máximo contraste. Los contiguos son análogos.',
+  },
+  {
+    enunciado: '¿Qué distingue a una tipografía serif?',
+    opciones: [
+      'Que todas las letras tienen el mismo ancho',
+      'Que tiene remates en los extremos de los trazos',
+      'Que imita la escritura a mano',
+      'Que solo tiene mayúsculas',
+    ],
+    correcta: 1,
+    explicacion: 'Las serif tienen remates (serifas); las sans-serif carecen de ellos. El mismo ancho es propio de las monoespaciadas.',
+  },
+  {
+    enunciado: '¿Para qué sirve el atributo `aria-label`?',
+    opciones: [
+      'Para mostrar un tooltip visual',
+      'Para dar un nombre accesible a un elemento que no tiene texto visible',
+      'Para traducir la página',
+      'Para posicionar el elemento',
+    ],
+    correcta: 1,
+    explicacion: 'Por ejemplo, un botón con solo un icono necesita `aria-label` para que el lector de pantalla anuncie qué hace.',
+  },
+  {
+    enunciado: '¿Cuál de estas es una de las heurísticas de usabilidad de Jakob Nielsen?',
+    opciones: [
+      'Usar siempre fondo blanco',
+      'Visibilidad del estado del sistema',
+      'Máximo tres colores',
+      'Menús siempre a la izquierda',
+    ],
+    correcta: 1,
+    explicacion: 'El sistema debe informar al usuario de lo que ocurre con una respuesta adecuada y a tiempo, como un indicador de carga.',
+  },
+  {
+    enunciado: '¿Qué es un wireframe?',
+    opciones: [
+      'El diseño final con colores e imágenes',
+      'Un esquema de baja fidelidad con la estructura y distribución de la página',
+      'Un prototipo con código funcional',
+      'Una guía de estilos',
+    ],
+    correcta: 1,
+    explicacion: 'Muestra qué va en cada zona sin entrar en el estilo visual. Después vienen el mockup y el prototipo.',
+  },
+  {
+    enunciado: '¿Qué es Sass?',
+    opciones: [
+      'Un framework de JavaScript',
+      'Un preprocesador de CSS con variables, anidación y mixins',
+      'Un servidor web',
+      'Un formato de imagen',
+    ],
+    correcta: 1,
+    explicacion: 'Sass se compila a CSS y añade variables, anidación, mixins y funciones.',
+  },
+  {
+    enunciado: '¿Qué formato de imagen ofrece compresión eficiente con o sin pérdida y admite transparencia?',
+    opciones: ['BMP', 'GIF', 'WebP', 'TIFF'],
+    correcta: 2,
+    explicacion: 'WebP suele pesar menos que JPEG o PNG con calidad similar y admite canal alfa.',
+  },
+];

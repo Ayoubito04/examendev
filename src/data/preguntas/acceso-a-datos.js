@@ -1,0 +1,123 @@
+export default [
+  {
+    enunciado: 'En JDBC, ¿qué interfaz permite ejecutar consultas parametrizadas y protege frente a inyección SQL?',
+    opciones: ['Statement', 'PreparedStatement', 'ResultSet', 'DriverManager'],
+    correcta: 1,
+    explicacion: '`PreparedStatement` precompila la sentencia y enlaza los parámetros con `setString`, `setInt`…, sin concatenar texto.',
+  },
+  {
+    enunciado: '¿Qué devuelve `executeUpdate()` en JDBC?',
+    opciones: ['Un ResultSet', 'Un int con el número de filas afectadas', 'Un boolean', 'Nada'],
+    correcta: 1,
+    explicacion: '`executeUpdate()` se usa con INSERT, UPDATE y DELETE y devuelve las filas afectadas. Las consultas usan `executeQuery()`, que devuelve un `ResultSet`.',
+  },
+  {
+    enunciado: '¿Cómo se agrupan varias operaciones JDBC en una transacción?',
+    opciones: [
+      'Llamando a `beginTransaction()`',
+      'Con `setAutoCommit(false)` y después `commit()` o `rollback()`',
+      'Con un Statement por operación',
+      'No se puede en JDBC',
+    ],
+    correcta: 1,
+    explicacion: 'Por defecto cada sentencia se confirma sola. Desactivando el autocommit controlas tú cuándo confirmar o deshacer.',
+  },
+  {
+    enunciado: '¿Qué relación hay entre JPA e Hibernate?',
+    opciones: [
+      'Son competidores incompatibles',
+      'JPA es una especificación e Hibernate una de sus implementaciones',
+      'Hibernate es una base de datos',
+      'JPA es una implementación de Hibernate',
+    ],
+    correcta: 1,
+    explicacion: 'JPA (hoy Jakarta Persistence) define la API de mapeo objeto-relacional; Hibernate la implementa y añade extras.',
+  },
+  {
+    enunciado: '¿Qué anotación marca una clase como entidad persistente en JPA?',
+    opciones: ['@Table', '@Entity', '@Persistent', '@Model'],
+    correcta: 1,
+    explicacion: '`@Entity` la convierte en entidad. `@Table` es opcional y solo personaliza el nombre de la tabla.',
+  },
+  {
+    enunciado: '¿Qué anotación JPA indica la clave primaria de una entidad?',
+    opciones: ['@Key', '@Primary', '@Id', '@Column'],
+    correcta: 2,
+    explicacion: '`@Id` marca la clave primaria; se suele acompañar de `@GeneratedValue` para generarla automáticamente.',
+  },
+  {
+    enunciado: '¿Qué anotación JPA representa una relación uno a muchos?',
+    opciones: ['@ManyToOne', '@OneToMany', '@OneToOne', '@ManyToMany'],
+    correcta: 1,
+    explicacion: '`@OneToMany` va en el lado "uno" (por ejemplo, un cliente con muchos pedidos), normalmente con `mappedBy`.',
+  },
+  {
+    enunciado: '¿Sobre qué trabaja una consulta JPQL?',
+    opciones: ['Sobre tablas y columnas', 'Sobre entidades y sus atributos', 'Sobre ficheros XML', 'Sobre colecciones de MongoDB'],
+    correcta: 1,
+    explicacion: 'JPQL se parece a SQL pero usa nombres de clases y atributos Java; el proveedor la traduce a SQL.',
+  },
+  {
+    enunciado: '¿Qué se conoce como desfase objeto-relacional?',
+    opciones: [
+      'El retraso en las consultas',
+      'Las diferencias entre el modelo de objetos y el modelo relacional',
+      'Un error de versión del driver',
+      'La pérdida de datos en una transacción',
+    ],
+    correcta: 1,
+    explicacion: 'Herencia, identidad o navegación por referencias no tienen equivalente directo en tablas; los ORM intentan salvar esa distancia.',
+  },
+  {
+    enunciado: '¿Qué patrón separa la lógica de acceso a datos del resto de la aplicación?',
+    opciones: ['Singleton', 'DAO', 'Observer', 'Builder'],
+    correcta: 1,
+    explicacion: 'Un DAO (Data Access Object) encapsula las operaciones CRUD y oculta cómo se almacenan los datos.',
+  },
+  {
+    enunciado: '¿Qué debe implementar una clase para poder escribirse con `ObjectOutputStream`?',
+    opciones: ['Cloneable', 'Serializable', 'Comparable', 'Iterable'],
+    correcta: 1,
+    explicacion: '`Serializable` es una interfaz marcadora que permite convertir el objeto en una secuencia de bytes.',
+  },
+  {
+    enunciado: '¿Qué efecto tiene marcar un atributo como `transient`?',
+    opciones: [
+      'Que no se puede modificar',
+      'Que no se incluye al serializar el objeto',
+      'Que es compartido por todas las instancias',
+      'Que se guarda en la base de datos',
+    ],
+    correcta: 1,
+    explicacion: 'Los atributos `transient` se omiten en la serialización y al deserializar toman su valor por defecto.',
+  },
+  {
+    enunciado: '¿Qué clase permite leer un fichero de texto línea a línea de forma eficiente?',
+    opciones: ['FileInputStream', 'BufferedReader', 'RandomAccessFile', 'PrintWriter'],
+    correcta: 1,
+    explicacion: '`BufferedReader.readLine()` lee una línea completa usando un búfer. `PrintWriter` es para escribir.',
+  },
+  {
+    enunciado: '¿Qué clase de Java permite leer y escribir en cualquier posición de un fichero?',
+    opciones: ['FileReader', 'RandomAccessFile', 'Scanner', 'BufferedWriter'],
+    correcta: 1,
+    explicacion: '`RandomAccessFile` tiene un puntero que se mueve con `seek()`, útil para ficheros de registros de tamaño fijo.',
+  },
+  {
+    enunciado: '¿Qué ventaja tiene SAX frente a DOM para procesar XML?',
+    opciones: [
+      'Permite modificar el documento',
+      'Procesa el documento por eventos sin cargarlo entero en memoria',
+      'Permite navegar hacia atrás',
+      'Valida contra XSD automáticamente',
+    ],
+    correcta: 1,
+    explicacion: 'SAX lee secuencialmente y lanza eventos, ideal para ficheros grandes. DOM carga el árbol completo y permite recorrerlo y modificarlo.',
+  },
+  {
+    enunciado: '¿Qué tipo de base de datos es MongoDB?',
+    opciones: ['Relacional', 'NoSQL orientada a documentos', 'Orientada a grafos', 'Clave-valor en memoria'],
+    correcta: 1,
+    explicacion: 'MongoDB guarda documentos BSON (similares a JSON) agrupados en colecciones.',
+  },
+];
