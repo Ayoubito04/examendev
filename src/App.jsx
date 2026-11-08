@@ -1,9 +1,16 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout.jsx';
+import RutaPrivada from './components/RutaPrivada.jsx';
 import Inicio from './pages/Inicio.jsx';
 import Temario from './pages/Temario.jsx';
 import Test from './pages/Test.jsx';
 import Progreso from './pages/Progreso.jsx';
+import Ranking from './pages/Ranking.jsx';
+import Perfil from './pages/Perfil.jsx';
+import Login from './pages/cuenta/Login.jsx';
+import Registro from './pages/cuenta/Registro.jsx';
+import Recuperar from './pages/cuenta/Recuperar.jsx';
+import Restablecer from './pages/cuenta/Restablecer.jsx';
 import Contacto from './pages/Contacto.jsx';
 import NoEncontrado from './pages/NoEncontrado.jsx';
 
@@ -15,6 +22,19 @@ export default function App() {
         <Route path="temario" element={<Temario />} />
         <Route path="test/:moduloId" element={<Test />} />
         <Route path="progreso" element={<Progreso />} />
+        <Route path="ranking" element={<Ranking />} />
+        <Route
+          path="perfil"
+          element={
+            <RutaPrivada>
+              <Perfil />
+            </RutaPrivada>
+          }
+        />
+        <Route path="login" element={<Login />} />
+        <Route path="registro" element={<Registro />} />
+        <Route path="recuperar" element={<Recuperar />} />
+        <Route path="restablecer" element={<Restablecer />} />
         <Route path="contacto" element={<Contacto />} />
         <Route path="*" element={<NoEncontrado />} />
       </Route>

@@ -285,3 +285,40 @@ export const MODULOS = [
 
 export const modulosDeCiclo = (sigla, curso) =>
   MODULOS.filter((m) => m.ciclos.includes(sigla) && (curso == null || m.curso === curso));
+
+// Nombres cortos para gráficos y espacios reducidos.
+export const NOMBRES_CORTOS = {
+  programacion: 'Programación',
+  'bases-de-datos': 'Bases de datos',
+  'entornos-de-desarrollo': 'Entornos',
+  'lenguajes-de-marcas': 'L. de marcas',
+  'sistemas-informaticos': 'Sistemas inf.',
+  cliente: 'Entorno cliente',
+  servidor: 'Entorno servidor',
+  despliegue: 'Despliegue',
+  'interfaces-web': 'Interfaces web',
+  'acceso-a-datos': 'Acceso a datos',
+  moviles: 'Móviles',
+  procesos: 'Servicios y proc.',
+  interfaces: 'Interfaces',
+  'gestion-empresarial': 'SGE',
+  'implantacion-so': 'Implantación SO',
+  'planificacion-redes': 'Redes',
+  'fundamentos-hardware': 'Hardware',
+  'gestion-bases-datos': 'Gestión BD',
+  'administracion-so': 'Admin. SO',
+  'servicios-red-internet': 'Servicios red',
+  'implantacion-aplicaciones-web': 'Implant. web',
+  'administracion-sgbd': 'Admin. SGBD',
+  'seguridad-alta-disponibilidad': 'Seguridad y AD',
+  'montaje-equipos': 'Montaje',
+  'so-monopuesto': 'SO monopuesto',
+  'aplicaciones-ofimaticas': 'Ofimática',
+  'redes-locales': 'Redes locales',
+  'so-en-red': 'SO en red',
+  'seguridad-informatica': 'Seguridad',
+  'servicios-en-red': 'Servicios en red',
+  'aplicaciones-web': 'Aplicaciones web',
+};
+
+export const nombreCorto = (id) => NOMBRES_CORTOS[id] ?? id;

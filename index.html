@@ -12,6 +12,14 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <script>
+      // Aplica el tema guardado antes de pintar para evitar un destello claro.
+      try {
+        var t = localStorage.getItem('examendev:tema') || 'sistema';
+        if (t === 'sistema') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'oscuro' : 'claro';
+        document.documentElement.dataset.tema = t;
+      } catch (e) {}
+    </script>
     <title>ExamenDev · Practica tu examen de DAM, DAW, ASIR y SMR</title>
   </head>
   <body>

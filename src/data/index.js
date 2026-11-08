@@ -1,4 +1,5 @@
-import { CICLOS, MODULOS, SECCIONES, modulosDeCiclo } from './modulos.js';
+import { CICLOS, MODULOS, SECCIONES, modulosDeCiclo, nombreCorto } from './modulos.js';
+import { TEMAS_POR_PREGUNTA } from './temas.js';
 
 // DAM y DAW
 import programacion from './preguntas/programacion.js';
@@ -71,11 +72,17 @@ const BANCOS = {
   'aplicaciones-web': aplicacionesWeb,
 };
 
-// Cada pregunta recibe un id estable "<modulo>-<nn>" según su posición en el banco.
+// Cada pregunta recibe un id estable "<modulo>-<nn>" según su posición en el banco
+// y el índice de su tema dentro de los temas del módulo.
 export const PREGUNTAS = Object.fromEntries(
   Object.entries(BANCOS).map(([moduloId, lista]) => [
     moduloId,
-    lista.map((p, i) => ({ ...p, id: `${moduloId}-${String(i + 1).padStart(2, '0')}`, moduloId })),
+    lista.map((p, i) => ({
+      ...p,
+      id: `${moduloId}-${String(i + 1).padStart(2, '0')}`,
+      moduloId,
+      tema: TEMAS_POR_PREGUNTA[moduloId]?.[i] ?? 0,
+    })),
   ]),
 );
 
@@ -85,8 +92,10 @@ export const PREGUNTA_POR_ID = Object.fromEntries(TODAS_LAS_PREGUNTAS.map((p) =>
 
 export const getModulo = (id) => MODULOS.find((m) => m.id === id);
 
+export const preguntasDeTema = (moduloId, tema) => (PREGUNTAS[moduloId] ?? []).filter((p) => p.tema === tema);
+
 export const getCiclo = (id) => CICLOS.find((c) => c.id === id);
 
 export const contarPreguntas = (moduloId) => PREGUNTAS[moduloId]?.length ?? 0;
 
-export { CICLOS, MODULOS, SECCIONES, modulosDeCiclo };
+export { CICLOS, MODULOS, SECCIONES, modulosDeCiclo, nombreCorto };
