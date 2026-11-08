@@ -38,11 +38,11 @@ Práctica con corrección al instante, simulacros cronometrados, repaso de fallo
 - React Router (`react-router-dom`)
 - CSS propio (sin frameworks), fuentes Instrument Serif, Inter y Manrope
 - Progreso de práctica en `localStorage`
-- Cuentas, ranking y perfil a través de una capa de servicios (`src/api/`). Sin backend funciona con **datos simulados** guardados en el navegador (usuarios de demostración incluidos)
+- Cuentas, ranking y perfil a través de una capa de servicios (`frontend/src/api/`). Sin backend funciona con **datos simulados** guardados en el navegador (usuarios de demostración incluidos)
 
 ## Conectar el backend
 
-El contrato de la API está en [`docs/API.md`](docs/API.md). Para usar el backend real, crea `.env.local` en la raíz:
+El contrato de la API está en [`docs/API.md`](docs/API.md). Para usar el backend real, crea `frontend/.env.local`:
 
 ```bash
 VITE_API_URL=http://localhost:3000/api
@@ -53,6 +53,7 @@ Con esa variable definida, los servicios dejan de usar el mock y llaman a la API
 ## Puesta en marcha
 
 ```bash
+cd frontend
 npm install
 npm run dev       # desarrollo en http://localhost:5173
 npm run build     # build de producción en dist/
@@ -63,7 +64,7 @@ npm run lint      # oxlint
 ## Estructura
 
 ```
-src/
+frontend/src/
 ├── App.jsx                  # rutas
 ├── main.jsx                 # punto de entrada, router y proveedores (tema, sesión, progreso)
 ├── api/                     # servicios: auth, usuarios, puntuaciones; mock/ con datos simulados
@@ -84,7 +85,7 @@ src/
 
 ## Añadir preguntas
 
-Cada banco es un array en `src/data/preguntas/<modulo>.js`:
+Cada banco es un array en `frontend/src/data/preguntas/<modulo>.js`:
 
 ```js
 {
@@ -103,4 +104,4 @@ Cada banco es un array en `src/data/preguntas/<modulo>.js`:
 ## Despliegue
 
 Es una SPA estática. Incluye `public/_redirects` (Netlify) y `vercel.json` (Vercel) para que las rutas funcionen al recargar.
-Antes de publicar, cambia el correo de contacto en `src/config.js`.
+Antes de publicar, cambia el correo de contacto en `frontend/src/config.js`.

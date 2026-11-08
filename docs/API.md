@@ -1,18 +1,18 @@
 # Contrato de la API de ExamenDev
 
 Este documento describe la API que espera el frontend. Mientras no exista, la app usa
-servicios simulados (`src/api/mock`) que guardan usuarios y puntuaciones en el navegador
+servicios simulados (`frontend/src/api/mock`) que guardan usuarios y puntuaciones en el navegador
 y respetan exactamente este mismo contrato.
 
 ## Conectar el frontend con la API
 
-Crea `.env.local` en la raíz del proyecto:
+Crea `frontend/.env.local`:
 
 ```
 VITE_API_URL=http://localhost:3000/api
 ```
 
-Con esa variable, `src/api/*.js` deja de usar el mock y llama a la API real. No hay que
+Con esa variable, `frontend/src/api/*.js` deja de usar el mock y llama a la API real. No hay que
 tocar ningún componente.
 
 ## Convenciones
@@ -40,7 +40,7 @@ FilaRanking    = { posicion, usuario: UsuarioPublico, puntos, partidas, mejorRac
 ```
 
 `avatar` es uno de: `zorro, buho, pulpo, lobo, panda, tigre, ballena, rana, cohete, unicornio, dragon, pinguino`.
-`moduloId` es el `id` de `src/data/modulos.js` (por ejemplo `programacion`, `redes-locales`).
+`moduloId` es el `id` de `frontend/src/data/modulos.js` (por ejemplo `programacion`, `redes-locales`).
 
 ## Autenticación
 
@@ -68,7 +68,7 @@ FilaRanking    = { posicion, usuario: UsuarioPublico, puntos, partidas, mejorRac
 | PATCH | `/usuarios/yo` | `{ nick?, avatar? }` | `200 Usuario` |
 
 Los **logros** no los guarda el backend: el frontend los calcula a partir de `estadisticas`
-(`src/utils/logros.js`).
+(`frontend/src/utils/logros.js`).
 
 ## Puntuaciones y ranking
 
