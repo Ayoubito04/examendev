@@ -23,7 +23,7 @@ const MODOS = [
   {
     id: 'repaso',
     titulo: 'Repasar mis fallos',
-    texto: 'Todas las preguntas que has fallado, con la respuesta correcta y su explicación. Después puedes practicarlas.',
+    texto: 'Todas las preguntas que has fallado en tus tests, acumuladas, con la respuesta correcta y su explicación.',
   },
 ];
 

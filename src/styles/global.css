@@ -1361,6 +1361,27 @@ button.volver {
   color: var(--ko);
 }
 
+.etiqueta--ok {
+  background: var(--ok-suave);
+  color: var(--ok);
+}
+
+.repaso__item--acertada {
+  border-color: rgba(52, 211, 153, 0.25);
+}
+
+.repaso__item-pie {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+@media print {
+  .repaso__item-pie {
+    display: none !important;
+  }
+}
+
 .repaso__enunciado {
   margin: 0.9rem 0 1rem;
   font-family: var(--serif);
