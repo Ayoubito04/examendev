@@ -130,4 +130,28 @@ export default [
     correcta: 1,
     explicacion: 'Además conviene borrar los plugins sin uso y usar contraseñas robustas con doble factor.',
   },
+  {
+    enunciado: '¿Qué lenguaje se ejecuta en el navegador para añadir interactividad a una web?',
+    opciones: ['PHP', 'JavaScript', 'SQL', 'Python'],
+    correcta: 1,
+    explicacion: 'PHP y Python se ejecutan en el servidor; SQL consulta bases de datos.',
+  },
+  {
+    enunciado: '¿Qué es un nombre de dominio?',
+    opciones: ['La IP del servidor', 'Un nombre fácil de recordar que el DNS traduce a la IP del servidor', 'El nombre del hosting', 'Un tipo de certificado'],
+    correcta: 1,
+    explicacion: 'Por ejemplo, `ejemplo.com`. Se registra a través de un registrador y se renueva periódicamente.',
+  },
+  {
+    enunciado: '¿Qué añade HTTPS respecto a HTTP?',
+    opciones: ['Más velocidad siempre', 'Cifrado de la comunicación mediante TLS', 'Más imágenes', 'Compatibilidad con móviles'],
+    correcta: 1,
+    explicacion: 'Protege contraseñas y datos de formularios frente a quien intercepte el tráfico.',
+  },
+  {
+    enunciado: '¿Qué es el SEO?',
+    opciones: ['Un lenguaje de programación', 'Las técnicas para mejorar la posición de una web en los buscadores', 'Un servidor web', 'Un tipo de copia de seguridad'],
+    correcta: 1,
+    explicacion: 'Incluye buenos títulos, URL claras, contenido de calidad, velocidad y adaptación a móvil.',
+  },
 ];

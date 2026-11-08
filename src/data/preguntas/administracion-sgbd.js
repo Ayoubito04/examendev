@@ -145,4 +145,28 @@ export default [
     correcta: 1,
     explicacion: 'InnoDB lo detecta y deshace una de las transacciones para que la otra pueda continuar.',
   },
+  {
+    enunciado: '¿Qué sentencia retira privilegios a un usuario?',
+    opciones: ['DENY', 'REVOKE', 'REMOVE', 'DROP PRIVILEGE'],
+    correcta: 1,
+    explicacion: 'Por ejemplo `REVOKE INSERT ON tienda.* FROM \'ana\'@\'localhost\';`.',
+  },
+  {
+    enunciado: '¿Qué sentencia muestra los privilegios de un usuario en MySQL?',
+    opciones: ['SHOW USERS', 'SHOW GRANTS FOR usuario', 'DESCRIBE USER', 'SELECT PRIVILEGES'],
+    correcta: 1,
+    explicacion: 'Muestra las sentencias `GRANT` equivalentes a sus permisos actuales.',
+  },
+  {
+    enunciado: '¿Qué registro de MySQL ayuda a localizar las consultas que tardan demasiado?',
+    opciones: ['El binlog', 'El slow query log', 'El error log', 'El relay log'],
+    correcta: 1,
+    explicacion: 'Registra las consultas que superan `long_query_time`; después se analizan con `EXPLAIN`.',
+  },
+  {
+    enunciado: '¿Qué tipo de índice impide además valores duplicados en la columna?',
+    opciones: ['INDEX', 'UNIQUE', 'FULLTEXT', 'SPATIAL'],
+    correcta: 1,
+    explicacion: 'Acelera las búsquedas y garantiza unicidad, por ejemplo en el email de los usuarios.',
+  },
 ];

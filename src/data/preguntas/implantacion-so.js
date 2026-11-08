@@ -105,4 +105,28 @@ export default [
     correcta: 1,
     explicacion: 'La memoria física se divide en marcos y los procesos en páginas del mismo tamaño, lo que evita la fragmentación externa.',
   },
+  {
+    enunciado: '¿Qué comando de Linux cambia la contraseña de un usuario?',
+    opciones: ['chpass', 'passwd', 'usermod -p', 'pwchange'],
+    correcta: 1,
+    explicacion: 'Sin argumentos cambia la del usuario actual; root puede cambiar la de cualquiera con `passwd usuario`.',
+  },
+  {
+    enunciado: '¿Qué es el área de intercambio (swap)?',
+    opciones: ['Una partición de arranque', 'Espacio en disco que el sistema usa como extensión de la RAM', 'Una caché del procesador', 'Un tipo de RAID'],
+    correcta: 1,
+    explicacion: 'Evita que el sistema se quede sin memoria, pero es mucho más lenta que la RAM.',
+  },
+  {
+    enunciado: '¿Qué comando de Linux envía una señal a un proceso, por ejemplo para terminarlo?',
+    opciones: ['stop', 'kill', 'end', 'term'],
+    correcta: 1,
+    explicacion: '`kill PID` envía SIGTERM por defecto; `kill -9 PID` envía SIGKILL, que no se puede ignorar.',
+  },
+  {
+    enunciado: '¿Qué sistema de ficheros es el más habitual en las distribuciones Linux?',
+    opciones: ['NTFS', 'ext4', 'FAT32', 'APFS'],
+    correcta: 1,
+    explicacion: 'ext4 es transaccional (journaling). También se usan XFS y Btrfs.',
+  },
 ];

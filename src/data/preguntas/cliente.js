@@ -120,4 +120,28 @@ export default [
     correcta: 1,
     explicacion: '`stringify` serializa a texto. La operación inversa es `JSON.parse`.',
   },
+  {
+    enunciado: '¿Qué método añade un elemento al final de un array?',
+    opciones: ['unshift', 'push', 'pop', 'shift'],
+    correcta: 1,
+    explicacion: '`push` añade al final y `pop` quita del final. `unshift` y `shift` hacen lo mismo por el principio.',
+  },
+  {
+    enunciado: '¿Qué método registra un manejador de eventos en un elemento del DOM?',
+    opciones: ['onEvent', 'addEventListener', 'attachHandler', 'listen'],
+    correcta: 1,
+    explicacion: 'Por ejemplo `boton.addEventListener(\'click\', manejador)`. Permite registrar varios manejadores para el mismo evento.',
+  },
+  {
+    enunciado: '¿Qué valor tiene una variable declarada con `let` a la que no se le ha asignado nada?',
+    opciones: ['null', 'undefined', '0', '""'],
+    correcta: 1,
+    explicacion: '`undefined` significa "sin valor asignado". `null` es un valor que se asigna a propósito.',
+  },
+  {
+    enunciado: '¿Qué hace `setTimeout(fn, 1000)`?',
+    opciones: ['Ejecuta fn cada segundo', 'Ejecuta fn una vez, pasado aproximadamente un segundo', 'Detiene el programa un segundo', 'Ejecuta fn 1000 veces'],
+    correcta: 1,
+    explicacion: 'Programa una ejecución única. Para repetirla periódicamente se usa `setInterval`.',
+  },
 ];

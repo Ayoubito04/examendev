@@ -5,7 +5,7 @@ Práctica con corrección al instante, simulacros cronometrados, repaso de fallo
 
 ## Funcionalidades
 
-- **31 módulos y 496 preguntas** con explicación, de primero y segundo curso:
+- **31 módulos y 620 preguntas** (20 por módulo) con explicación, de primero y segundo curso:
 
   | Ciclo | Grado | 1º | 2º |
   |---|---|---|---|
@@ -17,8 +17,8 @@ Práctica con corrección al instante, simulacros cronometrados, repaso de fallo
   El reparto por curso sigue la organización más habitual y puede variar según la comunidad autónoma.
 - **Temario filtrable por ciclo**; los módulos compartidos aparecen en cada ciclo con un único banco y un único progreso.
 - **Tres modos de test**
-  - *Práctica*: eliges, pulsas Validar y ves la corrección; si fallas, un recordatorio con la respuesta correcta.
-  - *Simulacro*: 1 minuto por pregunta, botón Validar con recordatorio al fallar, opción de saltar preguntas y mapa que marca aciertos y fallos.
+  - *Práctica*: 20 preguntas sin límite de tiempo; eliges, pulsas Validar y ves la corrección; si fallas, un recordatorio con la respuesta correcta.
+  - *Simulacro*: 20 preguntas en 90 minutos, botón Validar con recordatorio al fallar, opción de saltar preguntas y mapa que marca aciertos y fallos.
   - *Repaso de fallos*: solo las preguntas falladas que aún no has vuelto a acertar.
 - **Preguntas y opciones barajadas** en cada test.
 - **Resultados** con nota sobre 10, tiempo y corrección detallada.

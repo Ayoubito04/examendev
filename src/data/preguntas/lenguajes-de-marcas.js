@@ -135,4 +135,28 @@ export default [
     correcta: 1,
     explicacion: 'Los metadatos van en `<head>`, y el charset conviene que esté al principio para que el navegador interprete bien el texto.',
   },
+  {
+    enunciado: '¿Qué etiqueta HTML crea una lista ordenada (numerada)?',
+    opciones: ['<ul>', '<ol>', '<dl>', '<li>'],
+    correcta: 1,
+    explicacion: '`<ol>` numera sus elementos `<li>`. `<ul>` es una lista con viñetas y `<dl>` una lista de definiciones.',
+  },
+  {
+    enunciado: '¿Qué propiedad CSS cambia el color del texto?',
+    opciones: ['font-color', 'color', 'text-color', 'foreground'],
+    correcta: 1,
+    explicacion: '`color` define el color del texto y `background-color` el del fondo.',
+  },
+  {
+    enunciado: '¿Qué valor de `position` mantiene un elemento fijo respecto a la ventana aunque se haga scroll?',
+    opciones: ['relative', 'absolute', 'fixed', 'static'],
+    correcta: 2,
+    explicacion: '`fixed` se posiciona respecto al viewport. `absolute` lo hace respecto al ancestro posicionado más cercano.',
+  },
+  {
+    enunciado: 'En una DTD, ¿qué significa `<!ELEMENT libro (titulo, autor+)>`?',
+    opciones: ['libro contiene un titulo y opcionalmente un autor', 'libro contiene un titulo seguido de uno o más autor', 'libro contiene cero o más autor', 'titulo y autor pueden ir en cualquier orden'],
+    correcta: 1,
+    explicacion: 'La coma indica secuencia ordenada; `+` significa uno o más, `*` cero o más y `?` cero o uno.',
+  },
 ];

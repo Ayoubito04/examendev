@@ -140,4 +140,28 @@ export default [
     correcta: 2,
     explicacion: 'WebP suele pesar menos que JPEG o PNG con calidad similar y admite canal alfa.',
   },
+  {
+    enunciado: '¿Qué propiedad de Flexbox permite que los elementos pasen a la línea siguiente si no caben?',
+    opciones: ['flex-direction', 'flex-wrap', 'flex-grow', 'order'],
+    correcta: 1,
+    explicacion: 'Por defecto es `nowrap` y los elementos se encogen en una sola línea.',
+  },
+  {
+    enunciado: '¿Qué unidad CSS equivale al 1 % del ancho de la ventana?',
+    opciones: ['vh', 'vw', 'em', '%'],
+    correcta: 1,
+    explicacion: '`vw` (viewport width). `vh` es el 1 % del alto.',
+  },
+  {
+    enunciado: '¿Qué elemento HTML5 inserta un vídeo sin necesidad de plugins?',
+    opciones: ['<media>', '<video>', '<embed>', '<movie>'],
+    correcta: 1,
+    explicacion: 'Con el atributo `controls` muestra los controles de reproducción. Conviene ofrecer subtítulos con `<track>`.',
+  },
+  {
+    enunciado: '¿Qué principio de la Gestalt dice que percibimos como grupo los elementos que están cerca?',
+    opciones: ['Semejanza', 'Proximidad', 'Cierre', 'Continuidad'],
+    correcta: 1,
+    explicacion: 'Por eso un buen espaciado agrupa visualmente los elementos relacionados, como una etiqueta y su campo.',
+  },
 ];

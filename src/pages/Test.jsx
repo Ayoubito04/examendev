@@ -7,18 +7,18 @@ import NoEncontrado from './NoEncontrado.jsx';
 import { PREGUNTAS, PREGUNTA_POR_ID, getModulo } from '../data/index.js';
 import { useProgress } from '../context/ProgressContext.jsx';
 import { corregir, crearTest } from '../utils/quiz.js';
-import { LONGITUDES_TEST, SEGUNDOS_POR_PREGUNTA } from '../config.js';
+import { MINUTOS_SIMULACRO, PREGUNTAS_POR_EXAMEN } from '../config.js';
 
 const MODOS = [
   {
     id: 'practica',
     titulo: 'Práctica',
-    texto: 'Valida cada respuesta y ve la explicación al momento. Sin límite de tiempo.',
+    texto: `Examen de ${PREGUNTAS_POR_EXAMEN} preguntas. Valida cada respuesta y ve la explicación al momento. Sin límite de tiempo.`,
   },
   {
     id: 'simulacro',
     titulo: 'Simulacro de examen',
-    texto: `Contra reloj: ${SEGUNDOS_POR_PREGUNTA / 60} minuto por pregunta. Valida cada respuesta o sáltala y vuelve después.`,
+    texto: `Examen de ${PREGUNTAS_POR_EXAMEN} preguntas en ${MINUTOS_SIMULACRO} minutos. Valida cada respuesta o sáltala y vuelve después.`,
   },
   {
     id: 'repaso',
@@ -50,12 +50,11 @@ function TestModulo() {
   const [modo, setModo] = useState(
     modoInicial === 'simulacro' || (modoInicial === 'repaso' && pendientes.length) ? modoInicial : 'practica',
   );
-  const [cantidad, setCantidad] = useState(LONGITUDES_TEST[0]);
 
   // Un enlace con ?rapido=1 arranca directamente un test de práctica.
   const [test, setTest] = useState(() =>
     searchParams.get('rapido') && banco.length
-      ? { modo: 'practica', preguntas: crearTest(banco, LONGITUDES_TEST[0]), clave: Date.now() }
+      ? { modo: 'practica', preguntas: crearTest(banco, PREGUNTAS_POR_EXAMEN), clave: Date.now() }
       : null,
   );
   const [fin, setFin] = useState(null);
@@ -131,8 +130,7 @@ function TestModulo() {
     );
   }
 
-  const opcionesCantidad = [...LONGITUDES_TEST.filter((n) => n < banco.length), banco.length];
-  const cantidadEfectiva = Math.min(cantidad, banco.length);
+  const cantidadEfectiva = Math.min(PREGUNTAS_POR_EXAMEN, banco.length);
   const empezar = () => {
     if (modo === 'repaso') {
       setVerErrores(true);
@@ -186,26 +184,29 @@ function TestModulo() {
       </fieldset>
 
       {modo !== 'repaso' && (
-        <fieldset className="config__grupo">
-          <legend>Número de preguntas</legend>
-          <div className="segmentado">
-            {opcionesCantidad.map((n) => (
-              <label key={n} className={cantidadEfectiva === n ? 'activo' : ''}>
-                <input type="radio" name="cantidad" value={n} checked={cantidadEfectiva === n} onChange={() => setCantidad(n)} />
-                {n === banco.length ? `Todas (${n})` : n}
-              </label>
-            ))}
+        <dl className="ficha">
+          <div>
+            <dt>Preguntas</dt>
+            <dd>{cantidadEfectiva}</dd>
           </div>
-        </fieldset>
+          <div>
+            <dt>Tiempo</dt>
+            <dd>{modo === 'simulacro' ? `${MINUTOS_SIMULACRO} min` : 'Sin límite'}</dd>
+          </div>
+          <div>
+            <dt>Corrección</dt>
+            <dd>Con el botón Validar</dd>
+          </div>
+        </dl>
       )}
 
       <div className="config__pie">
         <p className="texto-suave">
           {modo === 'repaso'
             ? `${pendientes.length} pregunta${pendientes.length === 1 ? '' : 's'} fallada${pendientes.length === 1 ? '' : 's'} con su explicación.`
-            : modo === 'simulacro'
-              ? `${cantidadEfectiva} preguntas · ${(cantidadEfectiva * SEGUNDOS_POR_PREGUNTA) / 60} minutos.`
-              : `${cantidadEfectiva} preguntas aleatorias, opciones barajadas.`}
+            : cantidadEfectiva === banco.length
+              ? `Las ${banco.length} preguntas del módulo en orden aleatorio, con las opciones barajadas.`
+              : `${cantidadEfectiva} preguntas al azar de un banco de ${banco.length}, con las opciones barajadas.`}
         </p>
         <button type="button" className="btn btn--primario btn--lg" onClick={empezar}>
           {modo === 'repaso' ? 'Repaso de errores' : 'Empezar test'}

@@ -145,4 +145,28 @@ export default [
     correcta: 1,
     explicacion: 'Los equipos informáticos al final de su vida útil son RAEE y deben entregarse a un gestor autorizado para su reciclaje.',
   },
+  {
+    enunciado: '¿Qué mantiene la fecha y la configuración de la BIOS/UEFI con el equipo apagado?',
+    opciones: ['La RAM', 'La memoria CMOS alimentada por una pila', 'El disco duro', 'La fuente de alimentación'],
+    correcta: 1,
+    explicacion: 'Si la pila se agota, el equipo pierde la hora y la configuración al desconectarlo.',
+  },
+  {
+    enunciado: '¿En qué unidad se expresa la frecuencia de reloj de un procesador actual?',
+    opciones: ['GB', 'GHz', 'Mbps', 'W'],
+    correcta: 1,
+    explicacion: 'Indica miles de millones de ciclos por segundo. El rendimiento también depende de núcleos, caché y arquitectura.',
+  },
+  {
+    enunciado: '¿Qué nivel RAID combina espejo y bandas y necesita como mínimo 4 discos?',
+    opciones: ['RAID 1', 'RAID 5', 'RAID 10', 'RAID 0'],
+    correcta: 2,
+    explicacion: 'RAID 10 (1+0) une rendimiento y redundancia a costa de usar la mitad de la capacidad.',
+  },
+  {
+    enunciado: '¿Qué tipo de SAI alimenta siempre al equipo desde la batería mediante doble conversión?',
+    opciones: ['Offline', 'Interactivo (line-interactive)', 'Online', 'Pasivo'],
+    correcta: 2,
+    explicacion: 'Ofrece la mejor protección, sin tiempo de conmutación. Es el habitual en servidores.',
+  },
 ];

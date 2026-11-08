@@ -125,4 +125,28 @@ export default [
     correcta: 1,
     explicacion: '`Toast.makeText(...).show()` muestra un aviso breve sin interacción.',
   },
+  {
+    enunciado: '¿Qué método del ciclo de vida se llama cuando la Activity pasa a primer plano y el usuario ya puede interactuar?',
+    opciones: ['onCreate()', 'onStart()', 'onResume()', 'onRestart()'],
+    correcta: 2,
+    explicacion: '`onStart` la hace visible y `onResume` la pone en primer plano. Al perder el foco se llama a `onPause`.',
+  },
+  {
+    enunciado: '¿En qué carpeta de un proyecto Android se guardan los layouts XML?',
+    opciones: ['src/layouts', 'res/layout', 'assets/xml', 'res/values'],
+    correcta: 1,
+    explicacion: '`res/values` guarda textos, colores y estilos, y `res/drawable` las imágenes.',
+  },
+  {
+    enunciado: 'En Kotlin, ¿qué tipo de clase genera automáticamente `equals`, `hashCode`, `toString` y `copy`?',
+    opciones: ['open class', 'data class', 'sealed class', 'abstract class'],
+    correcta: 1,
+    explicacion: 'Pensada para modelos que solo guardan datos, por ejemplo `data class Usuario(val nombre: String)`.',
+  },
+  {
+    enunciado: '¿Qué ventaja tiene View Binding frente a `findViewById`?',
+    opciones: ['Ninguna', 'Acceso a las vistas con tipos seguros y sin riesgo de ids nulos o incorrectos', 'Que no necesita layouts', 'Que hace la app más pesada'],
+    correcta: 1,
+    explicacion: 'Genera una clase por layout con una propiedad por vista, comprobada al compilar.',
+  },
 ];

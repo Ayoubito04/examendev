@@ -130,4 +130,28 @@ export default [
     correcta: 1,
     explicacion: 'NTP (UDP 123). La hora coherente es imprescindible para Kerberos en Active Directory, para los certificados y para correlacionar logs.',
   },
+  {
+    enunciado: '¿Qué registro DNS indica los servidores de nombres autorizados de una zona?',
+    opciones: ['MX', 'NS', 'A', 'TXT'],
+    correcta: 1,
+    explicacion: 'Cada zona debe tener al menos dos NS por redundancia.',
+  },
+  {
+    enunciado: '¿Qué registro DNS contiene los parámetros de la zona, como el número de serie y los tiempos de refresco?',
+    opciones: ['SOA', 'PTR', 'CNAME', 'SRV'],
+    correcta: 0,
+    explicacion: 'Start of Authority. Hay que aumentar el número de serie al modificar la zona para que los secundarios la actualicen.',
+  },
+  {
+    enunciado: '¿Qué puerto usa IMAP cifrado con TLS (IMAPS)?',
+    opciones: ['143', '993', '995', '465'],
+    correcta: 1,
+    explicacion: '143 es IMAP sin cifrar, 995 POP3S y 465 SMTP sobre TLS.',
+  },
+  {
+    enunciado: 'En Debian/Ubuntu, ¿qué comando habilita un sitio de Apache definido en `sites-available`?',
+    opciones: ['a2enmod', 'a2ensite', 'apachectl start', 'systemctl enable apache2'],
+    correcta: 1,
+    explicacion: 'Crea el enlace en `sites-enabled`. Después hay que recargar Apache. `a2enmod` habilita módulos.',
+  },
 ];

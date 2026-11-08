@@ -5,11 +5,11 @@ export const SITE = {
   convocatoria: 'Convocatoria de mayo',
 };
 
-// Opciones de longitud del test (la opción "todas" se añade según el banco).
-export const LONGITUDES_TEST = [10, 20];
+// Número de preguntas de cada examen, tanto en práctica como en simulacro.
+export const PREGUNTAS_POR_EXAMEN = 20;
 
-// Segundos por pregunta en el modo simulacro.
-export const SEGUNDOS_POR_PREGUNTA = 60;
+// Duración total del simulacro de examen, en minutos.
+export const MINUTOS_SIMULACRO = 90;
 
 // Nota mínima (sobre 10) para considerar un test aprobado.
 export const NOTA_APROBADO = 5;

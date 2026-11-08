@@ -135,4 +135,28 @@ export default [
     correcta: 1,
     explicacion: 'Una vista guarda la consulta, no los datos: cada vez que se consulta se ejecuta sobre las tablas base.',
   },
+  {
+    enunciado: '¿Qué sentencia modifica los datos de filas que ya existen?',
+    opciones: ['ALTER', 'UPDATE', 'INSERT', 'MODIFY'],
+    correcta: 1,
+    explicacion: '`UPDATE tabla SET columna = valor WHERE condición`. Sin `WHERE` se modifican todas las filas. `ALTER` cambia la estructura.',
+  },
+  {
+    enunciado: '¿Qué función devuelve el mayor valor de una columna?',
+    opciones: ['TOP()', 'MAX()', 'HIGH()', 'GREATEST_ROW()'],
+    correcta: 1,
+    explicacion: '`MAX()` es una función de agregado, igual que `MIN()`, `SUM()`, `AVG()` y `COUNT()`.',
+  },
+  {
+    enunciado: '¿Qué hace `ROLLBACK`?',
+    opciones: ['Confirma la transacción', 'Deshace los cambios de la transacción en curso', 'Borra la tabla', 'Repite la última consulta'],
+    correcta: 1,
+    explicacion: 'Devuelve los datos al estado anterior al inicio de la transacción. `COMMIT` hace lo contrario: los confirma.',
+  },
+  {
+    enunciado: '¿Qué grupo de sentencias forma parte del DML?',
+    opciones: ['CREATE, ALTER, DROP', 'INSERT, UPDATE, DELETE', 'GRANT, REVOKE', 'COMMIT, ROLLBACK'],
+    correcta: 1,
+    explicacion: 'El DML manipula datos (y, según el autor, incluye `SELECT`). `CREATE`/`ALTER`/`DROP` son DDL y `GRANT`/`REVOKE` son DCL.',
+  },
 ];

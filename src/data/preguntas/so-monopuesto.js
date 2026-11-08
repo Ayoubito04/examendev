@@ -120,4 +120,28 @@ export default [
     correcta: 1,
     explicacion: 'Sin el controlador adecuado el dispositivo no funciona o lo hace con funciones limitadas.',
   },
+  {
+    enunciado: '¿Qué comando de Linux crea un directorio?',
+    opciones: ['mkdir', 'touch', 'rmdir', 'cd'],
+    correcta: 0,
+    explicacion: '`touch` crea un fichero vacío y `rmdir` borra un directorio vacío.',
+  },
+  {
+    enunciado: '¿Qué es una distribución Linux?',
+    opciones: ['Un tipo de ordenador', 'El núcleo Linux con herramientas, programas y un gestor de paquetes', 'Un antivirus', 'Una versión de Windows'],
+    correcta: 1,
+    explicacion: 'Ubuntu, Debian, Fedora o Linux Mint son distribuciones.',
+  },
+  {
+    enunciado: '¿Qué herramienta de Windows devuelve el sistema a un punto anterior sin borrar tus documentos?',
+    opciones: ['Formatear', 'Restaurar sistema', 'Desfragmentar', 'Liberador de espacio'],
+    correcta: 1,
+    explicacion: 'Usa puntos de restauración y es útil tras instalar un controlador o programa que da problemas.',
+  },
+  {
+    enunciado: '¿Qué comando cambia de directorio tanto en el cmd de Windows como en Linux?',
+    opciones: ['dir', 'cd', 'ls', 'md'],
+    correcta: 1,
+    explicacion: 'En Windows `cd ..` y en Linux `cd ..` suben al directorio padre.',
+  },
 ];

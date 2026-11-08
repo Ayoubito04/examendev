@@ -120,4 +120,28 @@ export default [
     correcta: 1,
     explicacion: 'Composer lee `composer.json`, instala paquetes en `vendor/` y genera el autoload.',
   },
+  {
+    enunciado: '¿Qué función de PHP comprueba si una variable está definida y no es null?',
+    opciones: ['empty()', 'isset()', 'is_null()', 'defined()'],
+    correcta: 1,
+    explicacion: '`isset($_POST[\'email\'])` es la forma habitual de comprobar si llegó un campo del formulario.',
+  },
+  {
+    enunciado: '¿Qué extensión de PHP ofrece una interfaz común para conectarse a distintas bases de datos?',
+    opciones: ['mysql_connect', 'PDO', 'ODBC_PHP', 'SQLite3 solamente'],
+    correcta: 1,
+    explicacion: 'PDO funciona con MySQL, PostgreSQL, SQLite y otros, y admite consultas preparadas.',
+  },
+  {
+    enunciado: 'En una API REST, ¿qué verbo HTTP se usa para eliminar un recurso?',
+    opciones: ['REMOVE', 'DELETE', 'POST', 'GET'],
+    correcta: 1,
+    explicacion: 'Por ejemplo `DELETE /usuarios/5`. Suele responder con 204 No Content.',
+  },
+  {
+    enunciado: '¿Qué código HTTP indica que hace falta autenticarse para acceder al recurso?',
+    opciones: ['401', '403', '404', '500'],
+    correcta: 0,
+    explicacion: '401 Unauthorized: no hay credenciales válidas. 403 Forbidden: estás autenticado pero no tienes permiso.',
+  },
 ];

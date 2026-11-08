@@ -135,4 +135,28 @@ export default [
     correcta: 1,
     explicacion: 'El router recibe las peticiones en su IP pública y, gracias a NAT, las reenvía al puerto 80 o 443 del servidor interno.',
   },
+  {
+    enunciado: '¿Qué protocolo usa un cliente de correo para enviar mensajes a su servidor?',
+    opciones: ['POP3', 'IMAP', 'SMTP', 'FTP'],
+    correcta: 2,
+    explicacion: 'Normalmente por el puerto 587 con autenticación. POP3 e IMAP sirven para recibir.',
+  },
+  {
+    enunciado: '¿Qué comando de Linux muestra la configuración de las interfaces de red?',
+    opciones: ['ipconfig', 'ip a', 'netsh', 'route print'],
+    correcta: 1,
+    explicacion: 'También existe el clásico `ifconfig`. `ipconfig` es de Windows.',
+  },
+  {
+    enunciado: '¿Qué servicio usa por defecto el puerto 22?',
+    opciones: ['Telnet', 'SSH', 'FTP', 'HTTP'],
+    correcta: 1,
+    explicacion: 'Telnet usa el 23, FTP el 21 y HTTP el 80.',
+  },
+  {
+    enunciado: '¿Qué permite NAT en un router doméstico?',
+    opciones: ['Asignar nombres a los equipos', 'Que varios equipos con IP privada salgan a Internet con una sola IP pública', 'Cifrar el Wi-Fi', 'Filtrar virus'],
+    correcta: 1,
+    explicacion: 'El router lleva la cuenta de qué conexión pertenece a cada equipo interno.',
+  },
 ];

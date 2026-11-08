@@ -140,4 +140,28 @@ export default [
     correcta: 1,
     explicacion: '`DECIMAL` almacena valores exactos. `FLOAT` es de coma flotante y puede introducir errores de redondeo con dinero.',
   },
+  {
+    enunciado: '¿Qué cláusula agrupa filas para aplicar funciones de agregado por grupo?',
+    opciones: ['ORDER BY', 'GROUP BY', 'DISTINCT', 'PARTITION'],
+    correcta: 1,
+    explicacion: 'Por ejemplo `SELECT ciudad, COUNT(*) FROM clientes GROUP BY ciudad`.',
+  },
+  {
+    enunciado: '¿Qué sentencia vacía una tabla rápidamente manteniendo su estructura?',
+    opciones: ['DROP TABLE', 'TRUNCATE TABLE', 'DELETE TABLE', 'CLEAR TABLE'],
+    correcta: 1,
+    explicacion: 'Es más rápida que `DELETE` sin `WHERE` y en MySQL reinicia el `AUTO_INCREMENT`.',
+  },
+  {
+    enunciado: 'En el modelo E/R, ¿qué expresa la cardinalidad de una relación?',
+    opciones: ['El número de atributos', 'Cuántas ocurrencias de una entidad pueden asociarse con otra', 'El tipo de dato de la clave', 'El número de tablas'],
+    correcta: 1,
+    explicacion: 'Puede ser 1:1, 1:N o N:M, y determina cómo se transforma la relación en tablas.',
+  },
+  {
+    enunciado: '¿Qué operador busca valores dentro de un rango, ambos extremos incluidos?',
+    opciones: ['IN', 'BETWEEN', 'LIKE', 'RANGE'],
+    correcta: 1,
+    explicacion: '`WHERE precio BETWEEN 10 AND 20` equivale a `precio >= 10 AND precio <= 20`.',
+  },
 ];

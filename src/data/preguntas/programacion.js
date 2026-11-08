@@ -117,4 +117,28 @@ export default [
     correcta: 0,
     explicacion: 'Los arrays en Java empiezan en 0; el último elemento está en `length - 1`.',
   },
+  {
+    enunciado: '¿Qué palabra clave llama al constructor de la superclase desde el constructor de una subclase?',
+    opciones: ['this', 'super', 'parent', 'base'],
+    correcta: 1,
+    explicacion: '`super(...)` debe ser la primera sentencia del constructor. `this(...)` llama a otro constructor de la misma clase.',
+  },
+  {
+    enunciado: '¿Qué caracteriza a una clase abstracta?',
+    opciones: ['Que todos sus métodos son estáticos', 'Que no se puede instanciar y puede tener métodos sin implementar', 'Que no puede tener atributos', 'Que no puede heredarse'],
+    correcta: 1,
+    explicacion: 'Sirve de base común: las subclases concretas deben implementar sus métodos `abstract`.',
+  },
+  {
+    enunciado: '¿Qué colección de Java asocia claves con valores?',
+    opciones: ['ArrayList', 'HashSet', 'HashMap', 'LinkedList'],
+    correcta: 2,
+    explicacion: '`HashMap` implementa `Map`: cada clave es única y se usa para recuperar su valor con `get(clave)`.',
+  },
+  {
+    enunciado: '¿Qué imprime `System.out.println(10 % 3);`?',
+    opciones: ['3', '1', '0', '3.33'],
+    correcta: 1,
+    explicacion: 'El operador `%` devuelve el resto de la división entera: 10 = 3 × 3 + 1.',
+  },
 ];

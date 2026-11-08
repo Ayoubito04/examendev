@@ -120,4 +120,28 @@ export default [
     correcta: 1,
     explicacion: 'Los grupos de seguridad tienen identificador de seguridad (SID) y se usan en permisos. Los de distribución solo sirven para listas de correo.',
   },
+  {
+    enunciado: '¿Qué cmdlet de PowerShell crea un usuario en Active Directory?',
+    opciones: ['Add-LocalUser', 'New-ADUser', 'Create-User', 'Set-ADUser'],
+    correcta: 1,
+    explicacion: '`Set-ADUser` modifica uno existente. Combinado con `Import-Csv` permite dar de alta usuarios en bloque.',
+  },
+  {
+    enunciado: '¿Qué comando fuerza en un cliente Windows la aplicación inmediata de las directivas de grupo?',
+    opciones: ['gpresult /r', 'gpupdate /force', 'secpol.msc', 'net policy'],
+    correcta: 1,
+    explicacion: '`gpresult /r` muestra las directivas aplicadas, útil para comprobar el resultado.',
+  },
+  {
+    enunciado: 'En Bash, ¿qué estructura repite un bloque para cada elemento de una lista?',
+    opciones: ['while … done', 'for x in lista; do … done', 'case … esac', 'if … fi'],
+    correcta: 1,
+    explicacion: 'Por ejemplo `for u in ana luis; do useradd "$u"; done`.',
+  },
+  {
+    enunciado: '¿Qué comando empaqueta y comprime un directorio en un fichero .tar.gz?',
+    opciones: ['zip -r', 'tar -czf copia.tar.gz directorio', 'gzip -d', 'tar -xzf copia.tar.gz'],
+    correcta: 1,
+    explicacion: '`c` crea, `z` comprime con gzip y `f` indica el fichero. Para extraer se usa `x` en lugar de `c`.',
+  },
 ];

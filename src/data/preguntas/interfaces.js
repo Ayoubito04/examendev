@@ -120,4 +120,28 @@ export default [
     correcta: 1,
     explicacion: 'Se observa dónde dudan o fallan los usuarios para mejorar el diseño.',
   },
+  {
+    enunciado: 'En JavaFX, ¿qué anotación enlaza un atributo del controlador con un elemento del FXML?',
+    opciones: ['@Inject', '@FXML', '@Bind', '@View'],
+    correcta: 1,
+    explicacion: 'El nombre del atributo debe coincidir con el `fx:id` del elemento en el FXML.',
+  },
+  {
+    enunciado: '¿Qué contenedor de JavaFX coloca nodos en las zonas superior, inferior, izquierda, derecha y centro?',
+    opciones: ['GridPane', 'BorderPane', 'FlowPane', 'TilePane'],
+    correcta: 1,
+    explicacion: 'Muy usado para la ventana principal: menú arriba, navegación a la izquierda y contenido en el centro.',
+  },
+  {
+    enunciado: '¿Qué componente de Swing muestra un texto que el usuario no puede editar?',
+    opciones: ['JTextField', 'JLabel', 'JTextArea', 'JButton'],
+    correcta: 1,
+    explicacion: '`JTextField` y `JTextArea` son campos editables.',
+  },
+  {
+    enunciado: '¿Para qué sirve un prototipo de interfaz?',
+    opciones: ['Para sustituir el código final', 'Para validar el diseño con usuarios antes de desarrollarlo', 'Para documentar la base de datos', 'Para compilar más rápido'],
+    correcta: 1,
+    explicacion: 'Detectar problemas de usabilidad en un prototipo es mucho más barato que corregirlos en la aplicación terminada.',
+  },
 ];

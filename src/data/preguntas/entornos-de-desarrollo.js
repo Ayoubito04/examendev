@@ -125,4 +125,28 @@ export default [
     correcta: 1,
     explicacion: 'Maven (o Gradle) gestiona dependencias y el ciclo de construcción en Java. npm es de JavaScript, pip de Python y Composer de PHP.',
   },
+  {
+    enunciado: '¿Qué comando de Git muestra qué ficheros han cambiado y cuáles están preparados para el commit?',
+    opciones: ['git log', 'git status', 'git diff --stat', 'git show'],
+    correcta: 1,
+    explicacion: '`git status` muestra los cambios sin preparar, los preparados (`git add`) y los ficheros sin seguimiento.',
+  },
+  {
+    enunciado: '¿Para qué sirve el fichero `.gitignore`?',
+    opciones: ['Para borrar ficheros del repositorio remoto', 'Para indicar qué ficheros o carpetas no debe seguir Git', 'Para ocultar commits', 'Para ignorar conflictos'],
+    correcta: 1,
+    explicacion: 'Se usa para excluir, por ejemplo, `node_modules/`, ficheros compilados o `.env` con credenciales.',
+  },
+  {
+    enunciado: '¿Qué mide la cobertura de código?',
+    opciones: ['El número de comentarios', 'El porcentaje de código que ejecutan las pruebas', 'La velocidad de compilación', 'El número de clases'],
+    correcta: 1,
+    explicacion: 'Una cobertura alta no garantiza que no haya errores, pero una baja indica partes del código sin probar.',
+  },
+  {
+    enunciado: 'En un diagrama de casos de uso, ¿qué representa un actor?',
+    opciones: ['Una clase del sistema', 'Un rol externo que interactúa con el sistema', 'Una base de datos', 'Un método'],
+    correcta: 1,
+    explicacion: 'Puede ser una persona (cliente, administrador) u otro sistema. Se dibuja como un muñeco fuera del límite del sistema.',
+  },
 ];

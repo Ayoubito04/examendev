@@ -130,4 +130,28 @@ export default [
     correcta: 0,
     explicacion: 'Las frecuencias bajas atraviesan mejor las paredes. 5 y 6 GHz ofrecen más velocidad y canales, pero menos alcance.',
   },
+  {
+    enunciado: '¿Qué dispositivo amplía la cobertura de una red Wi-Fi existente?',
+    opciones: ['Un hub', 'Un repetidor o un punto de acceso adicional', 'Un módem', 'Un patch panel'],
+    correcta: 1,
+    explicacion: 'Un punto de acceso cableado al switch da mejor rendimiento que un repetidor inalámbrico.',
+  },
+  {
+    enunciado: '¿Qué es PoE?',
+    opciones: ['Un tipo de fibra óptica', 'Alimentar eléctricamente un dispositivo a través del cable de red', 'Un protocolo de seguridad Wi-Fi', 'Un conector de teléfono'],
+    correcta: 1,
+    explicacion: 'Power over Ethernet: se usa en cámaras IP, teléfonos IP y puntos de acceso.',
+  },
+  {
+    enunciado: '¿Qué categoría mínima de cable se recomienda para Gigabit Ethernet?',
+    opciones: ['Cat 3', 'Cat 5', 'Cat 5e', 'Cat 1'],
+    correcta: 2,
+    explicacion: 'Cat 5e soporta 1 Gbps a 100 m. Hoy es habitual instalar Cat 6 o superior.',
+  },
+  {
+    enunciado: '¿Qué es un latiguillo?',
+    opciones: ['Un cable largo instalado en la pared', 'Un cable corto con conectores en ambos extremos para conectar equipos o el patch panel', 'Una herramienta de crimpado', 'Un tipo de switch'],
+    correcta: 1,
+    explicacion: 'Se usa en el armario entre el patch panel y el switch, y entre la roseta y el equipo.',
+  },
 ];

@@ -10,7 +10,7 @@ const PASOS = [
 
 const VENTAJAS = [
   { titulo: 'Corrección al instante', texto: 'Sabes en el momento si has acertado y por qué. Cada pregunta trae su explicación.' },
-  { titulo: 'Simulacros cronometrados', texto: 'Un minuto por pregunta, mapa de preguntas y nota sobre 10, para llegar al examen con el ritmo cogido.' },
+  { titulo: 'Simulacros cronometrados', texto: '20 preguntas en 90 minutos, mapa de preguntas y nota sobre 10, para llegar al examen con el ritmo cogido.' },
   { titulo: 'Repaso inteligente', texto: 'Tus fallos se acumulan por módulo y desaparecen cuando los aciertas.' },
   { titulo: 'Progreso por módulo', texto: 'Mejor nota, última nota e historial de intentos de un vistazo.' },
   { titulo: 'Opciones barajadas', texto: 'Preguntas y respuestas cambian de orden en cada test: nada de memorizar la letra.' },
@@ -87,7 +87,7 @@ export default function Inicio() {
             <div className="preview">
               <div className="preview__cabecera">
                 <span className="pildora pildora--sm">Programación</span>
-                <span>Pregunta 7 de 10</span>
+                <span>Pregunta 7 de 20</span>
               </div>
               <div className="barra">
                 <span className="barra__relleno" style={{ width: '70%' }} />
@@ -193,9 +193,9 @@ export default function Inicio() {
       <section className="seccion contenedor">
         <div className="cta-final">
           <h2 className="titulo-display titulo-display--md">
-            Diez preguntas. Cinco minutos. <em>Empieza</em> ahora.
+            Veinte preguntas. Sin registro. <em>Empieza</em> ahora.
           </h2>
-          <p>Sin registro. Elige un módulo y comprueba dónde estás.</p>
+          <p>Elige un módulo y comprueba dónde estás antes del examen.</p>
           <div className="acciones-centradas">
             <Link to="/temario" className="btn btn--claro btn--lg">
               Elegir módulo

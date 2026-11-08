@@ -2,7 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import TextoCodigo from './TextoCodigo.jsx';
 import { useCountdown } from '../hooks/useCountdown.js';
 import { formatearTiempo } from '../utils/quiz.js';
-import { SEGUNDOS_POR_PREGUNTA } from '../config.js';
+import { MINUTOS_SIMULACRO } from '../config.js';
+
+const SEGUNDOS_SIMULACRO = MINUTOS_SIMULACRO * 60;
 
 const LETRAS = ['A', 'B', 'C', 'D'];
 
@@ -21,8 +23,8 @@ export default function Quiz({ preguntas, modo, modulo, onTerminar }) {
   );
 
   const { transcurrido, restante } = useCountdown(
-    esSimulacro ? preguntas.length * SEGUNDOS_POR_PREGUNTA : null,
-    () => terminar(preguntas.length * SEGUNDOS_POR_PREGUNTA),
+    esSimulacro ? SEGUNDOS_SIMULACRO : null,
+    () => terminar(SEGUNDOS_SIMULACRO),
   );
 
   const pregunta = preguntas[indice];
@@ -109,7 +111,8 @@ export default function Quiz({ preguntas, modo, modulo, onTerminar }) {
   }, [pregunta, elegir, validar, siguiente, anterior, respondida, validada]);
 
   const progreso = ((indice + 1) / preguntas.length) * 100;
-  const tiempoJusto = esSimulacro && restante !== null && restante <= 60;
+  // Aviso visual en los últimos 5 minutos del simulacro.
+  const tiempoJusto = esSimulacro && restante !== null && restante <= 5 * 60;
   const textoSiguiente = esUltima ? (esSimulacro ? 'Entregar examen' : 'Ver resultado') : 'Siguiente';
 
   return (

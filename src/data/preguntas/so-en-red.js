@@ -125,4 +125,28 @@ export default [
     correcta: 1,
     explicacion: 'Es buena práctica renombrarla o desactivarla y usar cuentas de administrador nominales.',
   },
+  {
+    enunciado: '¿Qué comando de Windows crea un recurso compartido desde la línea de comandos?',
+    opciones: ['net use', 'net share', 'net user', 'share add'],
+    correcta: 1,
+    explicacion: 'Por ejemplo `net share Datos=D:\\Datos`. `net use` conecta a un recurso de otro equipo.',
+  },
+  {
+    enunciado: '¿Qué comando de Linux crea un grupo nuevo?',
+    opciones: ['useradd', 'groupadd', 'addgroup -u', 'chgrp'],
+    correcta: 1,
+    explicacion: 'Después se añaden usuarios con `usermod -aG grupo usuario`.',
+  },
+  {
+    enunciado: 'En Linux, ¿qué permiso hace falta sobre un directorio para poder entrar en él con `cd`?',
+    opciones: ['r (lectura)', 'w (escritura)', 'x (ejecución)', 't (sticky)'],
+    correcta: 2,
+    explicacion: 'En directorios, `r` permite listar, `w` crear o borrar ficheros y `x` acceder a él.',
+  },
+  {
+    enunciado: '¿Qué función cumple un servidor de impresión?',
+    opciones: ['Repara impresoras', 'Gestiona de forma centralizada las colas de impresión compartidas', 'Escanea documentos', 'Asigna IP a las impresoras'],
+    correcta: 1,
+    explicacion: 'Permite controlar quién imprime, en qué impresora y gestionar los trabajos pendientes.',
+  },
 ];

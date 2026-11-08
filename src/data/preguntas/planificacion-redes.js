@@ -115,4 +115,28 @@ export default [
     correcta: 1,
     explicacion: 'Es la topología de las redes Ethernet actuales, con un switch en el centro. Si falla un cable solo cae ese equipo.',
   },
+  {
+    enunciado: '¿Cuál es la dirección de broadcast de la red 192.168.1.0/24?',
+    opciones: ['192.168.1.0', '192.168.1.1', '192.168.1.255', '255.255.255.0'],
+    correcta: 2,
+    explicacion: 'Es la última dirección del rango: todos los bits de host a 1. La primera (.0) es la dirección de red.',
+  },
+  {
+    enunciado: '¿Qué tipo de dirección IPv6 empieza por `fe80::`?',
+    opciones: ['Global unicast', 'Enlace local', 'Multicast', 'Loopback'],
+    correcta: 1,
+    explicacion: 'Solo es válida en el segmento local y se configura automáticamente. El loopback IPv6 es `::1`.',
+  },
+  {
+    enunciado: '¿Qué protocolo de enrutamiento de vector distancia usa el número de saltos como métrica?',
+    opciones: ['OSPF', 'RIP', 'BGP', 'STP'],
+    correcta: 1,
+    explicacion: 'RIP admite un máximo de 15 saltos; 16 se considera inalcanzable.',
+  },
+  {
+    enunciado: '¿Qué es un dominio de colisión?',
+    opciones: ['Un conjunto de VLAN', 'Un segmento donde las tramas de varios equipos pueden colisionar', 'Una red con IP duplicadas', 'Un tipo de cable'],
+    correcta: 1,
+    explicacion: 'Con un hub todo es un dominio de colisión. Cada puerto de un switch es un dominio propio.',
+  },
 ];

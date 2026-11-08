@@ -155,4 +155,28 @@ export default [
     correcta: 1,
     explicacion: 'El Reglamento General de Protección de Datos. En España lo complementa la LOPDGDD.',
   },
+  {
+    enunciado: '¿En qué consiste un ataque de fuerza bruta?',
+    opciones: ['En dañar físicamente el servidor', 'En probar sistemáticamente contraseñas hasta dar con la correcta', 'En saturar la red', 'En engañar al usuario por correo'],
+    correcta: 1,
+    explicacion: 'Se mitiga con contraseñas largas, doble factor y bloqueo tras varios intentos fallidos.',
+  },
+  {
+    enunciado: '¿Qué hace una herramienta como fail2ban?',
+    opciones: ['Hace copias de seguridad', 'Bloquea temporalmente las IP que acumulan intentos de acceso fallidos', 'Cifra el disco', 'Balancea la carga'],
+    correcta: 1,
+    explicacion: 'Lee los registros de servicios como SSH y añade reglas al cortafuegos.',
+  },
+  {
+    enunciado: '¿Qué indica el RTO en un plan de continuidad?',
+    opciones: ['La cantidad máxima de datos que se puede perder', 'El tiempo máximo aceptable para restablecer un servicio tras una caída', 'El número de copias', 'El coste del servidor'],
+    correcta: 1,
+    explicacion: 'El RPO, en cambio, indica cuántos datos se pueden perder, y marca la frecuencia de las copias.',
+  },
+  {
+    enunciado: '¿Qué es una vulnerabilidad de día cero?',
+    opciones: ['Un fallo ya corregido', 'Un fallo que se explota antes de que exista un parche', 'Un virus antiguo', 'Un error de configuración del usuario'],
+    correcta: 1,
+    explicacion: 'Como no hay parche, se recurre a medidas de mitigación como segmentar la red o desactivar el servicio afectado.',
+  },
 ];

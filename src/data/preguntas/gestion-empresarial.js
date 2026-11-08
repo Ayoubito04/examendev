@@ -120,4 +120,28 @@ export default [
     correcta: 1,
     explicacion: 'Reúne datos de varias fuentes, ya limpios y organizados para consultas analíticas, separados de los sistemas operacionales.',
   },
+  {
+    enunciado: '¿Qué tipo de campo de Odoo relaciona varios registros de un modelo con varios de otro?',
+    opciones: ['Many2one', 'One2many', 'Many2many', 'Char'],
+    correcta: 2,
+    explicacion: 'Por ejemplo, productos y etiquetas. Odoo crea por debajo una tabla intermedia.',
+  },
+  {
+    enunciado: '¿Qué es un KPI?',
+    opciones: ['Un tipo de base de datos', 'Un indicador clave de rendimiento', 'Un módulo de Odoo', 'Un lenguaje de consultas'],
+    correcta: 1,
+    explicacion: 'Key Performance Indicator: métricas como ventas mensuales o margen, que se siguen en cuadros de mando.',
+  },
+  {
+    enunciado: 'En un módulo de Odoo, ¿qué hace el fichero `__init__.py`?',
+    opciones: ['Define las vistas', 'Importa los ficheros y paquetes de Python del módulo', 'Guarda los permisos', 'Contiene los datos de demostración'],
+    correcta: 1,
+    explicacion: 'Sin esa importación, los modelos definidos en `models/` no se cargarían.',
+  },
+  {
+    enunciado: '¿Qué área de un ERP gestiona existencias, entradas y salidas de almacén?',
+    opciones: ['Contabilidad', 'Inventario', 'CRM', 'Recursos humanos'],
+    correcta: 1,
+    explicacion: 'Se integra con compras y ventas: un pedido de venta genera automáticamente el albarán de salida.',
+  },
 ];

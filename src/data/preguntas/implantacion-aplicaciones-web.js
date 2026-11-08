@@ -150,4 +150,28 @@ export default [
     correcta: 1,
     explicacion: 'Ese usuario solo debe tener permisos sobre la base de datos de su aplicación.',
   },
+  {
+    enunciado: '¿Qué tipo de aplicación es Joomla?',
+    opciones: ['Un servidor web', 'Un gestor de contenidos (CMS)', 'Un sistema operativo', 'Una base de datos'],
+    correcta: 1,
+    explicacion: 'Como WordPress y Drupal, funciona sobre PHP y MySQL/MariaDB.',
+  },
+  {
+    enunciado: '¿Qué instrucción de PHP muestra texto en la página?',
+    opciones: ['print_line', 'echo', 'write', 'console.log'],
+    correcta: 1,
+    explicacion: 'Por ejemplo `echo "Hola";`. `console.log` es de JavaScript.',
+  },
+  {
+    enunciado: '¿Para qué sirve un entorno de preproducción (staging)?',
+    opciones: ['Para guardar copias antiguas', 'Para probar los cambios en una copia del sitio antes de llevarlos a producción', 'Para alojar el correo', 'Para acelerar la web'],
+    correcta: 1,
+    explicacion: 'Así una actualización de plugins o del CMS no rompe el sitio real.',
+  },
+  {
+    enunciado: '¿Qué hace el comando `mysql -u usuario -p`?',
+    opciones: ['Crea el usuario', 'Conecta con el servidor MySQL como ese usuario y pide la contraseña', 'Hace una copia de seguridad', 'Reinicia MySQL'],
+    correcta: 1,
+    explicacion: 'Abre el cliente de línea de comandos para ejecutar SQL.',
+  },
 ];

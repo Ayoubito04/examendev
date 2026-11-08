@@ -125,4 +125,28 @@ export default [
     correcta: 1,
     explicacion: 'SMART registra sectores reasignados, horas de uso o temperatura y avisa antes de que el disco falle.',
   },
+  {
+    enunciado: '¿Qué hay que hacer antes de abrir y manipular el interior de un equipo de sobremesa?',
+    opciones: ['Dejarlo encendido para ver los LED', 'Apagarlo y desconectarlo de la corriente', 'Quitar la pila CMOS', 'Formatear el disco'],
+    correcta: 1,
+    explicacion: 'La fuente sigue alimentando la placa en reposo mientras esté enchufada.',
+  },
+  {
+    enunciado: '¿Para qué sirve borrar la CMOS (jumper o botón Clear CMOS)?',
+    opciones: ['Para borrar el disco duro', 'Para restablecer la configuración de la BIOS/UEFI a los valores de fábrica', 'Para actualizar el sistema operativo', 'Para limpiar el polvo'],
+    correcta: 1,
+    explicacion: 'Útil si una configuración incorrecta, como un overclock, impide arrancar.',
+  },
+  {
+    enunciado: 'Si un equipo se apaga solo cuando está sometido a mucha carga, ¿qué conviene revisar primero?',
+    opciones: ['El teclado', 'La temperatura y la refrigeración', 'El monitor', 'La conexión a Internet'],
+    correcta: 1,
+    explicacion: 'El procesador o la gráfica se protegen apagando el equipo si se sobrecalientan. Revisa ventiladores, polvo y pasta térmica.',
+  },
+  {
+    enunciado: '¿Qué conector de alimentación usan las unidades SATA?',
+    opciones: ['Molex de 4 pines', 'SATA de 15 pines', 'ATX de 24 pines', 'PCIe de 8 pines'],
+    correcta: 1,
+    explicacion: 'El cable de datos SATA es distinto y más estrecho, de 7 pines.',
+  },
 ];

@@ -116,4 +116,28 @@ export default [
     correcta: 1,
     explicacion: 'Antes de proteger se desbloquean las celdas que el usuario sí debe poder rellenar.',
   },
+  {
+    enunciado: '¿Qué función devuelve el valor más alto de un rango?',
+    opciones: ['MAYOR', 'MAX', 'TOPE', 'ALTO'],
+    correcta: 1,
+    explicacion: '`=MAX(B2:B30)`. Su opuesta es `MIN`.',
+  },
+  {
+    enunciado: '¿Qué herramienta resalta automáticamente las celdas según su valor, por ejemplo en rojo las notas menores de 5?',
+    opciones: ['Validación de datos', 'Formato condicional', 'Autofiltro', 'Tabla dinámica'],
+    correcta: 1,
+    explicacion: 'Se actualiza solo cuando cambian los valores.',
+  },
+  {
+    enunciado: '¿Qué hace la función CONCATENAR (o CONCAT)?',
+    opciones: ['Suma números', 'Une varios textos en uno', 'Cuenta celdas', 'Separa un texto'],
+    correcta: 1,
+    explicacion: 'Por ejemplo, unir nombre y apellidos. También se puede usar el operador `&`.',
+  },
+  {
+    enunciado: '¿Qué es una plantilla en un procesador de textos?',
+    opciones: ['Un documento ya impreso', 'Un documento base con formato y estilos para crear otros documentos iguales', 'Una imagen de fondo', 'Una macro'],
+    correcta: 1,
+    explicacion: 'Por ejemplo, la plantilla de cartas o facturas de una empresa.',
+  },
 ];

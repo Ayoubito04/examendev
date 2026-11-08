@@ -110,4 +110,28 @@ export default [
     correcta: 1,
     explicacion: '`sudo` ejecuta un comando con los permisos de otro usuario (root por defecto), según lo permitido en `/etc/sudoers`.',
   },
+  {
+    enunciado: '¿Qué comando de Linux muestra la ruta del directorio actual?',
+    opciones: ['cd', 'pwd', 'ls', 'whoami'],
+    correcta: 1,
+    explicacion: '`pwd` (print working directory). `whoami` muestra el usuario actual.',
+  },
+  {
+    enunciado: '¿En qué unidad se expresa la velocidad de una conexión de red?',
+    opciones: ['Megabytes', 'Bits por segundo (por ejemplo, Mbps)', 'Hercios', 'Píxeles'],
+    correcta: 1,
+    explicacion: 'Se mide en bits por segundo. 1 Gbps son unos 125 MB/s, porque 1 byte son 8 bits.',
+  },
+  {
+    enunciado: '¿Para qué se usa el comando `ping`?',
+    opciones: ['Para asignar una IP', 'Para comprobar si un equipo responde en la red', 'Para cifrar el tráfico', 'Para listar procesos'],
+    correcta: 1,
+    explicacion: 'Envía mensajes ICMP y muestra si hay respuesta y cuánto tarda.',
+  },
+  {
+    enunciado: '¿Qué diferencia principal hay entre un SSD y un HDD?',
+    opciones: ['El SSD tiene platos giratorios', 'El SSD no tiene partes móviles y es mucho más rápido', 'El HDD es siempre más rápido', 'No hay diferencia'],
+    correcta: 1,
+    explicacion: 'El SSD usa memoria flash: menos tiempo de acceso, menos consumo y más resistencia a golpes.',
+  },
 ];

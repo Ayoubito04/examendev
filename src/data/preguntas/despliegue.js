@@ -125,4 +125,28 @@ export default [
     correcta: 1,
     explicacion: 'Distribuye el tráfico para mejorar rendimiento y disponibilidad; si un servidor cae, envía las peticiones a los demás.',
   },
+  {
+    enunciado: '¿Qué comando construye una imagen Docker a partir de un Dockerfile?',
+    opciones: ['docker run', 'docker build', 'docker pull', 'docker compose'],
+    correcta: 1,
+    explicacion: 'Por ejemplo `docker build -t miapp .`. `docker pull` descarga imágenes ya hechas de un registro.',
+  },
+  {
+    enunciado: '¿Qué instrucción del Dockerfile define el comando que se ejecuta por defecto al arrancar el contenedor?',
+    opciones: ['RUN', 'CMD', 'COPY', 'EXPOSE'],
+    correcta: 1,
+    explicacion: '`RUN` se ejecuta al construir la imagen; `CMD` al arrancar el contenedor.',
+  },
+  {
+    enunciado: '¿Para qué sirve un volumen en Docker?',
+    opciones: ['Para subir el volumen del sonido', 'Para guardar datos que persisten aunque se elimine el contenedor', 'Para limitar la CPU', 'Para exponer puertos'],
+    correcta: 1,
+    explicacion: 'Imprescindible, por ejemplo, para los datos de una base de datos en contenedor.',
+  },
+  {
+    enunciado: '¿En qué consiste el despliegue continuo (CD)?',
+    opciones: ['En desplegar a mano una vez al mes', 'En publicar automáticamente en producción cada cambio que supera las pruebas', 'En no usar control de versiones', 'En desplegar solo en local'],
+    correcta: 1,
+    explicacion: 'Es el paso siguiente a la integración continua: si el pipeline pasa, el cambio llega a producción sin intervención manual.',
+  },
 ];

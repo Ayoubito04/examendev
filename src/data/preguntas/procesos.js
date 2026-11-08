@@ -140,4 +140,28 @@ export default [
     correcta: 2,
     explicacion: 'SHA-256 genera un resumen de longitud fija y no es reversible. AES y DES son de cifrado simétrico y RSA asimétrico.',
   },
+  {
+    enunciado: '¿En qué estado está un hilo que espera a que se libere un monitor o un recurso?',
+    opciones: ['Nuevo', 'Bloqueado', 'Terminado', 'En ejecución'],
+    correcta: 1,
+    explicacion: 'Pasa a ejecutable cuando obtiene el recurso. Los estados en Java incluyen NEW, RUNNABLE, BLOCKED, WAITING y TERMINATED.',
+  },
+  {
+    enunciado: '¿Qué hace `Thread.sleep(1000)`?',
+    opciones: ['Termina el hilo', 'Pausa el hilo actual durante aproximadamente un segundo', 'Pausa todos los hilos', 'Duerme el sistema operativo'],
+    correcta: 1,
+    explicacion: 'Puede lanzar `InterruptedException` si otro hilo lo interrumpe, por eso hay que capturarla.',
+  },
+  {
+    enunciado: '¿Qué diferencia a TCP de UDP?',
+    opciones: ['UDP garantiza la entrega', 'TCP es orientado a conexión y garantiza orden y entrega', 'TCP no usa puertos', 'Son iguales'],
+    correcta: 1,
+    explicacion: 'UDP es más ligero y rápido, adecuado para streaming o juegos, donde perder algún paquete es aceptable.',
+  },
+  {
+    enunciado: '¿Qué interfaz permite que una tarea enviada a un `ExecutorService` devuelva un resultado?',
+    opciones: ['Runnable', 'Callable', 'Thread', 'Executor'],
+    correcta: 1,
+    explicacion: '`Callable<T>` devuelve un valor y puede lanzar excepciones. Se recoge mediante un `Future`.',
+  },
 ];

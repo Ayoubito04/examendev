@@ -120,4 +120,28 @@ export default [
     correcta: 1,
     explicacion: 'MongoDB guarda documentos BSON (similares a JSON) agrupados en colecciones.',
   },
+  {
+    enunciado: '¿Qué método obtiene una conexión JDBC a partir de una URL, usuario y contraseña?',
+    opciones: ['Connection.open()', 'DriverManager.getConnection()', 'Statement.connect()', 'ResultSet.getConnection()'],
+    correcta: 1,
+    explicacion: 'Por ejemplo `DriverManager.getConnection("jdbc:mysql://localhost/tienda", usuario, clave)`.',
+  },
+  {
+    enunciado: '¿Qué método de `ResultSet` avanza a la siguiente fila?',
+    opciones: ['next()', 'moveNext()', 'forward()', 'nextRow()'],
+    correcta: 0,
+    explicacion: 'Devuelve `false` cuando no quedan filas, por eso se usa en `while (rs.next())`.',
+  },
+  {
+    enunciado: 'En JPA, ¿qué objeto gestiona el ciclo de vida de las entidades (persistir, buscar, eliminar)?',
+    opciones: ['SessionFactory', 'EntityManager', 'DataSource', 'Connection'],
+    correcta: 1,
+    explicacion: 'Ofrece `persist()`, `find()`, `merge()` y `remove()`. `SessionFactory` es el equivalente propio de Hibernate.',
+  },
+  {
+    enunciado: '¿Qué ventaja tiene abrir `Connection` y `PreparedStatement` con try-with-resources?',
+    opciones: ['Que la consulta es más rápida', 'Que se cierran automáticamente aunque se produzca una excepción', 'Que no hace falta driver', 'Que se crea la base de datos'],
+    correcta: 1,
+    explicacion: 'Evita dejar conexiones abiertas, un error típico que agota el pool de conexiones.',
+  },
 ];

@@ -155,4 +155,28 @@ export default [
     correcta: 1,
     explicacion: 'Quien comparta la Wi-Fi no puede leer ni manipular el tráfico.',
   },
+  {
+    enunciado: '¿Qué es el spam?',
+    opciones: ['Un antivirus', 'Correo no solicitado enviado de forma masiva', 'Un cortafuegos', 'Una copia de seguridad'],
+    correcta: 1,
+    explicacion: 'Además de molesto, puede contener enlaces de phishing o malware.',
+  },
+  {
+    enunciado: '¿Qué es una copia de seguridad completa?',
+    opciones: ['La copia de los cambios del día', 'La copia de todos los datos seleccionados', 'La copia solo del sistema operativo', 'Una copia en la nube obligatoriamente'],
+    correcta: 1,
+    explicacion: 'Es la base de las incrementales y diferenciales. Es la más lenta, pero la más sencilla de restaurar.',
+  },
+  {
+    enunciado: '¿Qué es un rootkit?',
+    opciones: ['Un kit de herramientas de reparación', 'Malware que se oculta en el sistema para mantener acceso con privilegios', 'Un programa de copias', 'Un tipo de cable'],
+    correcta: 1,
+    explicacion: 'Es difícil de detectar porque modifica el propio sistema para esconderse.',
+  },
+  {
+    enunciado: '¿Qué es una vulnerabilidad de día cero?',
+    opciones: ['Un fallo ya parcheado', 'Un fallo que se explota antes de que el fabricante publique una corrección', 'Un error del usuario', 'Un virus antiguo'],
+    correcta: 1,
+    explicacion: 'Mientras no hay parche, ayudan las capas de defensa: cortafuegos, mínimo privilegio y copias.',
+  },
 ];
