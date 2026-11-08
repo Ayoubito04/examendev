@@ -4,13 +4,13 @@ import { SITE } from '../config.js';
 
 const PASOS = [
   { n: '01', titulo: 'Elige tu ciclo y módulo', texto: 'DAM, DAW, ASIR o SMR, de primero o de segundo. Cada módulo tiene su propio banco de preguntas.' },
-  { n: '02', titulo: 'Practica o haz un simulacro', texto: 'Corrección al instante con explicación, o examen cronometrado que se corrige al entregar.' },
+  { n: '02', titulo: 'Practica o haz un simulacro', texto: 'Elige, pulsa Validar y comprueba al momento. Sin prisa en la práctica, o contra reloj en el simulacro.' },
   { n: '03', titulo: 'Repasa tus fallos', texto: 'Cada pregunta que fallas queda guardada hasta que la aciertes. Así atacas tus puntos débiles.' },
 ];
 
 const VENTAJAS = [
   { titulo: 'Corrección al instante', texto: 'Sabes en el momento si has acertado y por qué. Cada pregunta trae su explicación.' },
-  { titulo: 'Simulacros cronometrados', texto: 'Un minuto por pregunta y nota sobre 10, para llegar al examen con el ritmo cogido.' },
+  { titulo: 'Simulacros cronometrados', texto: 'Un minuto por pregunta, mapa de preguntas y nota sobre 10, para llegar al examen con el ritmo cogido.' },
   { titulo: 'Repaso inteligente', texto: 'Tus fallos se acumulan por módulo y desaparecen cuando los aciertas.' },
   { titulo: 'Progreso por módulo', texto: 'Mejor nota, última nota e historial de intentos de un vistazo.' },
   { titulo: 'Opciones barajadas', texto: 'Preguntas y respuestas cambian de orden en cada test: nada de memorizar la letra.' },
@@ -32,7 +32,7 @@ const FAQ = [
   },
   {
     p: '¿En qué se diferencia la práctica del simulacro?',
-    r: 'En la práctica ves la corrección y la explicación al responder cada pregunta. En el simulacro tienes un tiempo límite, puedes cambiar respuestas y solo ves la nota al entregar, como en el examen real.',
+    r: 'En los dos validas cada respuesta y, si fallas, ves un recordatorio con la correcta. La práctica no tiene límite de tiempo. El simulacro va contra reloj, tiene un mapa de preguntas y te deja saltar las que no sepas para volver a ellas antes de entregar.',
   },
   {
     p: '¿Dónde se guarda mi progreso?',

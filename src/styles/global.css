@@ -1685,8 +1685,28 @@ button.opcion:hover:not(:disabled) {
 
 .quiz__navegacion-derecha {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   gap: 0.75rem;
   margin-left: auto;
+}
+
+@media (max-width: 560px) {
+  .quiz__navegacion {
+    flex-wrap: wrap;
+  }
+
+  .quiz__navegacion-derecha {
+    gap: 0.5rem;
+  }
+
+  .quiz__navegacion-derecha .btn {
+    padding-inline: 0.85rem;
+  }
+
+  .btn--validar {
+    min-width: 0;
+  }
 }
 
 .btn--validar {
@@ -1806,6 +1826,18 @@ button.opcion:hover:not(:disabled) {
   border-color: transparent;
   background: var(--primario-suave);
   color: var(--texto);
+}
+
+.mapa__punto--ok {
+  border-color: rgba(52, 211, 153, 0.45);
+  background: var(--ok-suave);
+  color: var(--ok);
+}
+
+.mapa__punto--ko {
+  border-color: rgba(248, 113, 113, 0.45);
+  background: var(--ko-suave);
+  color: var(--ko);
 }
 
 .mapa__punto--actual {

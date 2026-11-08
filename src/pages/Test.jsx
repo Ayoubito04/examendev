@@ -12,12 +12,12 @@ const MODOS = [
   {
     id: 'practica',
     titulo: 'Práctica',
-    texto: 'Corrección al instante con la explicación de cada respuesta. Sin límite de tiempo.',
+    texto: 'Valida cada respuesta y ve la explicación al momento. Sin límite de tiempo.',
   },
   {
     id: 'simulacro',
     titulo: 'Simulacro de examen',
-    texto: `Como el día del examen: ${SEGUNDOS_POR_PREGUNTA / 60} minuto por pregunta y corrección al entregar.`,
+    texto: `Contra reloj: ${SEGUNDOS_POR_PREGUNTA / 60} minuto por pregunta. Valida cada respuesta o sáltala y vuelve después.`,
   },
   {
     id: 'repaso',
