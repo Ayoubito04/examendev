@@ -8,6 +8,7 @@ import catalogoRoutes from './routes/catalogo.routes.js';
 import partidasRoutes from './routes/partidas.routes.js';
 import statsRoutes from './routes/stats.routes.js';
 import rankingRoutes from './routes/ranking.routes.js';
+import studioRoutes from './routes/studio.routes.js';
 import { asegurarBaseDeDatosLista } from './db/init.js';
 
 dotenv.config();
@@ -30,6 +31,7 @@ apiRouter.use('/auth', authRoutes);
 apiRouter.use('/', perfilRoutes);
 apiRouter.use('/stats', statsRoutes);
 apiRouter.use('/ranking', rankingRoutes);
+apiRouter.use('/studio', studioRoutes);
 apiRouter.use('/', catalogoRoutes);
 apiRouter.use('/', partidasRoutes);
 
