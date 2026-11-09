@@ -8,6 +8,7 @@ import catalogoRoutes from './routes/catalogo.routes.js';
 import partidasRoutes from './routes/partidas.routes.js';
 import statsRoutes from './routes/stats.routes.js';
 import rankingRoutes from './routes/ranking.routes.js';
+import { asegurarBaseDeDatosLista } from './db/init.js';
 
 dotenv.config();
 
@@ -35,6 +36,7 @@ apiRouter.use('/', partidasRoutes);
 app.use('/', apiRouter);
 app.use('/api', apiRouter);
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`🚀 Servidor Backend de ExamenDev escuchando en http://localhost:${PORT}`);
+  await asegurarBaseDeDatosLista();
 });
