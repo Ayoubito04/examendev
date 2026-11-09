@@ -3,7 +3,6 @@ import { useLocalStorage } from '../hooks/useLocalStorage.js';
 import { PREGUNTAS, getModulo } from '../data/index.js';
 import { USAR_MOCK } from '../api/config.js';
 import { http } from '../api/http.js';
-import { leerSesion } from '../api/sesion.js';
 
 const ProgressContext = createContext(null);
 
@@ -28,9 +27,9 @@ const normalizarFallo = (valor) =>
 export function ProgressProvider({ children }) {
   const [progreso, setProgreso] = useLocalStorage('examendev:progreso', ESTADO_INICIAL);
 
-  // Si estamos conectados al backend REST y hay sesión activa, hidrata el progreso desde PostgreSQL.
+  // Si estamos conectados al backend REST, hidrata el progreso (intentos, fallos y estadísticas por pregunta) desde PostgreSQL.
   useEffect(() => {
-    if (USAR_MOCK || !leerSesion()?.token) return;
+    if (USAR_MOCK) return;
     let activo = true;
     http('/progreso')
       .then((remoto) => {
@@ -39,6 +38,10 @@ export function ProgressProvider({ children }) {
           ...prev,
           intentos: remoto.intentos?.length ? remoto.intentos : prev.intentos,
           fallos: remoto.fallos && Object.keys(remoto.fallos).length ? { ...prev.fallos, ...remoto.fallos } : prev.fallos,
+          porPregunta:
+            remoto.porPregunta && Object.keys(remoto.porPregunta).length
+              ? { ...prev.porPregunta, ...remoto.porPregunta }
+              : prev.porPregunta,
         }));
       })
       .catch(() => {});
@@ -53,7 +56,7 @@ export function ProgressProvider({ children }) {
   // - Solo sale si se acierta en el modo repaso o con "Ya la domino" (marcarDominada).
   const registrarIntento = useCallback(
     ({ moduloId, modo, preguntas, respuestas, resultado, segundos }) => {
-      if (!USAR_MOCK && leerSesion()?.token && modo !== 'trivia') {
+      if (!USAR_MOCK && modo !== 'trivia') {
         http('/progreso/intento', {
           metodo: 'POST',
           cuerpo: { moduloId, modo, preguntas, respuestas, segundos },
@@ -102,7 +105,7 @@ export function ProgressProvider({ children }) {
   // Quita una pregunta de la lista de fallos ("Ya la domino").
   const marcarDominada = useCallback(
     (preguntaId) => {
-      if (!USAR_MOCK && leerSesion()?.token) {
+      if (!USAR_MOCK) {
         http(`/respuestas/dominar/${encodeURIComponent(preguntaId)}`, { metodo: 'PATCH' }).catch(() => {});
       }
       setProgreso((prev) => {
@@ -115,7 +118,7 @@ export function ProgressProvider({ children }) {
   );
 
   const reiniciar = useCallback(() => {
-    if (!USAR_MOCK && leerSesion()?.token) {
+    if (!USAR_MOCK) {
       http('/progreso', { metodo: 'DELETE' }).catch(() => {});
     }
     setProgreso(ESTADO_INICIAL);

@@ -526,9 +526,26 @@ export async function getProgresoUsuario(req, res) {
       };
     }
 
+    const resPorPregunta = await client.query(
+      `SELECT
+         pregunta_id,
+         COUNT(*) FILTER (WHERE es_correcta = TRUE)::int AS a,
+         COUNT(*) FILTER (WHERE es_correcta = FALSE)::int AS f
+       FROM respuestas
+       WHERE usuario_id = $1
+       GROUP BY pregunta_id`,
+      [usuarioId]
+    );
+
+    const porPreguntaMap = {};
+    for (const row of resPorPregunta.rows) {
+      porPreguntaMap[row.pregunta_id] = { a: row.a, f: row.f };
+    }
+
     return res.json({
       intentos: resPartidas.rows,
       fallos: fallosMap,
+      porPregunta: porPreguntaMap,
     });
   } catch (err) {
     console.error('Error en getProgresoUsuario:', err);
