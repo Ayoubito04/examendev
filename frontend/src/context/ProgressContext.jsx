@@ -1,6 +1,9 @@
-import { createContext, useCallback, useContext, useMemo } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage.js';
 import { PREGUNTAS, getModulo } from '../data/index.js';
+import { USAR_MOCK } from '../api/config.js';
+import { http } from '../api/http.js';
+import { leerSesion } from '../api/sesion.js';
 
 const ProgressContext = createContext(null);
 
@@ -25,12 +28,37 @@ const normalizarFallo = (valor) =>
 export function ProgressProvider({ children }) {
   const [progreso, setProgreso] = useLocalStorage('examendev:progreso', ESTADO_INICIAL);
 
+  // Si estamos conectados al backend REST y hay sesión activa, hidrata el progreso desde PostgreSQL.
+  useEffect(() => {
+    if (USAR_MOCK || !leerSesion()?.token) return;
+    let activo = true;
+    http('/progreso')
+      .then((remoto) => {
+        if (!activo || !remoto) return;
+        setProgreso((prev) => ({
+          ...prev,
+          intentos: remoto.intentos?.length ? remoto.intentos : prev.intentos,
+          fallos: remoto.fallos && Object.keys(remoto.fallos).length ? { ...prev.fallos, ...remoto.fallos } : prev.fallos,
+        }));
+      })
+      .catch(() => {});
+    return () => {
+      activo = false;
+    };
+  }, [setProgreso]);
+
   // Guarda un intento y actualiza la lista acumulada de fallos:
   // - Una pregunta fallada entra en la lista (o suma un fallo más) y se queda ahí.
   // - Si se acierta en práctica o simulacro, sigue en la lista marcada como "acertada después".
   // - Solo sale si se acierta en el modo repaso o con "Ya la domino" (marcarDominada).
   const registrarIntento = useCallback(
     ({ moduloId, modo, preguntas, respuestas, resultado, segundos }) => {
+      if (!USAR_MOCK && leerSesion()?.token && modo !== 'trivia') {
+        http('/progreso/intento', {
+          metodo: 'POST',
+          cuerpo: { moduloId, modo, preguntas, respuestas, segundos },
+        }).catch(() => {});
+      }
       setProgreso((prev) => {
         const ahora = new Date().toISOString();
         const fallos = { ...prev.fallos };
@@ -73,16 +101,25 @@ export function ProgressProvider({ children }) {
 
   // Quita una pregunta de la lista de fallos ("Ya la domino").
   const marcarDominada = useCallback(
-    (preguntaId) =>
+    (preguntaId) => {
+      if (!USAR_MOCK && leerSesion()?.token) {
+        http(`/respuestas/dominar/${encodeURIComponent(preguntaId)}`, { metodo: 'PATCH' }).catch(() => {});
+      }
       setProgreso((prev) => {
         const fallos = { ...prev.fallos };
         delete fallos[preguntaId];
         return { ...prev, fallos };
-      }),
+      });
+    },
     [setProgreso],
   );
 
-  const reiniciar = useCallback(() => setProgreso(ESTADO_INICIAL), [setProgreso]);
+  const reiniciar = useCallback(() => {
+    if (!USAR_MOCK && leerSesion()?.token) {
+      http('/progreso', { metodo: 'DELETE' }).catch(() => {});
+    }
+    setProgreso(ESTADO_INICIAL);
+  }, [setProgreso]);
 
   const valor = useMemo(() => {
     const intentos = progreso.intentos ?? [];

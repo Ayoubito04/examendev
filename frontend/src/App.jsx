@@ -22,7 +22,14 @@ export default function App() {
         <Route path="temario" element={<Temario />} />
         <Route path="test/:moduloId" element={<Test />} />
         <Route path="progreso" element={<Progreso />} />
-        <Route path="ranking" element={<Ranking />} />
+        <Route
+          path="ranking"
+          element={
+            <RutaPrivada>
+              <Ranking />
+            </RutaPrivada>
+          }
+        />
         <Route
           path="perfil"
           element={
