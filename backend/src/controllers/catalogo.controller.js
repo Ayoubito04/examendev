@@ -180,3 +180,76 @@ export async function getPreguntas(req, res) {
     return res.status(500).json({ error: 'Error al obtener las preguntas del test' });
   }
 }
+
+// GET /catalogo-completo -> Devuelve ciclos, módulos, temas y preguntas directamente desde PostgreSQL
+export async function getCatalogoCompleto(_req, res) {
+  try {
+    const resCiclos = await query('SELECT id, sigla, nombre, grado FROM ciclos WHERE activo = TRUE ORDER BY id');
+    const resModulos = await query(`
+      SELECT
+        m.id,
+        m.nombre,
+        m.descripcion,
+        m.hoja_ruta_md AS "hojaRutaMarkdown",
+        MIN(cm.curso)::int AS curso,
+        ARRAY_AGG(DISTINCT UPPER(cm.ciclo_id)) AS ciclos,
+        (
+          SELECT COALESCE(JSON_AGG(t.nombre ORDER BY t.orden), '[]'::json)
+          FROM temas t
+          WHERE t.modulo_id = m.id
+        ) AS temas
+      FROM modulos m
+      LEFT JOIN ciclo_modulo cm ON cm.modulo_id = m.id
+      WHERE m.activo = TRUE
+      GROUP BY m.id
+    `);
+
+    const resPreguntas = await query(`
+      SELECT
+        p.id,
+        p.modulo_id AS "moduloId",
+        (t.orden - 1)::int AS tema,
+        p.enunciado,
+        p.explicacion,
+        (
+          SELECT JSON_AGG(o.texto ORDER BY o.id ASC)
+          FROM opciones o
+          WHERE o.pregunta_id = p.id
+        ) AS opciones,
+        (
+          SELECT COALESCE(
+            (
+              SELECT idx - 1
+              FROM (
+                SELECT o2.es_correcta, ROW_NUMBER() OVER (ORDER BY o2.id ASC)::int AS idx
+                FROM opciones o2
+                WHERE o2.pregunta_id = p.id
+              ) sub
+              WHERE sub.es_correcta = TRUE
+              LIMIT 1
+            ),
+            0
+          )
+        )::int AS correcta
+      FROM preguntas p
+      JOIN temas t ON t.id = p.tema_id
+      WHERE p.activa = TRUE
+      ORDER BY p.id ASC
+    `);
+
+    const preguntasPorModulo = {};
+    for (const row of resPreguntas.rows) {
+      if (!preguntasPorModulo[row.moduloId]) preguntasPorModulo[row.moduloId] = [];
+      preguntasPorModulo[row.moduloId].push(row);
+    }
+
+    return res.json({
+      ciclos: resCiclos.rows,
+      modulos: resModulos.rows,
+      preguntasPorModulo,
+    });
+  } catch (err) {
+    console.error('Error en getCatalogoCompleto:', err);
+    return res.status(500).json({ error: 'Error al cargar el catálogo desde PostgreSQL' });
+  }
+}

@@ -5,6 +5,7 @@ import {
   getCertificaciones,
   getTemas,
   getPreguntas,
+  getCatalogoCompleto,
 } from '../controllers/catalogo.controller.js';
 import { tokenOpcional } from '../middlewares/auth.middleware.js';
 import { validarQuery } from '../middlewares/validate.middleware.js';
@@ -26,5 +27,8 @@ router.get('/temas', getTemas);
 
 // GET /preguntas -> Preguntas barajadas sin el campo 'es_correcta'
 router.get('/preguntas', tokenOpcional, validarQuery(pedirPreguntasSchema), getPreguntas);
+
+// GET /catalogo-completo -> Catálogo íntegro (ciclos, módulos, temas y preguntas) desde PostgreSQL
+router.get('/catalogo-completo', getCatalogoCompleto);
 
 export default router;

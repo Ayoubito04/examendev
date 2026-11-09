@@ -74,7 +74,7 @@ export default function Progreso() {
       <h1 className="titulo-display titulo-display--md">
         Así <span className="destacado">vas</span>
       </h1>
-      <p className="lead">Tu progreso de práctica se guarda en este navegador. Incluye práctica, simulacros, repasos y trivia.</p>
+      <p className="lead">Tu progreso se monitoriza y guarda en la base de datos PostgreSQL. Incluye práctica, simulacros, repasos y trivia.</p>
 
       <dl className="resumen">
         <div className="stat">

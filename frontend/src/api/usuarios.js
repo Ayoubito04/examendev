@@ -41,18 +41,9 @@ const mock = {
   },
 };
 
-const conRespaldo = (fnReal, fnMock) => async (...args) => {
-  try {
-    return await fnReal(...args);
-  } catch (err) {
-    if (err?.status === 0 || err?.status >= 500) return fnMock(...args);
-    throw err;
-  }
-};
-
 const real = {
-  perfil: conRespaldo(() => http('/usuarios/yo/perfil'), mock.perfil),
-  actualizar: conRespaldo((datos) => http('/usuarios/yo', { metodo: 'PATCH', cuerpo: datos }), mock.actualizar),
+  perfil: () => http('/usuarios/yo/perfil'),
+  actualizar: (datos) => http('/usuarios/yo', { metodo: 'PATCH', cuerpo: datos }),
 };
 
 export const usuariosApi = USAR_MOCK ? mock : real;

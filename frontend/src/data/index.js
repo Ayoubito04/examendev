@@ -112,4 +112,35 @@ export const getCiclo = (id) => CICLOS.find((c) => c.id === id);
 
 export const contarPreguntas = (moduloId) => PREGUNTAS[moduloId]?.length ?? 0;
 
+// En el navegador, sincroniza los módulos, temas y preguntas directamente desde la base de datos PostgreSQL.
+if (typeof window !== 'undefined' && typeof fetch === 'function') {
+  const apiUrl = (import.meta.env?.VITE_API_URL ?? '/api').replace(/\/$/, '');
+  fetch(`${apiUrl}/catalogo-completo`)
+    .then((r) => (r.ok ? r.json() : null))
+    .then((datos) => {
+      if (!datos) return;
+      if (Array.isArray(datos.modulos) && datos.modulos.length) {
+        datos.modulos.forEach((mRemoto) => {
+          const idx = MODULOS.findIndex((m) => m.id === mRemoto.id);
+          if (idx >= 0) {
+            MODULOS[idx] = { ...MODULOS[idx], ...mRemoto };
+          } else {
+            MODULOS.push(mRemoto);
+          }
+        });
+      }
+      if (datos.preguntasPorModulo && typeof datos.preguntasPorModulo === 'object') {
+        Object.entries(datos.preguntasPorModulo).forEach(([moduloId, lista]) => {
+          if (Array.isArray(lista) && lista.length) {
+            PREGUNTAS[moduloId] = lista;
+            lista.forEach((p) => {
+              PREGUNTA_POR_ID[p.id] = p;
+            });
+          }
+        });
+      }
+    })
+    .catch(() => {});
+}
+
 export { CICLOS, MODULOS, SECCIONES, modulosDeCiclo, nombreCorto };
