@@ -333,8 +333,15 @@ export const MODULOS = [
     nombre: 'Digitalización aplicada a los sectores productivos',
     ciclos: ['DAM', 'DAW', 'ASIR', 'SMR'],
     curso: 2,
-    descripcion: 'Transformación digital, Industria 4.0 (IT/OT), Cloud y Edge Computing, IoT, Big Data, Inteligencia Artificial y ciberseguridad.',
-    temas: ['Transformación digital e Industria 4.0 (IT/OT)', 'Tecnologías Habilitadoras Digitales (IoT, 5G, VR/AR)', 'Cloud Computing y Edge Computing', 'Big Data e Inteligencia Artificial', 'Ciberseguridad y proyecto de digitalización'],
+    descripcion: 'Economía digital e IT/OT, Tecnologías Habilitadoras Digitales (THD), Cloud/Edge Computing, Inteligencia Artificial (AI Act), Analítica de datos, Ciberseguridad y Proyecto de transformación digital.',
+    temas: [
+      'UT1 · La digitalización en el sector del desarrollo de aplicaciones web (Economía digital, IT y OT)',
+      'UT2 · Tecnologías digitales habilitadoras (THD) aplicadas al desarrollo web y al negocio',
+      'UT3 · La nube y los servicios cloud en el desarrollo web (IaaS/PaaS/SaaS, CDN, Edge/Fog/Mist)',
+      'UT4 · Inteligencia artificial aplicada al desarrollo web (ML, IA generativa y Reglamento UE 2024/1689)',
+      'UT5 · Datos, analítica y ciberseguridad en el desarrollo web (Dato/Info/Conocimiento, KPI, CIA y RGPD)',
+      'UT6 · Proyecto de transformación digital de una empresa de desarrollo web (Madurez, alcance y KPIs)',
+    ],
   },
   {
     id: 'ingles',
