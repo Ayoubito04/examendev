@@ -113,8 +113,15 @@ export const MODULOS = [
     nombre: 'Diseño de interfaces web',
     ciclos: ['DAW'],
     curso: 2,
-    descripcion: 'Diseño responsive, maquetación con Flexbox y Grid, color, tipografía, accesibilidad y usabilidad.',
-    temas: ['Diseño responsive', 'Maquetación CSS', 'Color y tipografía', 'Multimedia', 'Accesibilidad y usabilidad'],
+    descripcion: 'Planificación visual y guías de estilo, maquetación CSS con Flexbox/Grid y diseño responsive, optimización e integración multimedia, accesibilidad WCAG 2.2 y usabilidad ISO 9241-11.',
+    temas: [
+      'UT1 · Planificación de la interfaz web (Comunicación visual, guía de estilo, wireframes y retícula de 12 columnas)',
+      'UT2 · Estilos y maquetación homogénea (CSS, Flexbox, Grid, responsive mobile-first y container queries)',
+      'UT3 · Preparación de archivos multimedia (Licencias, WebP/AVIF/SVG, srcset, contenedores y códecs MP4/WebM y WebVTT)',
+      'UT4 · Integración de contenido multimedia e interactivo (Video/audio HTML5, details/dialog, animaciones y matriz de navegadores)',
+      'UT5 · Interfaces web accesibles (RD 1112/2018, pautas WCAG 2.2 A/AA/AAA, principios POUR, WAI-ARIA y SEO)',
+      'UT6 · Interfaces web amigables y usabilidad (ISO 9241-11, heurísticas de Nielsen, evaluación heurística y test con usuarios)',
+    ],
   },
 
   // ---------- DAM · 2º ----------
@@ -325,8 +332,15 @@ export const MODULOS = [
     nombre: 'Sostenibilidad aplicada al sistema productivo',
     ciclos: ['DAM', 'DAW', 'ASIR', 'SMR'],
     curso: 2,
-    descripcion: 'Agenda 2030 y ODS, criterios ASG (ESG), economía circular, huella de carbono, ecodiseño, RAEE y Green IT.',
-    temas: ['Desarrollo sostenible y Agenda 2030 (ODS)', 'Retos ambientales y huella de carbono', 'Economía circular y ecodiseño', 'Criterios ASG (ESG) y normativa', 'Sostenibilidad en TI (Green IT y RAEE)'],
+    descripcion: 'Desarrollo sostenible, Agenda 2030 y criterios ASG, retos ambientales y sociales del desarrollo web, economía circular y ecodiseño digital, huella de carbono, Green IT y plan de sostenibilidad.',
+    temas: [
+      'UT1 · La sostenibilidad y los criterios ASG (Brundtland, Agenda 2030, stakeholders de Freeman y Alcances 1, 2 y 3)',
+      'UT2 · Retos ambientales y sociales del sector (5 vías de impacto web, accesibilidad, RAEE y reducir frente a compensar)',
+      'UT3 · La sostenibilidad en el desempeño profesional del desarrollo web (ODS en decisiones técnicas, hosting y rechazo argumentado)',
+      'UT4 · Producto digital responsable y economía circular (Jerarquía de residuos, ecodiseño, ACV, obsolescencia y derecho a reparar)',
+      'UT5 · Actividades sostenibles y tecnología verde (Inventario de impacto, huella de carbono, UNE-ISO 20121:2024, PUE y Green Coding)',
+      'UT6 · El plan de sostenibilidad y el propósito de marca (Matriz poder/interés, doble materialidad, cuadro de mando y CSRD)',
+    ],
   },
   {
     id: 'digitalizacion',
