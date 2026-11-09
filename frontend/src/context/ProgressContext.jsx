@@ -173,7 +173,11 @@ export function ProgressProvider({ children }) {
         a += porPregunta[p.id]?.a ?? 0;
         f += porPregunta[p.id]?.f ?? 0;
       });
-      return a + f ? Math.round((a / (a + f)) * 100) : null;
+      if (a + f) return Math.round((a / (a + f)) * 100);
+      const propios = intentos.filter((t) => t.moduloId === moduloId);
+      const totalAciertos = propios.reduce((s, t) => s + (t.aciertos ?? 0), 0);
+      const totalPreguntas = propios.reduce((s, t) => s + (t.total ?? 0), 0);
+      return totalPreguntas ? Math.round((totalAciertos / totalPreguntas) * 100) : null;
     };
 
     return {

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import GraficoRadar from '../components/graficos/GraficoRadar.jsx';
 import BarrasTema from '../components/graficos/BarrasTema.jsx';
@@ -17,14 +17,21 @@ const MINIMO_RESPUESTAS = 3;
 export default function Progreso() {
   const { intentos, fallos, statsModulo, statsTemas, pctModulo, actualizarProgreso, limpiarFallos, reiniciar } = useProgress();
 
+  useEffect(() => {
+    actualizarProgreso();
+  }, [actualizarProgreso]);
+
   // Ciclo con más actividad, para abrir el radar donde interesa.
   const cicloInicial = useMemo(() => {
     const cuenta = Object.fromEntries(CICLOS.map((c) => [c.sigla, 0]));
     intentos.forEach((t) => getModulo(t.moduloId)?.ciclos.forEach((c) => (cuenta[c] += 1)));
     return CICLOS.reduce((a, b) => (cuenta[b.sigla] > cuenta[a.sigla] ? b : a)).sigla;
   }, [intentos]);
-  const [ciclo, setCiclo] = useState(cicloInicial);
-  const [moduloTema, setModuloTema] = useState(() => intentos[0]?.moduloId ?? MODULOS[0].id);
+  const [cicloElegido, setCiclo] = useState(null);
+  const [moduloElegido, setModuloTema] = useState(null);
+
+  const ciclo = cicloElegido ?? cicloInicial;
+  const moduloTema = moduloElegido ?? intentos[0]?.moduloId ?? MODULOS[0].id;
 
   const media = intentos.length ? intentos.reduce((s, t) => s + t.nota, 0) / intentos.length : 0;
   const preguntasRespondidas = intentos.reduce((s, t) => s + t.total, 0);

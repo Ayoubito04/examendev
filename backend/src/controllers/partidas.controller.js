@@ -579,12 +579,14 @@ export async function reiniciarProgresoUsuario(req, res) {
   }
 }
 
-// POST /puntuaciones -> Guarda una partida de Trivia y actualiza puntos/ranking en PostgreSQL (docs/API.md)
+// POST /puntuaciones -> Guarda una partida de Trivia, sus respuestas por pregunta y actualiza puntos/ranking en PostgreSQL
 export async function guardarPuntuacionTrivia(req, res) {
   const client = await pool.connect();
   try {
     const usuarioId = req.usuario.id;
     const { moduloId, puntos, aciertos, total, rachaMax, segundos } = req.body;
+    const preguntas = Array.isArray(req.body.preguntas) ? req.body.preguntas : [];
+    const respuestas = Array.isArray(req.body.respuestas) ? req.body.respuestas : [];
     const fallos = Math.max(0, total - aciertos);
 
     await client.query('BEGIN');
@@ -595,6 +597,34 @@ export async function guardarPuntuacionTrivia(req, res) {
        RETURNING id, modulo_id, puntos_obtenidos, aciertos, fallos, racha_max, tiempo_segundos, fecha`,
       [usuarioId, moduloId, aciertos, fallos, puntos, rachaMax ?? 0, segundos ?? 0]
     );
+    const partidaId = resPartida.rows[0].id;
+
+    // Si vienen las preguntas y respuestas de la trivia, guardar cada respuesta en la tabla respuestas para las estadísticas por tema y radar
+    for (let i = 0; i < preguntas.length; i++) {
+      const p = preguntas[i];
+      if (!p?.id) continue;
+      const indiceElegido = respuestas[i];
+      const textoElegido =
+        indiceElegido !== null && indiceElegido !== undefined && Array.isArray(p.opciones)
+          ? p.opciones[indiceElegido]
+          : null;
+      const esCorrecta = indiceElegido === p.correcta;
+
+      let opcionId = null;
+      if (textoElegido !== null) {
+        const resOp = await client.query(
+          `SELECT id FROM opciones WHERE pregunta_id = $1 AND texto = $2 LIMIT 1`,
+          [p.id, textoElegido]
+        );
+        if (resOp.rowCount > 0) opcionId = resOp.rows[0].id;
+      }
+
+      await client.query(
+        `INSERT INTO respuestas (partida_id, usuario_id, pregunta_id, opcion_id, es_correcta, puntos_sumados, dominada)
+         VALUES ($1, $2, $3, $4, $5, $6, FALSE)`,
+        [partidaId, usuarioId, p.id, opcionId, esCorrecta, esCorrecta ? PUNTOS_POR_ACIERTO : DESCUENTO_POR_FALLO]
+      );
+    }
 
     await client.query(
       `UPDATE usuarios

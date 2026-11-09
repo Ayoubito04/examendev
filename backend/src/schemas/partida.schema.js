@@ -32,6 +32,8 @@ export const puntuacionTriviaSchema = z
     total: z.coerce.number().int().min(1).max(100),
     rachaMax: z.coerce.number().int().min(0).default(0),
     segundos: z.coerce.number().int().min(0).default(0),
+    preguntas: z.array(z.any()).optional(),
+    respuestas: z.array(z.any()).optional(),
   })
   .refine((d) => d.aciertos <= d.total, {
     message: 'El número de aciertos no puede superar el total de preguntas',
