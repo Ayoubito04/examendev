@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import pg from 'pg';
 import { pool } from './pool.js';
 import { CICLOS, MODULOS, PREGUNTAS } from '../../../frontend/src/data/index.js';
+import { cargarTemariosMarkdown } from './generate-sql.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -88,15 +89,16 @@ const CERTIFICACIONES_INICIALES = [
   },
 ];
 
-async function seed() {
+export async function seed({ cerrarPool = true } = {}) {
   await ensureDatabaseExists();
+  const temariosMd = await cargarTemariosMarkdown();
   const client = await pool.connect();
 
   try {
-    console.log('Iniciando migración del banco de preguntas a PostgreSQL...');
+    console.log('Iniciando seed global de temarios y preguntas en PostgreSQL...');
     await client.query('BEGIN');
 
-    // 1. Ejecutar schema.sql para asegurar que las tablas existen
+    // 1. Ejecutar schema.sql para asegurar que las tablas existen y tienen el ancho correcto
     const schemaPath = path.join(__dirname, 'schema.sql');
     const schemaSql = await fs.readFile(schemaPath, 'utf-8');
     await client.query(schemaSql);
@@ -114,15 +116,15 @@ async function seed() {
     }
     console.log(`✔ ${CICLOS.length} ciclos insertados.`);
 
-    // 3. Insertar los 31 Módulos, Relación Ciclo-Módulo (1º y 2º) y sus 155 Temas
-    const mapaTemasPorModulo = {}; // { [moduloId]: [temaId1, temaId2, ...] }
+    // 3. Insertar todos los Módulos (con hoja_ruta_md), Relación Ciclo-Módulo (1º y 2º) y sus Temas
+    const mapaTemasPorModulo = {};
     let totalTemas = 0;
 
     for (const m of MODULOS) {
       await client.query(
-        `INSERT INTO modulos (id, nombre, descripcion, activo)
-         VALUES ($1, $2, $3, TRUE)`,
-        [m.id, m.nombre, m.descripcion]
+        `INSERT INTO modulos (id, nombre, descripcion, hoja_ruta_md, activo)
+         VALUES ($1, $2, $3, $4, TRUE)`,
+        [m.id, m.nombre, m.descripcion, temariosMd[m.id] ?? null]
       );
 
       for (const siglaCiclo of m.ciclos) {
@@ -173,7 +175,7 @@ async function seed() {
     }
     console.log(`✔ ${CERTIFICACIONES_INICIALES.length} certificaciones insertadas.`);
 
-    // 5. Insertar las 620 Preguntas y sus 2.480 Opciones desde frontend/src/data
+    // 5. Insertar todas las Preguntas y Opciones desde frontend/src/data
     let totalPreguntas = 0;
     let totalOpciones = 0;
 
@@ -183,8 +185,6 @@ async function seed() {
       for (let i = 0; i < listaPreguntas.length; i++) {
         const p = listaPreguntas[i];
 
-        // Si la pregunta ya trae campo 'tema' (1..5 o nombre), se usa;
-        // si aún no se ha etiquetado, se reparte equitativamente entre los 5 temas del módulo.
         let temaElegido = temasDelModulo[i % temasDelModulo.length];
         if (typeof p.tema === 'number' && temasDelModulo[p.tema]) {
           temaElegido = temasDelModulo[p.tema];
@@ -224,15 +224,18 @@ async function seed() {
 
     await client.query('COMMIT');
     console.log(`✔ ${totalPreguntas} preguntas y ${totalOpciones} opciones insertadas correctamente.`);
-    console.log('🎉 ¡Base de datos PostgreSQL poblada con éxito!');
+    console.log('🎉 ¡Seed global de ExamenDev completado con éxito!');
   } catch (err) {
     await client.query('ROLLBACK');
     console.error('❌ Error poblando la base de datos:', err);
     process.exitCode = 1;
+    throw err;
   } finally {
     client.release();
-    await pool.end();
+    if (cerrarPool) await pool.end();
   }
 }
 
-seed();
+if (process.argv[1] && path.resolve(process.argv[1]) === __filename) {
+  seed();
+}

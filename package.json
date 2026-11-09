@@ -1,0 +1,14 @@
+{
+  "name": "examendev-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Repositorio global de ExamenDev (Frontend React + Backend Express/PostgreSQL + Seed Global de Temarios y Preguntas)",
+  "scripts": {
+    "seed": "npm --prefix backend run generate-sql && npm --prefix backend run seed",
+    "generate-sql": "npm --prefix backend run generate-sql",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:backend": "npm --prefix backend run dev",
+    "build": "npm --prefix frontend run build",
+    "lint": "npm --prefix frontend run lint"
+  }
+}

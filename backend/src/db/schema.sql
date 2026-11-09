@@ -16,10 +16,14 @@ CREATE TABLE IF NOT EXISTS ciclos (
 -- 2. TABLA DE MÓDULOS (ASIGNATURAS)
 CREATE TABLE IF NOT EXISTS modulos (
     id VARCHAR(50) PRIMARY KEY,
-    nombre VARCHAR(120) NOT NULL,
+    nombre VARCHAR(255) NOT NULL,
     descripcion TEXT,
+    hoja_ruta_md TEXT,
     activo BOOLEAN NOT NULL DEFAULT TRUE
 );
+
+ALTER TABLE modulos ALTER COLUMN nombre TYPE VARCHAR(255);
+ALTER TABLE modulos ADD COLUMN IF NOT EXISTS hoja_ruta_md TEXT;
 
 -- 3. TABLA PUENTE CICLO_MODULO (1º y 2º CURSO)
 CREATE TABLE IF NOT EXISTS ciclo_modulo (
@@ -48,12 +52,14 @@ CREATE TABLE IF NOT EXISTS temas (
     modulo_id VARCHAR(50) REFERENCES modulos(id) ON DELETE CASCADE,
     certificacion_id VARCHAR(30) REFERENCES certificaciones(id) ON DELETE CASCADE,
     orden SMALLINT NOT NULL DEFAULT 1,
-    nombre VARCHAR(120) NOT NULL,
+    nombre VARCHAR(255) NOT NULL,
     CHECK (
         (modulo_id IS NOT NULL AND certificacion_id IS NULL) OR
         (modulo_id IS NULL AND certificacion_id IS NOT NULL)
     )
 );
+
+ALTER TABLE temas ALTER COLUMN nombre TYPE VARCHAR(255);
 
 -- 6. TABLA DE PREGUNTAS
 CREATE TABLE IF NOT EXISTS preguntas (

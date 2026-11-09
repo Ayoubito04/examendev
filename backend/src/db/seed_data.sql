@@ -1,58 +1,551 @@
 -- =====================================================================
--- VOLCADO COMPLETO DE DATOS INICIALES PARA POSTGRESQL (EXAMENDEV)
--- Incluye: 4 Ciclos, 31 Módulos, 155 Temas, Certificaciones,
---          620 Preguntas y 2.480 Opciones desde frontend/src/data
+-- SEED GLOBAL AUTOCONTENIDO PARA POSTGRESQL (EXAMENDEV)
+-- Incluye: Esquema DDL + 4 Ciclos, 37 Módulos,
+--          7 Hojas de ruta oficiales (Markdown),
+--          207 Temas, Certificaciones, 1015 Preguntas y 4060 Opciones
 -- =====================================================================
 BEGIN;
 
+-- 0. ESQUEMA DE TABLAS (DDL)
+-- =====================================================================
+-- ESQUEMA POSTGRESQL PARA EXAMENDEV
+-- Ciclos (DAM, DAW, ASIR, SMR), Módulos (1º y 2º), Certificaciones,
+-- Temas, Preguntas, Opciones, Usuarios, Partidas, Respuestas y Ranking
+-- =====================================================================
+
+-- 1. TABLA DE CICLOS (GRADOS)
+CREATE TABLE IF NOT EXISTS ciclos (
+    id VARCHAR(10) PRIMARY KEY,
+    sigla VARCHAR(10) NOT NULL UNIQUE,
+    nombre VARCHAR(100) NOT NULL,
+    grado VARCHAR(30) NOT NULL,
+    activo BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+-- 2. TABLA DE MÓDULOS (ASIGNATURAS)
+CREATE TABLE IF NOT EXISTS modulos (
+    id VARCHAR(50) PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    descripcion TEXT,
+    hoja_ruta_md TEXT,
+    activo BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+ALTER TABLE modulos ALTER COLUMN nombre TYPE VARCHAR(255);
+ALTER TABLE modulos ADD COLUMN IF NOT EXISTS hoja_ruta_md TEXT;
+
+-- 3. TABLA PUENTE CICLO_MODULO (1º y 2º CURSO)
+CREATE TABLE IF NOT EXISTS ciclo_modulo (
+    ciclo_id VARCHAR(10) NOT NULL REFERENCES ciclos(id) ON DELETE CASCADE,
+    modulo_id VARCHAR(50) NOT NULL REFERENCES modulos(id) ON DELETE CASCADE,
+    curso SMALLINT NOT NULL CHECK (curso IN (1, 2)),
+    PRIMARY KEY (ciclo_id, modulo_id)
+);
+
+-- 4. TABLA DE CERTIFICACIONES (MICROSOFT, CISCO, AWS...)
+CREATE TABLE IF NOT EXISTS certificaciones (
+    id VARCHAR(30) PRIMARY KEY,
+    codigo_examen VARCHAR(20) NOT NULL,
+    nombre VARCHAR(120) NOT NULL,
+    proveedor VARCHAR(50) NOT NULL,
+    nivel VARCHAR(30) DEFAULT 'Fundamentals',
+    tiempo_minutos INT DEFAULT 45,
+    nota_aprobado INT DEFAULT 700,
+    descripcion TEXT,
+    activo BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+-- 5. TABLA DE TEMAS (DE MÓDULOS O DE CERTIFICACIONES)
+CREATE TABLE IF NOT EXISTS temas (
+    id SERIAL PRIMARY KEY,
+    modulo_id VARCHAR(50) REFERENCES modulos(id) ON DELETE CASCADE,
+    certificacion_id VARCHAR(30) REFERENCES certificaciones(id) ON DELETE CASCADE,
+    orden SMALLINT NOT NULL DEFAULT 1,
+    nombre VARCHAR(255) NOT NULL,
+    CHECK (
+        (modulo_id IS NOT NULL AND certificacion_id IS NULL) OR
+        (modulo_id IS NULL AND certificacion_id IS NOT NULL)
+    )
+);
+
+ALTER TABLE temas ALTER COLUMN nombre TYPE VARCHAR(255);
+
+-- 6. TABLA DE PREGUNTAS
+CREATE TABLE IF NOT EXISTS preguntas (
+    id VARCHAR(60) PRIMARY KEY,
+    modulo_id VARCHAR(50) REFERENCES modulos(id) ON DELETE CASCADE,
+    certificacion_id VARCHAR(30) REFERENCES certificaciones(id) ON DELETE CASCADE,
+    tema_id INT NOT NULL REFERENCES temas(id) ON DELETE CASCADE,
+    enunciado TEXT NOT NULL,
+    explicacion TEXT,
+    dificultad VARCHAR(15) DEFAULT 'media' CHECK (dificultad IN ('facil', 'media', 'dificil')),
+    activa BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+-- 7. TABLA DE OPCIONES (LA RESPUESTA CORRECTA NUNCA VIAJA AL NAVEGADOR)
+CREATE TABLE IF NOT EXISTS opciones (
+    id SERIAL PRIMARY KEY,
+    pregunta_id VARCHAR(60) NOT NULL REFERENCES preguntas(id) ON DELETE CASCADE,
+    texto TEXT NOT NULL,
+    es_correcta BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+-- 8. TABLA DE USUARIOS
+CREATE TABLE IF NOT EXISTS usuarios (
+    id SERIAL PRIMARY KEY,
+    nick VARCHAR(30) NOT NULL UNIQUE,
+    email VARCHAR(120) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    avatar_url VARCHAR(255),
+    ciclo_actual_id VARCHAR(10) REFERENCES ciclos(id) ON DELETE SET NULL,
+    puntos_totales INT NOT NULL DEFAULT 0,
+    racha_actual INT NOT NULL DEFAULT 0,
+    mejor_racha INT NOT NULL DEFAULT 0,
+    logros JSONB DEFAULT '[]',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 9. TABLA DE PARTIDAS
+CREATE TABLE IF NOT EXISTS partidas (
+    id SERIAL PRIMARY KEY,
+    usuario_id INT NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
+    modulo_id VARCHAR(50) REFERENCES modulos(id) ON DELETE CASCADE,
+    certificacion_id VARCHAR(30) REFERENCES certificaciones(id) ON DELETE CASCADE,
+    modo VARCHAR(20) NOT NULL CHECK (modo IN ('practica', 'simulacro', 'repaso', 'trivia')),
+    aciertos INT NOT NULL DEFAULT 0,
+    fallos INT NOT NULL DEFAULT 0,
+    puntos_obtenidos INT NOT NULL DEFAULT 0,
+    racha_max INT NOT NULL DEFAULT 0,
+    tiempo_segundos INT DEFAULT 0,
+    finalizada BOOLEAN NOT NULL DEFAULT FALSE,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+ALTER TABLE partidas ADD COLUMN IF NOT EXISTS racha_max INT NOT NULL DEFAULT 0;
+
+-- 10. TABLA DE RESPUESTAS
+CREATE TABLE IF NOT EXISTS respuestas (
+    id SERIAL PRIMARY KEY,
+    partida_id INT NOT NULL REFERENCES partidas(id) ON DELETE CASCADE,
+    usuario_id INT NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
+    pregunta_id VARCHAR(60) NOT NULL REFERENCES preguntas(id) ON DELETE CASCADE,
+    opcion_id INT REFERENCES opciones(id) ON DELETE SET NULL,
+    es_correcta BOOLEAN NOT NULL,
+    puntos_sumados INT NOT NULL DEFAULT 0,
+    dominada BOOLEAN NOT NULL DEFAULT FALSE,
+    respondida_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 11. TABLA DE RANKING
+CREATE TABLE IF NOT EXISTS ranking (
+    id SERIAL PRIMARY KEY,
+    usuario_id INT NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
+    modulo_id VARCHAR(50) REFERENCES modulos(id) ON DELETE CASCADE,
+    certificacion_id VARCHAR(30) REFERENCES certificaciones(id) ON DELETE CASCADE,
+    temporada VARCHAR(20) NOT NULL DEFAULT 'GLOBAL',
+    puntos INT NOT NULL DEFAULT 0,
+    partidas_jugadas INT NOT NULL DEFAULT 0,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
 TRUNCATE TABLE respuestas, partidas, ranking, opciones, preguntas, temas, ciclo_modulo, certificaciones, modulos, ciclos RESTART IDENTITY CASCADE;
 
--- 1. CICLOS
+-- 1. CICLOS (4)
 INSERT INTO ciclos (id, sigla, nombre, grado, activo) VALUES
 ('dam', 'DAM', 'Desarrollo de Aplicaciones Multiplataforma', 'Grado Superior', TRUE),
 ('daw', 'DAW', 'Desarrollo de Aplicaciones Web', 'Grado Superior', TRUE),
-('asir', 'ASIR', 'Administración de Sistemas Informáticos en Red', 'Grado Superior', FALSE),
-('smr', 'SMR', 'Sistemas Microinformáticos y Redes', 'Grado Medio', FALSE);
+('asir', 'ASIR', 'Administración de Sistemas Informáticos en Red', 'Grado Superior', TRUE),
+('smr', 'SMR', 'Sistemas Microinformáticos y Redes', 'Grado Medio', TRUE);
 
--- 2. MÓDULOS
-INSERT INTO modulos (id, nombre, descripcion, activo) VALUES
-('programacion', 'Programación', 'Java, programación orientada a objetos, estructuras de control, colecciones y excepciones.', TRUE),
-('bases-de-datos', 'Bases de datos', 'Modelo entidad-relación, modelo relacional, normalización y SQL (DDL, DML, DCL).', TRUE),
-('entornos-de-desarrollo', 'Entornos de desarrollo', 'Ciclo de vida del software, control de versiones con Git, pruebas, depuración y UML.', TRUE),
-('lenguajes-de-marcas', 'Lenguajes de marcas y sistemas de gestión de información', 'HTML, CSS, XML, validación con DTD y XSD, XPath, XSLT, XQuery y JSON.', TRUE),
-('sistemas-informaticos', 'Sistemas informáticos', 'Hardware, sistemas operativos Windows y Linux, redes, direccionamiento IP y virtualización.', TRUE),
-('cliente', 'Desarrollo web en entorno cliente', 'Arquitecturas cliente, JavaScript moderno, objetos predefinidos y BOM, funciones/clases/arrays, DOM, eventos, formularios, fetch/AJAX y frameworks SPA.', TRUE),
-('servidor', 'Desarrollo web en entorno servidor', 'Arquitectura servidor, PHP 8.3 y Laravel, formularios, sesiones, PDO/ORM, seguridad OWASP Top 10, MVC, APIs REST, páginas dinámicas y aplicaciones híbridas.', TRUE),
-('despliegue', 'Despliegue de aplicaciones web', 'Servidores web y de aplicaciones, DNS, HTTPS, transferencia de ficheros, Docker y CI/CD.', TRUE),
-('interfaces-web', 'Diseño de interfaces web', 'Planificación visual y guías de estilo, maquetación CSS con Flexbox/Grid y diseño responsive, optimización e integración multimedia, accesibilidad WCAG 2.2 y usabilidad ISO 9241-11.', TRUE),
-('acceso-a-datos', 'Acceso a datos', 'Ficheros (TXT, CSV, JSON con Jackson, NIO.2), JDBC con PostgreSQL y patrón DAO, ORM con JPA/Hibernate, XML (XmlMapper, DOM/SAX) y bases de datos NoSQL.', TRUE),
-('moviles', 'Programación multimedia y dispositivos móviles', 'Android con Kotlin: layouts XML (LinearLayout, ConstraintLayout), actividades, ciclo de vida, intents, listas, persistencia y Jetpack Compose.', TRUE),
-('procesos', 'Programación de servicios y procesos', 'Procesos e hilos, sincronización, sockets TCP/UDP y fundamentos de criptografía.', TRUE),
-('interfaces', 'Desarrollo de interfaces', 'Interfaces de escritorio con JavaFX y Swing, componentes, informes, usabilidad y distribución.', TRUE),
-('gestion-empresarial', 'Sistemas de gestión empresarial', 'ERP y CRM, implantación, Odoo y desarrollo de módulos, inteligencia de negocio.', TRUE),
-('implantacion-so', 'Implantación de sistemas operativos', 'Estructura de un sistema operativo, instalación, particionado, usuarios, permisos y procesos en Windows y Linux.', FALSE),
-('planificacion-redes', 'Planificación y administración de redes', 'Modelos OSI y TCP/IP, cableado, conmutación, VLAN, direccionamiento, enrutamiento y redes inalámbricas.', FALSE),
-('fundamentos-hardware', 'Fundamentos de hardware', 'Componentes del equipo, almacenamiento, RAID, alimentación, copias de seguridad y gestión de residuos.', FALSE),
-('gestion-bases-datos', 'Gestión de bases de datos', 'Sistemas gestores, diseño conceptual y lógico, normalización y SQL para definir y manipular datos.', FALSE),
-('administracion-so', 'Administración de sistemas operativos', 'Servicio de directorio (Active Directory y LDAP), directivas de grupo, automatización con scripts y servicios en Linux.', FALSE),
-('servicios-red-internet', 'Servicios de red e Internet', 'DNS, DHCP, servidores web, transferencia de ficheros, correo electrónico, acceso remoto y proxy.', FALSE),
-('implantacion-aplicaciones-web', 'Implantación de aplicaciones web', 'Pila LAMP, instalación y administración de CMS y LMS, PHP básico y mantenimiento de aplicaciones web.', FALSE),
-('administracion-sgbd', 'Administración de sistemas gestores de bases de datos', 'Instalación y configuración de MySQL, usuarios y privilegios, rendimiento, programación en el servidor, copias y replicación.', FALSE),
-('seguridad-alta-disponibilidad', 'Seguridad y alta disponibilidad', 'Principios de seguridad, cortafuegos, VPN, detección de intrusiones, criptografía, alta disponibilidad y legislación.', FALSE),
-('montaje-equipos', 'Montaje y mantenimiento de equipos', 'Componentes, montaje del equipo, fuente de alimentación, diagnóstico de averías y mantenimiento.', FALSE),
-('so-monopuesto', 'Sistemas operativos monopuesto', 'Instalación y uso de Windows y Linux en un equipo, sistemas de ficheros, línea de comandos y virtualización.', FALSE),
-('aplicaciones-ofimaticas', 'Aplicaciones ofimáticas', 'Procesador de textos, hoja de cálculo, bases de datos de escritorio y presentaciones.', FALSE),
-('redes-locales', 'Redes locales', 'Elementos de una red local, cableado estructurado, conectores, dispositivos de interconexión y Wi-Fi.', FALSE),
-('so-en-red', 'Sistemas operativos en red', 'Dominios y grupos de trabajo, usuarios y grupos, recursos compartidos, permisos y acceso remoto.', FALSE),
-('seguridad-informatica', 'Seguridad informática', 'Seguridad física y lógica, malware, copias de seguridad, cifrado, cortafuegos y buenas prácticas.', FALSE),
-('servicios-en-red', 'Servicios en red', 'Instalación y configuración de DHCP, DNS, servidor web, FTP, correo y acceso remoto.', FALSE),
-('aplicaciones-web', 'Aplicaciones web', 'Servidores web locales, gestores de contenidos, blogs, wikis, foros y plataformas de aprendizaje.', FALSE),
-('itp', 'Itinerario personal para la empleabilidad I (ITP)', 'Prevención de riesgos laborales, primeros auxilios, derecho del trabajo, contrato, nómina, Seguridad Social y autoconocimiento.', TRUE),
-('itp-2', 'Itinerario personal para la empleabilidad II (ITP 2)', 'Búsqueda activa de empleo, procesos de selección, marca personal, emprendimiento, plan de empresa, formas jurídicas y viabilidad.', TRUE),
-('sostenibilidad', 'Sostenibilidad aplicada al sistema productivo', 'Desarrollo sostenible, Agenda 2030 y criterios ASG, retos ambientales y sociales del desarrollo web, economía circular y ecodiseño digital, huella de carbono, Green IT y plan de sostenibilidad.', TRUE),
-('digitalizacion', 'Digitalización aplicada a los sectores productivos', 'Economía digital e IT/OT, Tecnologías Habilitadoras Digitales (THD), Cloud/Edge Computing, Inteligencia Artificial (AI Act), Analítica de datos, Ciberseguridad y Proyecto de transformación digital.', TRUE),
-('ingles', 'Inglés profesional', 'Inglés técnico para desarrollo y sistemas: tiempos verbales, sprints, código, modales, condicionales, voz pasiva, relativos, reported speech y presentaciones.', TRUE),
-('mpo-arquitectura-nube', 'MPO II · Arquitectura en la nube', 'Arquitecturas cloud híbridas y multicloud, diseño multi-región, seguridad Zero Trust, redes avanzadas, contenedores/serverless, datos, IaC, observabilidad, FinOps y DevOps.', TRUE);
+-- 2. MÓDULOS (37) CON HOJAS DE RUTA
+INSERT INTO modulos (id, nombre, descripcion, hoja_ruta_md, activo) VALUES
+('programacion', 'Programación', 'Java, programación orientada a objetos, estructuras de control, colecciones y excepciones.', NULL, TRUE),
+('bases-de-datos', 'Bases de datos', 'Modelo entidad-relación, modelo relacional, normalización y SQL (DDL, DML, DCL).', NULL, TRUE),
+('entornos-de-desarrollo', 'Entornos de desarrollo', 'Ciclo de vida del software, control de versiones con Git, pruebas, depuración y UML.', NULL, TRUE),
+('lenguajes-de-marcas', 'Lenguajes de marcas y sistemas de gestión de información', 'HTML, CSS, XML, validación con DTD y XSD, XPath, XSLT, XQuery y JSON.', NULL, TRUE),
+('sistemas-informaticos', 'Sistemas informáticos', 'Hardware, sistemas operativos Windows y Linux, redes, direccionamiento IP y virtualización.', NULL, TRUE),
+('cliente', 'Desarrollo web en entorno cliente', 'Arquitecturas cliente, JavaScript moderno, objetos predefinidos y BOM, funciones/clases/arrays, DOM, eventos, formularios, fetch/AJAX y frameworks SPA.', '# Hoja de Ruta · Desarrollo web en entorno cliente (2.º DAW)
+
+**Ciclo:** DAW (2.º Curso)  
+**Módulo:** `cliente`
+
+---
+
+## Unidades y Temas de Repaso (9 Unidades Oficiales)
+
+| Unidad (`tema`) | Título de la Unidad | Conceptos clave para repaso de fallos |
+| :--- | :--- | :--- |
+| **UT 1** (`tema: 1`) | Arquitecturas y tecnologías del cliente web | Ejecución en cliente vs servidor, carga de scripts (`<script defer>`, `async`, `type="module"`), funcionamiento interno del navegador (construcción del árbol DOM y CSSOM, motor JS), capacidades y límites de las Web APIs, separación en 3 capas (HTML semántico, CSS presentación, JS comportamiento), ECMAScript, TypeScript, WebAssembly y entorno de trabajo (VS Code, Git, DevTools, Node.js, npm, empaquetador y linter). |
+| **UT 2** (`tema: 2`) | Fundamentos del lenguaje: sintaxis y sentencias | Declaración de variables con `let` y `const` (evitando `var`), los 7 tipos primitivos (`number`, `string`, `boolean`, `undefined`, `null`, `symbol`, `bigint`) y `object`, comprobación con `typeof` y `Array.isArray`, conversiones de tipo, valores *falsy* y coma flotante, operadores aritméticos (`%`, `**`), comparación estricta (`===`), lógicos, fusión nula (`??`) y encadenamiento opcional (`?.`), estructuras de control (`if`, `switch`, ternario, `for`, `while`, `for...of`, `for...in`), ámbito (*scope*), elevación (*hoisting*), zona muerta temporal (TDZ) y documentación JSDoc. |
+| **UT 3** (`tema: 3`) | Objetos predefinidos del lenguaje | Objetos nativos (`Math`, `Date`, `String`, `Number`, `JSON`, formato regional con `Intl`), modelo de objetos del navegador (BOM: `window`, `location`, `navigator`, `screen`, `history`), ventanas y comunicación segura con `postMessage`, temporizadores (`setTimeout`, `setInterval`, `clearTimeout`), generación segura de contenido (`textContent` frente a `innerHTML` con datos ajenos), almacenamiento en cliente (`localStorage`, `sessionStorage`, cookies e IndexedDB) y herramientas de consola (`console.dir`, `console.table`, `console.group`). |
+| **UT 4** (`tema: 4`) | Estructuras definidas por el usuario | Funciones declaradas, expresiones de función y funciones flecha (`this` léxico), valores por defecto, parámetro resto (`...rest`), desestructuración, cierres (*closures*) y funciones de orden superior (*callbacks*), arrays (`at()`, métodos que mutan vs métodos inmutables, operaciones agregadas `map`, `filter`, `reduce`), objetos literales, clases ES6 (`constructor`, getters/setters, campos privados `#`, `static`, `extends`), módulos ES (`import`/`export`) y patrones de diseño (módulo, factoría, observador y singleton). |
+| **UT 5** (`tema: 5`) | Manipulación del DOM | Árbol DOM y tipos de nodo, diferencia entre colecciones vivas (`HTMLCollection`) y estáticas (`NodeList`), selección de elementos (`getElementById`, `querySelector`, `querySelectorAll`), manejo de `dataset`, atributos, `classList` y estilos, creación, clonación, inserción y eliminación de nodos con `<template>` y `DocumentFragment`, rendimiento (evitar *reflows* y *repaints* innecesarios), detección de funcionalidades (*feature detection*) y accesibilidad ARIA. |
+| **UT 6** (`tema: 6`) | Eventos e interactividad | Modelo de eventos y `addEventListener`, el objeto `event` (`target` vs `currentTarget`), las 3 fases de propagación (captura, objetivo y burbujeo), `preventDefault()` vs `stopPropagation()`, diferencia entre `mouseover`/`mouseout` (burbujean) y `mouseenter`/`mouseleave` (no burbujean), delegación de eventos en contenedores estables, eventos personalizados (`CustomEvent`), alternancia de clases CSS en lugar de estilos en línea y accesibilidad por teclado con elementos nativos (`<button>`, `<a href>`, `<input>`). |
+| **UT 7** (`tema: 7`) | Formularios y validación en cliente | Gestión de `<form>` y acceso a controles mediante `form.elements`, validación en `submit` y en tiempo real con `input`, las 5 familias de reglas (obligatoriedad, longitud, rango, formato y coherencia entre campos), Constraint Validation API, expresiones regulares (`RegExp`), empaquetado y envío con `FormData`, lectura/escritura de `document.cookie`, pruebas de casos válidos, inválidos y valores límite, y estado centralizado en formularios multipaso. |
+| **UT 8** (`tema: 8`) | Comunicación asíncrona: fetch, AJAX y APIs | Modelo asíncrono de JavaScript (un solo hilo, *Call Stack*, Web APIs, cola de tareas y *Event Loop*), promesas y `async/await`, API `fetch(url, opciones)` y objeto `Response`, serialización con `JSON.stringify` y `JSON.parse` (y sus límites con fechas, `undefined` y funciones), política del mismo origen (*Same-Origin Policy*) y cabeceras CORS (`Access-Control-Allow-Origin`), antirrebote (*debounce*), cancelación de peticiones en vuelo con `AbortController`, y tiempo real con Server-Sent Events (SSE) y WebSockets. |
+| **UT 9** (`tema: 9`) | Aplicaciones dinámicas y frameworks de cliente | Aplicaciones de página única (SPA), arquitectura basada en componentes y reactividad, renderizado declarativo frente a manipulación imperativa del DOM, comunicación entre componentes, ubicación del estado y enrutado en cliente, Web Components nativos (Custom Elements, Shadow DOM y `<template>`), herramientas de proyecto (`npm`, `package-lock.json`, módulos ES y Vite), accesibilidad en SPA (gestión del foco, `<title>` y regiones `aria-live`) y comparativa entre SPA, SSR y generación estática (SSG). |
+', TRUE),
+('servidor', 'Desarrollo web en entorno servidor', 'Arquitectura servidor, PHP 8.3 y Laravel, formularios, sesiones, PDO/ORM, seguridad OWASP Top 10, MVC, APIs REST, páginas dinámicas y aplicaciones híbridas.', '# Hoja de Ruta · Desarrollo web en entorno servidor (2º DAW)
+
+Módulo en base de datos: `servidor`
+
+## Unidades y Temas de Repaso (10 Unidades Oficiales)
+
+| Unidad (`tema`) | Título de la Unidad | Conceptos clave para repaso de fallos |
+| :--- | :--- | :--- |
+| **UT 1** (`tema: 1`) | Arquitecturas y tecnologías del servidor web | Ejecución en servidor vs cliente, generación dinámica, servidor web vs servidor de aplicaciones, mecanismos CGI, FastCGI y PHP-FPM, ciclo de vida de una petición HTTP, entorno reproducible con PHP 8.3, Composer y contenedores, primer contacto con Laravel. |
+| **UT 2** (`tema: 2`) | Integración de código en el servidor y lenguajes de marcas | Código embebido (`<?php ?>`), sintaxis básica, variables (`$`), ámbito, tipado dinámico y conversiones seguras, comparación estricta (`===`) frente a laxa (`==`), manejo de cadenas y escapado de salida según contexto, `include` vs `require`. |
+| **UT 3** (`tema: 3`) | Estructuras de programación embebidas | Estructuras de decisión (`if/else`, `switch`, `match`), bucles (`for`, `while`, `foreach`, `break`, `continue`), arrays asociativos y multidimensionales, funciones con tipos declarados y argumentos nombrados, procesamiento de formularios (`$_GET`, `$_POST`), validación en servidor, patrón Post-Redirect-Get (PRG), protección CSRF y subida segura de ficheros. |
+| **UT 4** (`tema: 4`) | Aplicaciones web con funcionalidades del servidor | Mantenimiento del estado en HTTP: sesiones en servidor (`session_start`, `$_SESSION`) vs cookies en cliente, atributos de seguridad (`HttpOnly`, `Secure`, `SameSite`), autenticación frente a autorización (perfiles y roles), almacenamiento de contraseñas con `password_hash` (Argon2id/bcrypt) y `password_verify`, protección contra fijación de sesión (`session_regenerate_id`) y fuerza bruta. |
+| **UT 5** (`tema: 5`) | Acceso a almacenes de datos desde el servidor | Interfaz PDO y configuración segura del DSN, operaciones CRUD con sentencias preparadas (`prepare`/`execute`), transacciones ACID (`beginTransaction`, `commit`, `rollBack`), constructores de consultas y ORM (Eloquent, Doctrine), problema N+1 y eager loading (`with`), patrón Repositorio, pruebas de integración con rollback y migraciones compatibles en producción. |
+| **UT 6** (`tema: 6`) | Seguridad e integridad de la información | OWASP Top 10 aplicado al servidor: prevención de Inyección SQL (sentencias preparadas y listas blancas en `ORDER BY`), validación de entrada y escapado de salida (`htmlspecialchars`) contra XSS, tokens CSRF, Control de acceso roto (Broken Access Control / IDOR), HTTPS y cabeceras de seguridad, cumplimiento del RGPD y LOPDGDD (minimización, cifrado en reposo, seudonimización y registro de actividad). |
+| **UT 7** (`tema: 7`) | Separación presentación/lógica: patrón MVC | Problemas de mezclar lógica y HTML, recorrido completo de una petición en un framework MVC (enrutado, middleware, controlador, modelo, vista y respuesta), modelos Eloquent, plantillas Blade (`{{ }}` escapado, herencia de layouts y componentes), sesiones y mensajes flash, principios SOLID e inyección de dependencias. |
+| **UT 8** (`tema: 8`) | Servicios web y APIs REST | Arquitectura REST (recursos como sustantivos, verbos HTTP `GET/POST/PUT/PATCH/DELETE`, naturaleza stateless y códigos de estado HTTP), seguridad en APIs (`Authorization: Bearer`), documentación con OpenAPI, consumo de APIs externas desde el servidor (ocultación de claves y sin bloqueo CORS), paginación obligatoria en listados, servicios SOAP heredados, GraphQL y gRPC. |
+| **UT 9** (`tema: 9`) | Frameworks del servidor: páginas dinámicas | Estrategias de generación de HTML (SSR, CSR, híbrido), validación declarativa en Laravel, interactividad parcial desde el servidor (fragmentos HTML / HTMX), notificaciones desde el servidor (SSE / WebSockets), accesibilidad en actualizaciones parciales (`aria-live`, `aria-busy`) y mejora progresiva, estado de pantalla en URL (query string) vs estado de usuario en sesión, internacionalización (i18n), envío de correo y generación de PDF. |
+| **UT 10** (`tema: 10`) | Aplicaciones web híbridas y repositorios heterogéneos | Aplicaciones híbridas (*mashups*) y reutilización de código con Composer (`composer.json`, autoload), consumo de datos abiertos y formatos externos (JSON, CSV, XML), protección de datos (RGPD y contrato de encargado de tratamiento al usar servicios de terceros), pruebas con dobles, respuestas grabadas y pruebas de contrato, observabilidad y tolerancia a fallos (timeouts, caché y degradación elegante). |
+', TRUE),
+('despliegue', 'Despliegue de aplicaciones web', 'Servidores web y de aplicaciones, DNS, HTTPS, transferencia de ficheros, Docker y CI/CD.', NULL, TRUE),
+('interfaces-web', 'Diseño de interfaces web', 'Planificación visual y guías de estilo, maquetación CSS con Flexbox/Grid y diseño responsive, optimización e integración multimedia, accesibilidad WCAG 2.2 y usabilidad ISO 9241-11.', '# Diseño de interfaces web — Hoja de ruta
+
+> **Curso:** 2.º de Ciclo Formativo de Grado Superior en Desarrollo de Aplicaciones Web (DAW)
+> **Módulo profesional:** Diseño de interfaces web (`interfaces-web`)
+
+---
+
+## Mapa general del módulo
+
+El módulo recorre el ciclo completo de diseño, maquetación, preparación multimedia, interactividad, accesibilidad y usabilidad de una interfaz web moderna:
+
+1. **UT 1 · Planificación de la interfaz web:** Comunicación visual, guía de estilo, *design tokens*, arquitectura de la información (*card sorting*, mapa de navegación, *wireframes* y prototipos) y retícula de 12 columnas.
+2. **UT 2 · Estilos y maquetación homogénea (CSS):** Hojas de estilo, selectores, cascada y especificidad, Flexbox, CSS Grid, diseño *responsive* (*mobile-first*, funciones fluidas, *container queries*), preferencias del usuario y validación CSS.
+3. **UT 3 · Preparación de archivos multimedia:** Propiedad intelectual y licencias Creative Commons, mapas de bits (JPEG, PNG, WebP, AVIF) frente a vectoriales (SVG), imágenes *responsive* (`srcset`, `sizes`, `<picture>`), contenedor frente a códec en audio y vídeo (`MP4 H.264/AAC`, `WebM VP9/Opus`), FFmpeg y subtítulos `WebVTT`.
+4. **UT 4 · Integración de contenido multimedia e interactivo:** Etiquetas nativas HTML5 (`<video>`, `<audio>`, `<track>`), `<iframe>` seguro y accesible, elementos interactivos nativos (`<details>`, `<dialog>`), animaciones y eventos, herramientas gráficas interactivas (Genially, H5P) y pruebas en matriz de navegadores.
+5. **UT 5 · Interfaces web accesibles:** Marco legal (RD 1112/2018 y Ley Europea de Accesibilidad), W3C/WAI y pautas **WCAG 2.2** (niveles A, AA y AAA; principios Perceptible, Operable, Comprensible y Robusto), árbol de accesibilidad, WAI-ARIA, evaluación de conformidad y relación con el SEO.
+6. **UT 6 · Interfaces web amigables (usabilidad):** Definición de usabilidad según **ISO 9241-11** (eficacia, eficiencia y satisfacción), las 10 heurísticas de Jakob Nielsen, estabilidad en la navegación, rendimiento percibido, evaluación heurística de 3 a 5 evaluadores frente a pruebas con usuarios reales y matriz de compatibilidad.
+
+---
+
+## UT 1 · Planificación de la interfaz web
+
+### Qué aprenderás
+- Aplicar los principios de la comunicación visual y de la Gestalt (jerarquía, contraste, proximidad, semejanza, alineación, espacio en blanco y coherencia) a una interfaz web.
+- Construir una **guía de estilo** con *design tokens* para color (modelo RGB/HSL en pantalla), escala tipográfica (serif, sans-serif, monoespaciada) y espaciado.
+- Definir el catálogo de componentes y sus estados interactivos (`default`, `hover`, `focus-visible`, `active`, `disabled`, `loading`, `error`).
+- Estructurar la arquitectura de la información mediante *card sorting*, mapa de navegación, esquemas de baja fidelidad (*wireframes*) y prototipos navegables.
+- Diseñar sobre una **retícula (*grid*) de 12 columnas** con márgenes y medianil (*gutter*), valorando cuándo partir de una plantilla y cuándo diseñar a medida.
+
+---
+
+## UT 2 · Estilos y maquetación homogénea (CSS)
+
+### Qué aprenderás
+- Vincular hojas de estilo externas, internas y en línea, y distinguir el papel de los *frameworks* CSS (Bootstrap, Tailwind CSS) y de los preprocesadores (Sass).
+- Dominar selectores avanzados, la cascada, la especificidad, la herencia y las unidades relativas (`rem`, `em`, `%`, `vw`, `vh`, `dvh`).
+- Maquetar en una dimensión con **Flexbox** (`flex-direction`, `flex-wrap`, `justify-content`, `align-items`, `gap`) y en dos dimensiones con **CSS Grid** (`grid-template-columns`, `grid-template-rows`, `repeat()`, `minmax()`, `fr`).
+- Implementar diseño *responsive* con enfoque ***mobile-first*** (`@media (min-width: ...)`), metaetiqueta `viewport`, funciones fluidas (`clamp()`) y ***container queries*** (`@container`).
+- Respetar las preferencias del sistema operativo del usuario mediante `@media (prefers-color-scheme)` y `@media (prefers-reduced-motion)`.
+- Validar, depurar y auditar el rendimiento de las hojas de estilo desde las herramientas para desarrolladores del navegador.
+
+---
+
+## UT 3 · Preparación de archivos multimedia
+
+### Qué aprenderás
+- Identificar derechos de autor, licencias **Creative Commons** (`CC BY`, `CC BY-SA`, `CC BY-NC`, `CC0`) y bancos de recursos de dominio público.
+- Elegir entre formatos de **mapa de bits** (JPEG, PNG, WebP, AVIF) y formatos **vectoriales** (SVG en XML con `viewBox` escalable sin pérdida).
+- Optimizar peso y dimensiones y servir imágenes adaptativas con `srcset`, `sizes` y el elemento `<picture>`.
+- Distinguir entre **formato contenedor** y **códec** de audio/vídeo: producir el par compatible **`MP4` (`H.264 + AAC`)** y **`WebM` (`VP9/AV1 + Opus`)**.
+- Recodificar y comprimir medios con **FFmpeg** y redactar archivos de subtítulos sincronizados en formato **`WebVTT` (`.vtt`)**.
+
+---
+
+## UT 4 · Integración de contenido multimedia e interactivo
+
+### Qué aprenderás
+- Integrar audio y vídeo con las etiquetas nativas de HTML5 (`<video>`, `<audio>`, `<source>`, `<track>`) y configurar `<iframe>` de forma segura (`sandbox`, `loading="lazy"`, `title` descriptivo).
+- Priorizar los elementos interactivos nativos de HTML (`<details>`/`<summary>`, `<dialog>`) antes de programar componentes equivalentes desde cero en JavaScript.
+- Crear transiciones y animaciones con CSS (`transition`, `@keyframes`, `animation`) y controlar eventos y la API `HTMLMediaElement` con `addEventListener`.
+- Conocer herramientas gráficas para contenido interactivo integrable en web (como **Genially** o **H5P**).
+- Verificar el comportamiento sobre una matriz de navegadores y dispositivos (Chrome, Firefox, Edge, Safari, iOS Safari y Android Chrome).
+
+---
+
+## UT 5 · Interfaces web accesibles
+
+### Qué aprenderás
+- Conocer el marco normativo de accesibilidad: **Real Decreto 1112/2018** (sector público) y la **Ley Europea de Accesibilidad**.
+- Aplicar las pautas **WCAG 2.2** del W3C/WAI en sus niveles de conformidad **A, AA y AAA** bajo los cuatro principios **POUR** (*Perceptible, Operable, Comprensible y Robusto*):
+  - **1.1.1 Contenido no textual:** atributo `alt` descriptivo en imágenes informativas y `alt=""` en imágenes decorativas.
+  - **1.4.3 Contraste mínimo (AA):** relación mínima de **4.5:1** para texto normal y **3:1** para texto grande (7:1 en nivel AAA).
+  - **2.1.1 Teclado y 2.1.2 Sin trampas para el foco:** toda la funcionalidad operable con teclado sin dejar atrapado el foco.
+  - **4.1.2 Nombre, función y valor:** exposición correcta en el árbol de accesibilidad y uso responsable de **WAI-ARIA** (`aria-label`, `aria-expanded`, `aria-live`) sin sustituir nunca el HTML semántico nativo.
+- Diferenciar una **revisión preliminar** de una **evaluación de conformidad**, redactar una declaración de accesibilidad y comprender la sinergia entre accesibilidad y **SEO**.
+
+---
+
+## UT 6 · Interfaces web amigables (usabilidad)
+
+### Qué aprenderás
+- Definir y medir la **usabilidad** conforme a la norma **ISO 9241-11**: grado en que un producto puede ser utilizado por usuarios específicos para alcanzar objetivos específicos con **eficacia** (completar la tarea con exactitud), **eficiencia** (esfuerzo y tiempo empleados) y **satisfacción** en un contexto de uso determinado.
+- Evaluar interfaces con las **10 heurísticas de usabilidad de Jakob Nielsen** (visibilidad del estado del sistema, correspondencia con el mundo real, control y libertad del usuario, consistencia y estándares, prevención de errores, reconocer antes que recordar, flexibilidad y eficiencia, diseño estético y minimalista, ayuda ante errores y documentación).
+- Garantizar la estabilidad en la navegación (menú consistente, migas de pan, logotipo enlazado al inicio) y cuidar la velocidad y el rendimiento percibido (*skeletons*, indicadores de progreso, *Core Web Vitals*).
+- Combinar la **evaluación heurística en grupo** (entre 3 y 5 evaluadores independientes que luego consensúan hallazgos) con **pruebas con usuarios reales** pensadas en voz alta (*think-aloud*).
+- Construir una matriz de compatibilidad basada en la analítica real del sitio.
+', TRUE),
+('acceso-a-datos', 'Acceso a datos', 'Ficheros (TXT, CSV, JSON con Jackson, NIO.2), JDBC con PostgreSQL y patrón DAO, ORM con JPA/Hibernate, XML (XmlMapper, DOM/SAX) y bases de datos NoSQL.', NULL, TRUE),
+('moviles', 'Programación multimedia y dispositivos móviles', 'Android con Kotlin: layouts XML (LinearLayout, ConstraintLayout), actividades, ciclo de vida, intents, listas, persistencia y Jetpack Compose.', NULL, TRUE),
+('procesos', 'Programación de servicios y procesos', 'Procesos e hilos, sincronización, sockets TCP/UDP y fundamentos de criptografía.', NULL, TRUE),
+('interfaces', 'Desarrollo de interfaces', 'Interfaces de escritorio con JavaFX y Swing, componentes, informes, usabilidad y distribución.', NULL, TRUE),
+('gestion-empresarial', 'Sistemas de gestión empresarial', 'ERP y CRM, implantación, Odoo y desarrollo de módulos, inteligencia de negocio.', NULL, TRUE),
+('implantacion-so', 'Implantación de sistemas operativos', 'Estructura de un sistema operativo, instalación, particionado, usuarios, permisos y procesos en Windows y Linux.', NULL, TRUE),
+('planificacion-redes', 'Planificación y administración de redes', 'Modelos OSI y TCP/IP, cableado, conmutación, VLAN, direccionamiento, enrutamiento y redes inalámbricas.', NULL, TRUE),
+('fundamentos-hardware', 'Fundamentos de hardware', 'Componentes del equipo, almacenamiento, RAID, alimentación, copias de seguridad y gestión de residuos.', NULL, TRUE),
+('gestion-bases-datos', 'Gestión de bases de datos', 'Sistemas gestores, diseño conceptual y lógico, normalización y SQL para definir y manipular datos.', NULL, TRUE),
+('administracion-so', 'Administración de sistemas operativos', 'Servicio de directorio (Active Directory y LDAP), directivas de grupo, automatización con scripts y servicios en Linux.', NULL, TRUE),
+('servicios-red-internet', 'Servicios de red e Internet', 'DNS, DHCP, servidores web, transferencia de ficheros, correo electrónico, acceso remoto y proxy.', NULL, TRUE),
+('implantacion-aplicaciones-web', 'Implantación de aplicaciones web', 'Pila LAMP, instalación y administración de CMS y LMS, PHP básico y mantenimiento de aplicaciones web.', NULL, TRUE),
+('administracion-sgbd', 'Administración de sistemas gestores de bases de datos', 'Instalación y configuración de MySQL, usuarios y privilegios, rendimiento, programación en el servidor, copias y replicación.', NULL, TRUE),
+('seguridad-alta-disponibilidad', 'Seguridad y alta disponibilidad', 'Principios de seguridad, cortafuegos, VPN, detección de intrusiones, criptografía, alta disponibilidad y legislación.', NULL, TRUE),
+('montaje-equipos', 'Montaje y mantenimiento de equipos', 'Componentes, montaje del equipo, fuente de alimentación, diagnóstico de averías y mantenimiento.', NULL, TRUE),
+('so-monopuesto', 'Sistemas operativos monopuesto', 'Instalación y uso de Windows y Linux en un equipo, sistemas de ficheros, línea de comandos y virtualización.', NULL, TRUE),
+('aplicaciones-ofimaticas', 'Aplicaciones ofimáticas', 'Procesador de textos, hoja de cálculo, bases de datos de escritorio y presentaciones.', NULL, TRUE),
+('redes-locales', 'Redes locales', 'Elementos de una red local, cableado estructurado, conectores, dispositivos de interconexión y Wi-Fi.', NULL, TRUE),
+('so-en-red', 'Sistemas operativos en red', 'Dominios y grupos de trabajo, usuarios y grupos, recursos compartidos, permisos y acceso remoto.', NULL, TRUE),
+('seguridad-informatica', 'Seguridad informática', 'Seguridad física y lógica, malware, copias de seguridad, cifrado, cortafuegos y buenas prácticas.', NULL, TRUE),
+('servicios-en-red', 'Servicios en red', 'Instalación y configuración de DHCP, DNS, servidor web, FTP, correo y acceso remoto.', NULL, TRUE),
+('aplicaciones-web', 'Aplicaciones web', 'Servidores web locales, gestores de contenidos, blogs, wikis, foros y plataformas de aprendizaje.', NULL, TRUE),
+('itp', 'Itinerario personal para la empleabilidad I (ITP)', 'Prevención de riesgos laborales, primeros auxilios, derecho del trabajo, contrato, nómina, Seguridad Social y autoconocimiento.', NULL, TRUE),
+('itp-2', 'Itinerario personal para la empleabilidad II (ITP 2)', 'Búsqueda activa de empleo, procesos de selección, marca personal, emprendimiento, plan de empresa, formas jurídicas y viabilidad.', NULL, TRUE),
+('sostenibilidad', 'Sostenibilidad aplicada al sistema productivo', 'Desarrollo sostenible, Agenda 2030 y criterios ASG, retos ambientales y sociales del desarrollo web, economía circular y ecodiseño digital, huella de carbono, Green IT y plan de sostenibilidad.', '# Sostenibilidad aplicada al sistema productivo — Hoja de ruta
+
+> **Curso:** 2.º de Ciclos Formativos de Grado Superior y Grado Medio (DAW, DAM, ASIR, SMR)
+> **Módulo profesional:** Sostenibilidad aplicada al sistema productivo (`sostenibilidad`)
+
+---
+
+## Mapa general del módulo
+
+El módulo aterriza los marcos internacionales de sostenibilidad y criterios ASG en el trabajo diario de un profesional del sector tecnológico y del desarrollo web:
+
+1. **UT 1 · La sostenibilidad y los criterios ASG:** Desarrollo sostenible (Informe Brundtland, 1987), límites planetarios, Agenda 2030 y los 17 ODS, criterios ASG (ESG), grupos de interés (*stakeholders* de Freeman), *greenwashing*, métricas bien formuladas, alcances de emisiones 1, 2 y 3 e inversión socialmente responsable.
+2. **UT 2 · Retos ambientales y sociales del sector:** Los 5 canales de impacto ambiental de una aplicación web (equipos, alojamiento, tráfico servido, actividad física desencadenada y desplazamientos), retos sociales (brecha digital, accesibilidad, condiciones laborales), normativa (RAEE, envases, accesibilidad), diferencia entre reducir y compensar y alianzas en la cadena de valor.
+3. **UT 3 · La sostenibilidad en el desempeño profesional del desarrollo web:** Traducción de los 17 ODS a decisiones técnicas cotidianas, elección verificable de alojamiento y proveedores, dimensionamiento ajustado de equipos, reducción de desplazamientos y rechazo argumentado de encargos insostenibles aportando alternativa viable y cifras.
+4. **UT 4 · Producto digital responsable y economía circular:** Del modelo lineal a la economía circular, jerarquía europea de residuos, ecodiseño digital desde el boceto y Análisis de Ciclo de Vida (ACV), diferencia entre reutilización, preparación para la reutilización y reciclado, obsolescencia programada (de hardware y software), derecho a reparar y alegaciones ambientales verificables.
+5. **UT 5 · Actividades sostenibles y tecnología verde:** Inventario de impacto en 5 categorías (energía, materiales, transporte, residuos y agua/catering), cálculo de huella de carbono (`dato de actividad × factor de emisión`), norma **UNE-ISO 20121:2024** de gestión de eventos sostenibles, estrategia *Green IT* (PUE, *Green Coding*) y certificaciones ambientales (ISO 14001).
+6. **UT 6 · El plan de sostenibilidad y el propósito de marca:** Fases de un plan de sostenibilidad, matriz de poder e interés de *stakeholders*, **análisis de doble materialidad** (impacto hacia fuera y riesgo/oportunidad financiera hacia dentro), objetivos medibles, cuadro de seguimiento con línea base y meta, informe de sostenibilidad (CSRD) y propósito de marca frente a *greenwashing*.
+
+---
+
+## UT 1 · La sostenibilidad y los criterios ASG
+
+### Qué aprenderás
+- Explicar el concepto de **desarrollo sostenible** formulado en el **Informe Brundtland (1987)** (*«Nuestro futuro común»*) y el equilibrio entre las dimensiones ambiental, social y económica dentro de los **9 límites planetarios**.
+- Conocer la **Agenda 2030** de la ONU, sus **17 Objetivos de Desarrollo Sostenible (ODS)** y sus 169 metas.
+- Analizar una organización tecnológica bajo los criterios **ASG / ESG** (*Ambiental, Social y Gobernanza*) y la **teoría de los grupos de interés (*stakeholders*) de Freeman** (empleados, clientes, proveedores, inversores, comunidad y entorno).
+- Distinguir entre métricas bien formuladas y prácticas de ***greenwashing*** (ecoblanqueo).
+- Clasificar la huella de carbono corporativa en **Alcance 1** (emisiones directas), **Alcance 2** (emisiones indirectas por electricidad/energía adquirida) y **Alcance 3** (resto de emisiones indirectas en la cadena de valor, incluidos proveedores en la nube y dispositivos de usuarios).
+
+---
+
+## UT 2 · Retos ambientales y sociales del sector
+
+### Qué aprenderás
+- Diagnosticar las **5 vías de impacto ambiental** en el desarrollo web:
+  1. Fabricación y fin de vida de los **equipos** de trabajo y de los usuarios.
+  2. Consumo eléctrico y de agua de refrigeración del **alojamiento** (*hosting* / CPD).
+  3. **Tráfico de red servido** (peso de página, imágenes, vídeo, *scripts* y consultas).
+  4. **Actividad física que el sitio web desencadena** (envíos logísticos, embalajes, devoluciones).
+  5. **Desplazamientos** del equipo humano y de los clientes.
+- Identificar los retos sociales del sector: accesibilidad web, brecha digital, protección de menores, ausencia de patrones oscuros (*dark patterns*) y condiciones laborales dignas.
+- Aplicar la normativa sobre **RAEE** (Residuos de Aparatos Eléctricos y Electrónicos), envases, comunicación comercial y accesibilidad, priorizando siempre **reducir en origen antes que compensar**.
+
+---
+
+## UT 3 · La sostenibilidad en el desempeño profesional del desarrollo web
+
+### Qué aprenderás
+- Traducir los **17 ODS** a decisiones técnicas reales del puesto de desarrollador web (optimización de transferencia, accesibilidad AA, privacidad por diseño, código abierto y eficiencia en servidor), evitando quedarse en colocar iconos de los ODS en el pie de página.
+- Seleccionar proveedores de alojamiento (*cloud* / CPD) y equipamiento exigiendo certificados de energía renovable, PUE auditado y pruebas documentales verificables.
+- Dimensionar los equipos e infraestructuras para no generar capacidad ociosa ni sobrante electrónico, y organizar el teletrabajo y las reuniones remotas para reducir desplazamientos.
+- Formular un **rechazo técnico argumentado** ante encargos o requisitos insostenibles (como vídeos 4K en reproducción automática sin comprimir o arquitecturas sobredimensionadas), acompañándolo siempre de una **alternativa técnica viable y cifras de ahorro** en peso, energía y coste.
+
+---
+
+## UT 4 · Producto digital responsable y economía circular
+
+### Qué aprenderás
+- Transitar del modelo lineal (*extraer, producir, consumir y tirar*) a la **economía circular** aplicando la **jerarquía europea de gestión de residuos**:
+  1. **Prevención** (evitar que se genere el residuo).
+  2. **Preparación para la reutilización**.
+  3. **Reciclado**.
+  4. **Otro tipo de valorización** (incluida la energética).
+  5. **Eliminación** en vertedero.
+- Distinguir con precisión entre **reutilización** (volver a usar un equipo que sigue siendo producto sin haber pasado a ser residuo), **preparación para la reutilización** (comprobar, limpiar o reparar un equipo que ya había sido desechado como residuo para que vuelva a usarse) y **reciclado** (reprocesar los materiales de un residuo para fabricar nuevos componentes).
+- Aplicar el **ecodiseño digital** desde el boceto (donde se decide cerca del 80 % del impacto) y el **Análisis de Ciclo de Vida (ACV / LCA, ISO 14040/14044)**.
+- Combatir la **obsolescencia programada** tanto de *hardware* como de *software* (*bloatware*, retirada prematura de soporte), aplicar el **Derecho a reparar** europeo y respaldar cualquier alegación ambiental con prueba documental.
+
+---
+
+## UT 5 · Actividades sostenibles y tecnología verde
+
+### Qué aprenderás
+- Levantar el **inventario de impacto** de un proyecto web o evento tecnológico en sus **5 categorías**: **energía**, **materiales**, **transporte**, **residuos** y **agua/catering**.
+- Calcular la huella de carbono mediante la fórmula estándar:
+  $$\text{Huella de carbono} = \text{Dato de actividad} \times \text{Factor de emisión}$$
+- Aplicar la norma **UNE-ISO 20121:2024** (*Sistemas de gestión de la sostenibilidad de eventos*) en jornadas técnicas, *hackathons* o lanzamientos de producto.
+- Implantar estrategias de **tecnología verde (*Green IT* y *Green Coding*)**: mejora del indicador **PUE** (*Power Usage Effectiveness*) en centros de datos, uso eficiente de modelos de IA, caché, compresión moderna y sistemas de gestión ambiental certificados bajo **ISO 14001**.
+
+---
+
+## UT 6 · El plan de sostenibilidad y el propósito de marca
+
+### Qué aprenderás
+- Estructurar las fases de un **plan de sostenibilidad** para una empresa o estudio de desarrollo web.
+- Mapear y consultar a los grupos de interés mediante una **matriz de poder e interés**.
+- Ejecutar un **análisis de doble materialidad**:
+  - **Materialidad de impacto (de dentro hacia fuera):** cómo influye la actividad de la empresa sobre el medio ambiente y las personas.
+  - **Materialidad financiera (de fuera hacia dentro):** cómo afectan los riesgos y oportunidades climáticos, regulatorios y sociales a las cuentas, costes y continuidad del negocio.
+- Convertir los asuntos materiales en objetivos medibles con responsable, plazo, recursos e indicador dentro de un **cuadro de seguimiento** (con **línea base**, **meta**, frecuencia de medición, fuente de datos y responsable).
+- Elaborar una memoria o informe de sostenibilidad proporcionado conforme a la **Directiva CSRD** y alinear el **propósito de marca** con hechos verificables, diferenciándolo del *greenwashing*.
+', TRUE),
+('digitalizacion', 'Digitalización aplicada a los sectores productivos', 'Economía digital e IT/OT, Tecnologías Habilitadoras Digitales (THD), Cloud/Edge Computing, Inteligencia Artificial (AI Act), Analítica de datos, Ciberseguridad y Proyecto de transformación digital.', '# Hoja de Ruta · Digitalización aplicada a los sectores productivos
+
+**Ciclos:** DAM · DAW · ASIR · SMR (2.º Curso)  
+**Módulo:** `digitalizacion`
+
+---
+
+## Unidades y Temas de Repaso (6 Unidades Oficiales)
+
+| Unidad (`tema`) | Título de la Unidad | Conceptos clave para repaso de fallos |
+| :--- | :--- | :--- |
+| **UT 1** (`tema: 1`) | La digitalización en el sector del desarrollo de aplicaciones web | De las revoluciones industriales a la economía digital; los tres elementos al digitalizar un proceso (**dato, conectividad y automatización**); sistemas ciberfísicos y desarrollo orientado a datos; diferencias entre entornos **IT** (*Information Technology*) y **OT** (*Operational Technology*) trasladadas a una empresa de software; cadena de herramientas del desarrollo web, nuevos perfiles y riesgos/oportunidades de la digitalización de extremo a extremo. |
+| **UT 2** (`tema: 2`) | Tecnologías digitales habilitadoras aplicadas al desarrollo web | Distinción entre una **Tecnología Digital Habilitadora (THD)** (capacidad transversal de base) y una herramienta sectorial; principales THD (IoT, 5G, Realidad Virtual/Aumentada, Gemelos Digitales, RPA, Blockchain, Cobots); impacto de las THD en el plano de negocio (nuevos mercados y modelos de ingresos) y en el plano operativo (eficiencia, precisión, sostenibilidad y límites legales/ambientales). |
+| **UT 3** (`tema: 3`) | La nube y los servicios cloud en el desarrollo web | Características del Cloud Computing (autoservicio bajo demanda, acceso por red, recursos compartidos, elasticidad rápida y pago por uso); modelos de servicio **IaaS, PaaS y SaaS**; modelos de despliegue (nube pública, privada e híbrida); servicios cloud en un estudio web (repositorios, gestión, alojamiento); **CDN** y velocidad de carga; el continuo desde el dispositivo al centro de datos (**Mist, Fog, Edge y Cloud Computing**); protección de datos, continuidad ante fallos del proveedor y rentabilidad. |
+| **UT 4** (`tema: 4`) | Inteligencia artificial aplicada al desarrollo web | Definición operativa de IA y evolución desde el Machine Learning clásico hasta la **IA generativa**; relación de la IA con la recogida masiva y el ciclo de vida del dato; diferencia entre **automatización** (repetir reglas fijas) y **optimización** (ajustar decisiones con datos); aplicaciones reales de la IA en desarrollo web (asistentes de código, búsqueda semántica, detección de fraude, personalización); instrucciones estructuradas (*prompting*) y **revisión humana obligatoria**; límites de la IA generativa (sesgos, alucinaciones/invención de datos, propiedad intelectual) y obligaciones de transparencia del **Reglamento Europeo de IA — Reglamento (UE) 2024/1689 (AI Act)**. |
+| **UT 5** (`tema: 5`) | Datos, analítica y ciberseguridad en el desarrollo web | Diferencia entre **dato** (hecho aislado), **información** (dato contextualizado) y **conocimiento** (permite tomar una decisión); ciclo de vida, calidad y **gobernanza del dato**; Big Data (5 V), Data Warehouse vs Data Lake y ciencia de datos; diferencia entre un **KPI** (indicador clave ligado a un objetivo) y una **métrica de vanidad**; la tríada de la seguridad de la información (**Confidencialidad, Integridad y Disponibilidad — CIA**); medidas de seguridad en el puesto (contraseñas, MFA, mínimo privilegio, copias 3-2-1), amenazas (ransomware, phishing), respuesta a brechas en plazo y cumplimiento de **RGPD y LOPDGDD**. |
+| **UT 6** (`tema: 6`) | Proyecto de transformación digital de una empresa de desarrollo web | Diagnóstico de la **madurez digital** de una empresa de desarrollo; alineación de iniciativas digitales con los objetivos estratégicos del negocio (facturación, captación, retención, coste o plazo) descartando el «digitalizar por moda»; matriz de priorización por **impacto y esfuerzo**; estructura del documento de proyecto (**alcance —qué entra y qué queda fuera—, fases, responsables, calendario, presupuesto, riesgos e indicadores de éxito**); vías de financiación pública, formación y **gestión del cambio** de las personas afectadas, y ciclo de mejora continua. |
+', TRUE),
+('ingles', 'Inglés profesional', 'Inglés técnico para desarrollo y sistemas: tiempos verbales, sprints, código, modales, condicionales, voz pasiva, relativos, reported speech y presentaciones.', '# Hoja de Ruta · Inglés Profesional (GS)
+
+**Ciclos:** DAM · DAW · ASIR · SMR (2.º Curso)  
+**Módulo:** `ingles`
+
+---
+
+## Distribución de Unidades y Objetivos
+
+### Unidad 1: Starting as a Junior Web Developer — Present and Past Tenses
+- **1.1. Your role and your team:** Present Simple (permanent facts and routines) vs Present Continuous (current tasks).
+- **1.2. Your professional background:** Past Simple and *used to* for career background and onboarding/job interviews.
+- **Objetivos:**
+  - Presentarse, describir el rol propio y el equipo de desarrollo en un contexto profesional.
+  - Describir el trabajo diario y las tareas actuales con tiempos de presente.
+  - Hablar de la trayectoria técnica y profesional con *Past Simple* y *used to*.
+  - Responder preguntas en situaciones de *onboarding* o entrevista de trabajo reconociendo registro y vocabulario de roles web.
+
+### Unidad 2: Sprint Progress and Incident Stories — Present Perfect and Narrative Tenses
+- **2.1. Reporting sprint progress and experience:** Present Perfect vs Past Simple en actualizaciones de *daily stand-up*.
+- **2.2. Telling the story of a bug or a deployment:** Present Perfect Continuous y tiempos narrativos (*Past Simple*, *Past Continuous*, *Past Perfect*) en reportes de incidentes.
+- **Objetivos:**
+  - Informar del progreso del sprint, resultados y experiencia con *Present Perfect*.
+  - Distinguir entre *Present Perfect* y *Past Simple* al hablar del trabajo.
+  - Usar *Present Perfect Continuous* para actividad de desarrollo reciente y en curso.
+  - Narrar la historia de un bug o un despliegue con tiempos narrativos y vocabulario de sprints, bugs y despliegues.
+
+### Unidad 3: Planning a Sprint — Future Forms
+- **3.1. Predictions, decisions and intentions:** *will* y *be going to* en planificación de sprints y *releases*.
+- **3.2. Arrangements, deadlines and the future in progress:** *Present Continuous* para citas/fechas fijadas y *Future Continuous* (*will be doing*).
+- **Objetivos:**
+  - Hablar de planes, intenciones y decisiones para un sprint o lanzamiento con *will* y *be going to*.
+  - Hacer predicciones sobre un proyecto, una fecha de entrega (*deadline*) o el rendimiento de un sistema.
+  - Describir reuniones acordadas y fechas de despliegue con *Present Continuous* y *Future Continuous*.
+  - Redactar correos formales y mensajes informales eligiendo las fórmulas de cortesía adecuadas.
+
+### Unidad 4: Rules, Best Practices and Deductions — Modal Verbs
+- **4.1. Coding standards and best practices:** *must*, *have to*, *mustn''t*, *don''t have to*, *should* y *ought to*.
+- **4.2. Making deductions about a bug:** Verbos modales de deducción y probabilidad (*must*, *might*, *could*, *will*, *can''t*).
+- **Objetivos:**
+  - Expresar obligación y prohibición en estándares de código con *must*, *have to* y *mustn''t*.
+  - Dar y pedir consejo sobre buenas prácticas web con *should* y *ought to*.
+  - Hacer deducciones lógicas sobre un bug o error con *must*, *might*, *could*, *will* y *can''t*.
+  - Traducir estándares de código al español sin traducir atributos, propiedades ni nombres de ficheros.
+
+### Unidad 5: Debugging and Making Technical Decisions — Conditionals
+- **5.1. Explaining conditions and reporting bugs:** *Zero Conditional* y *First Conditional* con *if* y *unless*.
+- **5.2. Discussing hypotheses and past decisions:** *Second Conditional* (soluciones hipotéticas) y *Third Conditional* (análisis de decisiones pasadas y *post-mortems*).
+- **Objetivos:**
+  - Explicar causa y efecto en desarrollo web con el condicional cero y primer condicional (*if* / *unless*).
+  - Debatir soluciones técnicas hipotéticas y dar consejo con el segundo condicional (*If + Past Simple, would + infinitive*).
+  - Analizar decisiones pasadas y sus consecuencias con el tercer condicional (*If + Past Perfect, would have + past participle*).
+
+### Unidad 6: Build, Test and Deploy — The Passive Voice and the Causative
+- **6.1. Describing the build and deploy pipeline:** Voz pasiva en presente, pasado, *present perfect*, futuro y con verbos modales.
+- **6.2. Outsourcing tasks with the causative:** Estructura causativa *have / get something done*.
+- **Objetivos:**
+  - Describir cómo se compila, testea y despliega una aplicación web usando la voz pasiva.
+  - Informar de lo que se hace, se hizo y se hará en un pipeline de CI/CD.
+  - Hablar de tareas externalizadas o delegadas mediante el causativo (*have/get something done*).
+
+### Unidad 7: Describing Pages, Components and Users — Relative Clauses
+- **7.1. Describing pages and their components:** Oraciones de relativo especificativas (*defining relative clauses*) con *who*, *which*, *that* y *where*.
+- **7.2. Adding information about APIs and people:** Oraciones de relativo explicativas (*non-defining relative clauses*) entre comas.
+- **Objetivos:**
+  - Describir páginas web, componentes, endpoints, usuarios y funcionalidades con *who*, *which*, *that* y *where*.
+  - Añadir información extra sobre una API o un miembro del equipo usando *non-defining relative clauses* entre comas.
+  - Distinguir información esencial de información adicional en presentaciones de proyectos.
+
+### Unidad 8: Dailies and Code Reviews — Reported Speech
+- **8.1. Reporting statements and feedback:** Estilo indirecto en afirmaciones (*say*, *tell*) de dailies y reuniones con clientes.
+- **8.2. Reporting questions, orders and advice:** Preguntas indirectas (*ask*, *want to know*) y órdenes/sugerencias (*tell*, *ask*, *explain*, *suggest*, *agree*).
+- **Objetivos:**
+  - Transmitir afirmaciones, preguntas, órdenes y sugerencias de *stand-ups* y *code reviews* en estilo indirecto (*Reported Speech*).
+  - Seguir llamadas técnicas en entornos con ruido y pedir repetición o confirmación con fluidez.
+
+### Unidad 9: Comparing Web Technologies and Pitching the Final Demo — Advanced Comparatives and Superlatives
+- **9.1. Comparing frameworks and architectures:** Modificadores comparativos (*much / far / a lot* + comparativo) y superlativos (*by far the*), igualdad (*as…as*) y correlación (*the more…the more*).
+- **9.2. Describing trends and pitching the demo:** Presentación de la demo final, *benchmarking*, cortesía indirecta y diferencias entre inglés británico y estadounidense.
+- **Objetivos:**
+  - Comparar frameworks, arquitecturas y herramientas con estructuras comparativas y superlativas avanzadas.
+  - Preparar y exponer el *pitch* de una demo final ajustando el registro y las variedades regionales (UK vs US English).
+
+---
+
+## Resumen de la distribución de contenidos
+
+| Unidad | Título | Temas principales |
+|---|---|---|
+| **Unidad 1** | Starting as a Junior Web Developer — Present and Past Tenses | Your role and your team, Your professional background |
+| **Unidad 2** | Sprint Progress and Incident Stories — Present Perfect and Narrative Tenses | Reporting sprint progress and experience, Telling the story of a bug or a deployment |
+| **Unidad 3** | Planning a Sprint — Future Forms | Predictions, decisions and intentions, Arrangements, deadlines and the future in progress |
+| **Unidad 4** | Rules, Best Practices and Deductions — Modal Verbs | Coding standards and best practices, Making deductions about a bug |
+| **Unidad 5** | Debugging and Making Technical Decisions — Conditionals | Explaining conditions and reporting bugs, Discussing hypotheses and past decisions |
+| **Unidad 6** | Build, Test and Deploy — The Passive Voice and the Causative | Describing the build and deploy pipeline, Outsourcing tasks with the causative |
+| **Unidad 7** | Describing Pages, Components and Users — Relative Clauses | Describing pages and their components, Adding information about APIs and people |
+| **Unidad 8** | Dailies and Code Reviews — Reported Speech | Reporting statements and feedback, Reporting questions, orders and advice |
+| **Unidad 9** | Comparing Web Technologies and Pitching the Final Demo — Advanced Comparatives and Superlatives | Comparing frameworks and architectures, Describing trends and pitching the demo |
+', TRUE),
+('mpo-arquitectura-nube', 'MPO II · Arquitectura en la nube', 'Arquitecturas cloud híbridas y multicloud, diseño multi-región, seguridad Zero Trust, redes avanzadas, contenedores/serverless, datos, IaC, observabilidad, FinOps y DevOps.', '# Hoja de Ruta · MPO II: Arquitectura en la nube (DAM / DAW - 2º Curso)
+
+Módulo en base de datos: `mpo-arquitectura-nube`
+
+## Unidades y Temas de Repaso (11 Unidades)
+
+| Unidad (`tema`) | Título de la Unidad | Conceptos clave para repaso de fallos |
+| :--- | :--- | :--- |
+| **UT 1** (`tema: 1`) | Estrategias de nube: híbrida, multicloud y migración | Modelos híbrido y multicloud, las «6 R» de migración (Rehost, Replatform, Refactor...), Landing Zones, AWS Migration Hub, Application Migration Service (MGN), Database Migration Service (DMS), Gobernanza con Terraform/OpenTofu. |
+| **UT 2** (`tema: 2`) | Infraestructura global y diseño multi-región | Diseño multi-región vs Multi-AZ, Recuperación ante desastres (DR), RPO y RTO, CDN (CloudFront), AWS Global Accelerator, Route 53 (políticas de enrutamiento), DynamoDB Global Tables, Aurora Global Database, S3 Cross-Region Replication, Chaos Engineering y AWS FIS. |
+| **UT 3** (`tema: 3`) | Seguridad avanzada y gobernanza | Gobierno multi-cuenta con AWS Organizations y SCP (Service Control Policies), IAM avanzado (roles, federación, límites de permisos), KMS y Secrets Manager, GuardDuty, Security Hub, WAF, Zero Trust, CloudTrail, AWS Config y Audit Manager (ENS, ISO 27001, RGPD). |
+| **UT 4** (`tema: 4`) | Redes avanzadas y conectividad híbrida | Multi-VPC (VPC Peering vs Transit Gateway hub-and-spoke), Conectividad híbrida (VPN Site-to-Site y AWS Direct Connect), AWS PrivateLink y VPC Endpoints, Route 53 Private Hosted Zones, VPC IPAM, IPv6, redes de contenedores en EKS (CNI y Network Policies) y Service Mesh. |
+| **UT 5** (`tema: 5`) | Cómputo avanzado: contenedores y serverless | Contenedores vs máquinas virtuales, Orquestación con ECS, EKS y ejecución serverless con Fargate, AWS Lambda y API Gateway, Orquestación con Step Functions y EventBridge, Plantillas de lanzamiento, Karpenter, GitOps (Argo CD / Flux), Cold Start e idempotencia. |
+| **UT 6** (`tema: 6`) | Almacenamiento y datos avanzados | Clases de almacenamiento S3 y políticas de ciclo de vida, Protección y replicación, Web estática de alta disponibilidad (S3 + CloudFront), Data Lake, ingesta con DMS y DataSync, análisis con Athena, AWS Glue (ETL) y Redshift, Arquitectura Lakehouse (Apache Iceberg) y gobierno del dato con Lake Formation. |
+| **UT 7** (`tema: 7`) | Bases de datos avanzadas y caché | Elección SQL vs NoSQL, Amazon Aurora (alta disponibilidad y réplicas), Amazon DynamoDB, Caché en memoria con Amazon ElastiCache (Redis / Memcached) y patrones de caché, Aurora Serverless v2 y DynamoDB On-Demand, Observabilidad con Performance Insights. |
+| **UT 8** (`tema: 8`) | Infraestructura como código (IaC) | Concepto y ventajas de IaC frente a configuración manual, AWS CloudFormation (YAML/JSON), Terraform (HCL, licencia BUSL) y OpenTofu (MPL 2.0), Módulos y gestión del estado, IaC con lenguajes de programación (AWS CDK y Pulumi), GitOps en el ciclo de vida completo. |
+| **UT 9** (`tema: 9`) | Observabilidad y escalado avanzado | Los 3 pilares: métricas, logs y trazas, CloudWatch y AWS X-Ray, Auto Scaling y balanceo (ELB), Well-Architected Framework, OpenTelemetry (OTel), SLI, SLO y Error Budget (SRE), escalado en contenedores (HPA y Karpenter) y escalado a cero. |
+| **UT 10** (`tema: 10`) | Costes, presupuestos y FinOps | Modelos de precios (On-Demand, Reserved Instances, Savings Plans, Spot), Cost Explorer y AWS Budgets, Cultura FinOps, Right-sizing, Unit Economics (coste por petición/usuario) y vínculo entre optimización de coste y sostenibilidad (AWS Graviton). |
+| **UT 11** (`tema: 11`) | Arquitecturas modernas, DevOps y proyecto de arquitectura | Microservicios vs monolito, arquitecturas dirigidas por eventos (Event-Driven), desacoplamiento con colas (SQS) y notificaciones (SNS), canalizaciones CI/CD, Platform Engineering (Internal Developer Platform y Golden Paths) y ADR (Architecture Decision Records). |
+', TRUE);
 
 -- 3. RELACIÓN CICLO_MODULO (1º y 2º CURSO)
 INSERT INTO ciclo_modulo (ciclo_id, modulo_id, curso) VALUES
@@ -124,7 +617,7 @@ INSERT INTO certificaciones (id, codigo_examen, nombre, proveedor, nivel, tiempo
 ('ms-900', 'MS-900', 'Microsoft 365 Certified: Fundamentals', 'Microsoft', 'Fundamentals', 45, 700, 'Aplicaciones en la nube de Microsoft 365, seguridad, cumplimiento, precios y soporte.', FALSE),
 ('ai-900', 'AI-900', 'Microsoft Certified: Azure AI Fundamentals', 'Microsoft', 'Fundamentals', 45, 700, 'Cargas de trabajo de IA, Machine Learning, visión artificial y lenguaje natural en Azure.', FALSE);
 
--- 5. TEMAS (155 TEMAS)
+-- 5. TEMAS (207 TEMAS)
 INSERT INTO temas (id, modulo_id, orden, nombre) VALUES
 (1, 'programacion', 1, 'Tipos de datos y operadores'),
 (2, 'programacion', 2, 'Estructuras de control'),
@@ -335,7 +828,7 @@ INSERT INTO temas (id, modulo_id, orden, nombre) VALUES
 (207, 'mpo-arquitectura-nube', 11, 'UT11 · Arquitecturas modernas, DevOps y proyecto de arquitectura (Microservicios, SQS/SNS, CI/CD e IDP)');
 SELECT setval('temas_id_seq', 207, true);
 
--- 6. PREGUNTAS (620 PREGUNTAS)
+-- 6. PREGUNTAS (1015 PREGUNTAS)
 INSERT INTO preguntas (id, modulo_id, tema_id, enunciado, explicacion, dificultad, activa) VALUES
 ('programacion-01', 'programacion', 3, '¿Qué palabra clave de Java impide que una clase pueda ser heredada?', 'Una clase declarada como `final` no admite subclases. `abstract` obliga justo a lo contrario: a heredar para poder instanciar.', 'media', TRUE),
 ('programacion-02', 'programacion', 1, '¿Qué tipo primitivo de Java almacena un único carácter Unicode?', '`char` es el primitivo de 16 bits para un carácter. `Character` es su clase envoltorio y `String` es una clase, no un primitivo.', 'media', TRUE),
@@ -1353,7 +1846,7 @@ INSERT INTO preguntas (id, modulo_id, tema_id, enunciado, explicacion, dificulta
 ('mpo-arquitectura-nube-32', 'mpo-arquitectura-nube', 207, '¿Qué es la «Ingeniería de Plataformas» (Platform Engineering) y el concepto de «Golden Paths» (carreteras pavimentadas) en equipos de desarrollo modernos?', 'Platform Engineering evoluciona la cultura DevOps reduciendo la carga cognitiva del equipo de desarrollo mediante caminos estandarizados, seguros y automatizados por defecto.', 'media', TRUE),
 ('mpo-arquitectura-nube-33', 'mpo-arquitectura-nube', 207, 'Al diseñar y defender el proyecto de arquitectura de una aplicación web, ¿qué es un ADR (Architecture Decision Record)?', 'En arquitectura de software no hay soluciones mágicas sino equilibrios (trade-offs); los ADR documentan qué se decidió y por qué (por ejemplo, por qué se eligió Aurora frente a DynamoDB para un módulo concreto).', 'media', TRUE);
 
--- 7. OPCIONES (2.480 OPCIONES)
+-- 7. OPCIONES (4060 OPCIONES)
 INSERT INTO opciones (pregunta_id, texto, es_correcta) VALUES
 ('programacion-01', 'abstract', FALSE),
 ('programacion-01', 'final', TRUE),

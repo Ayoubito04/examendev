@@ -1,10 +1,34 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { CICLOS, MODULOS, PREGUNTAS } from '../../../frontend/src/data/index.js';
+import { CICLOS, MODULOS, PREGUNTAS, SECCIONES, TODAS_LAS_PREGUNTAS } from '../../../frontend/src/data/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const ROOT_DIR = path.resolve(__dirname, '../../../');
+
+export const ARCHIVOS_TEMARIOS = {
+  cliente: 'temarios/desarrollo-web-entorno-cliente.md',
+  servidor: 'temarios/desarrollo-web-entorno-servidor.md',
+  'interfaces-web': 'temarios/diseno-interfaces-web.md',
+  sostenibilidad: 'temarios/sostenibilidad-sistema-productivo.md',
+  digitalizacion: 'temarios/digitalizacion-sectores-productivos.md',
+  ingles: 'temarios/ingles-profesional.md',
+  'mpo-arquitectura-nube': 'temarios/mpo-ii-arquitectura-nube.md',
+};
+
+export async function cargarTemariosMarkdown() {
+  const resultado = {};
+  for (const [moduloId, relPath] of Object.entries(ARCHIVOS_TEMARIOS)) {
+    try {
+      const fullPath = path.join(ROOT_DIR, relPath);
+      resultado[moduloId] = await fs.readFile(fullPath, 'utf-8');
+    } catch {
+      resultado[moduloId] = null;
+    }
+  }
+  return resultado;
+}
 
 const esc = (str) => {
   if (str === null || str === undefined) return 'NULL';
@@ -12,35 +36,44 @@ const esc = (str) => {
 };
 
 async function generateSql() {
+  const temariosMd = await cargarTemariosMarkdown();
+  const schemaPath = path.join(__dirname, 'schema.sql');
+  const schemaSql = await fs.readFile(schemaPath, 'utf-8');
+
+  const totalTemas = MODULOS.reduce((acc, m) => acc + m.temas.length, 0);
+  const totalPreguntas = TODAS_LAS_PREGUNTAS.length;
+  const totalOpciones = totalPreguntas * 4;
+
   const lines = [];
   lines.push('-- =====================================================================');
-  lines.push('-- VOLCADO COMPLETO DE DATOS INICIALES PARA POSTGRESQL (EXAMENDEV)');
-  lines.push('-- Incluye: 4 Ciclos, 31 Módulos, 155 Temas, Certificaciones,');
-  lines.push('--          620 Preguntas y 2.480 Opciones desde frontend/src/data');
+  lines.push('-- SEED GLOBAL AUTOCONTENIDO PARA POSTGRESQL (EXAMENDEV)');
+  lines.push(`-- Incluye: Esquema DDL + ${CICLOS.length} Ciclos, ${MODULOS.length} Módulos,`);
+  lines.push(`--          ${Object.keys(ARCHIVOS_TEMARIOS).length} Hojas de ruta oficiales (Markdown),`);
+  lines.push(`--          ${totalTemas} Temas, Certificaciones, ${totalPreguntas} Preguntas y ${totalOpciones} Opciones`);
   lines.push('-- =====================================================================');
   lines.push('BEGIN;');
+  lines.push('');
+  lines.push('-- 0. ESQUEMA DE TABLAS (DDL)');
+  lines.push(schemaSql);
   lines.push('');
   lines.push('TRUNCATE TABLE respuestas, partidas, ranking, opciones, preguntas, temas, ciclo_modulo, certificaciones, modulos, ciclos RESTART IDENTITY CASCADE;');
   lines.push('');
 
   // 1. Ciclos
-  lines.push('-- 1. CICLOS');
+  lines.push(`-- 1. CICLOS (${CICLOS.length})`);
   lines.push('INSERT INTO ciclos (id, sigla, nombre, grado, activo) VALUES');
   lines.push(
-    CICLOS.map((c) => {
-      const activo = c.id === 'dam' || c.id === 'daw' ? 'TRUE' : 'FALSE';
-      return `(${esc(c.id)}, ${esc(c.sigla)}, ${esc(c.nombre)}, ${esc(c.grado)}, ${activo})`;
-    }).join(',\n') + ';'
+    CICLOS.map((c) => `(${esc(c.id)}, ${esc(c.sigla)}, ${esc(c.nombre)}, ${esc(c.grado)}, TRUE)`).join(',\n') + ';'
   );
   lines.push('');
 
-  // 2. Módulos
-  lines.push('-- 2. MÓDULOS');
-  lines.push('INSERT INTO modulos (id, nombre, descripcion, activo) VALUES');
+  // 2. Módulos (con hoja_ruta_md incluida)
+  lines.push(`-- 2. MÓDULOS (${MODULOS.length}) CON HOJAS DE RUTA`);
+  lines.push('INSERT INTO modulos (id, nombre, descripcion, hoja_ruta_md, activo) VALUES');
   lines.push(
     MODULOS.map((m) => {
-      const activo = m.ciclos.includes('DAM') || m.ciclos.includes('DAW') ? 'TRUE' : 'FALSE';
-      return `(${esc(m.id)}, ${esc(m.nombre)}, ${esc(m.descripcion)}, ${activo})`;
+      const md = temariosMd[m.id] ?? null;
+      return `(${esc(m.id)}, ${esc(m.nombre)}, ${esc(m.descripcion)}, ${esc(md)}, TRUE)`;
     }).join(',\n') + ';'
   );
   lines.push('');
@@ -72,7 +105,7 @@ async function generateSql() {
   lines.push('');
 
   // 5. Temas
-  lines.push('-- 5. TEMAS (155 TEMAS)');
+  lines.push(`-- 5. TEMAS (${totalTemas} TEMAS)`);
   lines.push('INSERT INTO temas (id, modulo_id, orden, nombre) VALUES');
   const temaRows = [];
   const mapaTemasPorModulo = {};
@@ -92,7 +125,7 @@ async function generateSql() {
   lines.push('');
 
   // 6. Preguntas y Opciones
-  lines.push('-- 6. PREGUNTAS (620 PREGUNTAS)');
+  lines.push(`-- 6. PREGUNTAS (${totalPreguntas} PREGUNTAS)`);
   lines.push('INSERT INTO preguntas (id, modulo_id, tema_id, enunciado, explicacion, dificultad, activa) VALUES');
   const pregRows = [];
   const opcRows = [];
@@ -125,7 +158,7 @@ async function generateSql() {
   lines.push(pregRows.join(',\n') + ';');
   lines.push('');
 
-  lines.push('-- 7. OPCIONES (2.480 OPCIONES)');
+  lines.push(`-- 7. OPCIONES (${totalOpciones} OPCIONES)`);
   lines.push('INSERT INTO opciones (pregunta_id, texto, es_correcta) VALUES');
   lines.push(opcRows.join(',\n') + ';');
   lines.push('');
@@ -133,7 +166,37 @@ async function generateSql() {
 
   const outPath = path.join(__dirname, 'seed_data.sql');
   await fs.writeFile(outPath, lines.join('\n'), 'utf-8');
-  console.log(`Archivo generado: ${outPath}`);
+
+  // También generamos un JSON global unificado con todos los ciclos, módulos, hojas de ruta, temas y preguntas
+  const globalJsonPath = path.join(__dirname, 'seed_global.json');
+  const globalPayload = {
+    generadoEn: new Date().toISOString(),
+    resumen: {
+      ciclos: CICLOS.length,
+      secciones: SECCIONES.length,
+      modulos: MODULOS.length,
+      hojasDeRuta: Object.keys(ARCHIVOS_TEMARIOS).length,
+      temas: totalTemas,
+      preguntas: totalPreguntas,
+      opciones: totalOpciones,
+    },
+    ciclos: CICLOS,
+    secciones: SECCIONES,
+    modulos: MODULOS.map((m) => ({
+      ...m,
+      hojaRutaArchivo: ARCHIVOS_TEMARIOS[m.id] ?? null,
+      hojaRutaMarkdown: temariosMd[m.id] ?? null,
+      totalPreguntas: PREGUNTAS[m.id]?.length ?? 0,
+    })),
+    preguntasPorModulo: PREGUNTAS,
+  };
+  await fs.writeFile(globalJsonPath, JSON.stringify(globalPayload, null, 2), 'utf-8');
+
+  console.log(`✔ Archivo SQL global generado: ${outPath}`);
+  console.log(`✔ Archivo JSON global generado: ${globalJsonPath}`);
+  console.log(`  (${CICLOS.length} ciclos, ${MODULOS.length} módulos, ${totalTemas} temas, ${totalPreguntas} preguntas y ${totalOpciones} opciones)`);
 }
 
-generateSql();
+if (process.argv[1] && path.resolve(process.argv[1]) === __filename) {
+  generateSql();
+}
