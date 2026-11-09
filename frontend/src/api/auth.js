@@ -72,14 +72,35 @@ const mock = {
   },
 };
 
-// ---------- Implementación real (API de backend) ----------
+// ---------- Implementación real (API de backend con respaldo local si PostgreSQL está apagado) ----------
+
+const conRespaldo = (fnReal, fnMock) => async (...args) => {
+  try {
+    return await fnReal(...args);
+  } catch (err) {
+    if (err?.status === 0 || err?.status >= 500) return fnMock(...args);
+    throw err;
+  }
+};
 
 const real = {
-  registrar: (datos) => http('/auth/registro', { metodo: 'POST', cuerpo: datos, conToken: false }),
-  login: (datos) => http('/auth/login', { metodo: 'POST', cuerpo: datos, conToken: false }),
-  yo: () => http('/auth/yo'),
-  solicitarRecuperacion: (datos) => http('/auth/recuperar', { metodo: 'POST', cuerpo: datos, conToken: false }),
-  restablecer: (datos) => http('/auth/restablecer', { metodo: 'POST', cuerpo: datos, conToken: false }),
+  registrar: conRespaldo(
+    (datos) => http('/auth/registro', { metodo: 'POST', cuerpo: datos, conToken: false }),
+    mock.registrar,
+  ),
+  login: conRespaldo(
+    (datos) => http('/auth/login', { metodo: 'POST', cuerpo: datos, conToken: false }),
+    mock.login,
+  ),
+  yo: conRespaldo(() => http('/auth/yo'), mock.yo),
+  solicitarRecuperacion: conRespaldo(
+    (datos) => http('/auth/recuperar', { metodo: 'POST', cuerpo: datos, conToken: false }),
+    mock.solicitarRecuperacion,
+  ),
+  restablecer: conRespaldo(
+    (datos) => http('/auth/restablecer', { metodo: 'POST', cuerpo: datos, conToken: false }),
+    mock.restablecer,
+  ),
 };
 
 export const authApi = USAR_MOCK ? mock : real;

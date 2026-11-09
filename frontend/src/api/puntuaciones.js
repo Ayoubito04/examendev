@@ -59,14 +59,26 @@ const mock = {
   },
 };
 
+const conRespaldo = (fnReal, fnMock) => async (...args) => {
+  try {
+    return await fnReal(...args);
+  } catch (err) {
+    if (err?.status === 0 || err?.status >= 500) return fnMock(...args);
+    throw err;
+  }
+};
+
 const real = {
-  enviarPartida: (datos) => http('/puntuaciones', { metodo: 'POST', cuerpo: datos }),
-  ranking: ({ tipo, moduloId, ciclo, limite = 50 }) => {
+  enviarPartida: conRespaldo(
+    (datos) => http('/puntuaciones', { metodo: 'POST', cuerpo: datos }),
+    mock.enviarPartida,
+  ),
+  ranking: conRespaldo(({ tipo, moduloId, ciclo, limite = 50 }) => {
     const q = new URLSearchParams({ tipo, limite: String(limite) });
     if (moduloId) q.set('moduloId', moduloId);
     if (ciclo) q.set('ciclo', ciclo);
     return http(`/ranking?${q}`);
-  },
+  }, mock.ranking),
 };
 
 export const puntuacionesApi = USAR_MOCK ? mock : real;
