@@ -90,7 +90,20 @@ const CERTIFICACIONES_INICIALES = [
 ];
 
 export async function seed({ cerrarPool = true } = {}) {
-  await ensureDatabaseExists();
+  try {
+    await ensureDatabaseExists();
+  } catch (err) {
+    if (err?.code === 'ECONNREFUSED') {
+      console.warn('\n⚠️  PostgreSQL no está encendido ahora mismo en localhost:5432.');
+      console.warn('   ✔ Los archivos locales (seed_data.sql y seed_global.json) YA se han generado con éxito.');
+      console.warn('   👉 Para volcarlos también en PostgreSQL, inicia el servicio como Administrador:');
+      console.warn('      Start-Service postgresql-x64-18');
+      console.warn('      y vuelve a ejecutar: npm run seed\n');
+      if (cerrarPool) await pool.end();
+      return;
+    }
+    throw err;
+  }
   const temariosMd = await cargarTemariosMarkdown();
   const client = await pool.connect();
 
