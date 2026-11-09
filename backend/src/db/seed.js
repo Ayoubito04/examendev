@@ -108,7 +108,7 @@ export async function seed({ cerrarPool = true } = {}) {
   const client = await pool.connect();
 
   try {
-    console.log('Iniciando seed global de temarios y preguntas en PostgreSQL...');
+    console.log('Actualizando catálogo de temarios y preguntas en PostgreSQL (conservando progreso y usuarios)...');
     await client.query('BEGIN');
 
     // 1. Ejecutar schema.sql para asegurar que las tablas existen y tienen el ancho correcto
@@ -116,27 +116,34 @@ export async function seed({ cerrarPool = true } = {}) {
     const schemaSql = await fs.readFile(schemaPath, 'utf-8');
     await client.query(schemaSql);
 
-    // Limpiar datos previos del catálogo para evitar duplicados al re-ejecutar el seed
-    await client.query('TRUNCATE TABLE respuestas, partidas, ranking, opciones, preguntas, temas, ciclo_modulo, certificaciones, modulos, ciclos RESTART IDENTITY CASCADE');
-
-    // 2. Insertar los 4 Ciclos (DAM, DAW, ASIR y SMR)
+    // 2. Actualizar/Insertar los 4 Ciclos (UPSERT sin borrar partidas ni respuestas)
     for (const c of CICLOS) {
       await client.query(
         `INSERT INTO ciclos (id, sigla, nombre, grado, activo)
-         VALUES ($1, $2, $3, $4, TRUE)`,
+         VALUES ($1, $2, $3, $4, TRUE)
+         ON CONFLICT (id) DO UPDATE SET
+           sigla = EXCLUDED.sigla,
+           nombre = EXCLUDED.nombre,
+           grado = EXCLUDED.grado,
+           activo = EXCLUDED.activo`,
         [c.id, c.sigla, c.nombre, c.grado]
       );
     }
-    console.log(`✔ ${CICLOS.length} ciclos insertados.`);
+    console.log(`✔ ${CICLOS.length} ciclos sincronizados.`);
 
-    // 3. Insertar todos los Módulos (con hoja_ruta_md), Relación Ciclo-Módulo (1º y 2º) y sus Temas
+    // 3. Actualizar/Insertar todos los Módulos, Relación Ciclo-Módulo y sus Temas
     const mapaTemasPorModulo = {};
-    let totalTemas = 0;
+    let temaIdCounter = 1;
 
     for (const m of MODULOS) {
       await client.query(
         `INSERT INTO modulos (id, nombre, descripcion, hoja_ruta_md, activo)
-         VALUES ($1, $2, $3, $4, TRUE)`,
+         VALUES ($1, $2, $3, $4, TRUE)
+         ON CONFLICT (id) DO UPDATE SET
+           nombre = EXCLUDED.nombre,
+           descripcion = EXCLUDED.descripcion,
+           hoja_ruta_md = EXCLUDED.hoja_ruta_md,
+           activo = EXCLUDED.activo`,
         [m.id, m.nombre, m.descripcion, temariosMd[m.id] ?? null]
       );
 
@@ -144,35 +151,49 @@ export async function seed({ cerrarPool = true } = {}) {
         const cicloId = siglaCiclo.toLowerCase();
         await client.query(
           `INSERT INTO ciclo_modulo (ciclo_id, modulo_id, curso)
-           VALUES ($1, $2, $3)`,
+           VALUES ($1, $2, $3)
+           ON CONFLICT (ciclo_id, modulo_id) DO UPDATE SET curso = EXCLUDED.curso`,
           [cicloId, m.id, m.curso]
         );
       }
 
       mapaTemasPorModulo[m.id] = [];
       for (let idx = 0; idx < m.temas.length; idx++) {
+        const idTema = temaIdCounter++;
         const nombreTema = m.temas[idx];
-        const resTema = await client.query(
-          `INSERT INTO temas (modulo_id, orden, nombre)
-           VALUES ($1, $2, $3)
-           RETURNING id`,
-          [m.id, idx + 1, nombreTema]
+        await client.query(
+          `INSERT INTO temas (id, modulo_id, orden, nombre)
+           VALUES ($1, $2, $3, $4)
+           ON CONFLICT (id) DO UPDATE SET
+             modulo_id = EXCLUDED.modulo_id,
+             orden = EXCLUDED.orden,
+             nombre = EXCLUDED.nombre`,
+          [idTema, m.id, idx + 1, nombreTema]
         );
         mapaTemasPorModulo[m.id].push({
-          id: resTema.rows[0].id,
+          id: idTema,
           orden: idx + 1,
           nombre: nombreTema,
         });
-        totalTemas++;
       }
     }
-    console.log(`✔ ${MODULOS.length} módulos y ${totalTemas} temas insertados.`);
+    await client.query(`SELECT setval('temas_id_seq', $1, true)`, [temaIdCounter - 1]);
+    console.log(`✔ ${MODULOS.length} módulos y ${temaIdCounter - 1} temas sincronizados.`);
 
-    // 4. Insertar Certificaciones iniciales
+    // 4. Actualizar/Insertar Certificaciones iniciales
     for (const cert of CERTIFICACIONES_INICIALES) {
       await client.query(
         `INSERT INTO certificaciones (id, codigo_examen, nombre, proveedor, nivel, tiempo_minutos, nota_aprobado, descripcion, activo)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+         ON CONFLICT (id) DO UPDATE SET
+           codigo_examen = EXCLUDED.codigo_examen,
+           nombre = EXCLUDED.nombre,
+           proveedor = EXCLUDED.proveedor,
+           nivel = EXCLUDED.nivel,
+           tiempo_minutos = EXCLUDED.tiempo_minutos,
+           nota_aprobado = EXCLUDED.nota_aprobado,
+           descripcion = EXCLUDED.descripcion,
+           activo = EXCLUDED.activo`,
         [
           cert.id,
           cert.codigo_examen,
@@ -186,11 +207,11 @@ export async function seed({ cerrarPool = true } = {}) {
         ]
       );
     }
-    console.log(`✔ ${CERTIFICACIONES_INICIALES.length} certificaciones insertadas.`);
+    console.log(`✔ ${CERTIFICACIONES_INICIALES.length} certificaciones sincronizadas.`);
 
-    // 5. Insertar todas las Preguntas y Opciones desde frontend/src/data
+    // 5. Actualizar/Insertar todas las Preguntas y Opciones (UPSERT)
     let totalPreguntas = 0;
-    let totalOpciones = 0;
+    let opcionIdCounter = 1;
 
     for (const [moduloId, listaPreguntas] of Object.entries(PREGUNTAS)) {
       const temasDelModulo = mapaTemasPorModulo[moduloId];
@@ -210,7 +231,14 @@ export async function seed({ cerrarPool = true } = {}) {
 
         await client.query(
           `INSERT INTO preguntas (id, modulo_id, tema_id, enunciado, explicacion, dificultad, activa)
-           VALUES ($1, $2, $3, $4, $5, $6, TRUE)`,
+           VALUES ($1, $2, $3, $4, $5, $6, TRUE)
+           ON CONFLICT (id) DO UPDATE SET
+             modulo_id = EXCLUDED.modulo_id,
+             tema_id = EXCLUDED.tema_id,
+             enunciado = EXCLUDED.enunciado,
+             explicacion = EXCLUDED.explicacion,
+             dificultad = EXCLUDED.dificultad,
+             activa = EXCLUDED.activa`,
           [
             p.id,
             moduloId,
@@ -223,20 +251,25 @@ export async function seed({ cerrarPool = true } = {}) {
         totalPreguntas++;
 
         for (let idxOp = 0; idxOp < p.opciones.length; idxOp++) {
+          const opId = opcionIdCounter++;
           const textoOpcion = p.opciones[idxOp];
           const esCorrecta = idxOp === p.correcta;
           await client.query(
-            `INSERT INTO opciones (pregunta_id, texto, es_correcta)
-             VALUES ($1, $2, $3)`,
-            [p.id, textoOpcion, esCorrecta]
+            `INSERT INTO opciones (id, pregunta_id, texto, es_correcta)
+             VALUES ($1, $2, $3, $4)
+             ON CONFLICT (id) DO UPDATE SET
+               pregunta_id = EXCLUDED.pregunta_id,
+               texto = EXCLUDED.texto,
+               es_correcta = EXCLUDED.es_correcta`,
+            [opId, p.id, textoOpcion, esCorrecta]
           );
-          totalOpciones++;
         }
       }
     }
+    await client.query(`SELECT setval('opciones_id_seq', $1, true)`, [opcionIdCounter - 1]);
 
     await client.query('COMMIT');
-    console.log(`✔ ${totalPreguntas} preguntas y ${totalOpciones} opciones insertadas correctamente.`);
+    console.log(`✔ ${totalPreguntas} preguntas y ${opcionIdCounter - 1} opciones sincronizadas sin borrar el progreso.`);
     console.log('🎉 ¡Seed global de ExamenDev completado con éxito!');
   } catch (err) {
     await client.query('ROLLBACK');

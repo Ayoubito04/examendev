@@ -27,28 +27,36 @@ const normalizarFallo = (valor) =>
 export function ProgressProvider({ children }) {
   const [progreso, setProgreso] = useLocalStorage('examendev:progreso', ESTADO_INICIAL);
 
-  // Si estamos conectados al backend REST, hidrata el progreso (intentos, fallos y estadísticas por pregunta) desde PostgreSQL.
-  useEffect(() => {
+  // Sincroniza y combina el progreso local con el del servidor PostgreSQL sin borrar datos.
+  const actualizarProgreso = useCallback(async () => {
     if (USAR_MOCK) return;
-    let activo = true;
-    http('/progreso')
-      .then((remoto) => {
-        if (!activo || !remoto) return;
-        setProgreso((prev) => ({
+    try {
+      const remoto = await http('/progreso');
+      if (!remoto) return;
+      setProgreso((prev) => {
+        const idsLocales = new Set((prev.intentos ?? []).map((t) => String(t.id)));
+        const nuevosRemotos = (remoto.intentos ?? []).filter((t) => !idsLocales.has(String(t.id)));
+        const intentosCombinados = [...(prev.intentos ?? []), ...nuevosRemotos]
+          .sort((a, b) => String(b.fecha).localeCompare(String(a.fecha)))
+          .slice(0, 200);
+        return {
           ...prev,
-          intentos: remoto.intentos?.length ? remoto.intentos : prev.intentos,
-          fallos: remoto.fallos && Object.keys(remoto.fallos).length ? { ...prev.fallos, ...remoto.fallos } : prev.fallos,
+          intentos: intentosCombinados,
+          fallos: remoto.fallos && Object.keys(remoto.fallos).length ? { ...remoto.fallos, ...prev.fallos } : prev.fallos,
           porPregunta:
             remoto.porPregunta && Object.keys(remoto.porPregunta).length
-              ? { ...prev.porPregunta, ...remoto.porPregunta }
+              ? { ...remoto.porPregunta, ...prev.porPregunta }
               : prev.porPregunta,
-        }));
-      })
-      .catch(() => {});
-    return () => {
-      activo = false;
-    };
+        };
+      });
+    } catch {
+      // Si el backend no está disponible, se mantiene intacto el progreso local.
+    }
   }, [setProgreso]);
+
+  useEffect(() => {
+    actualizarProgreso();
+  }, [actualizarProgreso]);
 
   // Guarda un intento y actualiza la lista acumulada de fallos:
   // - Una pregunta fallada entra en la lista (o suma un fallo más) y se queda ahí.
@@ -117,6 +125,11 @@ export function ProgressProvider({ children }) {
     [setProgreso],
   );
 
+  // Limpia únicamente la lista de preguntas falladas pendientes, conservando todo el historial y estadísticas.
+  const limpiarFallos = useCallback(() => {
+    setProgreso((prev) => ({ ...prev, fallos: {} }));
+  }, [setProgreso]);
+
   const reiniciar = useCallback(() => {
     if (!USAR_MOCK) {
       http('/progreso', { metodo: 'DELETE' }).catch(() => {});
@@ -175,8 +188,20 @@ export function ProgressProvider({ children }) {
       return a + f ? Math.round((a / (a + f)) * 100) : null;
     };
 
-    return { intentos, fallos, statsModulo, statsTemas, pctModulo, infoFallo, registrarIntento, marcarDominada, reiniciar };
-  }, [progreso, registrarIntento, marcarDominada, reiniciar]);
+    return {
+      intentos,
+      fallos,
+      statsModulo,
+      statsTemas,
+      pctModulo,
+      infoFallo,
+      registrarIntento,
+      marcarDominada,
+      actualizarProgreso,
+      limpiarFallos,
+      reiniciar,
+    };
+  }, [progreso, registrarIntento, marcarDominada, actualizarProgreso, limpiarFallos, reiniciar]);
 
   return <ProgressContext.Provider value={valor}>{children}</ProgressContext.Provider>;
 }

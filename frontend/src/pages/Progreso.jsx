@@ -15,7 +15,7 @@ const UMBRAL_REPASO = 70;
 const MINIMO_RESPUESTAS = 3;
 
 export default function Progreso() {
-  const { intentos, fallos, statsModulo, statsTemas, pctModulo, reiniciar } = useProgress();
+  const { intentos, fallos, statsModulo, statsTemas, pctModulo, actualizarProgreso, limpiarFallos, reiniciar } = useProgress();
 
   // Ciclo con más actividad, para abrir el radar donde interesa.
   const cicloInicial = useMemo(() => {
@@ -42,8 +42,14 @@ export default function Progreso() {
     [statsTemas],
   );
 
+  const confirmarLimpiarFallos = () => {
+    if (window.confirm('Se vaciará la lista de preguntas pendientes de repaso, pero conservarás todos tus tests, notas y estadísticas. ¿Continuar?')) {
+      limpiarFallos();
+    }
+  };
+
   const confirmarReinicio = () => {
-    if (window.confirm('Se borrarán todos tus intentos, fallos y estadísticas guardados en este navegador. ¿Continuar?')) reiniciar();
+    if (window.confirm('Se borrarán todos tus intentos, fallos y estadísticas guardados. ¿Continuar?')) reiniciar();
   };
 
   if (!intentos.length) {
@@ -224,8 +230,16 @@ export default function Progreso() {
       </ul>
 
       <div className="progreso__pie">
+        <button type="button" className="btn btn--oscuro btn--sm" onClick={actualizarProgreso}>
+          Actualizar progreso
+        </button>
+        {porRepasar > 0 && (
+          <button type="button" className="btn btn--oscuro btn--sm" onClick={confirmarLimpiarFallos}>
+            Vaciar fallos pendientes ({porRepasar})
+          </button>
+        )}
         <button type="button" className="btn btn--fantasma btn--sm" onClick={confirmarReinicio}>
-          Reiniciar progreso
+          Borrar todo el historial
         </button>
       </div>
     </section>
