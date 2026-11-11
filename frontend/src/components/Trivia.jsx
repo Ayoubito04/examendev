@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import TextoCodigo from './TextoCodigo.jsx';
+import BloqueRetoCodigo from './BloqueRetoCodigo.jsx';
 import { TRIVIA, calcularPuntos, formatearPuntos, multiplicadorDeRacha } from '../utils/puntos.js';
 
 const LETRAS = ['A', 'B', 'C', 'D'];
@@ -50,7 +51,7 @@ export default function Trivia({ preguntas, modulo, onTerminar }) {
       const segundosRestantes = Math.max(0, (LIMITE_MS - usadoMs) / 1000);
       const acierto = opcion !== null && opcion === pregunta.correcta;
       const nuevaRacha = acierto ? racha + 1 : 0;
-      const p = calcularPuntos({ acierto, segundosRestantes, racha: nuevaRacha });
+      const p = calcularPuntos({ acierto, segundosRestantes, racha: nuevaRacha, dificultad: pregunta.dificultad });
       setElegida(opcion);
       setRespondida(true);
       setRestante(LIMITE_MS - usadoMs);
@@ -167,6 +168,13 @@ export default function Trivia({ preguntas, modulo, onTerminar }) {
         <TextoCodigo texto={pregunta.enunciado} />
       </h1>
 
+      <BloqueRetoCodigo
+        pregunta={pregunta}
+        opcionElegida={elegida !== null ? pregunta.opciones[elegida] : null}
+        corregida={respondida}
+        esCorrecta={respondida && elegida === pregunta.correcta}
+      />
+
       <div className="opciones trivia__opciones" role="group" aria-label="Opciones de respuesta">
         {pregunta.opciones.map((opcion, i) => {
           let estado = '';
@@ -199,6 +207,7 @@ export default function Trivia({ preguntas, modulo, onTerminar }) {
                 <strong>¡Correcto! +{ultimo.total} puntos</strong>
                 <span className="trivia__calculo">
                   {ultimo.base} base + {ultimo.rapidez} rapidez
+                  {ultimo.factorDificultad > 1 && ' (×2 reto difícil)'}
                   {ultimo.multiplicador > 1 && ` × ${String(ultimo.multiplicador).replace('.', ',')} racha`}
                 </span>
               </>

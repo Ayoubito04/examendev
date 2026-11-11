@@ -4583,3 +4583,100 @@ html {
     scroll-behavior: auto !important;
   }
 }
+
+/* ---------- Retos difíciles de completar código (×2) ---------- */
+
+.reto-codigo {
+  margin: 0.9rem 0 1.35rem;
+  border: 1.5px solid rgba(250, 152, 82, 0.45);
+  border-radius: 14px;
+  background: #0d1914;
+  overflow: hidden;
+  box-shadow: 0 10px 26px -14px rgba(0, 0, 0, 0.55);
+}
+
+.reto-codigo__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.55rem 1rem;
+  background: linear-gradient(90deg, rgba(250, 152, 82, 0.18), rgba(16, 185, 129, 0.12));
+  border-bottom: 1px solid rgba(250, 152, 82, 0.28);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.reto-codigo__insignia {
+  color: #fbbf24;
+  letter-spacing: 0.01em;
+}
+
+.reto-codigo__doble {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: #fa9852;
+  color: #0b1f16;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.reto-codigo__pre {
+  margin: 0;
+  padding: 1rem 1.15rem;
+  overflow-x: auto;
+  color: #e2f1ea;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.reto-codigo__hueco {
+  display: inline-block;
+  min-width: 3.4rem;
+  margin-inline: 0.15rem;
+  padding: 0.08rem 0.55rem;
+  border: 1.5px dashed #fa9852;
+  border-radius: 6px;
+  background: rgba(250, 152, 82, 0.16);
+  color: #fbbf24;
+  font-weight: 700;
+  text-align: center;
+  transition: all 160ms ease;
+}
+
+.reto-codigo__hueco--activo {
+  border-style: solid;
+  background: rgba(250, 152, 82, 0.28);
+  color: #fff;
+}
+
+.reto-codigo__hueco--ok {
+  border-style: solid;
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.25);
+  color: #6ee7b7;
+}
+
+.reto-codigo__hueco--ko {
+  border-style: solid;
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.25);
+  color: #fca5a5;
+}
+
+.reto-codigo__chip {
+  display: inline-block;
+  margin-right: 0.45rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 6px;
+  background: rgba(250, 152, 82, 0.2);
+  border: 1px solid rgba(250, 152, 82, 0.5);
+  color: #fa9852;
+  font-size: 0.75rem;
+  font-weight: 700;
+  vertical-align: middle;
+}

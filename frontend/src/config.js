@@ -5,8 +5,8 @@ export const SITE = {
   convocatoria: 'Convocatoria de mayo',
 };
 
-// Número de preguntas de cada examen, tanto en práctica como en simulacro.
-export const PREGUNTAS_POR_EXAMEN = 20;
+// Número de preguntas aleatorias de cada examen, tanto en práctica como en simulacro.
+export const PREGUNTAS_POR_EXAMEN = 30;
 
 // Duración total del simulacro de examen, en minutos.
 export const MINUTOS_SIMULACRO = 90;

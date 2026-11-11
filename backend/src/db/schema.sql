@@ -68,10 +68,13 @@ CREATE TABLE IF NOT EXISTS preguntas (
     certificacion_id VARCHAR(30) REFERENCES certificaciones(id) ON DELETE CASCADE,
     tema_id INT NOT NULL REFERENCES temas(id) ON DELETE CASCADE,
     enunciado TEXT NOT NULL,
+    codigo TEXT,
     explicacion TEXT,
     dificultad VARCHAR(15) DEFAULT 'media' CHECK (dificultad IN ('facil', 'media', 'dificil')),
     activa BOOLEAN NOT NULL DEFAULT TRUE
 );
+
+ALTER TABLE preguntas ADD COLUMN IF NOT EXISTS codigo TEXT;
 
 -- 7. TABLA DE OPCIONES (LA RESPUESTA CORRECTA NUNCA VIAJA AL NAVEGADOR)
 CREATE TABLE IF NOT EXISTS opciones (

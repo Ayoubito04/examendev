@@ -1,5 +1,6 @@
 import { CICLOS, MODULOS, SECCIONES, modulosDeCiclo, nombreCorto } from './modulos.js';
 import { TEMAS_POR_PREGUNTA } from './temas.js';
+import { RETOS_CODIGO } from './retos-codigo.js';
 
 // DAM y DAW
 import programacion from './preguntas/programacion.js';
@@ -88,16 +89,30 @@ const BANCOS = {
 
 // Cada pregunta recibe un id estable "<modulo>-<nn>" según su posición en el banco
 // y el índice de su tema dentro de los temas del módulo.
+// Las preguntas difíciles de completar código (RETOS_CODIGO) se añaden al final del banco sin borrar ninguna pregunta previa.
 export const PREGUNTAS = Object.fromEntries(
-  Object.entries(BANCOS).map(([moduloId, lista]) => [
-    moduloId,
-    lista.map((p, i) => ({
-      ...p,
-      id: `${moduloId}-${String(i + 1).padStart(2, '0')}`,
+  Object.entries(BANCOS).map(([moduloId, lista]) => {
+    const combinadas = [...lista, ...(RETOS_CODIGO[moduloId] ?? [])];
+    return [
       moduloId,
-      tema: TEMAS_POR_PREGUNTA[moduloId]?.[i] ?? (typeof p.tema === 'number' ? Math.max(0, p.tema - 1) : 0),
-    })),
-  ]),
+      combinadas.map((p, i) => ({
+        ...p,
+        id: `${moduloId}-${String(i + 1).padStart(2, '0')}`,
+        moduloId,
+        dificultad: p.dificultad ?? 'media',
+        codigo: p.codigo ?? null,
+        tema:
+          TEMAS_POR_PREGUNTA[moduloId]?.[i] ??
+          (i >= lista.length
+            ? typeof p.tema === 'number'
+              ? p.tema
+              : 0
+            : typeof p.tema === 'number'
+              ? Math.max(0, p.tema - 1)
+              : 0),
+      })),
+    ];
+  }),
 );
 
 export const TODAS_LAS_PREGUNTAS = Object.values(PREGUNTAS).flat();

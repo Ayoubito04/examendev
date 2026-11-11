@@ -8,9 +8,10 @@ const __dirname = path.dirname(__filename);
 const ROOT_DIR = path.resolve(__dirname, '../../../');
 
 export const ARCHIVOS_TEMARIOS = {
-  cliente: 'temarios/desarrollo-web-entorno-cliente.md',
-  servidor: 'temarios/desarrollo-web-entorno-servidor.md',
-  'interfaces-web': 'temarios/diseno-interfaces-web.md',
+  cliente: 'temarios/2nd_DAW/desarrollo-web-entorno-cliente.md',
+  servidor: 'temarios/2nd_DAW/desarrollo-web-entorno-servidor.md',
+  despliegue: 'temarios/2nd_DAW/despliegue_de_aplicaciones_web.md',
+  'interfaces-web': 'temarios/2nd_DAW/diseno-interfaces-web.md',
   sostenibilidad: 'temarios/sostenibilidad-sistema-productivo.md',
   digitalizacion: 'temarios/digitalizacion-sectores-productivos.md',
   ingles: 'temarios/ingles-profesional.md',
@@ -149,7 +150,7 @@ async function generateSql() {
 
   // 6. Preguntas y Opciones (UPSERT sin borrar respuestas ni progreso de los alumnos)
   lines.push(`-- 6. PREGUNTAS (${totalPreguntas} PREGUNTAS)`);
-  lines.push('INSERT INTO preguntas (id, modulo_id, tema_id, enunciado, explicacion, dificultad, activa) VALUES');
+  lines.push('INSERT INTO preguntas (id, modulo_id, tema_id, enunciado, codigo, explicacion, dificultad, activa) VALUES');
   const pregRows = [];
   const opcRows = [];
   let opcionIdCounter = 1;
@@ -169,7 +170,7 @@ async function generateSql() {
       }
 
       pregRows.push(
-        `(${esc(p.id)}, ${esc(moduloId)}, ${temaElegido.id}, ${esc(p.enunciado)}, ${esc(p.explicacion)}, 'media', TRUE)`
+        `(${esc(p.id)}, ${esc(moduloId)}, ${temaElegido.id}, ${esc(p.enunciado)}, ${esc(p.codigo ?? null)}, ${esc(p.explicacion)}, ${esc(p.dificultad ?? 'media')}, TRUE)`
       );
 
       for (let idxOp = 0; idxOp < p.opciones.length; idxOp++) {
@@ -185,6 +186,7 @@ async function generateSql() {
   lines.push('  modulo_id = EXCLUDED.modulo_id,');
   lines.push('  tema_id = EXCLUDED.tema_id,');
   lines.push('  enunciado = EXCLUDED.enunciado,');
+  lines.push('  codigo = EXCLUDED.codigo,');
   lines.push('  explicacion = EXCLUDED.explicacion,');
   lines.push('  dificultad = EXCLUDED.dificultad,');
   lines.push('  activa = EXCLUDED.activa;');

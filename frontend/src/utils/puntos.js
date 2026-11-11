@@ -15,12 +15,21 @@ export function multiplicadorDeRacha(racha) {
 }
 
 // racha: aciertos seguidos contando esta respuesta.
-export function calcularPuntos({ acierto, segundosRestantes, racha }) {
-  if (!acierto) return { base: 0, rapidez: 0, multiplicador: 1, total: 0 };
+// Las preguntas difíciles (dificultad === 'dificil') otorgan el doble de puntos (×2).
+export function calcularPuntos({ acierto, segundosRestantes, racha, dificultad }) {
+  const factorDificultad = dificultad === 'dificil' ? 2 : 1;
+  if (!acierto) return { base: 0, rapidez: 0, multiplicador: 1, factorDificultad, total: 0 };
   const proporcion = Math.max(0, Math.min(1, segundosRestantes / TRIVIA.segundosPorPregunta));
-  const rapidez = Math.round(TRIVIA.bonusMaxRapidez * proporcion);
+  const base = TRIVIA.base * factorDificultad;
+  const rapidez = Math.round(TRIVIA.bonusMaxRapidez * proporcion * factorDificultad);
   const multiplicador = multiplicadorDeRacha(racha);
-  return { base: TRIVIA.base, rapidez, multiplicador, total: Math.round((TRIVIA.base + rapidez) * multiplicador) };
+  return {
+    base,
+    rapidez,
+    multiplicador,
+    factorDificultad,
+    total: Math.round((base + rapidez) * multiplicador),
+  };
 }
 
 export const formatearPuntos = (n) => n.toLocaleString('es-ES');
