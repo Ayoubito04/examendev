@@ -6,6 +6,7 @@ import { promisify } from 'node:util';
 import pg from 'pg';
 import { pool, query } from './pool.js';
 import { seed } from './seed.js';
+import { asegurarAdmin } from './admin.js';
 import { MODULOS, TODAS_LAS_PREGUNTAS } from '../../../frontend/src/data/index.js';
 
 const execFileAsync = promisify(execFile);
@@ -75,6 +76,13 @@ export async function asegurarBaseDeDatosLista() {
     // 2. Asegurar esquema de tablas (schema.sql)
     const schemaSql = await fs.readFile(path.join(__dirname, 'schema.sql'), 'utf-8');
     await pool.query(schemaSql);
+
+    // 2b. Asegurar la cuenta de administrador definida en el .env
+    try {
+      await asegurarAdmin();
+    } catch (err) {
+      console.error('⚠️ No se pudo crear la cuenta de administrador:', err.message);
+    }
 
     // 3. Comprobar si el catálogo de módulos y preguntas está actualizado; si no, poblar automáticamente
     const resCount = await query('SELECT (SELECT COUNT(*)::int FROM modulos) AS modulos, (SELECT COUNT(*)::int FROM preguntas) AS preguntas');

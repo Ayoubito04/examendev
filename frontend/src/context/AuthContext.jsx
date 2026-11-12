@@ -46,6 +46,8 @@ export function AuthProvider({ children }) {
   const valor = useMemo(
     () => ({
       usuario: sesion?.usuario ?? null,
+      // Solo para mostrar/ocultar UI: la seguridad real la aplica el backend (middleware soloAdmin).
+      esAdmin: sesion?.usuario?.rol === 'admin',
       token: sesion?.token ?? null,
       comprobando,
       iniciarSesion,
