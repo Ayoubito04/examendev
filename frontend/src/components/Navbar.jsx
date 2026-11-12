@@ -127,6 +127,9 @@ export default function Navbar() {
             )}
           </div>
 
+          <NavLink to="/certificaciones" className="navbar__link">
+            Certificaciones
+          </NavLink>
           <NavLink to="/ranking" className="navbar__link">
             Ranking
           </NavLink>
