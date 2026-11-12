@@ -1,17 +1,20 @@
 export default [
   {
+    tema: 5,
     enunciado: '¿Qué contraste mínimo exige WCAG nivel AA para texto de tamaño normal?',
     opciones: ['3:1', '4.5:1', '7:1', '2:1'],
     correcta: 1,
     explicacion: 'AA pide 4.5:1 para texto normal y 3:1 para texto grande. El nivel AAA sube a 7:1.',
   },
   {
+    tema: 2,
     enunciado: '¿Qué media query aplica estilos a pantallas de 768 px de ancho o más?',
     opciones: ['@media (max-width: 768px)', '@media (min-width: 768px)', '@media (width: 768px)', '@media screen 768px'],
     correcta: 1,
     explicacion: '`min-width` se cumple a partir de ese ancho. Es la base del enfoque mobile first.',
   },
   {
+    tema: 2,
     enunciado: '¿En qué consiste el enfoque mobile first?',
     opciones: [
       'En hacer solo la versión móvil',
@@ -23,6 +26,7 @@ export default [
     explicacion: 'Los estilos base son los de móvil y se añaden mejoras progresivas a medida que crece la pantalla.',
   },
   {
+    tema: 2,
     enunciado: '¿Qué meta etiqueta es imprescindible para que una web responsive se vea bien en móvil?',
     opciones: [
       '<meta name="viewport" content="width=device-width, initial-scale=1">',
@@ -34,6 +38,7 @@ export default [
     explicacion: 'Sin ella el navegador móvil simula un ancho de escritorio y reduce la página. Ajusta el viewport al ancho del dispositivo.',
   },
   {
+    tema: 2,
     enunciado: '¿A qué es relativa la unidad `rem`?',
     opciones: [
       'Al tamaño de fuente del elemento padre',
@@ -45,30 +50,35 @@ export default [
     explicacion: '`rem` toma como referencia el `font-size` de `html`. `em` es relativa al elemento actual o a su padre, y `vw`/`vh` al viewport.',
   },
   {
+    tema: 2,
     enunciado: '¿Qué propiedad de CSS Grid define el número y tamaño de las columnas?',
     opciones: ['grid-columns', 'grid-template-columns', 'column-count', 'grid-auto-flow'],
     correcta: 1,
     explicacion: 'Por ejemplo `grid-template-columns: repeat(3, 1fr)` crea tres columnas iguales.',
   },
   {
+    tema: 4,
     enunciado: '¿Qué regla de CSS define los pasos de una animación?',
     opciones: ['@animation', '@keyframes', '@transition', '@frames'],
     correcta: 1,
     explicacion: '`@keyframes` define los estados intermedios, y la propiedad `animation` la aplica a un elemento.',
   },
   {
+    tema: 3,
     enunciado: '¿Qué formato de imagen es vectorial?',
     opciones: ['JPEG', 'PNG', 'SVG', 'WebP'],
     correcta: 2,
     explicacion: 'SVG describe formas con XML y escala sin perder calidad. JPEG, PNG y WebP son mapas de bits.',
   },
   {
+    tema: 1,
     enunciado: '¿Qué modelo de color se usa en pantallas?',
     opciones: ['CMYK', 'RGB', 'Pantone', 'RYB'],
     correcta: 1,
     explicacion: 'RGB es aditivo, propio de la luz emitida. CMYK es sustractivo y se usa en impresión.',
   },
   {
+    tema: 1,
     enunciado: '¿Qué son los colores complementarios?',
     opciones: [
       'Colores contiguos en el círculo cromático',
@@ -80,6 +90,7 @@ export default [
     explicacion: 'Se sitúan uno frente a otro, como azul y naranja, y generan el máximo contraste. Los contiguos son análogos.',
   },
   {
+    tema: 1,
     enunciado: '¿Qué distingue a una tipografía serif?',
     opciones: [
       'Que todas las letras tienen el mismo ancho',
@@ -91,6 +102,7 @@ export default [
     explicacion: 'Las serif tienen remates (serifas); las sans-serif carecen de ellos. El mismo ancho es propio de las monoespaciadas.',
   },
   {
+    tema: 5,
     enunciado: '¿Para qué sirve el atributo `aria-label`?',
     opciones: [
       'Para mostrar un tooltip visual',
@@ -102,6 +114,7 @@ export default [
     explicacion: 'Por ejemplo, un botón con solo un icono necesita `aria-label` para que el lector de pantalla anuncie qué hace.',
   },
   {
+    tema: 6,
     enunciado: '¿Cuál de estas es una de las heurísticas de usabilidad de Jakob Nielsen?',
     opciones: [
       'Usar siempre fondo blanco',
@@ -113,6 +126,7 @@ export default [
     explicacion: 'El sistema debe informar al usuario de lo que ocurre con una respuesta adecuada y a tiempo, como un indicador de carga.',
   },
   {
+    tema: 1,
     enunciado: '¿Qué es un wireframe?',
     opciones: [
       'El diseño final con colores e imágenes',
@@ -124,6 +138,7 @@ export default [
     explicacion: 'Muestra qué va en cada zona sin entrar en el estilo visual. Después vienen el mockup y el prototipo.',
   },
   {
+    tema: 2,
     enunciado: '¿Qué es Sass?',
     opciones: [
       'Un framework de JavaScript',
@@ -135,33 +150,158 @@ export default [
     explicacion: 'Sass se compila a CSS y añade variables, anidación, mixins y funciones.',
   },
   {
+    tema: 3,
     enunciado: '¿Qué formato de imagen ofrece compresión eficiente con o sin pérdida y admite transparencia?',
     opciones: ['BMP', 'GIF', 'WebP', 'TIFF'],
     correcta: 2,
     explicacion: 'WebP suele pesar menos que JPEG o PNG con calidad similar y admite canal alfa.',
   },
   {
+    tema: 2,
     enunciado: '¿Qué propiedad de Flexbox permite que los elementos pasen a la línea siguiente si no caben?',
     opciones: ['flex-direction', 'flex-wrap', 'flex-grow', 'order'],
     correcta: 1,
     explicacion: 'Por defecto es `nowrap` y los elementos se encogen en una sola línea.',
   },
   {
+    tema: 2,
     enunciado: '¿Qué unidad CSS equivale al 1 % del ancho de la ventana?',
     opciones: ['vh', 'vw', 'em', '%'],
     correcta: 1,
     explicacion: '`vw` (viewport width). `vh` es el 1 % del alto.',
   },
   {
+    tema: 4,
     enunciado: '¿Qué elemento HTML5 inserta un vídeo sin necesidad de plugins?',
     opciones: ['<media>', '<video>', '<embed>', '<movie>'],
     correcta: 1,
     explicacion: 'Con el atributo `controls` muestra los controles de reproducción. Conviene ofrecer subtítulos con `<track>`.',
   },
   {
+    tema: 1,
     enunciado: '¿Qué principio de la Gestalt dice que percibimos como grupo los elementos que están cerca?',
     opciones: ['Semejanza', 'Proximidad', 'Cierre', 'Continuidad'],
     correcta: 1,
     explicacion: 'Por eso un buen espaciado agrupa visualmente los elementos relacionados, como una etiqueta y su campo.',
+  },
+  {
+    tema: 1,
+    enunciado: 'En la planificación de la arquitectura de la información y la maquetación base, ¿para qué se emplean el «card sorting» y la retícula de 12 columnas?',
+    opciones: [
+      'El card sorting comprime imágenes en el servidor y la retícula de 12 columnas encripta las contraseñas',
+      'El card sorting descubre cómo agrupan mentalmente los usuarios los contenidos para diseñar la navegación, y la retícula de 12 columnas con medianil (gutter) alinea y distribuye las zonas de forma divisible entre 1, 2, 3, 4 y 6',
+      'Sirven únicamente para imprimir folletos en papel en formato CMYK',
+      'Obligan a que todas las páginas tengan exactamente doce botones en el menú superior',
+    ],
+    correcta: 1,
+    explicacion: 'El card sorting orienta el mapa de navegación a partir del modelo mental de los usuarios, y la retícula de 12 columnas ofrece flexibilidad matemática para componer pantallas coherentes.',
+  },
+  {
+    tema: 2,
+    enunciado: '¿Qué aportan las «container queries» (`@container`) y la media query `@media (prefers-reduced-motion: reduce)` en CSS moderno?',
+    opciones: [
+      '`@container` adapta un componente según el tamaño de su contenedor padre (no solo del viewport), y `prefers-reduced-motion` permite desactivar o suavizar animaciones cuando el usuario así lo ha configurado en su sistema',
+      '`@container` solo funciona dentro de tablas HTML y `prefers-reduced-motion` baja el brillo del monitor',
+      'Ambas reglas sirven exclusivamente para bloquear el uso del ratón en teléfonos móviles',
+      'Sustituyen por completo a HTML5 y eliminan el árbol DOM',
+    ],
+    correcta: 0,
+    explicacion: 'Las container queries hacen que un componente sea verdaderamente reutilizable en cualquier hueco del layout, y `prefers-reduced-motion` evita mareos o trastornos vestibulares respetando las preferencias del usuario.',
+  },
+  {
+    tema: 3,
+    enunciado: 'Al preparar vídeo para la web, ¿qué diferencia hay entre «formato contenedor» y «códec», y qué combinación ofrece la mejor compatibilidad y eficiencia?',
+    opciones: [
+      'Son sinónimos exactos: MP3 es un códec de vídeo 4K y PNG es un contenedor de audio',
+      'El contenedor (.mp4, .webm) es el archivo que empaqueta pistas de vídeo, audio y metadatos, mientras que el códec (H.264, VP9, AV1, AAC, Opus) es el algoritmo que comprime y descomprime cada flujo; suele combinarse WebM (VP9/AV1 + Opus) con respaldo en MP4 (H.264 + AAC)',
+      'El navegador solo puede reproducir archivos .avi sin comprimir',
+      'El códec es la etiqueta HTML `<video>` y el contenedor es el atributo `controls`',
+    ],
+    correcta: 1,
+    explicacion: 'Separar contenedor y códec permite servir primero formatos más eficientes como WebM (VP9/AV1 + Opus) mediante `<source>` y dejar MP4 (H.264 + AAC) como respaldo universal.',
+  },
+  {
+    tema: 3,
+    enunciado: '¿Qué formato estándar utiliza el elemento `<track>` de HTML5 para mostrar subtítulos sincronizados y cómo se sirven imágenes adaptativas según la pantalla?',
+    opciones: [
+      'Subtítulos en archivos ejecutables .exe e imágenes mediante tablas anidadas',
+      'Subtítulos en formato WebVTT (`.vtt`) dentro de `<track kind="captions" ...>`, e imágenes adaptativas mediante los atributos `srcset` y `sizes` o el elemento `<picture>`',
+      'Subtítulos en hojas de cálculo .xlsx e imágenes únicamente en formato .bmp',
+      'HTML5 no permite subtítulos ni imágenes de distinto tamaño sin usar Flash Player',
+    ],
+    correcta: 1,
+    explicacion: 'WebVTT es el estándar del W3C para pistas de texto sincronizadas en `<video>`, mientras que `srcset`, `sizes` y `<picture>` permiten al navegador descargar solo la imagen adecuada a su resolución y soporte de formato.',
+  },
+  {
+    tema: 4,
+    enunciado: 'Al integrar componentes interactivos como acordeones desplegables o ventanas modales, ¿por qué se recomienda priorizar los elementos nativos `<details>`/`<summary>` y `<dialog>`?',
+    opciones: [
+      'Porque impiden aplicar estilos con CSS',
+      'Porque el navegador gestiona de serie su semántica, estado abierto/cerrado, interacción con teclado (como cerrar `<dialog>` con Escape) y exposición en el árbol de accesibilidad sin sobrecargar JavaScript',
+      'Porque solo funcionan en Internet Explorer 6',
+      'Porque descargan automáticamente una base de datos SQL en el cliente',
+    ],
+    correcta: 1,
+    explicacion: 'Usar elementos nativos como `<details>` y `<dialog>` reduce errores, ahorra código JavaScript a medida y garantiza un comportamiento accesible por defecto.',
+  },
+  {
+    tema: 4,
+    enunciado: 'Cuando se integra un contenido interactivo externo (como una presentación de Genially o una actividad H5P) mediante un `<iframe>`, ¿qué atributos garantizan seguridad, rendimiento y accesibilidad?',
+    opciones: [
+      'Omitir cualquier atributo y poner `width="99999"`',
+      'Incluir un atributo `title` descriptivo para lectores de pantalla, `sandbox` para restringir permisos del contenido embebido y `loading="lazy"` para diferir su carga si no está en el primer pantallazo',
+      'Usar `<blink>` y `<marquee>` alrededor del `<iframe>`',
+      'Desactivar HTTPS en todo el dominio principal',
+    ],
+    correcta: 1,
+    explicacion: 'El atributo `title` identifica el marco ante tecnologías de apoyo (WCAG 4.1.2), `sandbox` aplica el principio de mínimo privilegio y `loading="lazy"` evita penalizar la carga inicial.',
+  },
+  {
+    tema: 5,
+    enunciado: 'Según las pautas WCAG 2.2 (y el RD 1112/2018), ¿cómo deben tratarse las imágenes puramente decorativas (criterio 1.1.1) y el foco del teclado (criterio 2.1.2)?',
+    opciones: [
+      'Las imágenes decorativas deben llevar `alt="imagen decorativa bonita"` y los modales deben impedir salir con el teclado para siempre',
+      'Las imágenes decorativas deben llevar el atributo vacío `alt=""` para que el lector de pantalla las ignore, y el usuario debe poder entrar y salir de cualquier componente usando solo el teclado sin quedar atrapado («sin trampas para el foco»)',
+      'Debe eliminarse el atributo `alt` de todas las etiquetas `<img>` del sitio web',
+      'El teclado solo debe funcionar en la página de inicio',
+    ],
+    correcta: 1,
+    explicacion: 'Omitir `alt` hace que el lector de pantalla lea el nombre del archivo, mientras que `alt=""` la marca como decorativa; además, el criterio 2.1.2 prohíbe las trampas de teclado.',
+  },
+  {
+    tema: 5,
+    enunciado: '¿Qué exige el criterio 4.1.2 (Nombre, función, valor) de WCAG y qué diferencia hay entre una revisión preliminar y una evaluación de conformidad?',
+    opciones: [
+      'Exige sustituir todos los `<button>` por `<div onclick="...">`; la revisión preliminar y la evaluación de conformidad son exactamente lo mismo',
+      'Exige que todo componente exponga su nombre accesible, rol y estado en el árbol de accesibilidad (priorizando HTML nativo antes que ARIA); la revisión preliminar detecta rápido barreras graves y la evaluación de conformidad audita exhaustivamente todos los criterios sobre una muestra representativa para emitir la declaración de accesibilidad',
+      'Exige que el código fuente esté escrito íntegramente en mayúsculas',
+      'Permite aprobar la accesibilidad pasando únicamente un validador automático sin pruebas manuales',
+    ],
+    correcta: 1,
+    explicacion: 'Ninguna herramienta automática detecta por sí sola todos los problemas de accesibilidad: la evaluación de conformidad combina análisis experto, lectores de pantalla y navegación por teclado.',
+  },
+  {
+    tema: 6,
+    enunciado: '¿Cómo define la norma internacional ISO 9241-11 el concepto de «usabilidad»?',
+    opciones: [
+      'El número de animaciones tridimensionales que muestra una página por segundo',
+      'El grado en que un producto puede ser utilizado por usuarios específicos para alcanzar objetivos específicos con eficacia, eficiencia y satisfacción en un contexto de uso determinado',
+      'La velocidad de compilación del código fuente en el servidor de integración continua',
+      'El porcentaje de espacio de disco duro libre que queda en el servidor web',
+    ],
+    correcta: 1,
+    explicacion: 'ISO 9241-11 desglosa la usabilidad en tres dimensiones medibles dentro de un contexto de uso: eficacia (lograr el objetivo con exactitud), eficiencia (recursos y tiempo invertidos) y satisfacción.',
+  },
+  {
+    tema: 6,
+    enunciado: 'Al evaluar la usabilidad de una interfaz, ¿por qué una evaluación heurística suele realizarse con entre 3 y 5 evaluadores independientes y cómo se complementa con pruebas con usuarios reales?',
+    opciones: [
+      'Porque un único evaluador pasa por alto muchos problemas, mientras que entre 3 y 5 evaluadores que inspeccionan la interfaz por separado y luego consensúan hallazgos detectan la mayoría de incumplimientos heurísticos; las pruebas con usuarios reales completan el diagnóstico observando dónde se atascan personas reales al realizar tareas concretas',
+      'Porque la ley prohíbe que más de una persona mire la pantalla al mismo tiempo',
+      'Porque los evaluadores heurísticos sustituyen la necesidad de probar la web en navegadores móviles',
+      'Porque las pruebas con usuarios consisten en preguntarles qué colores hexadecimales prefieren en el CSS',
+    ],
+    correcta: 0,
+    explicacion: 'La evaluación heurística (experta) y el test con usuarios reales (empírico, pidiendo pensar en voz alta al ejecutar tareas) son métodos complementarios que descubren distintos tipos de fricción.',
   },
 ];

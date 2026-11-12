@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import TextoCodigo from './TextoCodigo.jsx';
+import BloqueRetoCodigo from './BloqueRetoCodigo.jsx';
 import { useCountdown } from '../hooks/useCountdown.js';
 import { formatearTiempo } from '../utils/quiz.js';
 import { MINUTOS_SIMULACRO } from '../config.js';
@@ -153,6 +154,13 @@ export default function Quiz({ preguntas, modo, modulo, onTerminar }) {
       <h1 className="quiz__enunciado" key={pregunta.id}>
         <TextoCodigo texto={pregunta.enunciado} />
       </h1>
+
+      <BloqueRetoCodigo
+        pregunta={pregunta}
+        opcionElegida={elegida !== null ? pregunta.opciones[elegida] : null}
+        corregida={validada}
+        esCorrecta={acertada}
+      />
 
       <div className="opciones" role="radiogroup" aria-label="Opciones de respuesta">
         {pregunta.opciones.map((opcion, i) => {

@@ -1,6 +1,6 @@
-import { createContext, useCallback, useContext, useMemo } from 'react';
-import { useLocalStorage } from '../hooks/useLocalStorage.js';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { PREGUNTAS, getModulo } from '../data/index.js';
+import { http } from '../api/http.js';
 
 const ProgressContext = createContext(null);
 
@@ -12,25 +12,58 @@ const ESTADO_INICIAL = {
   porPregunta: {},
 };
 
-// "programacion-07" → "programacion". Se corta por el último guion para que
-// "interfaces-web-03" no se confunda con el módulo "interfaces".
 const moduloDePregunta = (preguntaId) => preguntaId.slice(0, preguntaId.lastIndexOf('-'));
 
-// Las versiones anteriores guardaban solo un número (veces fallada).
 const normalizarFallo = (valor) =>
   typeof valor === 'number'
     ? { veces: valor, ultimaRespuesta: undefined, fecha: null, aciertosDespues: 0, ultimoAcierto: null }
     : valor;
 
 export function ProgressProvider({ children }) {
-  const [progreso, setProgreso] = useLocalStorage('examendev:progreso', ESTADO_INICIAL);
+  // El progreso vive en la base de datos PostgreSQL (no en localStorage).
+  const [progreso, setProgreso] = useState(ESTADO_INICIAL);
 
-  // Guarda un intento y actualiza la lista acumulada de fallos:
-  // - Una pregunta fallada entra en la lista (o suma un fallo más) y se queda ahí.
-  // - Si se acierta en práctica o simulacro, sigue en la lista marcada como "acertada después".
-  // - Solo sale si se acierta en el modo repaso o con "Ya la domino" (marcarDominada).
+  // Limpia cualquier resto antiguo que hubiera en localStorage de versiones previas.
+  useEffect(() => {
+    try {
+      localStorage.removeItem('examendev:progreso');
+      localStorage.removeItem('examendev:db:v1');
+    } catch {
+      // Ignorar si el navegador bloquea el acceso
+    }
+  }, []);
+
+  // Carga el progreso real desde PostgreSQL (GET /api/progreso).
+  const actualizarProgreso = useCallback(async () => {
+    try {
+      const remoto = await http('/progreso');
+      if (!remoto) return;
+      setProgreso({
+        intentos: remoto.intentos ?? [],
+        fallos: remoto.fallos ?? {},
+        porPregunta: remoto.porPregunta ?? {},
+      });
+    } catch {
+      // Si aún está conectando, mantiene el estado en memoria.
+    }
+  }, []);
+
+  useEffect(() => {
+    actualizarProgreso();
+  }, [actualizarProgreso]);
+
+  // Guarda el intento en PostgreSQL y actualiza el estado.
   const registrarIntento = useCallback(
     ({ moduloId, modo, preguntas, respuestas, resultado, segundos }) => {
+      if (modo !== 'trivia') {
+        http('/progreso/intento', {
+          metodo: 'POST',
+          cuerpo: { moduloId, modo, preguntas, respuestas, segundos },
+        })
+          .then(() => actualizarProgreso())
+          .catch(() => {});
+      }
+
       setProgreso((prev) => {
         const ahora = new Date().toISOString();
         const fallos = { ...prev.fallos };
@@ -46,10 +79,8 @@ export function ProgressProvider({ children }) {
           } else {
             fallos[p.id] = {
               veces: (anterior?.veces ?? 0) + 1,
-              // Se guarda el texto, porque el orden de las opciones cambia en cada test.
               ultimaRespuesta: respuestas[i] === null ? null : p.opciones[respuestas[i]],
               fecha: ahora,
-              // Un nuevo fallo anula los aciertos anteriores.
               aciertosDespues: 0,
               ultimoAcierto: null,
             };
@@ -68,21 +99,32 @@ export function ProgressProvider({ children }) {
         return { ...prev, intentos: [intento, ...prev.intentos].slice(0, 200), fallos, porPregunta };
       });
     },
-    [setProgreso],
+    [actualizarProgreso],
   );
 
-  // Quita una pregunta de la lista de fallos ("Ya la domino").
-  const marcarDominada = useCallback(
-    (preguntaId) =>
-      setProgreso((prev) => {
-        const fallos = { ...prev.fallos };
-        delete fallos[preguntaId];
-        return { ...prev, fallos };
-      }),
-    [setProgreso],
-  );
+  // Quita una pregunta de la lista de fallos ("Ya la domino") en PostgreSQL.
+  const marcarDominada = useCallback((preguntaId) => {
+    http(`/respuestas/dominar/${encodeURIComponent(preguntaId)}`, { metodo: 'PATCH' }).catch(() => {});
+    setProgreso((prev) => {
+      const fallos = { ...prev.fallos };
+      delete fallos[preguntaId];
+      return { ...prev, fallos };
+    });
+  }, []);
 
-  const reiniciar = useCallback(() => setProgreso(ESTADO_INICIAL), [setProgreso]);
+  // Marca todas las preguntas falladas actuales como dominadas en PostgreSQL sin borrar el historial de intentos.
+  const limpiarFallos = useCallback(() => {
+    Object.keys(progreso.fallos ?? {}).forEach((preguntaId) => {
+      http(`/respuestas/dominar/${encodeURIComponent(preguntaId)}`, { metodo: 'PATCH' }).catch(() => {});
+    });
+    setProgreso((prev) => ({ ...prev, fallos: {} }));
+  }, [progreso.fallos]);
+
+  // Borra todo el historial en PostgreSQL.
+  const reiniciar = useCallback(() => {
+    http('/progreso', { metodo: 'DELETE' }).catch(() => {});
+    setProgreso(ESTADO_INICIAL);
+  }, []);
 
   const valor = useMemo(() => {
     const intentos = progreso.intentos ?? [];
@@ -103,7 +145,6 @@ export function ProgressProvider({ children }) {
 
     const infoFallo = (preguntaId) => fallos[preguntaId] ?? null;
 
-    // Aciertos y fallos por tema de un módulo. pct = null si aún no se ha respondido nada.
     const porPregunta = progreso.porPregunta ?? {};
     const statsTemas = (moduloId) => {
       const modulo = getModulo(moduloId);
@@ -111,6 +152,7 @@ export function ProgressProvider({ children }) {
       const temas = modulo.temas.map((nombre, indice) => ({ indice, nombre, aciertos: 0, fallos: 0, total: 0 }));
       (PREGUNTAS[moduloId] ?? []).forEach((p) => {
         const t = temas[p.tema];
+        if (!t) return;
         t.total += 1;
         const r = porPregunta[p.id];
         if (r) {
@@ -124,7 +166,6 @@ export function ProgressProvider({ children }) {
       });
     };
 
-    // Porcentaje de acierto acumulado en un módulo (null si no hay respuestas).
     const pctModulo = (moduloId) => {
       let a = 0;
       let f = 0;
@@ -132,11 +173,27 @@ export function ProgressProvider({ children }) {
         a += porPregunta[p.id]?.a ?? 0;
         f += porPregunta[p.id]?.f ?? 0;
       });
-      return a + f ? Math.round((a / (a + f)) * 100) : null;
+      if (a + f) return Math.round((a / (a + f)) * 100);
+      const propios = intentos.filter((t) => t.moduloId === moduloId);
+      const totalAciertos = propios.reduce((s, t) => s + (t.aciertos ?? 0), 0);
+      const totalPreguntas = propios.reduce((s, t) => s + (t.total ?? 0), 0);
+      return totalPreguntas ? Math.round((totalAciertos / totalPreguntas) * 100) : null;
     };
 
-    return { intentos, fallos, statsModulo, statsTemas, pctModulo, infoFallo, registrarIntento, marcarDominada, reiniciar };
-  }, [progreso, registrarIntento, marcarDominada, reiniciar]);
+    return {
+      intentos,
+      fallos,
+      statsModulo,
+      statsTemas,
+      pctModulo,
+      infoFallo,
+      registrarIntento,
+      marcarDominada,
+      actualizarProgreso,
+      limpiarFallos,
+      reiniciar,
+    };
+  }, [progreso, registrarIntento, marcarDominada, actualizarProgreso, limpiarFallos, reiniciar]);
 
   return <ProgressContext.Provider value={valor}>{children}</ProgressContext.Provider>;
 }

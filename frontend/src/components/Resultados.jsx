@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import AnilloProgreso from './AnilloProgreso.jsx';
 import TextoCodigo from './TextoCodigo.jsx';
-import { formatearNota, formatearTiempo, mensajePorNota } from '../utils/quiz.js';
+import BloqueRetoCodigo from './BloqueRetoCodigo.jsx';
+import { esPreguntaDificil, formatearNota, formatearTiempo, mensajePorNota } from '../utils/quiz.js';
 import { NOTA_APROBADO } from '../config.js';
 
 export default function Resultados({ modulo, modo, preguntas, respuestas, resultado, segundos, onRepetir, onRepasarFallos }) {
@@ -64,6 +65,7 @@ export default function Resultados({ modulo, modo, preguntas, respuestas, result
           {preguntas.map((p, i) => {
             const elegida = respuestas[i];
             const ok = elegida === p.correcta;
+            const dificil = esPreguntaDificil(p);
             return (
               <li key={p.id} className={`correccion__item ${ok ? 'correccion__item--ok' : 'correccion__item--ko'}`}>
                 <details open={!ok}>
@@ -72,10 +74,19 @@ export default function Resultados({ modulo, modo, preguntas, respuestas, result
                       {ok ? '✓' : '✕'}
                     </span>
                     <span className="correccion__enunciado">
+                      {dificil && <span className="reto-codigo__chip">🔥 ×2</span>}
                       <TextoCodigo texto={p.enunciado} />
                     </span>
                   </summary>
                   <div className="correccion__detalle">
+                    {p.codigo && (
+                      <BloqueRetoCodigo
+                        pregunta={p}
+                        opcionElegida={p.opciones[p.correcta]}
+                        corregida
+                        esCorrecta
+                      />
+                    )}
                     {!ok && (
                       <p>
                         <span className="texto-suave">Tu respuesta: </span>

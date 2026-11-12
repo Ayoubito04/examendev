@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import Quiz from '../components/Quiz.jsx';
 import Trivia from '../components/Trivia.jsx';
 import Resultados from '../components/Resultados.jsx';
 import ResultadosTrivia from '../components/ResultadosTrivia.jsx';
 import RepasoErrores from '../components/RepasoErrores.jsx';
+import { Spinner } from '../components/estados/Estados.jsx';
 import NoEncontrado from './NoEncontrado.jsx';
 import { PREGUNTAS, PREGUNTA_POR_ID, getModulo } from '../data/index.js';
+import { useAuth } from '../context/AuthContext.jsx';
 import { useProgress } from '../context/ProgressContext.jsx';
 import { corregir, crearTest } from '../utils/quiz.js';
 import { TRIVIA } from '../utils/puntos.js';
@@ -47,7 +49,9 @@ export default function Test() {
 function TestModulo() {
   const { moduloId } = useParams();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const modulo = getModulo(moduloId);
+  const { usuario, comprobando } = useAuth();
   const { statsModulo, registrarIntento } = useProgress();
 
   // ?tema=N limita el test a las preguntas de un tema del módulo.
@@ -120,6 +124,21 @@ function TestModulo() {
 
   if (!modulo) return <NoEncontrado />;
 
+  // El modo trivia requiere que el usuario esté autenticado.
+  if (modoInicial === 'trivia' || test?.modo === 'trivia') {
+    if (comprobando) {
+      return (
+        <div className="pagina-cargando">
+          <Spinner etiqueta="Comprobando tu sesión" />
+        </div>
+      );
+    }
+    if (!usuario) {
+      const volver = `/test/${modulo.id}?modo=trivia${tema !== null ? `&tema=${tema}` : ''}`;
+      return <Navigate to={`/login?volver=${encodeURIComponent(volver)}`} replace />;
+    }
+  }
+
   const repetir = () => {
     setTest(null);
     setFin(null);
@@ -172,6 +191,11 @@ function TestModulo() {
 
   const cantidadEfectiva = Math.min(modo === 'trivia' ? TRIVIA.preguntas : PREGUNTAS_POR_EXAMEN, banco.length);
   const empezar = () => {
+    if (modo === 'trivia' && !usuario) {
+      const volver = `/test/${modulo.id}?modo=trivia${tema !== null ? `&tema=${tema}` : ''}`;
+      navigate(`/login?volver=${encodeURIComponent(volver)}`);
+      return;
+    }
     if (modo === 'repaso') {
       setVerErrores(true);
       window.scrollTo({ top: 0, behavior: 'instant' });
@@ -269,7 +293,7 @@ function TestModulo() {
               : `${cantidadEfectiva} preguntas al azar de un banco de ${banco.length}, con las opciones barajadas.`}
         </p>
         <button type="button" className={`btn btn--lg ${modo === 'trivia' ? 'btn--acento' : 'btn--primario'}`} onClick={empezar} disabled={!banco.length}>
-          {modo === 'repaso' ? 'Repaso de errores' : modo === 'trivia' ? 'Jugar trivia' : 'Empezar test'}
+          {modo === 'repaso' ? 'Repaso de errores' : modo === 'trivia' ? (usuario ? 'Jugar trivia' : 'Iniciar sesión para jugar trivia') : 'Empezar test'}
         </button>
       </div>
     </section>

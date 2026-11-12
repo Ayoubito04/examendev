@@ -72,7 +72,7 @@ const mock = {
   },
 };
 
-// ---------- Implementación real (API de backend) ----------
+// ---------- Implementación real (conectada siempre a PostgreSQL a través del backend) ----------
 
 const real = {
   registrar: (datos) => http('/auth/registro', { metodo: 'POST', cuerpo: datos, conToken: false }),

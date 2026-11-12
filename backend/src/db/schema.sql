@@ -16,10 +16,14 @@ CREATE TABLE IF NOT EXISTS ciclos (
 -- 2. TABLA DE MÓDULOS (ASIGNATURAS)
 CREATE TABLE IF NOT EXISTS modulos (
     id VARCHAR(50) PRIMARY KEY,
-    nombre VARCHAR(120) NOT NULL,
+    nombre VARCHAR(255) NOT NULL,
     descripcion TEXT,
+    hoja_ruta_md TEXT,
     activo BOOLEAN NOT NULL DEFAULT TRUE
 );
+
+ALTER TABLE modulos ALTER COLUMN nombre TYPE VARCHAR(255);
+ALTER TABLE modulos ADD COLUMN IF NOT EXISTS hoja_ruta_md TEXT;
 
 -- 3. TABLA PUENTE CICLO_MODULO (1º y 2º CURSO)
 CREATE TABLE IF NOT EXISTS ciclo_modulo (
@@ -48,12 +52,14 @@ CREATE TABLE IF NOT EXISTS temas (
     modulo_id VARCHAR(50) REFERENCES modulos(id) ON DELETE CASCADE,
     certificacion_id VARCHAR(30) REFERENCES certificaciones(id) ON DELETE CASCADE,
     orden SMALLINT NOT NULL DEFAULT 1,
-    nombre VARCHAR(120) NOT NULL,
+    nombre VARCHAR(255) NOT NULL,
     CHECK (
         (modulo_id IS NOT NULL AND certificacion_id IS NULL) OR
         (modulo_id IS NULL AND certificacion_id IS NOT NULL)
     )
 );
+
+ALTER TABLE temas ALTER COLUMN nombre TYPE VARCHAR(255);
 
 -- 6. TABLA DE PREGUNTAS
 CREATE TABLE IF NOT EXISTS preguntas (
@@ -62,10 +68,13 @@ CREATE TABLE IF NOT EXISTS preguntas (
     certificacion_id VARCHAR(30) REFERENCES certificaciones(id) ON DELETE CASCADE,
     tema_id INT NOT NULL REFERENCES temas(id) ON DELETE CASCADE,
     enunciado TEXT NOT NULL,
+    codigo TEXT,
     explicacion TEXT,
     dificultad VARCHAR(15) DEFAULT 'media' CHECK (dificultad IN ('facil', 'media', 'dificil')),
     activa BOOLEAN NOT NULL DEFAULT TRUE
 );
+
+ALTER TABLE preguntas ADD COLUMN IF NOT EXISTS codigo TEXT;
 
 -- 7. TABLA DE OPCIONES (LA RESPUESTA CORRECTA NUNCA VIAJA AL NAVEGADOR)
 CREATE TABLE IF NOT EXISTS opciones (
@@ -100,10 +109,13 @@ CREATE TABLE IF NOT EXISTS partidas (
     aciertos INT NOT NULL DEFAULT 0,
     fallos INT NOT NULL DEFAULT 0,
     puntos_obtenidos INT NOT NULL DEFAULT 0,
+    racha_max INT NOT NULL DEFAULT 0,
     tiempo_segundos INT DEFAULT 0,
     finalizada BOOLEAN NOT NULL DEFAULT FALSE,
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+ALTER TABLE partidas ADD COLUMN IF NOT EXISTS racha_max INT NOT NULL DEFAULT 0;
 
 -- 10. TABLA DE RESPUESTAS
 CREATE TABLE IF NOT EXISTS respuestas (

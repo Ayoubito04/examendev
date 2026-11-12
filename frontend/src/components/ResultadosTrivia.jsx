@@ -23,7 +23,16 @@ export default function ResultadosTrivia({ modulo, resumen, onRepetir }) {
   const [envio, setEnvio] = useState({ estado: 'inicial' });
   const enviadoRef = useRef(false);
 
-  const datosPartida = { moduloId: modulo.id, puntos, aciertos, total, rachaMax, segundos };
+  const datosPartida = {
+    moduloId: modulo.id,
+    puntos,
+    aciertos,
+    total,
+    rachaMax,
+    segundos,
+    preguntas: detalle.map((d) => d.pregunta),
+    respuestas: detalle.map((d) => d.elegida),
+  };
 
   const enviar = () => {
     setEnvio({ estado: 'enviando' });

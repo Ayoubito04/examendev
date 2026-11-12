@@ -1,0 +1,19 @@
+# Hoja de Ruta · MPO II: Arquitectura en la nube (DAM / DAW - 2º Curso)
+
+Módulo en base de datos: `mpo-arquitectura-nube`
+
+## Unidades y Temas de Repaso (11 Unidades)
+
+| Unidad (`tema`) | Título de la Unidad | Conceptos clave para repaso de fallos |
+| :--- | :--- | :--- |
+| **UT 1** (`tema: 1`) | Estrategias de nube: híbrida, multicloud y migración | Modelos híbrido y multicloud, las «6 R» de migración (Rehost, Replatform, Refactor...), Landing Zones, AWS Migration Hub, Application Migration Service (MGN), Database Migration Service (DMS), Gobernanza con Terraform/OpenTofu. |
+| **UT 2** (`tema: 2`) | Infraestructura global y diseño multi-región | Diseño multi-región vs Multi-AZ, Recuperación ante desastres (DR), RPO y RTO, CDN (CloudFront), AWS Global Accelerator, Route 53 (políticas de enrutamiento), DynamoDB Global Tables, Aurora Global Database, S3 Cross-Region Replication, Chaos Engineering y AWS FIS. |
+| **UT 3** (`tema: 3`) | Seguridad avanzada y gobernanza | Gobierno multi-cuenta con AWS Organizations y SCP (Service Control Policies), IAM avanzado (roles, federación, límites de permisos), KMS y Secrets Manager, GuardDuty, Security Hub, WAF, Zero Trust, CloudTrail, AWS Config y Audit Manager (ENS, ISO 27001, RGPD). |
+| **UT 4** (`tema: 4`) | Redes avanzadas y conectividad híbrida | Multi-VPC (VPC Peering vs Transit Gateway hub-and-spoke), Conectividad híbrida (VPN Site-to-Site y AWS Direct Connect), AWS PrivateLink y VPC Endpoints, Route 53 Private Hosted Zones, VPC IPAM, IPv6, redes de contenedores en EKS (CNI y Network Policies) y Service Mesh. |
+| **UT 5** (`tema: 5`) | Cómputo avanzado: contenedores y serverless | Contenedores vs máquinas virtuales, Orquestación con ECS, EKS y ejecución serverless con Fargate, AWS Lambda y API Gateway, Orquestación con Step Functions y EventBridge, Plantillas de lanzamiento, Karpenter, GitOps (Argo CD / Flux), Cold Start e idempotencia. |
+| **UT 6** (`tema: 6`) | Almacenamiento y datos avanzados | Clases de almacenamiento S3 y políticas de ciclo de vida, Protección y replicación, Web estática de alta disponibilidad (S3 + CloudFront), Data Lake, ingesta con DMS y DataSync, análisis con Athena, AWS Glue (ETL) y Redshift, Arquitectura Lakehouse (Apache Iceberg) y gobierno del dato con Lake Formation. |
+| **UT 7** (`tema: 7`) | Bases de datos avanzadas y caché | Elección SQL vs NoSQL, Amazon Aurora (alta disponibilidad y réplicas), Amazon DynamoDB, Caché en memoria con Amazon ElastiCache (Redis / Memcached) y patrones de caché, Aurora Serverless v2 y DynamoDB On-Demand, Observabilidad con Performance Insights. |
+| **UT 8** (`tema: 8`) | Infraestructura como código (IaC) | Concepto y ventajas de IaC frente a configuración manual, AWS CloudFormation (YAML/JSON), Terraform (HCL, licencia BUSL) y OpenTofu (MPL 2.0), Módulos y gestión del estado, IaC con lenguajes de programación (AWS CDK y Pulumi), GitOps en el ciclo de vida completo. |
+| **UT 9** (`tema: 9`) | Observabilidad y escalado avanzado | Los 3 pilares: métricas, logs y trazas, CloudWatch y AWS X-Ray, Auto Scaling y balanceo (ELB), Well-Architected Framework, OpenTelemetry (OTel), SLI, SLO y Error Budget (SRE), escalado en contenedores (HPA y Karpenter) y escalado a cero. |
+| **UT 10** (`tema: 10`) | Costes, presupuestos y FinOps | Modelos de precios (On-Demand, Reserved Instances, Savings Plans, Spot), Cost Explorer y AWS Budgets, Cultura FinOps, Right-sizing, Unit Economics (coste por petición/usuario) y vínculo entre optimización de coste y sostenibilidad (AWS Graviton). |
+| **UT 11** (`tema: 11`) | Arquitecturas modernas, DevOps y proyecto de arquitectura | Microservicios vs monolito, arquitecturas dirigidas por eventos (Event-Driven), desacoplamiento con colas (SQS) y notificaciones (SNS), canalizaciones CI/CD, Platform Engineering (Internal Developer Platform y Golden Paths) y ADR (Architecture Decision Records). |

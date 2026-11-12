@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import GraficoRadar from '../components/graficos/GraficoRadar.jsx';
 import BarrasTema from '../components/graficos/BarrasTema.jsx';
@@ -15,7 +15,11 @@ const UMBRAL_REPASO = 70;
 const MINIMO_RESPUESTAS = 3;
 
 export default function Progreso() {
-  const { intentos, fallos, statsModulo, statsTemas, pctModulo, reiniciar } = useProgress();
+  const { intentos, fallos, statsModulo, statsTemas, pctModulo, actualizarProgreso, limpiarFallos, reiniciar } = useProgress();
+
+  useEffect(() => {
+    actualizarProgreso();
+  }, [actualizarProgreso]);
 
   // Ciclo con más actividad, para abrir el radar donde interesa.
   const cicloInicial = useMemo(() => {
@@ -23,8 +27,11 @@ export default function Progreso() {
     intentos.forEach((t) => getModulo(t.moduloId)?.ciclos.forEach((c) => (cuenta[c] += 1)));
     return CICLOS.reduce((a, b) => (cuenta[b.sigla] > cuenta[a.sigla] ? b : a)).sigla;
   }, [intentos]);
-  const [ciclo, setCiclo] = useState(cicloInicial);
-  const [moduloTema, setModuloTema] = useState(() => intentos[0]?.moduloId ?? MODULOS[0].id);
+  const [cicloElegido, setCiclo] = useState(null);
+  const [moduloElegido, setModuloTema] = useState(null);
+
+  const ciclo = cicloElegido ?? cicloInicial;
+  const moduloTema = moduloElegido ?? intentos[0]?.moduloId ?? MODULOS[0].id;
 
   const media = intentos.length ? intentos.reduce((s, t) => s + t.nota, 0) / intentos.length : 0;
   const preguntasRespondidas = intentos.reduce((s, t) => s + t.total, 0);
@@ -42,8 +49,14 @@ export default function Progreso() {
     [statsTemas],
   );
 
+  const confirmarLimpiarFallos = () => {
+    if (window.confirm('Se vaciará la lista de preguntas pendientes de repaso, pero conservarás todos tus tests, notas y estadísticas. ¿Continuar?')) {
+      limpiarFallos();
+    }
+  };
+
   const confirmarReinicio = () => {
-    if (window.confirm('Se borrarán todos tus intentos, fallos y estadísticas guardados en este navegador. ¿Continuar?')) reiniciar();
+    if (window.confirm('Se borrarán todos tus intentos, fallos y estadísticas guardados. ¿Continuar?')) reiniciar();
   };
 
   if (!intentos.length) {
@@ -68,7 +81,7 @@ export default function Progreso() {
       <h1 className="titulo-display titulo-display--md">
         Así <span className="destacado">vas</span>
       </h1>
-      <p className="lead">Tu progreso de práctica se guarda en este navegador. Incluye práctica, simulacros, repasos y trivia.</p>
+      <p className="lead">Tu progreso se monitoriza y guarda en la base de datos PostgreSQL. Incluye práctica, simulacros, repasos y trivia.</p>
 
       <dl className="resumen">
         <div className="stat">
@@ -224,8 +237,16 @@ export default function Progreso() {
       </ul>
 
       <div className="progreso__pie">
+        <button type="button" className="btn btn--oscuro btn--sm" onClick={actualizarProgreso}>
+          Actualizar progreso
+        </button>
+        {porRepasar > 0 && (
+          <button type="button" className="btn btn--oscuro btn--sm" onClick={confirmarLimpiarFallos}>
+            Vaciar fallos pendientes ({porRepasar})
+          </button>
+        )}
         <button type="button" className="btn btn--fantasma btn--sm" onClick={confirmarReinicio}>
-          Reiniciar progreso
+          Borrar todo el historial
         </button>
       </div>
     </section>
