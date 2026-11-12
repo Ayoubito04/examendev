@@ -3,6 +3,7 @@ import Layout from './components/Layout.jsx';
 import RutaPrivada from './components/RutaPrivada.jsx';
 import Inicio from './pages/Inicio.jsx';
 import Temario from './pages/Temario.jsx';
+import Certificaciones from './pages/Certificaciones.jsx';
 import Test from './pages/Test.jsx';
 import Progreso from './pages/Progreso.jsx';
 import Ranking from './pages/Ranking.jsx';
@@ -20,6 +21,7 @@ export default function App() {
       <Route element={<Layout />}>
         <Route index element={<Inicio />} />
         <Route path="temario" element={<Temario />} />
+        <Route path="certificaciones" element={<Certificaciones />} />
         <Route path="test/:moduloId" element={<Test />} />
         <Route path="progreso" element={<Progreso />} />
         <Route
