@@ -92,22 +92,28 @@ export async function tokenOpcional(req, _res, next) {
   next();
 }
 
-// Middleware para rutas de administración. Usar SIEMPRE después de verificarToken:
-//   router.get('/admin/loquesea', verificarToken, soloAdmin, controlador)
+// Middleware genérico por rol. Usar SIEMPRE después de verificarToken:
+//   router.post('/admin/preguntas', verificarToken, soloEditorOAdmin, controlador)
+//   router.patch('/admin/usuarios/:id/rol', verificarToken, soloAdmin, controlador)
 // El rol se lee de la BD (no del JWT) y exige un JWT válido: las cabeceras
-// x-usuario-* del modo de compatibilidad nunca dan acceso de administrador.
-export function soloAdmin(req, res, next) {
-  if (!req.usuario || !req.tokenVerificado) {
-    return res.status(401).json({
-      mensaje: 'Tienes que iniciar sesión.',
-      error: 'No autorizado. Se requiere un token válido.',
-    });
-  }
-  if (req.usuario.rol !== 'admin') {
-    return res.status(403).json({
-      mensaje: 'No tienes permisos de administrador.',
-      error: 'Acceso restringido a administradores.',
-    });
-  }
-  next();
+// x-usuario-* del modo de compatibilidad nunca dan acceso privilegiado.
+export function requerirRol(...rolesPermitidos) {
+  return (req, res, next) => {
+    if (!req.usuario || !req.tokenVerificado) {
+      return res.status(401).json({
+        mensaje: 'Tienes que iniciar sesión.',
+        error: 'No autorizado. Se requiere un token válido.',
+      });
+    }
+    if (!rolesPermitidos.includes(req.usuario.rol)) {
+      return res.status(403).json({
+        mensaje: 'No tienes permisos para realizar esta acción.',
+        error: `Acceso restringido a: ${rolesPermitidos.join(', ')}.`,
+      });
+    }
+    next();
+  };
 }
+
+export const soloAdmin = requerirRol('admin');
+export const soloEditorOAdmin = requerirRol('editor', 'admin');

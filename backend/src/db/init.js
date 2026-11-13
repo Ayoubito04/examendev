@@ -84,11 +84,12 @@ export async function asegurarBaseDeDatosLista() {
       console.error('⚠️ No se pudo crear la cuenta de administrador:', err.message);
     }
 
-    // 3. Comprobar si el catálogo de módulos y preguntas está actualizado; si no, poblar automáticamente
+    // 3. Poblar catálogo inicial solo si la base de datos está vacía
+    //    (evita restaurar preguntas que un admin o editor haya borrado desde el panel).
     const resCount = await query('SELECT (SELECT COUNT(*)::int FROM modulos) AS modulos, (SELECT COUNT(*)::int FROM preguntas) AS preguntas');
     const { modulos, preguntas } = resCount.rows[0];
-    if (modulos < MODULOS.length || preguntas < TODAS_LAS_PREGUNTAS.length) {
-      console.log(`📦 Sincronizando catálogo en PostgreSQL (${MODULOS.length} módulos y ${TODAS_LAS_PREGUNTAS.length} preguntas)...`);
+    if (modulos === 0 || preguntas === 0) {
+      console.log(`📦 Sincronizando catálogo inicial en PostgreSQL (${MODULOS.length} módulos y ${TODAS_LAS_PREGUNTAS.length} preguntas)...`);
       await seed({ cerrarPool: false });
     } else {
       console.log(`✔ PostgreSQL conectado (${modulos} módulos y ${preguntas} preguntas listas, sin necesidad de abrir pgAdmin).`);
